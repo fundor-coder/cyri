@@ -16,6 +16,11 @@ Deployment:
 - PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable.
 - Static-only hosting is not enough for publishing or contact messages, because those features need the backend.
 
+Docker / Node server:
+- Build the optimized Node image with `docker build -t cyri-website .`.
+- Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='France2026!' cyri-website`.
+- Open `http://localhost:5173/`. Published articles and contact messages are stored in the `cyri-data` volume.
+
 For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment instead of relying on the local default.
 
 Photo sources:
