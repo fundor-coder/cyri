@@ -79,27 +79,22 @@ const content = {
     seo: {
       title: "CYRI | Youth-led climate articles",
       description:
-        "Climate Youth Research Initiative publishes understandable climate articles and works with researchers, media partners and companies.",
+        "Climate Youth Research Initiative publishes understandable climate and marine protection articles.",
       pages: {
         home: {
           title: "CYRI | Youth-led climate articles",
           description:
-            "Climate Youth Research Initiative publishes understandable climate articles and works with researchers, media partners and companies.",
+            "Climate Youth Research Initiative publishes understandable climate and marine protection articles.",
         },
         articles: {
           title: "Articles | CYRI",
           description:
             "Read CYRI articles on climate policy, renewable energy, biodiversity, marine protection and sustainable cities.",
         },
-        research: {
-          title: "Partners | CYRI",
-          description:
-            "Learn how CYRI works with researchers, media partners and companies for climate communication and talks.",
-        },
         about: {
           title: "About | CYRI",
           description:
-            "Learn about CYRI, a two-person youth-led climate article and communication initiative currently in development in Germany.",
+            "Learn about CYRI, a two-person youth-led climate article initiative currently in development in Germany.",
         },
         publish: {
           title: "Publish | CYRI",
@@ -119,7 +114,7 @@ const content = {
         contact: {
           title: "Contact | CYRI",
           description:
-            "Contact CYRI for collaboration, media inquiries, school projects, company talks and researcher exchange.",
+            "Contact CYRI for questions, media inquiries, article feedback and general messages.",
         },
       },
     },
@@ -127,7 +122,6 @@ const content = {
       home: "Home",
       mission: "Mission",
       articles: "Articles",
-      research: "Partners",
       about: "About",
       publish: "Publish",
       contact: "Contact",
@@ -144,23 +138,23 @@ const content = {
     mission: {
       eyebrow: "Mission",
       title: "Our Mission",
-      intro: "CYRI is an independent youth-led climate article and communication initiative based in Germany.",
+      intro: "CYRI is an independent youth-led climate article initiative based in Germany.",
       paragraphOne:
         "Our goal is to make climate science, climate policy and sustainability topics understandable for young people and the wider public.",
       paragraphTwo:
-        "We publish articles based on credible sources and expert conversations. CYRI does not conduct original research.",
+        "We publish articles based on credible, traceable sources. CYRI does not conduct original research.",
       focus: [
         {
           title: "Clear articles",
           text: "We turn complex climate topics into precise, accessible public articles.",
         },
         {
-          title: "Expert exchange",
-          text: "We work with researchers to make scientific context easier to understand.",
+          title: "Transparent sources",
+          text: "We make sources visible and separate facts, context and interpretation clearly.",
         },
         {
-          title: "Public communication",
-          text: "We connect articles, media work and talks for schools, partners and companies.",
+          title: "Responsible publishing",
+          text: "We publish carefully edited articles for readers who want serious climate context.",
         },
       ],
     },
@@ -190,98 +184,48 @@ const content = {
       emptyNewest: "No newest articles yet.",
       noResults: "No older articles match this category yet.",
     },
-    research: {
-      eyebrow: "Partners",
-      title: "Working with researchers, media and companies.",
-      intro:
-        "CYRI publishes articles. We do not conduct original research, but we collaborate with researchers, media partners and companies for clear climate communication and talks.",
-      sections: [
-        {
-          title: "Researchers",
-          label: "Science",
-          items: [
-            {
-              title: "Expert context for articles",
-              text: "CYRI can exchange with researchers to check context, understand current debates and improve article quality.",
-            },
-            {
-              title: "Accessible explanations",
-              text: "The goal is not to publish original research, but to make existing knowledge understandable for young audiences.",
-            },
-          ],
-        },
-        {
-          title: "Media Partners",
-          label: "Media",
-          items: [
-            {
-              title: "Interviews and commentary",
-              text: "CYRI can support media partners with youth-focused perspectives on climate and sustainability topics.",
-            },
-            {
-              title: "Clear public language",
-              text: "We focus on serious, understandable communication instead of academic publishing.",
-            },
-          ],
-        },
-        {
-          title: "Companies & Talks",
-          label: "Talks",
-          items: [
-            {
-              title: "Climate talks",
-              text: "CYRI can work with companies and organizations on talks about climate protection, youth perspectives and sustainability communication.",
-            },
-            {
-              title: "Workshops and events",
-              text: "Potential formats include school talks, panel discussions, internal company sessions and media events.",
-            },
-          ],
-        },
-      ],
-    },
     about: {
       eyebrow: "About",
       title: "An ambitious youth-led initiative from Germany.",
-      intro: "CYRI is an independent youth-led climate article and communication initiative currently in development.",
+      intro: "CYRI is an independent youth-led climate article initiative currently in development.",
       storyTitle: "Building a clear bridge between climate topics and the public.",
       storyOne:
         "CYRI is being developed to help young people understand climate topics, evaluate public debates and participate in sustainability conversations with confidence.",
       storyTwo:
-        "The initiative focuses on careful article work, accessible writing, transparent sourcing and collaborations with researchers, media partners and companies for talks.",
+        "The initiative focuses on careful article work, accessible writing, transparent sourcing and responsible publishing.",
       teamEyebrow: "Team",
       teamTitle: "Core team",
       team: [
         {
           name: "Tobias Göpper",
-          role: "Co-founder, editorial lead & partnerships",
-          text: "Co-founded CYRI and leads article direction, public positioning, partner outreach and collaboration with media, researchers and companies.",
+          role: "Co-founder & editorial lead",
+          text: "Co-founded CYRI and leads article direction, public positioning, editorial standards and source-based climate articles.",
         },
         {
           name: "Jarne Bub",
-          role: "Co-founder, operations & event coordination",
-          text: "Co-founded CYRI and supports article planning, publishing workflows, event preparation, talks and coordination with schools and partner organizations.",
+          role: "Co-founder & operations lead",
+          text: "Co-founded CYRI and supports article planning, publishing workflows, organization and quality control.",
         },
       ],
     },
     contact: {
       eyebrow: "Contact",
-      title: "Collaborate with CYRI.",
+      title: "Contact CYRI.",
       intro:
-        "Reach out for media inquiries, researcher exchange, company talks, school projects and partner collaborations.",
+        "Reach out with questions, media inquiries, article feedback or general messages.",
       name: "Name",
       namePlaceholder: "Your name",
       email: "Email",
       emailPlaceholder: "your.email@example.com",
       message: "Message",
-      messagePlaceholder: "Tell us how you would like to collaborate.",
+      messagePlaceholder: "Tell us what your message is about.",
       submit: "Send Message",
       success: "Thank you. Your message has been saved and can be reviewed by the CYRI team.",
       error: "The message could not be sent. Please try again later.",
-      panelEyebrow: "Partnerships",
-      panelTitle: "Researchers, media and talks.",
+      panelEyebrow: "Contact",
+      panelTitle: "Questions and article feedback.",
       panelText:
-        "CYRI welcomes collaboration with researchers, media partners, schools and companies interested in climate communication or talks.",
+        "CYRI reads messages related to articles, climate topics, media questions and general feedback.",
     },
     publish: {
       eyebrow: "Publish",
@@ -356,7 +300,7 @@ const content = {
         "Contact messages are stored on the server for processing. Published articles are stored in the article backend. A complete privacy policy should be finalized before public launch.",
     },
     footer: {
-      statement: "Youth-led climate articles and communication for a more sustainable future.",
+      statement: "Youth-led climate articles for a more sustainable future.",
       language: "Language",
       social: "Social",
       imprint: "Imprint",
@@ -372,27 +316,22 @@ const content = {
     seo: {
       title: "CYRI | Jugendgeführte Klimaartikel",
       description:
-        "Climate Youth Research Initiative veröffentlicht verständliche Klimaartikel und arbeitet mit Forschenden, Medienpartnern und Unternehmen zusammen.",
+        "Climate Youth Research Initiative veröffentlicht verständliche Artikel zu Klima- und Meeresschutz.",
       pages: {
         home: {
           title: "CYRI | Jugendgeführte Klimaartikel",
           description:
-            "Climate Youth Research Initiative veröffentlicht verständliche Klimaartikel und arbeitet mit Forschenden, Medienpartnern und Unternehmen zusammen.",
+            "Climate Youth Research Initiative veröffentlicht verständliche Artikel zu Klima- und Meeresschutz.",
         },
         articles: {
           title: "Artikel | CYRI",
           description:
             "Lies CYRI-Artikel zu Klimapolitik, erneuerbarer Energie, Biodiversität, Meeresschutz und nachhaltigen Städten.",
         },
-        research: {
-          title: "Kooperationen | CYRI",
-          description:
-            "Erfahre, wie CYRI mit Forschenden, Medienpartnern und Unternehmen für Klimakommunikation und Vorträge arbeitet.",
-        },
         about: {
           title: "Über uns | CYRI",
           description:
-            "Erfahre mehr über CYRI, eine zweiköpfige jugendgeführte Klimaartikel- und Kommunikationsinitiative im Aufbau in Deutschland.",
+            "Erfahre mehr über CYRI, eine zweiköpfige jugendgeführte Klimaartikelinitiative im Aufbau in Deutschland.",
         },
         publish: {
           title: "Publizieren | CYRI",
@@ -412,7 +351,7 @@ const content = {
         contact: {
           title: "Kontakt | CYRI",
           description:
-            "Kontaktiere CYRI für Zusammenarbeit, Medienanfragen, Schulprojekte, Unternehmensvorträge und Austausch mit Forschenden.",
+            "Kontaktiere CYRI für Fragen, Medienanfragen, Artikelhinweise und allgemeine Nachrichten.",
         },
       },
     },
@@ -420,7 +359,6 @@ const content = {
       home: "Start",
       mission: "Mission",
       articles: "Artikel",
-      research: "Kooperationen",
       about: "Über uns",
       publish: "Publizieren",
       contact: "Kontakt",
@@ -437,23 +375,23 @@ const content = {
     mission: {
       eyebrow: "Mission",
       title: "Unsere Mission",
-      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikel- und Kommunikationsinitiative aus Deutschland.",
+      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikelinitiative aus Deutschland.",
       paragraphOne:
         "Unser Ziel ist es, Klimawissenschaft, Klimapolitik und Nachhaltigkeitsthemen für junge Menschen und die breite Öffentlichkeit verständlich zu machen.",
       paragraphTwo:
-        "Wir veröffentlichen Artikel auf Basis glaubwürdiger Quellen und Gespräche mit Expertinnen und Experten. CYRI führt keine eigene Forschung durch.",
+        "Wir veröffentlichen Artikel auf Basis glaubwürdiger, nachvollziehbarer Quellen. CYRI führt keine eigene Forschung durch.",
       focus: [
         {
           title: "Klare Artikel",
           text: "Wir machen komplexe Klimathemen in präzisen und zugänglichen Artikeln verständlich.",
         },
         {
-          title: "Austausch mit Fachleuten",
-          text: "Wir arbeiten mit Forschenden zusammen, um wissenschaftlichen Kontext besser einzuordnen.",
+          title: "Transparente Quellen",
+          text: "Wir machen Quellen sichtbar und trennen Fakten, Kontext und Einordnung klar voneinander.",
         },
         {
-          title: "Öffentliche Kommunikation",
-          text: "Wir verbinden Artikel, Medienarbeit und Vorträge für Schulen, Partner und Unternehmen.",
+          title: "Verantwortliches Publizieren",
+          text: "Wir veröffentlichen sorgfältig redigierte Artikel für Leserinnen und Leser, die seriöse Klimaeinordnung suchen.",
         },
       ],
     },
@@ -483,98 +421,48 @@ const content = {
       emptyNewest: "Noch keine neuesten Artikel.",
       noResults: "Zu dieser Kategorie gibt es noch keine älteren Artikel.",
     },
-    research: {
-      eyebrow: "Kooperationen",
-      title: "Zusammenarbeit mit Forschenden, Medien und Unternehmen.",
-      intro:
-        "CYRI veröffentlicht Artikel. Wir führen keine eigene Forschung durch, arbeiten aber mit Forschenden, Medienpartnern und Unternehmen für klare Klimakommunikation und Vorträge zusammen.",
-      sections: [
-        {
-          title: "Forschende",
-          label: "Wissenschaft",
-          items: [
-            {
-              title: "Fachlicher Kontext für Artikel",
-              text: "CYRI kann sich mit Forschenden austauschen, um Zusammenhänge zu prüfen, Debatten einzuordnen und die Artikelqualität zu verbessern.",
-            },
-            {
-              title: "Verständliche Erklärungen",
-              text: "Ziel ist nicht eigene Forschung zu veröffentlichen, sondern vorhandenes Wissen für junge Zielgruppen verständlich zu machen.",
-            },
-          ],
-        },
-        {
-          title: "Medienpartner",
-          label: "Medien",
-          items: [
-            {
-              title: "Interviews und Einordnung",
-              text: "CYRI kann Medienpartner mit jugendnahen Perspektiven auf Klima- und Nachhaltigkeitsthemen unterstützen.",
-            },
-            {
-              title: "Klare öffentliche Sprache",
-              text: "Wir fokussieren uns auf seriöse und verständliche Kommunikation statt akademische Veröffentlichungen.",
-            },
-          ],
-        },
-        {
-          title: "Unternehmen & Vorträge",
-          label: "Vorträge",
-          items: [
-            {
-              title: "Klimavorträge",
-              text: "CYRI kann mit Unternehmen und Organisationen an Vorträgen zu Klimaschutz, Jugendperspektiven und Nachhaltigkeitskommunikation arbeiten.",
-            },
-            {
-              title: "Workshops und Veranstaltungen",
-              text: "Mögliche Formate sind Schulvorträge, Podiumsgespräche, interne Unternehmensformate und Medienveranstaltungen.",
-            },
-          ],
-        },
-      ],
-    },
     about: {
       eyebrow: "Über uns",
       title: "Eine ambitionierte jugendgeführte Initiative aus Deutschland.",
-      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikel- und Kommunikationsinitiative, die sich derzeit im Aufbau befindet.",
+      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikelinitiative, die sich derzeit im Aufbau befindet.",
       storyTitle: "Eine klare Brücke zwischen Klimathemen und Öffentlichkeit bauen.",
       storyOne:
         "CYRI entsteht, um jungen Menschen zu helfen, Klimathemen zu verstehen, öffentliche Debatten einzuordnen und selbstbewusst an Nachhaltigkeitsgesprächen teilzunehmen.",
       storyTwo:
-        "Die Initiative konzentriert sich auf sorgfältige Artikelarbeit, verständliche Texte, transparente Quellen und Kooperationen mit Forschenden, Medienpartnern und Unternehmen für Vorträge.",
+        "Die Initiative konzentriert sich auf sorgfältige Artikelarbeit, verständliche Texte, transparente Quellen und verantwortliches Publizieren.",
       teamEyebrow: "Team",
       teamTitle: "Kernteam",
       team: [
         {
           name: "Tobias Göpper",
-          role: "Mitgründer, redaktionelle Leitung & Partnerschaften",
-          text: "Hat CYRI mitgegründet und leitet Artikelstrategie, öffentliche Positionierung, Partneransprache und Zusammenarbeit mit Medien, Forschenden und Unternehmen.",
+          role: "Mitgründer & redaktionelle Leitung",
+          text: "Hat CYRI mitgegründet und leitet Artikelstrategie, öffentliche Positionierung, redaktionelle Standards und quellenbasierte Klimaartikel.",
         },
         {
           name: "Jarne Bub",
-          role: "Mitgründer, Organisation & Eventkoordination",
-          text: "Hat CYRI mitgegründet und unterstützt Artikelplanung, Veröffentlichungsabläufe, Vorbereitung von Vorträgen und Koordination mit Schulen und Partnerorganisationen.",
+          role: "Mitgründer & Organisation",
+          text: "Hat CYRI mitgegründet und unterstützt Artikelplanung, Veröffentlichungsabläufe, Organisation und Qualitätskontrolle.",
         },
       ],
     },
     contact: {
       eyebrow: "Kontakt",
-      title: "Mit CYRI zusammenarbeiten.",
+      title: "CYRI kontaktieren.",
       intro:
-        "Melde dich für Medienanfragen, Austausch mit Forschenden, Unternehmensvorträge, Schulprojekte und Kooperationen.",
+        "Melde dich mit Fragen, Medienanfragen, Artikelhinweisen oder allgemeinen Nachrichten.",
       name: "Name",
       namePlaceholder: "Dein Name",
       email: "E-Mail",
       emailPlaceholder: "deine.email@example.com",
       message: "Nachricht",
-      messagePlaceholder: "Beschreibe, wie du zusammenarbeiten möchtest.",
+      messagePlaceholder: "Beschreibe, worum es in deiner Nachricht geht.",
       submit: "Nachricht senden",
       success: "Danke. Deine Nachricht wurde gespeichert und kann vom CYRI-Team geprüft werden.",
       error: "Die Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.",
-      panelEyebrow: "Partnerschaften",
-      panelTitle: "Forschende, Medien und Vorträge.",
+      panelEyebrow: "Kontakt",
+      panelTitle: "Fragen und Artikelhinweise.",
       panelText:
-        "CYRI freut sich über Zusammenarbeit mit Forschenden, Medienpartnern, Schulen und Unternehmen, die sich für Klimakommunikation oder Vorträge interessieren.",
+        "CYRI liest Nachrichten zu Artikeln, Klimathemen, Medienfragen und allgemeinem Feedback.",
     },
     publish: {
       eyebrow: "Publizieren",
@@ -649,7 +537,7 @@ const content = {
         "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
     },
     footer: {
-      statement: "Jugendgeführte Klimaartikel und Kommunikation für eine nachhaltigere Zukunft.",
+      statement: "Jugendgeführte Klimaartikel für eine nachhaltigere Zukunft.",
       language: "Sprache",
       social: "Social Media",
       imprint: "Impressum",
@@ -669,7 +557,7 @@ const state = {
   publishedArticles: [],
 };
 
-const routes = new Set(["home", "articles", "research", "about", "publish", "contact", "imprint", "privacy"]);
+const routes = new Set(["home", "articles", "about", "publish", "contact", "imprint", "privacy"]);
 
 function t(path) {
   return path.split(".").reduce((value, key) => value?.[key], content[state.lang]) || "";
@@ -899,30 +787,6 @@ function renderFilters() {
     .join("");
 }
 
-function renderResearch() {
-  const container = document.querySelector("[data-research-sections]");
-  container.innerHTML = t("research.sections")
-    .map(
-      (section) => `
-        <section class="research-section">
-          <h2>${escapeHtml(section.title)}</h2>
-          ${section.items
-            .map(
-              (item) => `
-                <article class="research-card">
-                  <span class="research-label">${escapeHtml(section.label)}</span>
-                  <h3>${escapeHtml(item.title)}</h3>
-                  <p>${escapeHtml(item.text)}</p>
-                </article>
-              `
-            )
-            .join("")}
-        </section>
-      `
-    )
-    .join("");
-}
-
 function renderTeam() {
   const container = document.querySelector("[data-team]");
   container.innerHTML = t("about.team")
@@ -999,7 +863,6 @@ function renderDynamicContent() {
   renderMissionFocus();
   renderFilters();
   renderArticles();
-  renderResearch();
   renderTeam();
   renderPublishTools();
   if (state.activeArticleId) updateArticleModal();

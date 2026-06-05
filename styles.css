@@ -440,7 +440,6 @@ h3 {
 
 .focus-card,
 .article-card,
-.research-card,
 .team-card,
 .contact-form,
 .contact-panel,
@@ -466,14 +465,12 @@ h3 {
 
 .focus-card p,
 .article-card p,
-.research-card p,
 .team-card p {
   color: var(--muted);
 }
 
 .article-grid,
 .archive-grid,
-.research-grid,
 .team-grid {
   display: grid;
   gap: 18px;
@@ -630,31 +627,10 @@ h3 {
   color: white;
 }
 
-.research-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.research-section h2 {
-  margin-bottom: 20px;
-}
-
-.research-card {
-  min-height: 210px;
-  padding: 24px;
-}
-
-.research-card,
 .team-card,
 .article-card,
 .focus-card {
   min-width: 0;
-}
-
-.research-label {
-  display: inline-block;
-  margin-bottom: 15px;
-  color: var(--violet);
-  font-weight: 760;
 }
 
 .about-layout {
@@ -1116,7 +1092,6 @@ h3 {
   .focus-grid,
   .featured-grid,
   .archive-grid,
-  .research-grid,
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1248,7 +1223,6 @@ h3 {
   .focus-grid,
   .featured-grid,
   .archive-grid,
-  .research-grid,
   .team-grid,
   .form-grid {
     grid-template-columns: 1fr;

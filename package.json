@@ -2,7 +2,7 @@
   "name": "cyri-website",
   "version": "1.0.0",
   "private": true,
-  "description": "CYRI website with a small Node backend for articles and contact messages.",
+  "description": "CYRI website with PHP and Node-compatible backends for articles and contact messages.",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+// Default publish password is stored as a SHA-256 hash, not as plaintext.
 const DEFAULT_PUBLISH_PASSWORD_HASH = 'c5adc9b61a9c18a6ad1a7489725c79cfcd3ef6a5980d6eeece1065b51a546336';
 const SESSION_DURATION_SECONDS = 43200;
 const MAX_BODY_SIZE = 1048576;
