@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 940" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract climate research visual</title>
+  <desc id="desc">A clean abstract visual with climate data lines, an Earth horizon and subtle renewable energy forms.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.48" stop-color="#edf8fb"/>
+      <stop offset="1" stop-color="#f7fbfa"/>
+    </linearGradient>
+    <linearGradient id="horizon" x1="0.14" x2="0.9" y1="0.17" y2="0.9">
+      <stop offset="0" stop-color="#dff7ee"/>
+      <stop offset="0.52" stop-color="#cae9ff"/>
+      <stop offset="1" stop-color="#ecebff"/>
+    </linearGradient>
+    <linearGradient id="inkLine" x1="0" x2="1">
+      <stop offset="0" stop-color="#16835f"/>
+      <stop offset="0.55" stop-color="#2774d8"/>
+      <stop offset="1" stop-color="#6e69c7"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#14324a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="smallShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#1a3448" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="940" fill="url(#sky)"/>
+  <path d="M120 742 C290 625 417 590 610 626 C765 655 854 748 1020 736 C1138 728 1238 678 1352 592 L1352 940 L120 940 Z" fill="#ffffff" opacity="0.92"/>
+
+  <g opacity="0.54" stroke="#b7cad8" stroke-width="1">
+    <path d="M126 188 H1325"/>
+    <path d="M126 294 H1325"/>
+    <path d="M126 400 H1325"/>
+    <path d="M126 506 H1325"/>
+    <path d="M126 612 H1325"/>
+    <path d="M254 116 V765"/>
+    <path d="M436 116 V765"/>
+    <path d="M618 116 V765"/>
+    <path d="M800 116 V765"/>
+    <path d="M982 116 V765"/>
+    <path d="M1164 116 V765"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <path d="M264 672 C395 428 599 306 825 332 C1028 356 1177 508 1244 700 C1043 783 821 816 596 775 C456 749 337 710 264 672 Z" fill="url(#horizon)" opacity="0.98"/>
+    <path d="M296 662 C452 580 610 548 773 562 C939 577 1079 637 1222 694" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.88"/>
+    <path d="M359 605 C510 522 678 490 847 512 C974 529 1072 579 1185 644" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.66"/>
+    <path d="M460 526 C610 459 767 449 930 501 C1016 529 1086 570 1155 612" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.55"/>
+  </g>
+
+  <g stroke="url(#inkLine)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
+    <path d="M185 642 C282 580 347 595 432 535 C518 475 574 391 683 398 C772 403 819 466 907 449 C1004 430 1039 330 1138 326 C1199 324 1247 361 1300 414"/>
+    <path d="M226 710 C333 651 426 684 520 616 C606 554 660 490 755 504 C842 516 884 575 977 560 C1078 544 1147 485 1265 511" opacity="0.62"/>
+  </g>
+
+  <g filter="url(#smallShadow)">
+    <rect x="870" y="168" width="282" height="196" rx="28" fill="#ffffff" opacity="0.78"/>
+    <path d="M910 302 C947 252 990 276 1022 242 C1047 215 1064 202 1095 218" fill="none" stroke="#16835f" stroke-width="8" stroke-linecap="round"/>
+    <path d="M910 253 H1098" stroke="#d9e6ef" stroke-width="4" stroke-linecap="round"/>
+    <path d="M910 318 H1044" stroke="#d9e6ef" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g filter="url(#smallShadow)" opacity="0.92">
+    <rect x="214" y="248" width="238" height="164" rx="24" fill="#ffffff" opacity="0.72"/>
+    <path d="M256 346 L294 304 L331 326 L371 282 L414 315" fill="none" stroke="#2774d8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M256 372 H402" stroke="#d9e6ef" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <g opacity="0.88">
+    <path d="M1018 714 V606" stroke="#14324a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1018 606 L960 566" stroke="#14324a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1018 606 L1082 570" stroke="#14324a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1018 606 L1015 532" stroke="#14324a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1118 716 V628" stroke="#16835f" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1118 628 L1068 600" stroke="#16835f" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1118 628 L1175 606" stroke="#16835f" stroke-width="5" stroke-linecap="round"/>
+    <path d="M1118 628 L1125 566" stroke="#16835f" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <g fill="#ffffff" opacity="0.9">
+    <circle cx="185" cy="642" r="9"/>
+    <circle cx="432" cy="535" r="9"/>
+    <circle cx="683" cy="398" r="9"/>
+    <circle cx="907" cy="449" r="9"/>
+    <circle cx="1138" cy="326" r="9"/>
+    <circle cx="1300" cy="414" r="9"/>
+  </g>
+
+  <g fill="#123246" opacity="0.12">
+    <circle cx="766" cy="190" r="4"/>
+    <circle cx="1190" cy="214" r="4"/>
+    <circle cx="541" cy="260" r="4"/>
+    <circle cx="1312" cy="592" r="4"/>
+    <circle cx="342" cy="513" r="4"/>
+  </g>
+</svg>

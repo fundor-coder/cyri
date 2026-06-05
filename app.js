@@ -1,0 +1,1316 @@
+const categories = [
+  { id: "policy", en: "Climate Policy", de: "Klimapolitik" },
+  { id: "energy", en: "Renewable Energy", de: "Erneuerbare Energie" },
+  { id: "biodiversity", en: "Biodiversity", de: "Biodiversität" },
+  { id: "cities", en: "Sustainable Cities", de: "Nachhaltige Städte" },
+  { id: "marine", en: "Marine Protection", de: "Meeresschutz" },
+];
+
+const articles = [];
+
+const photoSources = [
+  {
+    id: "coral",
+    src: "assets/photos/coral-reef-bleaching-hd.jpg",
+    credit: "Jay Galvin / Wikimedia Commons",
+    license: "CC BY 2.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Coral_Reef_Bleaching.jpg",
+    label: {
+      en: "Coral bleaching",
+      de: "Korallenbleiche",
+    },
+  },
+  {
+    id: "marine-debris",
+    src: "assets/photos/ocean-plastic-hd.jpg",
+    credit: "Kevin Krejci / Wikimedia Commons",
+    license: "CC BY 2.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Plastic_Ocean_(4408273247).jpg",
+    label: {
+      en: "Marine debris",
+      de: "Meeresmüll",
+    },
+  },
+  {
+    id: "mangrove",
+    src: "assets/photos/mangrove-forest-hd.jpg",
+    credit: "Emonjnu / Wikimedia Commons",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:The_mighty_Mangrove_forest.jpg",
+    label: {
+      en: "Mangrove forest",
+      de: "Mangrovenwald",
+    },
+  },
+  {
+    id: "glacier",
+    src: "assets/photos/aletsch-glacier-hd.jpg",
+    credit: "Gzzz / Wikimedia Commons",
+    license: "CC BY-SA 4.0",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Glacier_d%27Aletsch_panorama.jpg",
+    label: {
+      en: "Glacier change",
+      de: "Gletscherwandel",
+    },
+  },
+  {
+    id: "solar",
+    src: "assets/photos/offshore-wind-hd.jpg",
+    credit: "U.S. Department of Energy / Wikimedia Commons",
+    license: "Public Domain",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Block_Island_Wind_Farm.jpg",
+    label: {
+      en: "Offshore wind energy",
+      de: "Offshore-Windenergie",
+    },
+  },
+];
+
+const API_BASES = ["api", "api/index.php?route="];
+const PUBLISH_SESSION_KEY = "cyri-publish-token";
+
+const content = {
+  en: {
+    accessibility: {
+      skip: "Skip to content",
+      menu: "Open navigation menu",
+      close: "Close",
+    },
+    seo: {
+      title: "CYRI | Youth-led climate articles",
+      description:
+        "Climate Youth Research Initiative publishes understandable climate articles and works with researchers, media partners and companies.",
+      pages: {
+        home: {
+          title: "CYRI | Youth-led climate articles",
+          description:
+            "Climate Youth Research Initiative publishes understandable climate articles and works with researchers, media partners and companies.",
+        },
+        articles: {
+          title: "Articles | CYRI",
+          description:
+            "Read CYRI articles on climate policy, renewable energy, biodiversity, marine protection and sustainable cities.",
+        },
+        research: {
+          title: "Partners | CYRI",
+          description:
+            "Learn how CYRI works with researchers, media partners and companies for climate communication and talks.",
+        },
+        about: {
+          title: "About | CYRI",
+          description:
+            "Learn about CYRI, a two-person youth-led climate article and communication initiative currently in development in Germany.",
+        },
+        publish: {
+          title: "Publish | CYRI",
+          description:
+            "Protected publishing backend for CYRI articles and updates.",
+        },
+        imprint: {
+          title: "Imprint | CYRI",
+          description:
+            "Legal notice and responsible contact information for CYRI.",
+        },
+        privacy: {
+          title: "Privacy | CYRI",
+          description:
+            "Privacy notice for the CYRI website backend and contact forms.",
+        },
+        contact: {
+          title: "Contact | CYRI",
+          description:
+            "Contact CYRI for collaboration, media inquiries, school projects, company talks and researcher exchange.",
+        },
+      },
+    },
+    nav: {
+      home: "Home",
+      mission: "Mission",
+      articles: "Articles",
+      research: "Partners",
+      about: "About",
+      publish: "Publish",
+      contact: "Contact",
+    },
+    hero: {
+      eyebrow: "Climate Youth Research Initiative",
+      title: "Youth-led climate articles for a more sustainable future.",
+      subtitle:
+        "CYRI publishes understandable climate and marine protection articles for young people, educators and the public.",
+      primaryCta: "Read Latest Articles",
+      secondaryCta: "Our Mission",
+      imageAlt: "Bleached coral reef",
+    },
+    mission: {
+      eyebrow: "Mission",
+      title: "Our Mission",
+      intro: "CYRI is an independent youth-led climate article and communication initiative based in Germany.",
+      paragraphOne:
+        "Our goal is to make climate science, climate policy and sustainability topics understandable for young people and the wider public.",
+      paragraphTwo:
+        "We publish articles based on credible sources and expert conversations. CYRI does not conduct original research.",
+      focus: [
+        {
+          title: "Clear articles",
+          text: "We turn complex climate topics into precise, accessible public articles.",
+        },
+        {
+          title: "Expert exchange",
+          text: "We work with researchers to make scientific context easier to understand.",
+        },
+        {
+          title: "Public communication",
+          text: "We connect articles, media work and talks for schools, partners and companies.",
+        },
+      ],
+    },
+    latest: {
+      eyebrow: "Latest thinking",
+      title: "Latest Articles",
+      intro: "Published CYRI articles appear here automatically once they are added.",
+      viewAll: "View all articles",
+    },
+    articles: {
+      eyebrow: "Articles",
+      title: "Climate and marine protection, explained clearly.",
+      intro:
+        "Read CYRI articles on climate protection, marine protection, renewable energy, climate policy, biodiversity and sustainable cities.",
+      newestEyebrow: "Newest",
+      newestTitle: "Newest Articles",
+      archiveEyebrow: "Archive",
+      olderTitle: "Older Articles",
+      olderIntro: "Browse previous CYRI publications by topic and format.",
+      readMore: "Read more",
+      modalNote: "Photo sources are shown in the lower corner of each image.",
+      filters: {
+        all: "All",
+      },
+      emptyLatest: "No CYRI articles have been published yet.",
+      emptyLatestHint: "Use the protected publishing area to add the first article.",
+      emptyNewest: "No newest articles yet.",
+      noResults: "No older articles match this category yet.",
+    },
+    research: {
+      eyebrow: "Partners",
+      title: "Working with researchers, media and companies.",
+      intro:
+        "CYRI publishes articles. We do not conduct original research, but we collaborate with researchers, media partners and companies for clear climate communication and talks.",
+      sections: [
+        {
+          title: "Researchers",
+          label: "Science",
+          items: [
+            {
+              title: "Expert context for articles",
+              text: "CYRI can exchange with researchers to check context, understand current debates and improve article quality.",
+            },
+            {
+              title: "Accessible explanations",
+              text: "The goal is not to publish original research, but to make existing knowledge understandable for young audiences.",
+            },
+          ],
+        },
+        {
+          title: "Media Partners",
+          label: "Media",
+          items: [
+            {
+              title: "Interviews and commentary",
+              text: "CYRI can support media partners with youth-focused perspectives on climate and sustainability topics.",
+            },
+            {
+              title: "Clear public language",
+              text: "We focus on serious, understandable communication instead of academic publishing.",
+            },
+          ],
+        },
+        {
+          title: "Companies & Talks",
+          label: "Talks",
+          items: [
+            {
+              title: "Climate talks",
+              text: "CYRI can work with companies and organizations on talks about climate protection, youth perspectives and sustainability communication.",
+            },
+            {
+              title: "Workshops and events",
+              text: "Potential formats include school talks, panel discussions, internal company sessions and media events.",
+            },
+          ],
+        },
+      ],
+    },
+    about: {
+      eyebrow: "About",
+      title: "An ambitious youth-led initiative from Germany.",
+      intro: "CYRI is an independent youth-led climate article and communication initiative currently in development.",
+      storyTitle: "Building a clear bridge between climate topics and the public.",
+      storyOne:
+        "CYRI is being developed to help young people understand climate topics, evaluate public debates and participate in sustainability conversations with confidence.",
+      storyTwo:
+        "The initiative focuses on careful article work, accessible writing, transparent sourcing and collaborations with researchers, media partners and companies for talks.",
+      teamEyebrow: "Team",
+      teamTitle: "Core team",
+      team: [
+        {
+          name: "Tobias Göpper",
+          role: "Co-founder, editorial lead & partnerships",
+          text: "Co-founded CYRI and leads article direction, public positioning, partner outreach and collaboration with media, researchers and companies.",
+        },
+        {
+          name: "Jarne Bub",
+          role: "Co-founder, operations & event coordination",
+          text: "Co-founded CYRI and supports article planning, publishing workflows, event preparation, talks and coordination with schools and partner organizations.",
+        },
+      ],
+    },
+    contact: {
+      eyebrow: "Contact",
+      title: "Collaborate with CYRI.",
+      intro:
+        "Reach out for media inquiries, researcher exchange, company talks, school projects and partner collaborations.",
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Email",
+      emailPlaceholder: "your.email@example.com",
+      message: "Message",
+      messagePlaceholder: "Tell us how you would like to collaborate.",
+      submit: "Send Message",
+      success: "Thank you. Your message has been saved and can be reviewed by the CYRI team.",
+      error: "The message could not be sent. Please try again later.",
+      panelEyebrow: "Partnerships",
+      panelTitle: "Researchers, media and talks.",
+      panelText:
+        "CYRI welcomes collaboration with researchers, media partners, schools and companies interested in climate communication or talks.",
+    },
+    publish: {
+      eyebrow: "Publish",
+      title: "Publish a CYRI article.",
+      intro: "Add a new climate or marine protection article with the protected backend editor.",
+      panelEyebrow: "Editor access",
+      panelTitle: "Protected publishing backend.",
+      panelText:
+        "This editor saves articles on the server so published posts are available to every visitor.",
+      password: "Password",
+      passwordPlaceholder: "Enter editor password",
+      unlock: "Unlock editor",
+      loginSuccess: "Editor unlocked.",
+      loginError: "Wrong password.",
+      backendError: "Backend is not reachable. Start the Node server or upload the PHP backend files.",
+      titleDe: "German title",
+      titleDePlaceholder: "Example: Warum Meeresschutz Klimaschutz ist",
+      titleEn: "English title",
+      titleEnPlaceholder: "Optional English title",
+      category: "Category",
+      date: "Date",
+      summaryDe: "German summary",
+      summaryDePlaceholder: "Short, clear summary for the article card.",
+      summaryEn: "English summary",
+      summaryEnPlaceholder: "Optional English summary.",
+      bodyDe: "German article text",
+      bodyDePlaceholder: "Write the article text here.",
+      bodyEn: "English article text",
+      bodyEnPlaceholder: "Optional English article text.",
+      cover: "Cover photo",
+      submit: "Publish article",
+      success: "Article published. It now appears in the articles section.",
+      error: "The article could not be published. Please log in again or try later.",
+    },
+    legal: {
+      imprintEyebrow: "Legal notice",
+      imprintTitle: "Imprint",
+      imprintIntro:
+        "Legal information for CYRI according to German provider identification requirements.",
+      providerEyebrow: "Information according to § 5 DDG",
+      providerTitle: "Provider",
+      projectLabel: "Project",
+      operatorLabel: "Operators",
+      statusLabel: "Status",
+      statusText:
+        "Independent youth-led initiative currently in development; not a registered NGO or incorporated association.",
+      addressLabel: "Address",
+      addressText: "[Full summonable address must be added before public launch.]",
+      emailLabel: "Email",
+      phoneLabel: "Phone",
+      phoneText: "[Optional phone number, if used.]",
+      editorialEyebrow: "Editorial responsibility",
+      editorialTitle: "Responsible under § 18 Abs. 2 MStV",
+      editorialText:
+        "Tobias Göpper and Jarne Bub are responsible for editorial article content. A full address for the responsible person must be added before public launch.",
+      liabilityEyebrow: "Liability notice",
+      liabilityTitle: "Liability for content",
+      liabilityContent:
+        "CYRI creates article content with care. However, no guarantee is given for correctness, completeness, timeliness or suitability for a particular purpose. The content is for general information and does not replace professional advice. Liability is excluded to the extent permitted by law. Mandatory liability, especially for intent, gross negligence and injury to life, body or health, remains unaffected.",
+      linksTitle: "Liability for external links",
+      linksText:
+        "External links lead to third-party content. The respective providers are responsible for their own content. Linked pages were checked for obvious legal violations when the links were created. If CYRI becomes aware of illegal content, the relevant links will be removed.",
+      copyrightTitle: "Copyright and image credits",
+      copyrightText:
+        "Texts, layout and original CYRI content are protected by copyright unless otherwise stated. Third-party images are used with source and license information shown near the image or in the documentation.",
+      privacyEyebrow: "Privacy",
+      privacyTitle: "Privacy notice",
+      privacyIntro:
+        "This website sends contact messages and protected publishing requests to the CYRI backend.",
+      localDataTitle: "Backend data",
+      localDataText:
+        "Contact messages are stored on the server for processing. Published articles are stored in the article backend. A complete privacy policy should be finalized before public launch.",
+    },
+    footer: {
+      statement: "Youth-led climate articles and communication for a more sustainable future.",
+      language: "Language",
+      social: "Social",
+      imprint: "Imprint",
+      privacy: "Privacy",
+    },
+  },
+  de: {
+    accessibility: {
+      skip: "Zum Inhalt springen",
+      menu: "Navigationsmenü öffnen",
+      close: "Schließen",
+    },
+    seo: {
+      title: "CYRI | Jugendgeführte Klimaartikel",
+      description:
+        "Climate Youth Research Initiative veröffentlicht verständliche Klimaartikel und arbeitet mit Forschenden, Medienpartnern und Unternehmen zusammen.",
+      pages: {
+        home: {
+          title: "CYRI | Jugendgeführte Klimaartikel",
+          description:
+            "Climate Youth Research Initiative veröffentlicht verständliche Klimaartikel und arbeitet mit Forschenden, Medienpartnern und Unternehmen zusammen.",
+        },
+        articles: {
+          title: "Artikel | CYRI",
+          description:
+            "Lies CYRI-Artikel zu Klimapolitik, erneuerbarer Energie, Biodiversität, Meeresschutz und nachhaltigen Städten.",
+        },
+        research: {
+          title: "Kooperationen | CYRI",
+          description:
+            "Erfahre, wie CYRI mit Forschenden, Medienpartnern und Unternehmen für Klimakommunikation und Vorträge arbeitet.",
+        },
+        about: {
+          title: "Über uns | CYRI",
+          description:
+            "Erfahre mehr über CYRI, eine zweiköpfige jugendgeführte Klimaartikel- und Kommunikationsinitiative im Aufbau in Deutschland.",
+        },
+        publish: {
+          title: "Publizieren | CYRI",
+          description:
+            "Geschütztes Veröffentlichungsbackend für CYRI-Artikel und Updates.",
+        },
+        imprint: {
+          title: "Impressum | CYRI",
+          description:
+            "Impressum und verantwortliche Kontaktinformationen für CYRI.",
+        },
+        privacy: {
+          title: "Datenschutz | CYRI",
+          description:
+            "Datenschutzhinweise für das CYRI-Website-Backend und Kontaktformulare.",
+        },
+        contact: {
+          title: "Kontakt | CYRI",
+          description:
+            "Kontaktiere CYRI für Zusammenarbeit, Medienanfragen, Schulprojekte, Unternehmensvorträge und Austausch mit Forschenden.",
+        },
+      },
+    },
+    nav: {
+      home: "Start",
+      mission: "Mission",
+      articles: "Artikel",
+      research: "Kooperationen",
+      about: "Über uns",
+      publish: "Publizieren",
+      contact: "Kontakt",
+    },
+    hero: {
+      eyebrow: "Climate Youth Research Initiative",
+      title: "Jugendgeführte Klimaartikel für eine nachhaltigere Zukunft.",
+      subtitle:
+        "CYRI veröffentlicht verständliche Artikel zu Klima- und Meeresschutz für junge Menschen, Bildungseinrichtungen und die Öffentlichkeit.",
+      primaryCta: "Neueste Artikel lesen",
+      secondaryCta: "Unsere Mission",
+      imageAlt: "Gebleichter Korallenriffbereich",
+    },
+    mission: {
+      eyebrow: "Mission",
+      title: "Unsere Mission",
+      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikel- und Kommunikationsinitiative aus Deutschland.",
+      paragraphOne:
+        "Unser Ziel ist es, Klimawissenschaft, Klimapolitik und Nachhaltigkeitsthemen für junge Menschen und die breite Öffentlichkeit verständlich zu machen.",
+      paragraphTwo:
+        "Wir veröffentlichen Artikel auf Basis glaubwürdiger Quellen und Gespräche mit Expertinnen und Experten. CYRI führt keine eigene Forschung durch.",
+      focus: [
+        {
+          title: "Klare Artikel",
+          text: "Wir machen komplexe Klimathemen in präzisen und zugänglichen Artikeln verständlich.",
+        },
+        {
+          title: "Austausch mit Fachleuten",
+          text: "Wir arbeiten mit Forschenden zusammen, um wissenschaftlichen Kontext besser einzuordnen.",
+        },
+        {
+          title: "Öffentliche Kommunikation",
+          text: "Wir verbinden Artikel, Medienarbeit und Vorträge für Schulen, Partner und Unternehmen.",
+        },
+      ],
+    },
+    latest: {
+      eyebrow: "Aktuelle Perspektiven",
+      title: "Neueste Artikel",
+      intro: "Veröffentlichte CYRI-Artikel erscheinen hier automatisch, sobald sie angelegt wurden.",
+      viewAll: "Alle Artikel ansehen",
+    },
+    articles: {
+      eyebrow: "Artikel",
+      title: "Klima- und Meeresschutz klar erklärt.",
+      intro:
+        "Lies CYRI-Artikel zu Klimaschutz, Meeresschutz, erneuerbarer Energie, Klimapolitik, Biodiversität und nachhaltigen Städten.",
+      newestEyebrow: "Neueste",
+      newestTitle: "Neueste Artikel",
+      archiveEyebrow: "Archiv",
+      olderTitle: "Ältere Artikel",
+      olderIntro: "Durchsuche frühere CYRI-Veröffentlichungen nach Thema und Format.",
+      readMore: "Weiterlesen",
+      modalNote: "Bildquellen werden unten rechts im jeweiligen Foto angezeigt.",
+      filters: {
+        all: "Alle",
+      },
+      emptyLatest: "Es wurden noch keine CYRI-Artikel veröffentlicht.",
+      emptyLatestHint: "Nutze den geschützten Veröffentlichungsbereich, um den ersten Artikel anzulegen.",
+      emptyNewest: "Noch keine neuesten Artikel.",
+      noResults: "Zu dieser Kategorie gibt es noch keine älteren Artikel.",
+    },
+    research: {
+      eyebrow: "Kooperationen",
+      title: "Zusammenarbeit mit Forschenden, Medien und Unternehmen.",
+      intro:
+        "CYRI veröffentlicht Artikel. Wir führen keine eigene Forschung durch, arbeiten aber mit Forschenden, Medienpartnern und Unternehmen für klare Klimakommunikation und Vorträge zusammen.",
+      sections: [
+        {
+          title: "Forschende",
+          label: "Wissenschaft",
+          items: [
+            {
+              title: "Fachlicher Kontext für Artikel",
+              text: "CYRI kann sich mit Forschenden austauschen, um Zusammenhänge zu prüfen, Debatten einzuordnen und die Artikelqualität zu verbessern.",
+            },
+            {
+              title: "Verständliche Erklärungen",
+              text: "Ziel ist nicht eigene Forschung zu veröffentlichen, sondern vorhandenes Wissen für junge Zielgruppen verständlich zu machen.",
+            },
+          ],
+        },
+        {
+          title: "Medienpartner",
+          label: "Medien",
+          items: [
+            {
+              title: "Interviews und Einordnung",
+              text: "CYRI kann Medienpartner mit jugendnahen Perspektiven auf Klima- und Nachhaltigkeitsthemen unterstützen.",
+            },
+            {
+              title: "Klare öffentliche Sprache",
+              text: "Wir fokussieren uns auf seriöse und verständliche Kommunikation statt akademische Veröffentlichungen.",
+            },
+          ],
+        },
+        {
+          title: "Unternehmen & Vorträge",
+          label: "Vorträge",
+          items: [
+            {
+              title: "Klimavorträge",
+              text: "CYRI kann mit Unternehmen und Organisationen an Vorträgen zu Klimaschutz, Jugendperspektiven und Nachhaltigkeitskommunikation arbeiten.",
+            },
+            {
+              title: "Workshops und Veranstaltungen",
+              text: "Mögliche Formate sind Schulvorträge, Podiumsgespräche, interne Unternehmensformate und Medienveranstaltungen.",
+            },
+          ],
+        },
+      ],
+    },
+    about: {
+      eyebrow: "Über uns",
+      title: "Eine ambitionierte jugendgeführte Initiative aus Deutschland.",
+      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikel- und Kommunikationsinitiative, die sich derzeit im Aufbau befindet.",
+      storyTitle: "Eine klare Brücke zwischen Klimathemen und Öffentlichkeit bauen.",
+      storyOne:
+        "CYRI entsteht, um jungen Menschen zu helfen, Klimathemen zu verstehen, öffentliche Debatten einzuordnen und selbstbewusst an Nachhaltigkeitsgesprächen teilzunehmen.",
+      storyTwo:
+        "Die Initiative konzentriert sich auf sorgfältige Artikelarbeit, verständliche Texte, transparente Quellen und Kooperationen mit Forschenden, Medienpartnern und Unternehmen für Vorträge.",
+      teamEyebrow: "Team",
+      teamTitle: "Kernteam",
+      team: [
+        {
+          name: "Tobias Göpper",
+          role: "Mitgründer, redaktionelle Leitung & Partnerschaften",
+          text: "Hat CYRI mitgegründet und leitet Artikelstrategie, öffentliche Positionierung, Partneransprache und Zusammenarbeit mit Medien, Forschenden und Unternehmen.",
+        },
+        {
+          name: "Jarne Bub",
+          role: "Mitgründer, Organisation & Eventkoordination",
+          text: "Hat CYRI mitgegründet und unterstützt Artikelplanung, Veröffentlichungsabläufe, Vorbereitung von Vorträgen und Koordination mit Schulen und Partnerorganisationen.",
+        },
+      ],
+    },
+    contact: {
+      eyebrow: "Kontakt",
+      title: "Mit CYRI zusammenarbeiten.",
+      intro:
+        "Melde dich für Medienanfragen, Austausch mit Forschenden, Unternehmensvorträge, Schulprojekte und Kooperationen.",
+      name: "Name",
+      namePlaceholder: "Dein Name",
+      email: "E-Mail",
+      emailPlaceholder: "deine.email@example.com",
+      message: "Nachricht",
+      messagePlaceholder: "Beschreibe, wie du zusammenarbeiten möchtest.",
+      submit: "Nachricht senden",
+      success: "Danke. Deine Nachricht wurde gespeichert und kann vom CYRI-Team geprüft werden.",
+      error: "Die Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.",
+      panelEyebrow: "Partnerschaften",
+      panelTitle: "Forschende, Medien und Vorträge.",
+      panelText:
+        "CYRI freut sich über Zusammenarbeit mit Forschenden, Medienpartnern, Schulen und Unternehmen, die sich für Klimakommunikation oder Vorträge interessieren.",
+    },
+    publish: {
+      eyebrow: "Publizieren",
+      title: "Einen CYRI-Artikel veröffentlichen.",
+      intro: "Füge einen neuen Artikel zu Klima- oder Meeresschutz über den geschützten Backend-Editor hinzu.",
+      panelEyebrow: "Editor-Zugang",
+      panelTitle: "Geschütztes Veröffentlichungsbackend.",
+      panelText:
+        "Dieser Editor speichert Artikel auf dem Server, damit veröffentlichte Beiträge für alle Besucher verfügbar sind.",
+      password: "Passwort",
+      passwordPlaceholder: "Editor-Passwort eingeben",
+      unlock: "Editor entsperren",
+      loginSuccess: "Editor entsperrt.",
+      loginError: "Falsches Passwort.",
+      backendError: "Das Backend ist nicht erreichbar. Starte den Node-Server oder lade die PHP-Backend-Dateien hoch.",
+      titleDe: "Deutscher Titel",
+      titleDePlaceholder: "Beispiel: Warum Meeresschutz Klimaschutz ist",
+      titleEn: "Englischer Titel",
+      titleEnPlaceholder: "Optionaler englischer Titel",
+      category: "Kategorie",
+      date: "Datum",
+      summaryDe: "Deutsche Zusammenfassung",
+      summaryDePlaceholder: "Kurze, klare Zusammenfassung für die Artikelkarte.",
+      summaryEn: "Englische Zusammenfassung",
+      summaryEnPlaceholder: "Optionale englische Zusammenfassung.",
+      bodyDe: "Deutscher Artikeltext",
+      bodyDePlaceholder: "Schreibe den Artikeltext hier.",
+      bodyEn: "Englischer Artikeltext",
+      bodyEnPlaceholder: "Optionaler englischer Artikeltext.",
+      cover: "Coverfoto",
+      submit: "Artikel veröffentlichen",
+      success: "Artikel veröffentlicht. Er erscheint jetzt im Artikelbereich.",
+      error: "Der Artikel konnte nicht veröffentlicht werden. Bitte melde dich erneut an oder versuche es später.",
+    },
+    legal: {
+      imprintEyebrow: "Impressum",
+      imprintTitle: "Impressum",
+      imprintIntro:
+        "Rechtliche Angaben für CYRI nach den deutschen Anforderungen zur Anbieterkennzeichnung.",
+      providerEyebrow: "Angaben gemäß § 5 DDG",
+      providerTitle: "Anbieter",
+      projectLabel: "Projekt",
+      operatorLabel: "Betreiber",
+      statusLabel: "Status",
+      statusText:
+        "Unabhängige jugendgeführte Initiative im Aufbau; kein eingetragener Verein, keine registrierte NGO.",
+      addressLabel: "Anschrift",
+      addressText: "[Vollständige ladungsfähige Anschrift vor öffentlichem Launch ergänzen.]",
+      emailLabel: "E-Mail",
+      phoneLabel: "Telefon",
+      phoneText: "[Optionale Telefonnummer, falls genutzt.]",
+      editorialEyebrow: "Redaktionelle Verantwortung",
+      editorialTitle: "Verantwortlich nach § 18 Abs. 2 MStV",
+      editorialText:
+        "Tobias Göpper und Jarne Bub sind für redaktionelle Artikelinhalte verantwortlich. Eine vollständige Anschrift der verantwortlichen Person muss vor einem öffentlichen Launch ergänzt werden.",
+      liabilityEyebrow: "Haftungshinweis",
+      liabilityTitle: "Haftung für Inhalte",
+      liabilityContent:
+        "CYRI erstellt Artikelinhalte mit Sorgfalt. Eine Gewähr für Richtigkeit, Vollständigkeit, Aktualität oder Eignung für einen bestimmten Zweck wird jedoch nicht übernommen. Die Inhalte dienen der allgemeinen Information und ersetzen keine professionelle Beratung. Eine Haftung ist im gesetzlich zulässigen Umfang ausgeschlossen. Zwingende gesetzliche Haftungstatbestände, insbesondere für Vorsatz, grobe Fahrlässigkeit sowie Schäden aus der Verletzung von Leben, Körper oder Gesundheit, bleiben unberührt.",
+      linksTitle: "Haftung für externe Links",
+      linksText:
+        "Externe Links führen zu Inhalten Dritter. Für diese Inhalte sind die jeweiligen Anbieter verantwortlich. Verlinkte Seiten wurden zum Zeitpunkt der Verlinkung auf offensichtliche Rechtsverstöße geprüft. Sobald CYRI rechtswidrige Inhalte bekannt werden, werden entsprechende Links entfernt.",
+      copyrightTitle: "Urheberrecht und Bildnachweise",
+      copyrightText:
+        "Texte, Layout und eigene CYRI-Inhalte sind urheberrechtlich geschützt, sofern nicht anders angegeben. Bilder Dritter werden mit Quellen- und Lizenzhinweisen direkt am Bild oder in der Dokumentation verwendet.",
+      privacyEyebrow: "Datenschutz",
+      privacyTitle: "Datenschutzhinweis",
+      privacyIntro:
+        "Diese Website sendet Kontaktanfragen und geschützte Veröffentlichungsanfragen an das CYRI-Backend.",
+      localDataTitle: "Serverdaten",
+      localDataText:
+        "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
+    },
+    footer: {
+      statement: "Jugendgeführte Klimaartikel und Kommunikation für eine nachhaltigere Zukunft.",
+      language: "Sprache",
+      social: "Social Media",
+      imprint: "Impressum",
+      privacy: "Datenschutz",
+    },
+  },
+};
+
+const state = {
+  lang: localStorage.getItem("cyri-language") || (navigator.language.startsWith("de") ? "de" : "en"),
+  page: "home",
+  anchor: null,
+  filter: "all",
+  activeArticleId: null,
+  publisherToken: sessionStorage.getItem(PUBLISH_SESSION_KEY) || "",
+  publisherUnlocked: Boolean(sessionStorage.getItem(PUBLISH_SESSION_KEY)),
+  publishedArticles: [],
+};
+
+const routes = new Set(["home", "articles", "research", "about", "publish", "contact", "imprint", "privacy"]);
+
+function t(path) {
+  return path.split(".").reduce((value, key) => value?.[key], content[state.lang]) || "";
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+async function apiRequest(path, options = {}) {
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
+  };
+
+  if (options.auth) {
+    headers.Authorization = `Bearer ${state.publisherToken}`;
+  }
+
+  const requestOptions = {
+    method: options.method || "GET",
+    headers,
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  };
+  let fallbackError = null;
+
+  for (const base of API_BASES) {
+    const url = base.endsWith("=") ? `${base}${encodeURIComponent(path)}` : `${base}${path}`;
+
+    try {
+      const response = await fetch(url, requestOptions);
+      const isJson = response.headers.get("content-type")?.includes("application/json");
+      const payload = isJson ? await response.json().catch(() => ({})) : {};
+
+      if (response.ok && isJson) {
+        return payload;
+      }
+
+      const error = new Error(payload.error || "Request failed.");
+      error.status = response.status;
+      fallbackError = error;
+
+      if (response.status !== 404 && response.status !== 405 && isJson) {
+        throw error;
+      }
+    } catch (error) {
+      fallbackError = error;
+
+      if (error.status && error.status !== 404 && error.status !== 405) {
+        throw error;
+      }
+    }
+  }
+
+  throw fallbackError || new Error("Backend is not reachable.");
+}
+
+async function loadArticlesFromBackend() {
+  try {
+    const payload = await apiRequest("/articles");
+    state.publishedArticles = Array.isArray(payload.articles) ? payload.articles : [];
+    renderArticles();
+    if (state.activeArticleId) updateArticleModal();
+  } catch {
+    state.publishedArticles = [];
+    renderArticles();
+  }
+}
+
+function allArticles() {
+  return [...state.publishedArticles, ...articles];
+}
+
+function sortedArticles() {
+  return allArticles().sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function getCategory(id) {
+  return categories.find((category) => category.id === id) || categories[0];
+}
+
+function getPhoto(id) {
+  return photoSources.find((photo) => photo.id === id) || photoSources[0];
+}
+
+function formatDate(date) {
+  const locale = state.lang === "de" ? "de-DE" : "en-US";
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(`${date}T12:00:00`));
+}
+
+function updateStaticText() {
+  document.documentElement.lang = state.lang;
+  updateSeo();
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    element.textContent = t(element.dataset.i18n);
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    element.placeholder = t(element.dataset.i18nPlaceholder);
+  });
+
+  document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+    element.alt = t(element.dataset.i18nAlt);
+  });
+
+  document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
+    element.setAttribute("aria-label", t(element.dataset.i18nAria));
+  });
+
+  document.querySelectorAll("[data-lang-button]").forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.langButton === state.lang);
+    button.setAttribute("aria-pressed", String(button.dataset.langButton === state.lang));
+  });
+}
+
+function updateSeo() {
+  const seo = content[state.lang].seo.pages[state.page] || content[state.lang].seo;
+  document.title = seo.title;
+  const description = document.querySelector('meta[name="description"]');
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  const ogDescription = document.querySelector('meta[property="og:description"]');
+  if (description) description.content = seo.description;
+  if (ogTitle) ogTitle.content = seo.title;
+  if (ogDescription) ogDescription.content = seo.description;
+}
+
+function renderMissionFocus() {
+  const container = document.querySelector("[data-mission-focus]");
+  container.innerHTML = t("mission.focus")
+    .map(
+      (item, index) => `
+        <article class="focus-card">
+          <span class="focus-index">${String(index + 1).padStart(2, "0")}</span>
+          <h3>${escapeHtml(item.title)}</h3>
+          <p>${escapeHtml(item.text)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function localizedArticleValue(article, field) {
+  return article[field]?.[state.lang] || article[field]?.de || article[field]?.en || "";
+}
+
+function renderEmptyArticleState(title, text) {
+  return `
+    <article class="empty-card">
+      <h3>${escapeHtml(title)}</h3>
+      <p>${escapeHtml(text)}</p>
+    </article>
+  `;
+}
+
+function renderArticleCard(article, featured = false) {
+  const category = getCategory(article.category);
+  const photo = getPhoto(article.imageId);
+  return `
+    <article class="article-card${featured ? " article-card-featured" : ""}">
+      <figure class="article-photo">
+        <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" loading="lazy" />
+        <figcaption>
+          <a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noreferrer">
+            ${escapeHtml(photo.credit)}
+          </a>
+        </figcaption>
+      </figure>
+      <div class="article-meta">
+        <span class="article-category">${escapeHtml(category[state.lang])}</span>
+        <span aria-hidden="true">-</span>
+        <time datetime="${article.date}">${formatDate(article.date)}</time>
+      </div>
+      <h3>${escapeHtml(localizedArticleValue(article, "title"))}</h3>
+      <p>${escapeHtml(localizedArticleValue(article, "summary"))}</p>
+      <button class="card-button" type="button" data-article-id="${escapeHtml(article.id)}">
+        ${escapeHtml(t("articles.readMore"))}
+      </button>
+    </article>
+  `;
+}
+
+function renderArticles() {
+  const newest = sortedArticles().slice(0, 5);
+  const older = sortedArticles().slice(5);
+  const homepageContainer = document.querySelector("[data-latest-articles]");
+  const newestContainer = document.querySelector("[data-articles-newest]");
+  const olderContainer = document.querySelector("[data-articles-older]");
+
+  homepageContainer.innerHTML = newest.length
+    ? newest.map((article) => renderArticleCard(article)).join("")
+    : renderEmptyArticleState(t("articles.emptyLatest"), t("articles.emptyLatestHint"));
+  newestContainer.innerHTML = newest.length
+    ? newest.slice(0, 3).map((article) => renderArticleCard(article, true)).join("")
+    : renderEmptyArticleState(t("articles.emptyNewest"), t("articles.emptyLatestHint"));
+
+  const filteredOlder =
+    state.filter === "all" ? older : older.filter((article) => article.category === state.filter);
+
+  olderContainer.innerHTML = filteredOlder.length
+    ? filteredOlder.map((article) => renderArticleCard(article)).join("")
+    : `<p class="empty-state">${escapeHtml(t("articles.noResults"))}</p>`;
+}
+
+function renderFilters() {
+  const container = document.querySelector("[data-article-filters]");
+  const filterItems = [{ id: "all", label: t("articles.filters.all") }].concat(
+    categories.map((category) => ({ id: category.id, label: category[state.lang] }))
+  );
+  container.innerHTML = filterItems
+    .map(
+      (item) => `
+        <button class="filter-button${item.id === state.filter ? " is-active" : ""}" type="button" data-filter="${item.id}">
+          ${escapeHtml(item.label)}
+        </button>
+      `
+    )
+    .join("");
+}
+
+function renderResearch() {
+  const container = document.querySelector("[data-research-sections]");
+  container.innerHTML = t("research.sections")
+    .map(
+      (section) => `
+        <section class="research-section">
+          <h2>${escapeHtml(section.title)}</h2>
+          ${section.items
+            .map(
+              (item) => `
+                <article class="research-card">
+                  <span class="research-label">${escapeHtml(section.label)}</span>
+                  <h3>${escapeHtml(item.title)}</h3>
+                  <p>${escapeHtml(item.text)}</p>
+                </article>
+              `
+            )
+            .join("")}
+        </section>
+      `
+    )
+    .join("");
+}
+
+function renderTeam() {
+  const container = document.querySelector("[data-team]");
+  container.innerHTML = t("about.team")
+    .map(
+      (member) => `
+        <article class="team-card">
+          <span class="team-initial" aria-hidden="true">${escapeHtml(member.name.charAt(0))}</span>
+          <h3>${escapeHtml(member.name)}</h3>
+          <p class="article-category">${escapeHtml(member.role)}</p>
+          <p>${escapeHtml(member.text)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function renderPublishTools() {
+  const categorySelect = document.querySelector("[data-publish-category]");
+  const imagePicker = document.querySelector("[data-publish-images]");
+  const gate = document.querySelector("[data-publish-login]");
+  const form = document.querySelector("[data-publish-form]");
+  const dateInput = document.querySelector("[data-publish-date]");
+
+  if (categorySelect) {
+    const current = categorySelect.value || "policy";
+    categorySelect.innerHTML = categories
+      .map(
+        (category) => `
+          <option value="${escapeHtml(category.id)}"${category.id === current ? " selected" : ""}>
+            ${escapeHtml(category[state.lang])}
+          </option>
+        `
+      )
+      .join("");
+  }
+
+  if (imagePicker) {
+    const selected = imagePicker.querySelector("input:checked")?.value || photoSources[0].id;
+    imagePicker.innerHTML = photoSources
+      .map(
+        (photo, index) => `
+          <label class="image-option">
+            <input
+              type="radio"
+              name="imageId"
+              value="${escapeHtml(photo.id)}"
+              ${photo.id === selected || (!selected && index === 0) ? "checked" : ""}
+            />
+            <span class="image-option-frame">
+              <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" loading="lazy" />
+              <span class="photo-credit">${escapeHtml(photo.credit)}</span>
+            </span>
+            <span class="image-option-text">
+              <strong>${escapeHtml(photo.label[state.lang])}</strong>
+              <small>${escapeHtml(photo.license)}</small>
+            </span>
+          </label>
+        `
+      )
+      .join("");
+  }
+
+  if (gate && form) {
+    gate.hidden = state.publisherUnlocked;
+    form.hidden = !state.publisherUnlocked;
+  }
+
+  if (dateInput && !dateInput.value) {
+    dateInput.value = new Date().toISOString().slice(0, 10);
+  }
+}
+
+function renderDynamicContent() {
+  renderMissionFocus();
+  renderFilters();
+  renderArticles();
+  renderResearch();
+  renderTeam();
+  renderPublishTools();
+  if (state.activeArticleId) updateArticleModal();
+}
+
+function parseRoute() {
+  const raw = window.location.hash.replace("#", "") || "home";
+  if (raw === "mission") return { page: "home", anchor: "mission" };
+  if (routes.has(raw)) return { page: raw, anchor: null };
+  return { page: "home", anchor: null };
+}
+
+function showPage(shouldScroll = true) {
+  document.querySelectorAll("[data-page]").forEach((page) => {
+    page.classList.toggle("is-active", page.dataset.page === state.page);
+  });
+
+  const activeKey = state.anchor || state.page;
+  document.querySelectorAll("[data-nav-link]").forEach((link) => {
+    link.classList.toggle("is-active", link.dataset.navLink === activeKey);
+  });
+
+  updateSeo();
+
+  if (!shouldScroll) return;
+
+  requestAnimationFrame(() => {
+    if (state.anchor === "mission") {
+      document.querySelector("[data-anchor='mission']").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+function syncRoute(shouldScroll = true) {
+  const route = parseRoute();
+  state.page = route.page;
+  state.anchor = route.anchor;
+  showPage(shouldScroll);
+}
+
+function closeMenu() {
+  const header = document.querySelector("[data-header]");
+  const toggle = document.querySelector("[data-menu-toggle]");
+  header.classList.remove("is-menu-open");
+  toggle.setAttribute("aria-expanded", "false");
+}
+
+function createArticleId(title) {
+  const slug = title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 70);
+  return `${slug || "cyri-article"}-${Date.now().toString(36)}`;
+}
+
+function buildPublishedArticle(form) {
+  const data = new FormData(form);
+  const titleDe = String(data.get("titleDe") || "").trim();
+  const titleEn = String(data.get("titleEn") || "").trim() || titleDe;
+  const summaryDe = String(data.get("summaryDe") || "").trim();
+  const summaryEn = String(data.get("summaryEn") || "").trim() || summaryDe;
+  const bodyDe = String(data.get("bodyDe") || "").trim();
+  const bodyEn = String(data.get("bodyEn") || "").trim() || bodyDe;
+
+  return {
+    id: createArticleId(titleEn || titleDe),
+    date: String(data.get("date") || new Date().toISOString().slice(0, 10)),
+    category: String(data.get("category") || "policy"),
+    imageId: String(data.get("imageId") || photoSources[0].id),
+    title: {
+      en: titleEn,
+      de: titleDe,
+    },
+    summary: {
+      en: summaryEn,
+      de: summaryDe,
+    },
+    body: {
+      en: bodyEn,
+      de: bodyDe,
+    },
+  };
+}
+
+function openArticle(id) {
+  state.activeArticleId = id;
+  updateArticleModal();
+  const modal = document.querySelector("[data-article-modal]");
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("no-scroll");
+  document.querySelector("[data-modal-close]").focus();
+}
+
+function closeArticle() {
+  state.activeArticleId = null;
+  const modal = document.querySelector("[data-article-modal]");
+  modal.hidden = true;
+  modal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("no-scroll");
+}
+
+function updateArticleModal() {
+  const article = allArticles().find((item) => item.id === state.activeArticleId);
+  if (!article) return;
+  const category = getCategory(article.category);
+  const photo = getPhoto(article.imageId);
+  const body = localizedArticleValue(article, "body");
+  const photoWrap = document.querySelector("[data-modal-photo-wrap]");
+  const photoImage = document.querySelector("[data-modal-photo]");
+  const photoCredit = document.querySelector("[data-modal-credit]");
+  document.querySelector("[data-modal-category]").textContent = category[state.lang];
+  document.querySelector("[data-modal-title]").textContent = localizedArticleValue(article, "title");
+  document.querySelector("[data-modal-date]").textContent = formatDate(article.date);
+  document.querySelector("[data-modal-date]").dateTime = article.date;
+  document.querySelector("[data-modal-summary]").textContent = localizedArticleValue(article, "summary");
+  photoWrap.hidden = false;
+  photoImage.src = photo.src;
+  photoImage.alt = photo.label[state.lang];
+  photoCredit.innerHTML = `<a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(photo.credit)}</a>`;
+  document.querySelector("[data-modal-body]").innerHTML = body
+    ? body
+        .split(/\n{2,}/)
+        .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+        .join("")
+    : "";
+}
+
+function observeReveals() {
+  const revealItems = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  revealItems.forEach((item) => observer.observe(item));
+}
+
+document.addEventListener("click", (event) => {
+  const languageButton = event.target.closest("[data-lang-button]");
+  if (languageButton) {
+    state.lang = languageButton.dataset.langButton;
+    localStorage.setItem("cyri-language", state.lang);
+    updateStaticText();
+    renderDynamicContent();
+    return;
+  }
+
+  const filterButton = event.target.closest("[data-filter]");
+  if (filterButton) {
+    state.filter = filterButton.dataset.filter;
+    renderFilters();
+    renderArticles();
+    return;
+  }
+
+  const articleButton = event.target.closest("[data-article-id]");
+  if (articleButton) {
+    openArticle(articleButton.dataset.articleId);
+    return;
+  }
+
+  if (event.target.closest("[data-modal-close]")) {
+    closeArticle();
+    return;
+  }
+
+  const modal = document.querySelector("[data-article-modal]");
+  if (!modal.hidden && event.target === modal) {
+    closeArticle();
+    return;
+  }
+
+  const internalLink = event.target.closest('a[href^="#"]');
+  if (internalLink) {
+    const target = internalLink.getAttribute("href");
+    if (target.length > 1) {
+      event.preventDefault();
+      closeMenu();
+      if (window.location.hash === target) {
+        syncRoute(true);
+      } else {
+        window.location.hash = target;
+      }
+    }
+  }
+});
+
+document.querySelector("[data-menu-toggle]").addEventListener("click", () => {
+  const header = document.querySelector("[data-header]");
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const isOpen = header.classList.toggle("is-menu-open");
+  toggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+document.querySelector("[data-contact-form]").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const submitButton = form.querySelector("button[type='submit']");
+  const status = document.querySelector("[data-form-status]");
+  const data = new FormData(form);
+
+  submitButton.disabled = true;
+  status.textContent = "";
+
+  try {
+    await apiRequest("/contact", {
+      method: "POST",
+      body: {
+        name: String(data.get("name") || ""),
+        email: String(data.get("email") || ""),
+        message: String(data.get("message") || ""),
+      },
+    });
+    form.reset();
+    status.textContent = t("contact.success");
+  } catch {
+    status.textContent = t("contact.error");
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+document.querySelector("[data-publish-login]").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const passwordInput = document.querySelector("[data-publish-password]");
+  const status = document.querySelector("[data-publish-login-status]");
+  const submitButton = event.currentTarget.querySelector("button[type='submit']");
+
+  submitButton.disabled = true;
+  status.textContent = "";
+
+  try {
+    const payload = await apiRequest("/auth/publish", {
+      method: "POST",
+      body: { password: passwordInput.value },
+    });
+    state.publisherUnlocked = true;
+    state.publisherToken = payload.token;
+    sessionStorage.setItem(PUBLISH_SESSION_KEY, payload.token);
+    passwordInput.value = "";
+    status.textContent = t("publish.loginSuccess");
+    renderPublishTools();
+  } catch (error) {
+    status.textContent = error.status === 401 ? t("publish.loginError") : t("publish.backendError");
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+document.querySelector("[data-publish-form]").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const submitButton = form.querySelector("button[type='submit']");
+  const status = document.querySelector("[data-publish-status]");
+  const article = buildPublishedArticle(form);
+
+  submitButton.disabled = true;
+  status.textContent = "";
+
+  try {
+    const payload = await apiRequest("/articles", {
+      method: "POST",
+      auth: true,
+      body: article,
+    });
+    state.publishedArticles = [payload.article, ...state.publishedArticles];
+    form.reset();
+    document.querySelector("[data-publish-date]").value = new Date().toISOString().slice(0, 10);
+    status.textContent = t("publish.success");
+    renderDynamicContent();
+  } catch (error) {
+    if (error.status === 401) {
+      state.publisherUnlocked = false;
+      state.publisherToken = "";
+      sessionStorage.removeItem(PUBLISH_SESSION_KEY);
+      renderPublishTools();
+    }
+    status.textContent = t("publish.error");
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+window.addEventListener("hashchange", () => syncRoute(true));
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !document.querySelector("[data-article-modal]").hidden) {
+    closeArticle();
+  }
+});
+
+updateStaticText();
+renderDynamicContent();
+syncRoute(false);
+observeReveals();
+loadArticlesFromBackend();

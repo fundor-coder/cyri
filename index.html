@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CYRI | Youth-led climate articles</title>
+    <meta
+      name="description"
+      content="Climate Youth Research Initiative publishes understandable climate articles and works with researchers, media partners and companies."
+    />
+    <meta name="theme-color" content="#f7fbfa" />
+    <meta property="og:title" content="CYRI | Youth-led climate articles" />
+    <meta
+      property="og:description"
+      content="Independent youth-led climate articles and communication from Germany."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
+
+    <header class="site-header" data-header>
+      <nav class="nav shell" aria-label="Primary navigation">
+        <a class="brand" href="#home" aria-label="CYRI home">
+          <img class="brand-mark" src="assets/cyri-logo.svg" alt="" aria-hidden="true" />
+          <span class="brand-text">CYRI</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-controls="primary-navigation"
+          aria-expanded="false"
+          data-menu-toggle
+          data-i18n-aria="accessibility.menu"
+        >
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-panel" id="primary-navigation" data-nav-panel>
+          <div class="nav-links">
+            <a href="#home" data-nav-link="home" data-i18n="nav.home">Home</a>
+            <a href="#mission" data-nav-link="mission" data-i18n="nav.mission">Mission</a>
+            <a href="#articles" data-nav-link="articles" data-i18n="nav.articles">Articles</a>
+            <a href="#research" data-nav-link="research" data-i18n="nav.research">Partners</a>
+            <a href="#about" data-nav-link="about" data-i18n="nav.about">About</a>
+            <a href="#contact" data-nav-link="contact" data-i18n="nav.contact">Contact</a>
+          </div>
+
+          <div class="language-switcher" aria-label="Language">
+            <button type="button" data-lang-button="de">DE</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" data-lang-button="en">EN</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="page is-active" data-page="home">
+        <section class="hero section">
+          <div class="hero-inner shell">
+            <div class="hero-copy reveal">
+              <p class="eyebrow" data-i18n="hero.eyebrow">Climate Youth Research Initiative</p>
+              <h1 data-i18n="hero.title">
+                Youth-led climate articles for a more sustainable future.
+              </h1>
+              <p class="hero-subtitle" data-i18n="hero.subtitle">
+                CYRI publishes understandable climate and marine protection articles for young
+                people, educators and the public.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#articles" data-i18n="hero.primaryCta">
+                  Read Latest Articles
+                </a>
+                <a class="button button-secondary" href="#mission" data-i18n="hero.secondaryCta">
+                  Our Mission
+                </a>
+              </div>
+            </div>
+
+            <figure class="hero-visual photo-frame reveal">
+              <img
+                src="assets/photos/coral-reef-bleaching-hd.jpg"
+                alt="Bleached coral reef"
+                data-i18n-alt="hero.imageAlt"
+              />
+              <figcaption>NOAA / Wikimedia Commons</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="section mission-section" id="mission-section" data-anchor="mission">
+          <div class="shell">
+            <div class="section-heading reveal">
+              <p class="eyebrow" data-i18n="mission.eyebrow">Mission</p>
+              <h2 data-i18n="mission.title">Our Mission</h2>
+              <p data-i18n="mission.intro">
+                CYRI is an independent youth-led climate article and communication initiative based
+                in Germany.
+              </p>
+            </div>
+
+            <div class="mission-layout">
+              <div class="mission-copy reveal">
+                <p data-i18n="mission.paragraphOne">
+                  Our goal is to make climate science, climate policy and sustainability topics
+                  understandable for young people and the wider public.
+                </p>
+                <p data-i18n="mission.paragraphTwo">
+                  We publish articles based on credible sources and expert conversations. CYRI does
+                  not conduct original research.
+                </p>
+              </div>
+
+              <div class="focus-grid reveal" data-mission-focus></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section latest-section">
+          <div class="shell">
+            <div class="section-heading section-heading-row reveal">
+              <div>
+                <p class="eyebrow" data-i18n="latest.eyebrow">Latest thinking</p>
+                <h2 data-i18n="latest.title">Latest Articles</h2>
+                <p data-i18n="latest.intro">
+                  Published CYRI articles appear here automatically once they are added.
+                </p>
+              </div>
+              <a class="section-link" href="#articles" data-i18n="latest.viewAll">View all articles</a>
+            </div>
+
+            <div class="article-grid latest-grid reveal" data-latest-articles></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="articles">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="articles.eyebrow">Articles</p>
+            <h1 data-i18n="articles.title">Climate and marine protection, explained clearly.</h1>
+            <p data-i18n="articles.intro">
+              Read CYRI articles on climate protection, marine protection, renewable energy,
+              climate policy, biodiversity and sustainable cities.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell">
+            <div class="section-heading reveal">
+              <p class="eyebrow" data-i18n="articles.newestEyebrow">Newest</p>
+              <h2 data-i18n="articles.newestTitle">Newest Articles</h2>
+            </div>
+            <div class="article-grid featured-grid reveal" data-articles-newest></div>
+          </div>
+        </section>
+
+        <section class="section archive-section">
+          <div class="shell">
+            <div class="section-heading section-heading-row reveal">
+              <div>
+                <p class="eyebrow" data-i18n="articles.archiveEyebrow">Archive</p>
+                <h2 data-i18n="articles.olderTitle">Older Articles</h2>
+                <p data-i18n="articles.olderIntro">
+                  Browse previous CYRI publications by topic and format.
+                </p>
+              </div>
+              <div class="filter-row" data-article-filters aria-label="Article categories"></div>
+            </div>
+            <div class="archive-grid reveal" data-articles-older></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="research">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="research.eyebrow">Partners</p>
+            <h1 data-i18n="research.title">Working with researchers, media and companies.</h1>
+            <p data-i18n="research.intro">
+              CYRI publishes articles. We do not conduct original research, but we collaborate with
+              researchers, media partners and companies for clear climate communication and talks.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell">
+            <div class="research-grid reveal" data-research-sections></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="about">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="about.eyebrow">About</p>
+            <h1 data-i18n="about.title">An ambitious youth-led initiative from Germany.</h1>
+            <p data-i18n="about.intro">
+              CYRI is an independent youth-led climate article and communication initiative
+              currently in development.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell about-layout">
+            <div class="about-copy reveal">
+              <h2 data-i18n="about.storyTitle">Building a clear bridge between climate topics and the public.</h2>
+              <p data-i18n="about.storyOne">
+                CYRI is being developed to help young people understand climate topics, evaluate
+                public debates and participate in sustainability conversations with confidence.
+              </p>
+              <p data-i18n="about.storyTwo">
+                The initiative focuses on careful article work, accessible writing, transparent
+                sourcing and collaborations with researchers, media partners and companies for
+                talks.
+              </p>
+            </div>
+            <div class="team-section reveal">
+              <div class="section-heading small-heading">
+                <p class="eyebrow" data-i18n="about.teamEyebrow">Team</p>
+                <h2 data-i18n="about.teamTitle">Core team</h2>
+              </div>
+              <div class="team-grid" data-team></div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="contact">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+            <h1 data-i18n="contact.title">Collaborate with CYRI.</h1>
+            <p data-i18n="contact.intro">
+              Reach out for media inquiries, researcher exchange, company talks, school projects
+              and partner collaborations.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell contact-layout">
+            <form class="contact-form reveal" data-contact-form>
+              <label>
+                <span data-i18n="contact.name">Name</span>
+                <input type="text" name="name" autocomplete="name" required data-i18n-placeholder="contact.namePlaceholder" />
+              </label>
+              <label>
+                <span data-i18n="contact.email">Email</span>
+                <input type="email" name="email" autocomplete="email" required data-i18n-placeholder="contact.emailPlaceholder" />
+              </label>
+              <label>
+                <span data-i18n="contact.message">Message</span>
+                <textarea name="message" rows="6" required data-i18n-placeholder="contact.messagePlaceholder"></textarea>
+              </label>
+              <button class="button button-primary" type="submit" data-i18n="contact.submit">
+                Send Message
+              </button>
+              <p class="form-status" data-form-status aria-live="polite"></p>
+            </form>
+
+            <aside class="contact-panel reveal">
+              <p class="eyebrow" data-i18n="contact.panelEyebrow">Partnerships</p>
+              <h2 data-i18n="contact.panelTitle">Researchers, media and talks.</h2>
+              <p data-i18n="contact.panelText">
+                CYRI welcomes collaboration with researchers, media partners, schools and companies
+                interested in climate communication or talks.
+              </p>
+              <a href="mailto:hello@cyri.example" class="contact-mail">hello@cyri.example</a>
+            </aside>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="publish">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="publish.eyebrow">Publish</p>
+            <h1 data-i18n="publish.title">Publish a CYRI article.</h1>
+            <p data-i18n="publish.intro">
+              Add a new climate or marine protection article with the protected backend editor.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell publish-layout">
+            <aside class="publish-panel reveal">
+              <p class="eyebrow" data-i18n="publish.panelEyebrow">Editor access</p>
+              <h2 data-i18n="publish.panelTitle">Protected publishing backend.</h2>
+              <p data-i18n="publish.panelText">
+                This editor saves articles on the server so published posts are available to every
+                visitor.
+              </p>
+            </aside>
+
+            <div class="publish-card reveal">
+              <form class="publish-gate" data-publish-login>
+                <label>
+                  <span data-i18n="publish.password">Password</span>
+                  <input
+                    type="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                    data-publish-password
+                    data-i18n-placeholder="publish.passwordPlaceholder"
+                  />
+                </label>
+                <button class="button button-primary" type="submit" data-i18n="publish.unlock">
+                  Unlock editor
+                </button>
+                <p class="form-status" data-publish-login-status aria-live="polite"></p>
+              </form>
+
+              <form class="publish-form" data-publish-form hidden>
+                <div class="form-grid">
+                  <label>
+                    <span data-i18n="publish.titleDe">German title</span>
+                    <input type="text" name="titleDe" required data-i18n-placeholder="publish.titleDePlaceholder" />
+                  </label>
+                  <label>
+                    <span data-i18n="publish.titleEn">English title</span>
+                    <input type="text" name="titleEn" data-i18n-placeholder="publish.titleEnPlaceholder" />
+                  </label>
+                </div>
+
+                <div class="form-grid">
+                  <label>
+                    <span data-i18n="publish.category">Category</span>
+                    <select name="category" required data-publish-category></select>
+                  </label>
+                  <label>
+                    <span data-i18n="publish.date">Date</span>
+                    <input type="date" name="date" required data-publish-date />
+                  </label>
+                </div>
+
+                <label>
+                  <span data-i18n="publish.summaryDe">German summary</span>
+                  <textarea name="summaryDe" rows="3" required data-i18n-placeholder="publish.summaryDePlaceholder"></textarea>
+                </label>
+                <label>
+                  <span data-i18n="publish.summaryEn">English summary</span>
+                  <textarea name="summaryEn" rows="3" data-i18n-placeholder="publish.summaryEnPlaceholder"></textarea>
+                </label>
+                <label>
+                  <span data-i18n="publish.bodyDe">German article text</span>
+                  <textarea name="bodyDe" rows="7" required data-i18n-placeholder="publish.bodyDePlaceholder"></textarea>
+                </label>
+                <label>
+                  <span data-i18n="publish.bodyEn">English article text</span>
+                  <textarea name="bodyEn" rows="7" data-i18n-placeholder="publish.bodyEnPlaceholder"></textarea>
+                </label>
+
+                <div class="image-picker-wrap">
+                  <span class="field-label" data-i18n="publish.cover">Cover photo</span>
+                  <div class="image-picker" data-publish-images></div>
+                </div>
+
+                <button class="button button-primary" type="submit" data-i18n="publish.submit">
+                  Publish article
+                </button>
+                <p class="form-status" data-publish-status aria-live="polite"></p>
+              </form>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="imprint">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="legal.imprintEyebrow">Legal notice</p>
+            <h1 data-i18n="legal.imprintTitle">Imprint</h1>
+            <p data-i18n="legal.imprintIntro">
+              Legal information for CYRI will be added here once the public launch details are
+              finalized.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell legal-layout">
+            <article class="legal-card reveal">
+              <p class="eyebrow" data-i18n="legal.providerEyebrow">Information according to § 5 DDG</p>
+              <h2 data-i18n="legal.providerTitle">Provider</h2>
+              <dl class="legal-list">
+                <div>
+                  <dt data-i18n="legal.projectLabel">Project</dt>
+                  <dd>Climate Youth Research Initiative (CYRI)</dd>
+                </div>
+                <div>
+                  <dt data-i18n="legal.operatorLabel">Operators</dt>
+                  <dd>Tobias Göpper und Jarne Bub</dd>
+                </div>
+                <div>
+                  <dt data-i18n="legal.statusLabel">Status</dt>
+                  <dd data-i18n="legal.statusText">
+                    Independent youth-led initiative currently in development; not a registered NGO
+                    or incorporated association.
+                  </dd>
+                </div>
+                <div>
+                  <dt data-i18n="legal.addressLabel">Address</dt>
+                  <dd data-i18n="legal.addressText">
+                    [Full summonable address must be added before public launch.]
+                  </dd>
+                </div>
+                <div>
+                  <dt data-i18n="legal.emailLabel">Email</dt>
+                  <dd><a href="mailto:hello@cyri.example">hello@cyri.example</a></dd>
+                </div>
+                <div>
+                  <dt data-i18n="legal.phoneLabel">Phone</dt>
+                  <dd data-i18n="legal.phoneText">[Optional phone number, if used.]</dd>
+                </div>
+              </dl>
+            </article>
+
+            <article class="legal-card reveal">
+              <p class="eyebrow" data-i18n="legal.editorialEyebrow">Editorial responsibility</p>
+              <h2 data-i18n="legal.editorialTitle">Responsible under § 18 Abs. 2 MStV</h2>
+              <p data-i18n="legal.editorialText">
+                Tobias Göpper and Jarne Bub are responsible for editorial article content. A full
+                address for the responsible person must be added before public launch.
+              </p>
+            </article>
+
+            <article class="legal-card reveal">
+              <p class="eyebrow" data-i18n="legal.liabilityEyebrow">Liability notice</p>
+              <h2 data-i18n="legal.liabilityTitle">Liability for content</h2>
+              <p data-i18n="legal.liabilityContent">
+                CYRI creates article content with care. However, no guarantee is given for
+                correctness, completeness, timeliness or suitability for a particular purpose. The
+                content is for general information and does not replace professional advice.
+                Liability is excluded to the extent permitted by law. Mandatory liability,
+                especially for intent, gross negligence and injury to life, body or health, remains
+                unaffected.
+              </p>
+            </article>
+
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.linksTitle">Liability for external links</h2>
+              <p data-i18n="legal.linksText">
+                External links lead to third-party content. The respective providers are responsible
+                for their own content. Linked pages were checked for obvious legal violations when
+                the links were created. If CYRI becomes aware of illegal content, the relevant links
+                will be removed.
+              </p>
+            </article>
+
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.copyrightTitle">Copyright and image credits</h2>
+              <p data-i18n="legal.copyrightText">
+                Texts, layout and original CYRI content are protected by copyright unless otherwise
+                stated. Third-party images are used with source and license information shown near
+                the image or in the documentation.
+              </p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="privacy">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="legal.privacyEyebrow">Privacy</p>
+            <h1 data-i18n="legal.privacyTitle">Privacy notice</h1>
+            <p data-i18n="legal.privacyIntro">
+              This website sends contact messages and protected publishing requests to the CYRI
+              backend.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell legal-layout">
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.localDataTitle">Backend data</h2>
+              <p data-i18n="legal.localDataText">
+                Contact messages are stored on the server for processing. Published articles are
+                stored in the article backend. A complete privacy policy should be finalized before
+                public launch.
+              </p>
+            </article>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#home" aria-label="CYRI home">
+            <img class="brand-mark" src="assets/cyri-logo.svg" alt="" aria-hidden="true" />
+            <span class="brand-text">CYRI</span>
+          </a>
+          <p data-i18n="footer.statement">
+            Youth-led climate articles and communication for a more sustainable future.
+          </p>
+        </div>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#home" data-i18n="nav.home">Home</a>
+          <a href="#mission" data-i18n="nav.mission">Mission</a>
+          <a href="#articles" data-i18n="nav.articles">Articles</a>
+          <a href="#research" data-i18n="nav.research">Partners</a>
+          <a href="#about" data-i18n="nav.about">About</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+
+        <div class="footer-language">
+          <h2 data-i18n="footer.language">Language</h2>
+          <div class="language-switcher">
+            <button type="button" data-lang-button="de">DE</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" data-lang-button="en">EN</button>
+          </div>
+        </div>
+
+        <div class="footer-social">
+          <h2 data-i18n="footer.social">Social</h2>
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a href="https://x.com/" target="_blank" rel="noreferrer">X</a>
+        </div>
+      </div>
+
+      <div class="shell footer-legal">
+        <p>© 2026 CYRI</p>
+        <nav aria-label="Legal and editor links">
+          <a href="#imprint" data-i18n="footer.imprint">Imprint</a>
+          <a href="#privacy" data-i18n="footer.privacy">Privacy</a>
+          <a href="#publish" data-i18n="nav.publish">Publish</a>
+        </nav>
+      </div>
+    </footer>
+
+    <div class="article-modal" data-article-modal hidden aria-hidden="true">
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" type="button" data-modal-close data-i18n-aria="accessibility.close">×</button>
+        <p class="article-category" data-modal-category></p>
+        <h2 id="modal-title" data-modal-title></h2>
+        <time data-modal-date></time>
+        <figure class="modal-photo" data-modal-photo-wrap hidden>
+          <img src="" alt="" data-modal-photo />
+          <figcaption data-modal-credit></figcaption>
+        </figure>
+        <p data-modal-summary></p>
+        <div class="modal-body" data-modal-body></div>
+        <p class="modal-note" data-i18n="articles.modalNote">
+          Photo sources are shown in the lower corner of each image.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

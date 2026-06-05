@@ -1,0 +1,392 @@
+const crypto = require("node:crypto");
+const fs = require("node:fs/promises");
+const http = require("node:http");
+const path = require("node:path");
+
+const PORT = Number(process.env.PORT || 5173);
+const PUBLIC_ROOT = __dirname;
+const DATA_DIR = path.join(__dirname, "data");
+const ARTICLES_FILE = path.join(DATA_DIR, "articles.json");
+const MESSAGES_FILE = path.join(DATA_DIR, "messages.json");
+const DEFAULT_PUBLISH_PASSWORD_HASH =
+  "c5adc9b61a9c18a6ad1a7489725c79cfcd3ef6a5980d6eeece1065b51a546336";
+const SESSION_DURATION_MS = 1000 * 60 * 60 * 12;
+const MAX_JSON_BODY_SIZE = 1024 * 1024;
+
+const allowedCategories = new Set(["policy", "energy", "biodiversity", "cities", "marine"]);
+const allowedImages = new Set(["coral", "marine-debris", "mangrove", "glacier", "solar"]);
+const publishSessions = new Map();
+
+const mimeTypes = {
+  ".css": "text/css; charset=utf-8",
+  ".html": "text/html; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".svg": "image/svg+xml",
+  ".webp": "image/webp",
+};
+
+function createError(statusCode, message) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
+
+function sha256(value) {
+  return crypto.createHash("sha256").update(value, "utf8").digest("hex");
+}
+
+function currentPublishPasswordHash() {
+  if (process.env.CYRI_PUBLISH_PASSWORD_HASH) {
+    return process.env.CYRI_PUBLISH_PASSWORD_HASH.trim();
+  }
+
+  if (process.env.CYRI_PUBLISH_PASSWORD) {
+    return sha256(process.env.CYRI_PUBLISH_PASSWORD);
+  }
+
+  return DEFAULT_PUBLISH_PASSWORD_HASH;
+}
+
+function timingSafeHexCompare(left, right) {
+  if (!/^[a-f0-9]{64}$/i.test(left) || !/^[a-f0-9]{64}$/i.test(right)) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(Buffer.from(left, "hex"), Buffer.from(right, "hex"));
+}
+
+function cleanupSessions() {
+  const now = Date.now();
+  for (const [token, session] of publishSessions) {
+    if (session.expiresAt <= now) {
+      publishSessions.delete(token);
+    }
+  }
+}
+
+function createPublishSession() {
+  cleanupSessions();
+  const token = crypto.randomBytes(32).toString("hex");
+  const expiresAt = Date.now() + SESSION_DURATION_MS;
+  publishSessions.set(token, { expiresAt });
+  return { token, expiresAt: new Date(expiresAt).toISOString() };
+}
+
+function requirePublishSession(req) {
+  cleanupSessions();
+  const header = req.headers.authorization || "";
+  const token = header.startsWith("Bearer ") ? header.slice(7).trim() : "";
+  const session = publishSessions.get(token);
+
+  if (!session) {
+    throw createError(401, "Publish login required.");
+  }
+}
+
+async function ensureDataFiles() {
+  await fs.mkdir(DATA_DIR, { recursive: true });
+  await ensureJsonFile(ARTICLES_FILE, []);
+  await ensureJsonFile(MESSAGES_FILE, []);
+}
+
+async function ensureJsonFile(filePath, fallback) {
+  try {
+    await fs.access(filePath);
+  } catch {
+    await writeJsonFile(filePath, fallback);
+  }
+}
+
+async function readJsonFile(filePath, fallback) {
+  try {
+    const raw = await fs.readFile(filePath, "utf8");
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+async function writeJsonFile(filePath, value) {
+  const tmpPath = `${filePath}.${process.pid}.tmp`;
+  await fs.writeFile(tmpPath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+  await fs.rename(tmpPath, filePath);
+}
+
+function sendJson(res, statusCode, payload) {
+  res.writeHead(statusCode, {
+    "Content-Type": "application/json; charset=utf-8",
+    "Cache-Control": "no-store",
+  });
+  res.end(JSON.stringify(payload));
+}
+
+function sendError(res, error) {
+  const statusCode = error.statusCode || 500;
+  const message = statusCode === 500 ? "Internal server error." : error.message;
+  sendJson(res, statusCode, { error: message });
+}
+
+async function readRequestJson(req) {
+  let size = 0;
+  let raw = "";
+
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > MAX_JSON_BODY_SIZE) {
+      throw createError(413, "Request body is too large.");
+    }
+    raw += chunk;
+  }
+
+  if (!raw.trim()) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    throw createError(400, "Request body must be valid JSON.");
+  }
+}
+
+function cleanText(value, maxLength) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  return text.slice(0, maxLength);
+}
+
+function cleanMultilineText(value, maxLength) {
+  const text = String(value || "")
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  return text.slice(0, maxLength);
+}
+
+function cleanEmail(value) {
+  const email = cleanText(value, 254).toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    throw createError(400, "A valid email address is required.");
+  }
+  return email;
+}
+
+function validateDate(value) {
+  const date = cleanText(value, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw createError(400, "A valid date is required.");
+  }
+
+  const parsed = new Date(`${date}T12:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) {
+    throw createError(400, "A valid date is required.");
+  }
+
+  return date;
+}
+
+function slugify(value) {
+  return cleanText(value, 120)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 70);
+}
+
+function createArticleId(title, existingArticles) {
+  const slug = slugify(title) || "cyri-article";
+  let id = `${slug}-${Date.now().toString(36)}`;
+  let counter = 2;
+
+  while (existingArticles.some((article) => article.id === id)) {
+    id = `${slug}-${Date.now().toString(36)}-${counter}`;
+    counter += 1;
+  }
+
+  return id;
+}
+
+function normalizeArticle(input, existingArticles) {
+  const titleDe = cleanText(input?.title?.de, 180);
+  const titleEn = cleanText(input?.title?.en || titleDe, 180);
+  const summaryDe = cleanText(input?.summary?.de, 520);
+  const summaryEn = cleanText(input?.summary?.en || summaryDe, 520);
+  const bodyDe = cleanMultilineText(input?.body?.de, 20000);
+  const bodyEn = cleanMultilineText(input?.body?.en || bodyDe, 20000);
+  const category = cleanText(input?.category, 40);
+  const imageId = cleanText(input?.imageId, 40);
+
+  if (!titleDe || !summaryDe || !bodyDe) {
+    throw createError(400, "German title, summary and article text are required.");
+  }
+
+  if (!allowedCategories.has(category)) {
+    throw createError(400, "Unknown article category.");
+  }
+
+  if (!allowedImages.has(imageId)) {
+    throw createError(400, "Unknown cover image.");
+  }
+
+  return {
+    id: createArticleId(titleEn || titleDe, existingArticles),
+    date: validateDate(input?.date || new Date().toISOString().slice(0, 10)),
+    category,
+    imageId,
+    title: {
+      de: titleDe,
+      en: titleEn,
+    },
+    summary: {
+      de: summaryDe,
+      en: summaryEn,
+    },
+    body: {
+      de: bodyDe,
+      en: bodyEn,
+    },
+    createdAt: new Date().toISOString(),
+  };
+}
+
+function normalizeMessage(input) {
+  const name = cleanText(input?.name, 120);
+  const email = cleanEmail(input?.email);
+  const message = cleanMultilineText(input?.message, 5000);
+
+  if (!name || !message) {
+    throw createError(400, "Name and message are required.");
+  }
+
+  return {
+    id: crypto.randomUUID(),
+    name,
+    email,
+    message,
+    createdAt: new Date().toISOString(),
+  };
+}
+
+function sortArticlesByDate(articles) {
+  return [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+async function handleApi(req, res, url) {
+  if (url.pathname === "/api/health" && req.method === "GET") {
+    sendJson(res, 200, { ok: true });
+    return;
+  }
+
+  if (url.pathname === "/api/articles" && req.method === "GET") {
+    const articles = await readJsonFile(ARTICLES_FILE, []);
+    sendJson(res, 200, { articles: sortArticlesByDate(articles) });
+    return;
+  }
+
+  if (url.pathname === "/api/auth/publish" && req.method === "POST") {
+    const body = await readRequestJson(req);
+    const passwordHash = sha256(String(body.password || ""));
+
+    if (!timingSafeHexCompare(passwordHash, currentPublishPasswordHash())) {
+      throw createError(401, "Wrong password.");
+    }
+
+    sendJson(res, 200, createPublishSession());
+    return;
+  }
+
+  if (url.pathname === "/api/articles" && req.method === "POST") {
+    requirePublishSession(req);
+    const body = await readRequestJson(req);
+    const articles = await readJsonFile(ARTICLES_FILE, []);
+    const article = normalizeArticle(body, articles);
+    const nextArticles = [article, ...articles];
+    await writeJsonFile(ARTICLES_FILE, nextArticles);
+    sendJson(res, 201, { article });
+    return;
+  }
+
+  if (url.pathname === "/api/contact" && req.method === "POST") {
+    const body = await readRequestJson(req);
+    const messages = await readJsonFile(MESSAGES_FILE, []);
+    const message = normalizeMessage(body);
+    await writeJsonFile(MESSAGES_FILE, [message, ...messages]);
+    sendJson(res, 201, { ok: true });
+    return;
+  }
+
+  sendJson(res, 404, { error: "API route not found." });
+}
+
+async function handleStatic(req, res, url) {
+  if (req.method !== "GET" && req.method !== "HEAD") {
+    throw createError(405, "Method not allowed.");
+  }
+
+  const requestPath = decodeURIComponent(url.pathname);
+  const allowed =
+    requestPath === "/" ||
+    requestPath === "/index.html" ||
+    requestPath === "/app.js" ||
+    requestPath === "/styles.css" ||
+    requestPath.startsWith("/assets/");
+
+  if (!allowed) {
+    throw createError(404, "Not found.");
+  }
+
+  const relativePath = requestPath === "/" ? "index.html" : requestPath.replace(/^\/+/, "");
+  const filePath = path.resolve(PUBLIC_ROOT, relativePath);
+
+  if (!filePath.startsWith(PUBLIC_ROOT + path.sep)) {
+    throw createError(403, "Forbidden.");
+  }
+
+  const data = await fs.readFile(filePath);
+  const contentType = mimeTypes[path.extname(filePath).toLowerCase()] || "application/octet-stream";
+  res.writeHead(200, {
+    "Content-Type": contentType,
+    "Cache-Control": contentType.startsWith("text/html") ? "no-store" : "public, max-age=3600",
+  });
+
+  if (req.method === "HEAD") {
+    res.end();
+    return;
+  }
+
+  res.end(data);
+}
+
+async function handleRequest(req, res) {
+  try {
+    const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+
+    if (url.pathname.startsWith("/api/")) {
+      await handleApi(req, res, url);
+      return;
+    }
+
+    await handleStatic(req, res, url);
+  } catch (error) {
+    sendError(res, error);
+  }
+}
+
+async function start() {
+  await ensureDataFiles();
+  const server = http.createServer(handleRequest);
+  server.listen(PORT, () => {
+    console.log(`CYRI backend running at http://localhost:${PORT}/`);
+  });
+}
+
+start().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

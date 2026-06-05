@@ -1,0 +1,13 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^data/ - [F,L]
+  RewriteRule ^server\.js$ - [F,L]
+  RewriteRule ^package\.json$ - [F,L]
+  RewriteRule ^package-lock\.json$ - [F,L]
+</IfModule>
+
+<FilesMatch "^(server\.js|package\.json|package-lock\.json|README\.md)$">
+  Require all denied
+</FilesMatch>
