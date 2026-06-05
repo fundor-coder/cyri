@@ -1,7 +1,12 @@
 Options -Indexes
 
+<IfModule mod_setenvif.c>
+  SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
   RewriteRule ^data/ - [F,L]
   RewriteRule ^server\.js$ - [F,L]
   RewriteRule ^package\.json$ - [F,L]

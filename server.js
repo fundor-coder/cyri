@@ -277,6 +277,15 @@ function sortArticlesByDate(articles) {
   return [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
+function normalizeApiPath(url) {
+  if (url.pathname !== "/backend.php" && url.pathname !== "/api/index.php") {
+    return;
+  }
+
+  const route = url.searchParams.get("route") || "/health";
+  url.pathname = `/api/${route.replace(/^\/+/, "")}`;
+}
+
 async function handleApi(req, res, url) {
   if (url.pathname === "/api/health" && req.method === "GET") {
     sendJson(res, 200, { ok: true });
@@ -366,6 +375,7 @@ async function handleStatic(req, res, url) {
 async function handleRequest(req, res) {
   try {
     const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+    normalizeApiPath(url);
 
     if (url.pathname.startsWith("/api/")) {
       await handleApi(req, res, url);

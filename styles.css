@@ -17,6 +17,16 @@
   box-sizing: border-box;
 }
 
+body,
+main,
+section,
+div,
+article,
+aside,
+form {
+  min-width: 0;
+}
+
 [hidden] {
   display: none !important;
 }
@@ -62,6 +72,7 @@ select {
 button,
 input,
 textarea {
+  max-width: 100%;
   font: inherit;
   letter-spacing: 0;
 }
@@ -434,6 +445,7 @@ h3 {
 .contact-form,
 .contact-panel,
 .legal-card {
+  overflow: hidden;
   border: 1px solid rgba(18, 22, 29, 0.09);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.86);
@@ -820,6 +832,7 @@ h3 {
 
 .publish-panel,
 .publish-card {
+  overflow: hidden;
   border: 1px solid rgba(18, 22, 29, 0.09);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.9);
@@ -1027,6 +1040,8 @@ h3 {
 
 .modal-panel {
   width: min(680px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.96);

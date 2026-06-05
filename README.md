@@ -5,14 +5,15 @@ A bilingual CYRI website with structured article data, hash-based page tabs, a p
 Run `npm start` and open `http://localhost:5173/` to view the site with the backend enabled.
 
 Backend routes:
-- `GET /api/articles` returns published articles from `data/articles.json`.
-- `POST /api/auth/publish` checks the publish password and returns a temporary session token.
-- `POST /api/articles` stores a new article when the session token is valid.
-- `POST /api/contact` stores contact messages in `data/messages.json`.
+- `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
+- `POST backend.php?route=/auth/publish` checks the publish password and returns a temporary session token.
+- `POST backend.php?route=/articles` stores a new article when the session token is valid.
+- `POST backend.php?route=/contact` stores contact messages in `data/messages.json`.
+- The older `/api/...` paths still work through `api/index.php`, which forwards to `backend.php`.
 
 Deployment:
 - Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app.
-- PHP/Apache hosting: upload the full folder. The `api/index.php` backend and `.htaccess` files are included for normal webhosting uploads. Make sure the `data` folder is writable.
+- PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable.
 - Static-only hosting is not enough for publishing or contact messages, because those features need the backend.
 
 For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment instead of relying on the local default.

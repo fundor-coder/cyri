@@ -66,7 +66,7 @@ const photoSources = [
   },
 ];
 
-const API_BASES = ["api", "api/index.php?route="];
+const API_BASES = ["backend.php?route=", "api", "api/index.php?route="];
 const PUBLISH_SESSION_KEY = "cyri-publish-token";
 
 const content = {
