@@ -197,7 +197,7 @@ const content = {
       teamTitle: "Core team",
       team: [
         {
-          name: "Tobias Göpper",
+          name: "Tobias Göppert",
           role: "Co-founder & editorial lead",
           text: "Co-founded CYRI and leads article direction, public positioning, editorial standards and source-based climate articles.",
         },
@@ -280,7 +280,7 @@ const content = {
       editorialEyebrow: "Editorial responsibility",
       editorialTitle: "Responsible under § 18 Abs. 2 MStV",
       editorialText:
-        "Tobias Göpper and Jarne Bub are responsible for editorial article content. A full address for the responsible person must be added before public launch.",
+        "Tobias Göppert and Jarne Bub are responsible for editorial article content. A full address for the responsible person must be added before public launch.",
       liabilityEyebrow: "Liability notice",
       liabilityTitle: "Liability for content",
       liabilityContent:
@@ -434,7 +434,7 @@ const content = {
       teamTitle: "Kernteam",
       team: [
         {
-          name: "Tobias Göpper",
+          name: "Tobias Göppert",
           role: "Mitgründer & redaktionelle Leitung",
           text: "Hat CYRI mitgegründet und leitet Artikelstrategie, öffentliche Positionierung, redaktionelle Standards und quellenbasierte Klimaartikel.",
         },
@@ -517,7 +517,7 @@ const content = {
       editorialEyebrow: "Redaktionelle Verantwortung",
       editorialTitle: "Verantwortlich nach § 18 Abs. 2 MStV",
       editorialText:
-        "Tobias Göpper und Jarne Bub sind für redaktionelle Artikelinhalte verantwortlich. Eine vollständige Anschrift der verantwortlichen Person muss vor einem öffentlichen Launch ergänzt werden.",
+        "Tobias Göppert und Jarne Bub sind für redaktionelle Artikelinhalte verantwortlich. Eine vollständige Anschrift der verantwortlichen Person muss vor einem öffentlichen Launch ergänzt werden.",
       liabilityEyebrow: "Haftungshinweis",
       liabilityTitle: "Haftung für Inhalte",
       liabilityContent:
