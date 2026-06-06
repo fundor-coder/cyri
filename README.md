@@ -9,11 +9,11 @@ Backend routes:
 - `POST backend.php?route=/auth/publish` checks the publish password and returns a temporary session token.
 - `POST backend.php?route=/articles` stores a new article when the session token is valid.
 - `POST backend.php?route=/contact` stores contact messages in `data/messages.json`.
-- The older `/api/...` paths still work through `api/index.php`, which forwards to `backend.php`.
+- `/api/...` paths also work on Node and through the root Apache rewrite.
 
 Deployment:
 - Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app.
-- PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable.
+- PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically.
 - Static-only hosting is not enough for publishing or contact messages, because those features need the backend.
 
 Docker / Node server:

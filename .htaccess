@@ -7,12 +7,13 @@ Options -Indexes
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+  RewriteRule ^api/?$ backend.php?route=/health [L,QSA]
+  RewriteRule ^api/(.*)$ backend.php?route=/$1 [L,QSA]
+  RewriteRule ^\.git/ - [F,L]
   RewriteRule ^data/ - [F,L]
-  RewriteRule ^server\.js$ - [F,L]
-  RewriteRule ^package\.json$ - [F,L]
-  RewriteRule ^package-lock\.json$ - [F,L]
+  RewriteRule ^(server\.js|package\.json|package-lock\.json|Dockerfile|\.dockerignore|\.gitignore)$ - [F,L]
 </IfModule>
 
-<FilesMatch "^(server\.js|package\.json|package-lock\.json|README\.md)$">
+<FilesMatch "^(server\.js|package\.json|package-lock\.json|README\.md|Dockerfile|\.dockerignore|\.gitignore)$">
   Require all denied
 </FilesMatch>

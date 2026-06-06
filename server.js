@@ -278,7 +278,7 @@ function sortArticlesByDate(articles) {
 }
 
 function normalizeApiPath(url) {
-  if (url.pathname !== "/backend.php" && url.pathname !== "/api/index.php") {
+  if (url.pathname !== "/backend.php") {
     return;
   }
 
