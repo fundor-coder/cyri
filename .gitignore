@@ -6,4 +6,6 @@ npm-debug.log*
 *.tmp
 data/*.tmp
 data/*.json
+data/*.bak
+data/*.lock
 data/uploads/

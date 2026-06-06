@@ -1,0 +1,16 @@
+services:
+  cyri:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      CYRI_DATA_DIR: /app/data
+      CYRI_PUBLISH_PASSWORD: ${CYRI_PUBLISH_PASSWORD:-}
+      CYRI_PUBLISH_PASSWORD_HASH: ${CYRI_PUBLISH_PASSWORD_HASH:-}
+    volumes:
+      - cyri-data:/app/data
+
+volumes:
+  cyri-data:
+    name: cyri-data

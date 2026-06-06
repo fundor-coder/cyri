@@ -13,9 +13,10 @@ Backend routes:
 - `/api/...` paths also work on Node and through the root Apache rewrite.
 
 Deployment:
-- Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app.
-- PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically.
+- Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app. Set `CYRI_DATA_DIR` to a persistent server directory when the host uses ephemeral deployments.
+- PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically. `CYRI_DATA_DIR` can point to storage outside the deployment folder.
 - Static-only hosting is not enough for publishing or contact messages, because those features need the backend.
+- GitHub Pages can display the frontend, but it cannot store published articles. Use the Node/Docker or PHP deployment as the production website when publishing must work.
 
 Scheduled publishing:
 - Select `Schedule for later` in the protected publishing editor and choose a local date and time.
@@ -25,7 +26,14 @@ Scheduled publishing:
 Docker / Node server:
 - Build the optimized Node image with `docker build -t cyri-website .`.
 - Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='France2026!' cyri-website`.
+- Or use `docker compose up -d --build`; `compose.yaml` automatically mounts the named `cyri-data` volume.
 - Open `http://localhost:5173/`. Published articles, uploaded photos and contact messages are stored in the `cyri-data` volume.
+- Do not delete the `cyri-data` volume during updates. `docker compose down` keeps it; `docker compose down -v` deletes it.
+
+Persistent storage:
+- Articles are stored in `articles.json`; uploaded photos are stored in `uploads`.
+- Every JSON update keeps a complete mirrored copy in a `.bak` file.
+- If the main JSON file becomes unreadable, the backend restores it automatically from that backup.
 
 For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment instead of relying on the local default.
 

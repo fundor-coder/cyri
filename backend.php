@@ -7,7 +7,10 @@ const SESSION_DURATION_SECONDS = 43200;
 const MAX_BODY_SIZE = 4194304;
 const MAX_UPLOAD_SIZE = 2621440;
 
-$dataDir = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+$configuredDataDir = getenv('CYRI_DATA_DIR');
+$dataDir = is_string($configuredDataDir) && trim($configuredDataDir) !== ''
+    ? rtrim(trim($configuredDataDir), DIRECTORY_SEPARATOR)
+    : __DIR__ . DIRECTORY_SEPARATOR . 'data';
 $uploadsDir = $dataDir . DIRECTORY_SEPARATOR . 'uploads';
 $articlesFile = $dataDir . DIRECTORY_SEPARATOR . 'articles.json';
 $messagesFile = $dataDir . DIRECTORY_SEPARATOR . 'messages.json';
@@ -59,22 +62,92 @@ function ensure_json_file(string $filePath): void
 
 function read_json_file(string $filePath): array
 {
+    $parsed = parse_json_array($filePath);
+    if ($parsed !== null) {
+        return $parsed;
+    }
+
+    $backup = parse_json_array($filePath . '.bak');
+    if ($backup !== null) {
+        write_json_file($filePath, $backup, false);
+        return $backup;
+    }
+
     ensure_json_file($filePath);
-    $raw = file_get_contents($filePath);
-    $parsed = json_decode($raw === false ? '[]' : $raw, true);
-    return is_array($parsed) ? $parsed : [];
+    return [];
 }
 
-function write_json_file(string $filePath, array $value): void
+function parse_json_array(string $filePath): ?array
+{
+    if (!is_file($filePath)) {
+        return null;
+    }
+
+    $raw = file_get_contents($filePath);
+    if ($raw === false) {
+        return null;
+    }
+
+    $parsed = json_decode($raw, true);
+    return is_array($parsed) ? $parsed : null;
+}
+
+function write_json_file(string $filePath, array $value, bool $createBackup = true): void
 {
     ensure_json_file($filePath);
     $tmpPath = $filePath . '.' . getmypid() . '.tmp';
-    file_put_contents(
-        $tmpPath,
-        json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n",
-        LOCK_EX
-    );
-    rename($tmpPath, $filePath);
+    $backupPath = $filePath . '.bak';
+    $backupTmpPath = $backupPath . '.' . getmypid() . '.tmp';
+    $serialized = json_encode(
+        $value,
+        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+    ) . "\n";
+    $written = file_put_contents($tmpPath, $serialized, LOCK_EX);
+    if ($written === false || !rename($tmpPath, $filePath)) {
+        @unlink($tmpPath);
+        fail(500, 'Stored data could not be written.');
+    }
+
+    if ($createBackup) {
+        $backupWritten = file_put_contents($backupTmpPath, $serialized, LOCK_EX);
+        if ($backupWritten === false || !rename($backupTmpPath, $backupPath)) {
+            @unlink($backupTmpPath);
+            fail(500, 'Stored data could not be backed up.');
+        }
+    }
+}
+
+function mutate_json_file(string $filePath, callable $mutator)
+{
+    $dir = dirname($filePath);
+    if (!is_dir($dir) && !mkdir($dir, 0755, true) && !is_dir($dir)) {
+        fail(500, 'Storage directory could not be created.');
+    }
+
+    $lock = fopen($filePath . '.lock', 'c');
+    if ($lock === false || !flock($lock, LOCK_EX)) {
+        if (is_resource($lock)) {
+            fclose($lock);
+        }
+        fail(500, 'Stored data could not be locked.');
+    }
+
+    try {
+        $mutation = $mutator(read_json_file($filePath));
+        if (
+            !is_array($mutation) ||
+            !array_key_exists('value', $mutation) ||
+            !is_array($mutation['value'])
+        ) {
+            fail(500, 'Stored data mutation is invalid.');
+        }
+
+        write_json_file($filePath, $mutation['value']);
+        return $mutation['result'] ?? null;
+    } finally {
+        flock($lock, LOCK_UN);
+        fclose($lock);
+    }
 }
 
 function read_request_json(): array
@@ -453,10 +526,23 @@ if ($route === '/auth/publish' && $method === 'POST') {
 if ($route === '/articles' && $method === 'POST') {
     require_publish_session($sessionsFile);
     $body = read_request_json();
-    $articles = read_json_file($articlesFile);
-    $article = normalize_article($body, $articles, $allowedCategories, $allowedImages, $uploadsDir);
-    array_unshift($articles, $article);
-    write_json_file($articlesFile, $articles);
+    $article = mutate_json_file(
+        $articlesFile,
+        function (array $articles) use ($body, $allowedCategories, $allowedImages, $uploadsDir): array {
+            $article = normalize_article(
+                $body,
+                $articles,
+                $allowedCategories,
+                $allowedImages,
+                $uploadsDir
+            );
+            array_unshift($articles, $article);
+            return [
+                'value' => $articles,
+                'result' => $article,
+            ];
+        }
+    );
     send_json(201, [
         'article' => $article,
         'scheduled' => !article_is_published($article),
@@ -470,10 +556,17 @@ if ($route === '/uploads' && $method === 'POST') {
 
 if ($route === '/contact' && $method === 'POST') {
     $body = read_request_json();
-    $messages = read_json_file($messagesFile);
-    $message = normalize_message($body);
-    array_unshift($messages, $message);
-    write_json_file($messagesFile, $messages);
+    $message = mutate_json_file(
+        $messagesFile,
+        function (array $messages) use ($body): array {
+            $message = normalize_message($body);
+            array_unshift($messages, $message);
+            return [
+                'value' => $messages,
+                'result' => $message,
+            ];
+        }
+    );
     send_json(201, ['ok' => true]);
 }
 

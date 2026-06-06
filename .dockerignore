@@ -8,6 +8,8 @@ compose.yaml
 
 # Runtime state should live in a Docker volume, not inside the image.
 data/*.json
+data/*.bak
+data/*.lock
 data/*.tmp
 
 # PHP/Apache deployment files are not needed for the Node image.

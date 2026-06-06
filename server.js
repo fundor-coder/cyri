@@ -5,7 +5,7 @@ const path = require("node:path");
 
 const PORT = Number(process.env.PORT || 5173);
 const PUBLIC_ROOT = __dirname;
-const DATA_DIR = path.join(__dirname, "data");
+const DATA_DIR = path.resolve(process.env.CYRI_DATA_DIR || path.join(__dirname, "data"));
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const ARTICLES_FILE = path.join(DATA_DIR, "articles.json");
 const MESSAGES_FILE = path.join(DATA_DIR, "messages.json");
@@ -18,6 +18,7 @@ const MAX_UPLOAD_SIZE = 2.5 * 1024 * 1024;
 const allowedCategories = new Set(["policy", "energy", "biodiversity", "cities", "marine"]);
 const allowedImages = new Set(["coral", "marine-debris", "mangrove", "glacier", "solar"]);
 const publishSessions = new Map();
+const writeQueues = new Map();
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -106,18 +107,58 @@ async function ensureJsonFile(filePath, fallback) {
 
 async function readJsonFile(filePath, fallback) {
   try {
-    const raw = await fs.readFile(filePath, "utf8");
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : fallback;
+    return await parseJsonArray(filePath);
   } catch {
-    return fallback;
+    try {
+      const recovered = await parseJsonArray(`${filePath}.bak`);
+      await writeJsonFile(filePath, recovered, false);
+      return recovered;
+    } catch {
+      return fallback;
+    }
   }
 }
 
-async function writeJsonFile(filePath, value) {
+async function parseJsonArray(filePath) {
+  const raw = await fs.readFile(filePath, "utf8");
+  const parsed = JSON.parse(raw);
+  if (!Array.isArray(parsed)) {
+    throw new Error("Stored JSON value must be an array.");
+  }
+  return parsed;
+}
+
+async function writeJsonFile(filePath, value, createBackup = true) {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
   const tmpPath = `${filePath}.${process.pid}.tmp`;
-  await fs.writeFile(tmpPath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
-  await fs.rename(tmpPath, filePath);
+  const backupPath = `${filePath}.bak`;
+  const backupTmpPath = `${backupPath}.${process.pid}.tmp`;
+  const serialized = `${JSON.stringify(value, null, 2)}\n`;
+
+  try {
+    await fs.writeFile(tmpPath, serialized, "utf8");
+    await fs.rename(tmpPath, filePath);
+    if (createBackup) {
+      await fs.writeFile(backupTmpPath, serialized, "utf8");
+      await fs.rename(backupTmpPath, backupPath);
+    }
+  } finally {
+    await fs.rm(tmpPath, { force: true });
+    await fs.rm(backupTmpPath, { force: true });
+  }
+}
+
+function serializeFileWrite(filePath, task) {
+  const previous = writeQueues.get(filePath) || Promise.resolve();
+  const operation = previous.then(task, task);
+  const tail = operation.catch(() => {});
+  writeQueues.set(filePath, tail);
+  tail.finally(() => {
+    if (writeQueues.get(filePath) === tail) {
+      writeQueues.delete(filePath);
+    }
+  });
+  return operation;
 }
 
 function sendJson(res, statusCode, payload) {
@@ -381,10 +422,12 @@ async function handleApi(req, res, url) {
   if (url.pathname === "/api/articles" && req.method === "POST") {
     requirePublishSession(req);
     const body = await readRequestJson(req);
-    const articles = await readJsonFile(ARTICLES_FILE, []);
-    const article = await normalizeArticle(body, articles);
-    const nextArticles = [article, ...articles];
-    await writeJsonFile(ARTICLES_FILE, nextArticles);
+    const article = await serializeFileWrite(ARTICLES_FILE, async () => {
+      const articles = await readJsonFile(ARTICLES_FILE, []);
+      const nextArticle = await normalizeArticle(body, articles);
+      await writeJsonFile(ARTICLES_FILE, [nextArticle, ...articles]);
+      return nextArticle;
+    });
     sendJson(res, 201, {
       article,
       scheduled: !isArticlePublished(article),
@@ -401,9 +444,12 @@ async function handleApi(req, res, url) {
 
   if (url.pathname === "/api/contact" && req.method === "POST") {
     const body = await readRequestJson(req);
-    const messages = await readJsonFile(MESSAGES_FILE, []);
-    const message = normalizeMessage(body);
-    await writeJsonFile(MESSAGES_FILE, [message, ...messages]);
+    const message = await serializeFileWrite(MESSAGES_FILE, async () => {
+      const messages = await readJsonFile(MESSAGES_FILE, []);
+      const nextMessage = normalizeMessage(body);
+      await writeJsonFile(MESSAGES_FILE, [nextMessage, ...messages]);
+      return nextMessage;
+    });
     sendJson(res, 201, { ok: true });
     return;
   }
