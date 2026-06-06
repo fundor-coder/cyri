@@ -4,9 +4,11 @@ declare(strict_types=1);
 // Default publish password is stored as a SHA-256 hash, not as plaintext.
 const DEFAULT_PUBLISH_PASSWORD_HASH = 'c5adc9b61a9c18a6ad1a7489725c79cfcd3ef6a5980d6eeece1065b51a546336';
 const SESSION_DURATION_SECONDS = 43200;
-const MAX_BODY_SIZE = 1048576;
+const MAX_BODY_SIZE = 4194304;
+const MAX_UPLOAD_SIZE = 2621440;
 
 $dataDir = __DIR__ . DIRECTORY_SEPARATOR . 'data';
+$uploadsDir = $dataDir . DIRECTORY_SEPARATOR . 'uploads';
 $articlesFile = $dataDir . DIRECTORY_SEPARATOR . 'articles.json';
 $messagesFile = $dataDir . DIRECTORY_SEPARATOR . 'messages.json';
 $sessionsFile = $dataDir . DIRECTORY_SEPARATOR . 'sessions.json';
@@ -25,6 +27,22 @@ function send_json(int $statusCode, array $payload): void
 function fail(int $statusCode, string $message): void
 {
     send_json($statusCode, ['error' => $message]);
+}
+
+function send_image(string $filePath): void
+{
+    if (!is_file($filePath)) {
+        fail(404, 'Image not found.');
+    }
+
+    header('Content-Type: image/jpeg');
+    header('Cache-Control: public, max-age=31536000, immutable');
+    header('X-Content-Type-Options: nosniff');
+    header('Content-Length: ' . filesize($filePath));
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'HEAD') {
+        readfile($filePath);
+    }
+    exit;
 }
 
 function ensure_json_file(string $filePath): void
@@ -239,7 +257,13 @@ function create_article_id(string $title, array $articles): string
     return $id;
 }
 
-function normalize_article(array $input, array $articles, array $allowedCategories, array $allowedImages): array
+function normalize_article(
+    array $input,
+    array $articles,
+    array $allowedCategories,
+    array $allowedImages,
+    string $uploadsDir
+): array
 {
     $title = is_array($input['title'] ?? null) ? $input['title'] : [];
     $summary = is_array($input['summary'] ?? null) ? $input['summary'] : [];
@@ -251,7 +275,8 @@ function normalize_article(array $input, array $articles, array $allowedCategori
     $bodyDe = clean_multiline_text($body['de'] ?? '', 20000);
     $bodyEn = clean_multiline_text(($body['en'] ?? '') ?: $bodyDe, 20000);
     $category = clean_text($input['category'] ?? '', 40);
-    $imageId = clean_text($input['imageId'] ?? '', 40);
+    $imageId = clean_text($input['imageId'] ?? '', 80);
+    $imageCredit = clean_text($input['imageCredit'] ?? '', 160);
 
     if ($titleDe === '' || $summaryDe === '' || $bodyDe === '') {
         fail(400, 'German title, summary and article text are required.');
@@ -261,8 +286,13 @@ function normalize_article(array $input, array $articles, array $allowedCategori
         fail(400, 'Unknown article category.');
     }
 
-    if (!in_array($imageId, $allowedImages, true)) {
+    $customImage = preg_match('/^upload:([a-f0-9]{32}\.jpg)$/', $imageId, $customImageMatch) === 1;
+    if (!in_array($imageId, $allowedImages, true) && !$customImage) {
         fail(400, 'Unknown cover image.');
+    }
+
+    if ($customImage && !is_file($uploadsDir . DIRECTORY_SEPARATOR . $customImageMatch[1])) {
+        fail(400, 'Uploaded cover image was not found.');
     }
 
     return [
@@ -270,6 +300,7 @@ function normalize_article(array $input, array $articles, array $allowedCategori
         'date' => validate_date($input['date'] ?? gmdate('Y-m-d')),
         'category' => $category,
         'imageId' => $imageId,
+        'imageCredit' => $customImage ? ($imageCredit ?: 'CYRI') : '',
         'title' => [
             'de' => $titleDe,
             'en' => $titleEn,
@@ -283,6 +314,38 @@ function normalize_article(array $input, array $articles, array $allowedCategori
             'en' => $bodyEn,
         ],
         'createdAt' => gmdate('c'),
+    ];
+}
+
+function save_uploaded_image(array $input, string $uploadsDir): array
+{
+    $dataUrl = (string) ($input['dataUrl'] ?? '');
+    if (!preg_match('#^data:image/jpeg;base64,([A-Za-z0-9+/]+={0,2})$#', $dataUrl, $matches)) {
+        fail(400, 'Uploaded image must be a JPEG.');
+    }
+
+    $image = base64_decode($matches[1], true);
+    if (
+        $image === false ||
+        strlen($image) === 0 ||
+        strlen($image) > MAX_UPLOAD_SIZE ||
+        substr($image, 0, 3) !== "\xFF\xD8\xFF"
+    ) {
+        fail(400, 'Uploaded image is invalid or too large.');
+    }
+
+    if (!is_dir($uploadsDir) && !mkdir($uploadsDir, 0755, true) && !is_dir($uploadsDir)) {
+        fail(500, 'Upload directory could not be created.');
+    }
+
+    $filename = bin2hex(random_bytes(16)) . '.jpg';
+    if (file_put_contents($uploadsDir . DIRECTORY_SEPARATOR . $filename, $image, LOCK_EX) === false) {
+        fail(500, 'Uploaded image could not be saved.');
+    }
+
+    return [
+        'imageId' => 'upload:' . $filename,
+        'credit' => clean_text($input['credit'] ?? '', 160) ?: 'CYRI',
     ];
 }
 
@@ -328,6 +391,10 @@ if ($route === '/articles' && $method === 'GET') {
     send_json(200, ['articles' => sort_articles(read_json_file($articlesFile))]);
 }
 
+if (preg_match('#^/uploads/([a-f0-9]{32}\.jpg)$#', $route, $uploadMatch) && in_array($method, ['GET', 'HEAD'], true)) {
+    send_image($uploadsDir . DIRECTORY_SEPARATOR . $uploadMatch[1]);
+}
+
 if ($route === '/auth/publish' && $method === 'POST') {
     $body = read_request_json();
     $passwordHash = hash('sha256', (string) ($body['password'] ?? ''));
@@ -343,10 +410,15 @@ if ($route === '/articles' && $method === 'POST') {
     require_publish_session($sessionsFile);
     $body = read_request_json();
     $articles = read_json_file($articlesFile);
-    $article = normalize_article($body, $articles, $allowedCategories, $allowedImages);
+    $article = normalize_article($body, $articles, $allowedCategories, $allowedImages, $uploadsDir);
     array_unshift($articles, $article);
     write_json_file($articlesFile, $articles);
     send_json(201, ['article' => $article]);
+}
+
+if ($route === '/uploads' && $method === 'POST') {
+    require_publish_session($sessionsFile);
+    send_json(201, save_uploaded_image(read_request_json(), $uploadsDir));
 }
 
 if ($route === '/contact' && $method === 'POST') {

@@ -7,6 +7,7 @@ Run `npm start` and open `http://localhost:5173/` to view the site with the back
 Backend routes:
 - `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
 - `POST backend.php?route=/auth/publish` checks the publish password and returns a temporary session token.
+- `POST backend.php?route=/uploads` stores an optimized custom article photo in `data/uploads`.
 - `POST backend.php?route=/articles` stores a new article when the session token is valid.
 - `POST backend.php?route=/contact` stores contact messages in `data/messages.json`.
 - `/api/...` paths also work on Node and through the root Apache rewrite.
@@ -19,7 +20,7 @@ Deployment:
 Docker / Node server:
 - Build the optimized Node image with `docker build -t cyri-website .`.
 - Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='France2026!' cyri-website`.
-- Open `http://localhost:5173/`. Published articles and contact messages are stored in the `cyri-data` volume.
+- Open `http://localhost:5173/`. Published articles, uploaded photos and contact messages are stored in the `cyri-data` volume.
 
 For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment instead of relying on the local default.
 

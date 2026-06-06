@@ -256,6 +256,14 @@ const content = {
       bodyEn: "English article text",
       bodyEnPlaceholder: "Optional English article text.",
       cover: "Cover photo",
+      ownImage: "Upload your own photo",
+      ownImageHint: "Optional. JPG, PNG or WebP; the image is optimized before upload.",
+      chooseImage: "Choose photo",
+      removeImage: "Remove photo",
+      imageCredit: "Photo credit",
+      imageCreditPlaceholder: "Example: Tobias Göppert / CYRI",
+      imageTooLarge: "The selected image is too large or could not be processed.",
+      uploadingImage: "Optimizing and uploading photo...",
       submit: "Publish article",
       success: "Article published. It now appears in the articles section.",
       error: "The article could not be published. Please log in again or try later.",
@@ -493,6 +501,14 @@ const content = {
       bodyEn: "Englischer Artikeltext",
       bodyEnPlaceholder: "Optionaler englischer Artikeltext.",
       cover: "Coverfoto",
+      ownImage: "Eigenes Foto hochladen",
+      ownImageHint: "Optional. JPG, PNG oder WebP; das Bild wird vor dem Upload optimiert.",
+      chooseImage: "Foto auswählen",
+      removeImage: "Foto entfernen",
+      imageCredit: "Bildnachweis",
+      imageCreditPlaceholder: "Beispiel: Tobias Göppert / CYRI",
+      imageTooLarge: "Das ausgewählte Bild ist zu groß oder konnte nicht verarbeitet werden.",
+      uploadingImage: "Foto wird optimiert und hochgeladen...",
       submit: "Artikel veröffentlichen",
       success: "Artikel veröffentlicht. Er erscheint jetzt im Artikelbereich.",
       error: "Der Artikel konnte nicht veröffentlicht werden. Bitte melde dich erneut an oder versuche es später.",
@@ -555,6 +571,7 @@ const state = {
   publisherToken: sessionStorage.getItem(PUBLISH_SESSION_KEY) || "",
   publisherUnlocked: Boolean(sessionStorage.getItem(PUBLISH_SESSION_KEY)),
   publishedArticles: [],
+  customImagePreviewUrl: "",
 };
 
 const routes = new Set(["home", "articles", "about", "publish", "contact", "imprint", "privacy"]);
@@ -648,6 +665,29 @@ function getPhoto(id) {
   return photoSources.find((photo) => photo.id === id) || photoSources[0];
 }
 
+function getArticlePhoto(article) {
+  if (String(article.imageId || "").startsWith("upload:")) {
+    const filename = String(article.imageId).slice("upload:".length);
+    return {
+      src: `uploads/${encodeURIComponent(filename)}`,
+      credit: article.imageCredit || "CYRI",
+      sourceUrl: "",
+      label: {
+        en: "Article cover photo",
+        de: "Artikel-Coverfoto",
+      },
+    };
+  }
+
+  return getPhoto(article.imageId);
+}
+
+function renderPhotoCredit(photo) {
+  const credit = escapeHtml(photo.credit || "CYRI");
+  if (!photo.sourceUrl) return credit;
+  return `<a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noreferrer">${credit}</a>`;
+}
+
 function formatDate(date) {
   const locale = state.lang === "de" ? "de-DE" : "en-US";
   return new Intl.DateTimeFormat(locale, {
@@ -724,16 +764,12 @@ function renderEmptyArticleState(title, text) {
 
 function renderArticleCard(article, featured = false) {
   const category = getCategory(article.category);
-  const photo = getPhoto(article.imageId);
+  const photo = getArticlePhoto(article);
   return `
     <article class="article-card${featured ? " article-card-featured" : ""}">
       <figure class="article-photo">
         <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" loading="lazy" />
-        <figcaption>
-          <a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noreferrer">
-            ${escapeHtml(photo.credit)}
-          </a>
-        </figcaption>
+        <figcaption>${renderPhotoCredit(photo)}</figcaption>
       </figure>
       <div class="article-meta">
         <span class="article-category">${escapeHtml(category[state.lang])}</span>
@@ -859,6 +895,130 @@ function renderPublishTools() {
   }
 }
 
+function clearCustomImage() {
+  const input = document.querySelector("[data-custom-image]");
+  const preview = document.querySelector("[data-custom-image-preview]");
+  const previewImage = document.querySelector("[data-custom-image-preview-img]");
+  const creditWrap = document.querySelector("[data-custom-credit-wrap]");
+  const creditInput = document.querySelector("[data-custom-image-credit]");
+
+  if (state.customImagePreviewUrl) {
+    URL.revokeObjectURL(state.customImagePreviewUrl);
+    state.customImagePreviewUrl = "";
+  }
+
+  if (input) input.value = "";
+  if (preview) preview.hidden = true;
+  if (previewImage) previewImage.removeAttribute("src");
+  if (creditWrap) creditWrap.hidden = true;
+  if (creditInput) creditInput.value = "";
+}
+
+function showCustomImage(file) {
+  const preview = document.querySelector("[data-custom-image-preview]");
+  const previewImage = document.querySelector("[data-custom-image-preview-img]");
+  const creditWrap = document.querySelector("[data-custom-credit-wrap]");
+
+  if (state.customImagePreviewUrl) {
+    URL.revokeObjectURL(state.customImagePreviewUrl);
+  }
+
+  state.customImagePreviewUrl = URL.createObjectURL(file);
+  previewImage.src = state.customImagePreviewUrl;
+  previewImage.alt = file.name;
+  preview.hidden = false;
+  creditWrap.hidden = false;
+}
+
+function loadBrowserImage(file) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    const url = URL.createObjectURL(file);
+    image.onload = () => {
+      URL.revokeObjectURL(url);
+      resolve(image);
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Image could not be decoded."));
+    };
+    image.src = url;
+  });
+}
+
+function canvasToBlob(canvas, quality) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => (blob ? resolve(blob) : reject(new Error("Image could not be encoded."))),
+      "image/jpeg",
+      quality
+    );
+  });
+}
+
+function blobToDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ""));
+    reader.onerror = () => reject(new Error("Image could not be read."));
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function optimizeImage(file) {
+  const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+  if (!allowedTypes.has(file.type) || file.size > 15 * 1024 * 1024) {
+    throw new Error("Unsupported image.");
+  }
+
+  const image = await loadBrowserImage(file);
+  if (
+    image.naturalWidth < 1 ||
+    image.naturalHeight < 1 ||
+    image.naturalWidth > 12000 ||
+    image.naturalHeight > 12000 ||
+    image.naturalWidth * image.naturalHeight > 80000000
+  ) {
+    throw new Error("Image dimensions are unsupported.");
+  }
+
+  const maxDimension = 2000;
+  const scale = Math.min(1, maxDimension / Math.max(image.naturalWidth, image.naturalHeight));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+  canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+  const context = canvas.getContext("2d", { alpha: false });
+
+  context.fillStyle = "#ffffff";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+  let quality = 0.86;
+  let blob = await canvasToBlob(canvas, quality);
+  while (blob.size > 2.5 * 1024 * 1024 && quality > 0.58) {
+    quality -= 0.08;
+    blob = await canvasToBlob(canvas, quality);
+  }
+
+  if (blob.size > 2.5 * 1024 * 1024) {
+    throw new Error("Optimized image is too large.");
+  }
+
+  return blobToDataUrl(blob);
+}
+
+async function uploadCustomImage(file, credit) {
+  const dataUrl = await optimizeImage(file);
+  return apiRequest("/uploads", {
+    method: "POST",
+    auth: true,
+    body: {
+      dataUrl,
+      credit: credit || "CYRI",
+    },
+  });
+}
+
 function renderDynamicContent() {
   renderMissionFocus();
   renderFilters();
@@ -974,7 +1134,7 @@ function updateArticleModal() {
   const article = allArticles().find((item) => item.id === state.activeArticleId);
   if (!article) return;
   const category = getCategory(article.category);
-  const photo = getPhoto(article.imageId);
+  const photo = getArticlePhoto(article);
   const body = localizedArticleValue(article, "body");
   const photoWrap = document.querySelector("[data-modal-photo-wrap]");
   const photoImage = document.querySelector("[data-modal-photo]");
@@ -987,7 +1147,7 @@ function updateArticleModal() {
   photoWrap.hidden = false;
   photoImage.src = photo.src;
   photoImage.alt = photo.label[state.lang];
-  photoCredit.innerHTML = `<a href="${escapeHtml(photo.sourceUrl)}" target="_blank" rel="noreferrer">${escapeHtml(photo.credit)}</a>`;
+  photoCredit.innerHTML = renderPhotoCredit(photo);
   document.querySelector("[data-modal-body]").innerHTML = body
     ? body
         .split(/\n{2,}/)
@@ -1075,6 +1235,31 @@ document.querySelector("[data-menu-toggle]").addEventListener("click", () => {
   toggle.setAttribute("aria-expanded", String(isOpen));
 });
 
+document.querySelector("[data-custom-image]").addEventListener("change", (event) => {
+  const file = event.currentTarget.files?.[0];
+  const status = document.querySelector("[data-publish-status]");
+  status.textContent = "";
+
+  if (!file) {
+    clearCustomImage();
+    return;
+  }
+
+  const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+  if (!allowedTypes.has(file.type) || file.size > 15 * 1024 * 1024) {
+    clearCustomImage();
+    status.textContent = t("publish.imageTooLarge");
+    return;
+  }
+
+  showCustomImage(file);
+});
+
+document.querySelector("[data-custom-image-remove]").addEventListener("click", () => {
+  clearCustomImage();
+  document.querySelector("[data-publish-status]").textContent = "";
+});
+
 document.querySelector("[data-contact-form]").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
@@ -1136,11 +1321,22 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
   const submitButton = form.querySelector("button[type='submit']");
   const status = document.querySelector("[data-publish-status]");
   const article = buildPublishedArticle(form);
+  const customImage = document.querySelector("[data-custom-image]").files?.[0];
+  const imageCredit = document.querySelector("[data-custom-image-credit]").value.trim();
+  let customImageUploaded = !customImage;
 
   submitButton.disabled = true;
   status.textContent = "";
 
   try {
+    if (customImage) {
+      status.textContent = t("publish.uploadingImage");
+      const upload = await uploadCustomImage(customImage, imageCredit);
+      article.imageId = upload.imageId;
+      article.imageCredit = upload.credit;
+      customImageUploaded = true;
+    }
+
     const payload = await apiRequest("/articles", {
       method: "POST",
       auth: true,
@@ -1148,6 +1344,7 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
     });
     state.publishedArticles = [payload.article, ...state.publishedArticles];
     form.reset();
+    clearCustomImage();
     document.querySelector("[data-publish-date]").value = new Date().toISOString().slice(0, 10);
     status.textContent = t("publish.success");
     renderDynamicContent();
@@ -1158,7 +1355,10 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
       sessionStorage.removeItem(PUBLISH_SESSION_KEY);
       renderPublishTools();
     }
-    status.textContent = t("publish.error");
+    status.textContent =
+      customImage && !customImageUploaded && error.status !== 401
+        ? t("publish.imageTooLarge")
+        : t("publish.error");
   } finally {
     submitButton.disabled = false;
   }

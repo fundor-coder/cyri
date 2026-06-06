@@ -6,12 +6,14 @@ const path = require("node:path");
 const PORT = Number(process.env.PORT || 5173);
 const PUBLIC_ROOT = __dirname;
 const DATA_DIR = path.join(__dirname, "data");
+const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const ARTICLES_FILE = path.join(DATA_DIR, "articles.json");
 const MESSAGES_FILE = path.join(DATA_DIR, "messages.json");
 const DEFAULT_PUBLISH_PASSWORD_HASH =
   "c5adc9b61a9c18a6ad1a7489725c79cfcd3ef6a5980d6eeece1065b51a546336";
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 12;
-const MAX_JSON_BODY_SIZE = 1024 * 1024;
+const MAX_JSON_BODY_SIZE = 4 * 1024 * 1024;
+const MAX_UPLOAD_SIZE = 2.5 * 1024 * 1024;
 
 const allowedCategories = new Set(["policy", "energy", "biodiversity", "cities", "marine"]);
 const allowedImages = new Set(["coral", "marine-debris", "mangrove", "glacier", "solar"]);
@@ -89,6 +91,7 @@ function requirePublishSession(req) {
 
 async function ensureDataFiles() {
   await fs.mkdir(DATA_DIR, { recursive: true });
+  await fs.mkdir(UPLOADS_DIR, { recursive: true });
   await ensureJsonFile(ARTICLES_FILE, []);
   await ensureJsonFile(MESSAGES_FILE, []);
 }
@@ -212,7 +215,7 @@ function createArticleId(title, existingArticles) {
   return id;
 }
 
-function normalizeArticle(input, existingArticles) {
+async function normalizeArticle(input, existingArticles) {
   const titleDe = cleanText(input?.title?.de, 180);
   const titleEn = cleanText(input?.title?.en || titleDe, 180);
   const summaryDe = cleanText(input?.summary?.de, 520);
@@ -220,7 +223,8 @@ function normalizeArticle(input, existingArticles) {
   const bodyDe = cleanMultilineText(input?.body?.de, 20000);
   const bodyEn = cleanMultilineText(input?.body?.en || bodyDe, 20000);
   const category = cleanText(input?.category, 40);
-  const imageId = cleanText(input?.imageId, 40);
+  const imageId = cleanText(input?.imageId, 80);
+  const imageCredit = cleanText(input?.imageCredit, 160);
 
   if (!titleDe || !summaryDe || !bodyDe) {
     throw createError(400, "German title, summary and article text are required.");
@@ -230,8 +234,17 @@ function normalizeArticle(input, existingArticles) {
     throw createError(400, "Unknown article category.");
   }
 
-  if (!allowedImages.has(imageId)) {
+  const customImageMatch = imageId.match(/^upload:([a-f0-9]{32}\.jpg)$/);
+  if (!allowedImages.has(imageId) && !customImageMatch) {
     throw createError(400, "Unknown cover image.");
+  }
+
+  if (customImageMatch) {
+    try {
+      await fs.access(path.join(UPLOADS_DIR, customImageMatch[1]));
+    } catch {
+      throw createError(400, "Uploaded cover image was not found.");
+    }
   }
 
   return {
@@ -239,6 +252,7 @@ function normalizeArticle(input, existingArticles) {
     date: validateDate(input?.date || new Date().toISOString().slice(0, 10)),
     category,
     imageId,
+    imageCredit: customImageMatch ? imageCredit || "CYRI" : "",
     title: {
       de: titleDe,
       en: titleEn,
@@ -252,6 +266,33 @@ function normalizeArticle(input, existingArticles) {
       en: bodyEn,
     },
     createdAt: new Date().toISOString(),
+  };
+}
+
+async function saveUploadedImage(input) {
+  const dataUrl = String(input?.dataUrl || "");
+  const match = dataUrl.match(/^data:image\/jpeg;base64,([A-Za-z0-9+/]+={0,2})$/);
+  if (!match) {
+    throw createError(400, "Uploaded image must be a JPEG.");
+  }
+
+  const image = Buffer.from(match[1], "base64");
+  if (
+    image.length === 0 ||
+    image.length > MAX_UPLOAD_SIZE ||
+    image[0] !== 0xff ||
+    image[1] !== 0xd8 ||
+    image[2] !== 0xff
+  ) {
+    throw createError(400, "Uploaded image is invalid or too large.");
+  }
+
+  const filename = `${crypto.randomBytes(16).toString("hex")}.jpg`;
+  await fs.writeFile(path.join(UPLOADS_DIR, filename), image, { flag: "wx" });
+
+  return {
+    imageId: `upload:${filename}`,
+    credit: cleanText(input?.credit, 160) || "CYRI",
   };
 }
 
@@ -314,10 +355,17 @@ async function handleApi(req, res, url) {
     requirePublishSession(req);
     const body = await readRequestJson(req);
     const articles = await readJsonFile(ARTICLES_FILE, []);
-    const article = normalizeArticle(body, articles);
+    const article = await normalizeArticle(body, articles);
     const nextArticles = [article, ...articles];
     await writeJsonFile(ARTICLES_FILE, nextArticles);
     sendJson(res, 201, { article });
+    return;
+  }
+
+  if (url.pathname === "/api/uploads" && req.method === "POST") {
+    requirePublishSession(req);
+    const body = await readRequestJson(req);
+    sendJson(res, 201, await saveUploadedImage(body));
     return;
   }
 
@@ -339,6 +387,22 @@ async function handleStatic(req, res, url) {
   }
 
   const requestPath = decodeURIComponent(url.pathname);
+  const uploadMatch = requestPath.match(/^\/uploads\/([a-f0-9]{32}\.jpg)$/);
+  if (uploadMatch) {
+    try {
+      const data = await fs.readFile(path.join(UPLOADS_DIR, uploadMatch[1]));
+      res.writeHead(200, {
+        "Content-Type": "image/jpeg",
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "X-Content-Type-Options": "nosniff",
+      });
+      res.end(req.method === "HEAD" ? undefined : data);
+    } catch {
+      throw createError(404, "Image not found.");
+    }
+    return;
+  }
+
   const allowed =
     requestPath === "/" ||
     requestPath === "/index.html" ||

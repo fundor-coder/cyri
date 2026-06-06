@@ -9,6 +9,7 @@ Options -Indexes
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
   RewriteRule ^api/?$ backend.php?route=/health [L,QSA]
   RewriteRule ^api/(.*)$ backend.php?route=/$1 [L,QSA]
+  RewriteRule ^uploads/([a-f0-9]{32}\.jpg)$ backend.php?route=/uploads/$1 [L,QSA]
   RewriteRule ^\.git/ - [F,L]
   RewriteRule ^data/ - [F,L]
   RewriteRule ^(server\.js|package\.json|package-lock\.json|Dockerfile|\.dockerignore|\.gitignore)$ - [F,L]

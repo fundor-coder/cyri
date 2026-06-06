@@ -344,6 +344,48 @@
                   <div class="image-picker" data-publish-images></div>
                 </div>
 
+                <div class="custom-image-upload">
+                  <div>
+                    <span class="field-label" data-i18n="publish.ownImage">Upload your own photo</span>
+                    <p class="field-hint" data-i18n="publish.ownImageHint">
+                      Optional. JPG, PNG or WebP; the image is optimized before upload.
+                    </p>
+                  </div>
+                  <label class="file-upload">
+                    <input
+                      type="file"
+                      name="customImage"
+                      accept="image/jpeg,image/png,image/webp"
+                      data-custom-image
+                    />
+                    <span class="button button-secondary" data-i18n="publish.chooseImage">
+                      Choose photo
+                    </span>
+                  </label>
+                  <div class="custom-image-preview" data-custom-image-preview hidden>
+                    <img src="" alt="" data-custom-image-preview-img />
+                    <button
+                      class="image-remove"
+                      type="button"
+                      data-custom-image-remove
+                      data-i18n-aria="publish.removeImage"
+                      aria-label="Remove photo"
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <label data-custom-credit-wrap hidden>
+                    <span data-i18n="publish.imageCredit">Photo credit</span>
+                    <input
+                      type="text"
+                      name="imageCredit"
+                      maxlength="160"
+                      data-custom-image-credit
+                      data-i18n-placeholder="publish.imageCreditPlaceholder"
+                    />
+                  </label>
+                </div>
+
                 <button class="button button-primary" type="submit" data-i18n="publish.submit">
                   Publish article
                 </button>
