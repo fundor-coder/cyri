@@ -283,8 +283,6 @@ const content = {
       addressLabel: "Address",
       addressText: "[Full summonable address must be added before public launch.]",
       emailLabel: "Email",
-      phoneLabel: "Phone",
-      phoneText: "[Optional phone number, if used.]",
       editorialEyebrow: "Editorial responsibility",
       editorialTitle: "Responsible under § 18 Abs. 2 MStV",
       editorialText:
@@ -528,8 +526,6 @@ const content = {
       addressLabel: "Anschrift",
       addressText: "[Vollständige ladungsfähige Anschrift vor öffentlichem Launch ergänzen.]",
       emailLabel: "E-Mail",
-      phoneLabel: "Telefon",
-      phoneText: "[Optionale Telefonnummer, falls genutzt.]",
       editorialEyebrow: "Redaktionelle Verantwortung",
       editorialTitle: "Verantwortlich nach § 18 Abs. 2 MStV",
       editorialText:
