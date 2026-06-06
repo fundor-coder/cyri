@@ -246,7 +246,12 @@ const content = {
       titleEn: "English title",
       titleEnPlaceholder: "Optional English title",
       category: "Category",
-      date: "Date",
+      date: "Article date",
+      publication: "Publication",
+      publishNow: "Publish now",
+      publishLater: "Schedule for later",
+      scheduleTime: "Launch date and time",
+      scheduleHint: "The time uses your device's local time zone.",
       summaryDe: "German summary",
       summaryDePlaceholder: "Short, clear summary for the article card.",
       summaryEn: "English summary",
@@ -265,7 +270,9 @@ const content = {
       imageTooLarge: "The selected image is too large or could not be processed.",
       uploadingImage: "Optimizing and uploading photo...",
       submit: "Publish article",
+      scheduleSubmit: "Schedule article",
       success: "Article published. It now appears in the articles section.",
+      scheduledSuccess: "Article scheduled. It will appear automatically at the selected time.",
       error: "The article could not be published. Please log in again or try later.",
     },
     legal: {
@@ -489,7 +496,12 @@ const content = {
       titleEn: "Englischer Titel",
       titleEnPlaceholder: "Optionaler englischer Titel",
       category: "Kategorie",
-      date: "Datum",
+      date: "Artikeldatum",
+      publication: "Veröffentlichung",
+      publishNow: "Sofort veröffentlichen",
+      publishLater: "Für später planen",
+      scheduleTime: "Launch-Datum und Uhrzeit",
+      scheduleHint: "Es gilt die lokale Zeitzone deines Geräts.",
       summaryDe: "Deutsche Zusammenfassung",
       summaryDePlaceholder: "Kurze, klare Zusammenfassung für die Artikelkarte.",
       summaryEn: "Englische Zusammenfassung",
@@ -508,7 +520,9 @@ const content = {
       imageTooLarge: "Das ausgewählte Bild ist zu groß oder konnte nicht verarbeitet werden.",
       uploadingImage: "Foto wird optimiert und hochgeladen...",
       submit: "Artikel veröffentlichen",
+      scheduleSubmit: "Artikel einplanen",
       success: "Artikel veröffentlicht. Er erscheint jetzt im Artikelbereich.",
+      scheduledSuccess: "Artikel eingeplant. Er erscheint automatisch zum ausgewählten Zeitpunkt.",
       error: "Der Artikel konnte nicht veröffentlicht werden. Bitte melde dich erneut an oder versuche es später.",
     },
     legal: {
@@ -639,9 +653,11 @@ async function loadArticlesFromBackend() {
     state.publishedArticles = Array.isArray(payload.articles) ? payload.articles : [];
     renderArticles();
     if (state.activeArticleId) updateArticleModal();
+    return true;
   } catch {
     state.publishedArticles = [];
     renderArticles();
+    return false;
   }
 }
 
@@ -650,7 +666,11 @@ function allArticles() {
 }
 
 function sortedArticles() {
-  return allArticles().sort((a, b) => new Date(b.date) - new Date(a.date));
+  return allArticles().sort((a, b) => {
+    const timeA = Date.parse(a.publishAt || `${a.date}T12:00:00`);
+    const timeB = Date.parse(b.publishAt || `${b.date}T12:00:00`);
+    return timeB - timeA;
+  });
 }
 
 function getCategory(id) {
@@ -691,6 +711,31 @@ function formatDate(date) {
     month: "long",
     day: "numeric",
   }).format(new Date(`${date}T12:00:00`));
+}
+
+function toLocalDateTimeValue(date) {
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 16);
+}
+
+function updatePublishScheduleControls() {
+  const later = document.querySelector('input[name="publishMode"][value="later"]')?.checked;
+  const timeWrap = document.querySelector("[data-publish-time-wrap]");
+  const timeInput = document.querySelector("[data-publish-at]");
+  const submitButton = document.querySelector("[data-publish-submit]");
+  const now = new Date();
+
+  if (!timeWrap || !timeInput || !submitButton) return;
+
+  timeWrap.hidden = !later;
+  timeInput.required = Boolean(later);
+  timeInput.min = toLocalDateTimeValue(now);
+
+  if (later && !timeInput.value) {
+    timeInput.value = toLocalDateTimeValue(new Date(now.getTime() + 60 * 60 * 1000));
+  }
+
+  submitButton.textContent = t(later ? "publish.scheduleSubmit" : "publish.submit");
 }
 
 function updateStaticText() {
@@ -887,8 +932,10 @@ function renderPublishTools() {
   }
 
   if (dateInput && !dateInput.value) {
-    dateInput.value = new Date().toISOString().slice(0, 10);
+    dateInput.value = toLocalDateTimeValue(new Date()).slice(0, 10);
   }
+
+  updatePublishScheduleControls();
 }
 
 function clearCustomImage() {
@@ -1087,12 +1134,19 @@ function buildPublishedArticle(form) {
   const summaryEn = String(data.get("summaryEn") || "").trim() || summaryDe;
   const bodyDe = String(data.get("bodyDe") || "").trim();
   const bodyEn = String(data.get("bodyEn") || "").trim() || bodyDe;
+  const publishMode = String(data.get("publishMode") || "now");
+  const scheduledValue = String(data.get("publishAt") || "");
+  const publishAt =
+    publishMode === "later" && scheduledValue
+      ? new Date(scheduledValue).toISOString()
+      : new Date().toISOString();
 
   return {
     id: createArticleId(titleEn || titleDe),
     date: String(data.get("date") || new Date().toISOString().slice(0, 10)),
     category: String(data.get("category") || "policy"),
     imageId: String(data.get("imageId") || photoSources[0].id),
+    publishAt,
     title: {
       en: titleEn,
       de: titleDe,
@@ -1231,6 +1285,18 @@ document.querySelector("[data-menu-toggle]").addEventListener("click", () => {
   toggle.setAttribute("aria-expanded", String(isOpen));
 });
 
+document.querySelectorAll('input[name="publishMode"]').forEach((input) => {
+  input.addEventListener("change", updatePublishScheduleControls);
+});
+
+document.querySelector("[data-publish-at]").addEventListener("change", (event) => {
+  const scheduled = new Date(event.currentTarget.value);
+  const dateInput = document.querySelector("[data-publish-date]");
+  if (!Number.isNaN(scheduled.getTime()) && dateInput) {
+    dateInput.value = toLocalDateTimeValue(scheduled).slice(0, 10);
+  }
+});
+
 document.querySelector("[data-custom-image]").addEventListener("change", (event) => {
   const file = event.currentTarget.files?.[0];
   const status = document.querySelector("[data-publish-status]");
@@ -1316,15 +1382,17 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
   const form = event.currentTarget;
   const submitButton = form.querySelector("button[type='submit']");
   const status = document.querySelector("[data-publish-status]");
-  const article = buildPublishedArticle(form);
   const customImage = document.querySelector("[data-custom-image]").files?.[0];
   const imageCredit = document.querySelector("[data-custom-image-credit]").value.trim();
   let customImageUploaded = !customImage;
+  let article;
 
   submitButton.disabled = true;
   status.textContent = "";
 
   try {
+    article = buildPublishedArticle(form);
+
     if (customImage) {
       status.textContent = t("publish.uploadingImage");
       const upload = await uploadCustomImage(customImage, imageCredit);
@@ -1338,11 +1406,13 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
       auth: true,
       body: article,
     });
-    state.publishedArticles = [payload.article, ...state.publishedArticles];
+    if (!payload.scheduled) {
+      state.publishedArticles = [payload.article, ...state.publishedArticles];
+    }
     form.reset();
     clearCustomImage();
-    document.querySelector("[data-publish-date]").value = new Date().toISOString().slice(0, 10);
-    status.textContent = t("publish.success");
+    document.querySelector("[data-publish-date]").value = toLocalDateTimeValue(new Date()).slice(0, 10);
+    status.textContent = t(payload.scheduled ? "publish.scheduledSuccess" : "publish.success");
     renderDynamicContent();
   } catch (error) {
     if (error.status === 401) {
@@ -1372,4 +1442,8 @@ updateStaticText();
 renderDynamicContent();
 syncRoute(false);
 observeReveals();
-loadArticlesFromBackend();
+loadArticlesFromBackend().then((backendAvailable) => {
+  if (backendAvailable) {
+    setInterval(loadArticlesFromBackend, 60 * 1000);
+  }
+});

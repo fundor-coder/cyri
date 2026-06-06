@@ -322,6 +322,27 @@
                   </label>
                 </div>
 
+                <fieldset class="schedule-control">
+                  <legend data-i18n="publish.publication">Publication</legend>
+                  <div class="schedule-modes">
+                    <label>
+                      <input type="radio" name="publishMode" value="now" checked />
+                      <span data-i18n="publish.publishNow">Publish now</span>
+                    </label>
+                    <label>
+                      <input type="radio" name="publishMode" value="later" />
+                      <span data-i18n="publish.publishLater">Schedule for later</span>
+                    </label>
+                  </div>
+                  <label class="schedule-time" data-publish-time-wrap hidden>
+                    <span data-i18n="publish.scheduleTime">Launch date and time</span>
+                    <input type="datetime-local" name="publishAt" data-publish-at />
+                    <small data-i18n="publish.scheduleHint">
+                      The time uses your device's local time zone.
+                    </small>
+                  </label>
+                </fieldset>
+
                 <label>
                   <span data-i18n="publish.summaryDe">German summary</span>
                   <textarea name="summaryDe" rows="3" required data-i18n-placeholder="publish.summaryDePlaceholder"></textarea>
@@ -386,7 +407,12 @@
                   </label>
                 </div>
 
-                <button class="button button-primary" type="submit" data-i18n="publish.submit">
+                <button
+                  class="button button-primary"
+                  type="submit"
+                  data-publish-submit
+                  data-i18n="publish.submit"
+                >
                   Publish article
                 </button>
                 <p class="form-status" data-publish-status aria-live="polite"></p>

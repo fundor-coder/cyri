@@ -192,6 +192,16 @@ function validateDate(value) {
   return date;
 }
 
+function validatePublishAt(value) {
+  const publishAt = cleanText(value, 40);
+  const timestamp = Date.parse(publishAt);
+  if (!publishAt || Number.isNaN(timestamp)) {
+    throw createError(400, "A valid publication time is required.");
+  }
+
+  return new Date(timestamp).toISOString();
+}
+
 function slugify(value) {
   return cleanText(value, 120)
     .toLowerCase()
@@ -253,6 +263,7 @@ async function normalizeArticle(input, existingArticles) {
     category,
     imageId,
     imageCredit: customImageMatch ? imageCredit || "CYRI" : "",
+    publishAt: validatePublishAt(input?.publishAt || new Date().toISOString()),
     title: {
       de: titleDe,
       en: titleEn,
@@ -315,7 +326,21 @@ function normalizeMessage(input) {
 }
 
 function sortArticlesByDate(articles) {
-  return [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
+  return [...articles].sort((a, b) => articlePublishTime(b) - articlePublishTime(a));
+}
+
+function articlePublishTime(article) {
+  const publishAt = Date.parse(String(article?.publishAt || ""));
+  if (!Number.isNaN(publishAt)) return publishAt;
+
+  const date = Date.parse(`${article?.date || ""}T12:00:00Z`);
+  return Number.isNaN(date) ? 0 : date;
+}
+
+function isArticlePublished(article, now = Date.now()) {
+  if (!article?.publishAt) return true;
+  const publishAt = Date.parse(String(article.publishAt));
+  return !Number.isNaN(publishAt) && publishAt <= now;
 }
 
 function normalizeApiPath(url) {
@@ -335,7 +360,9 @@ async function handleApi(req, res, url) {
 
   if (url.pathname === "/api/articles" && req.method === "GET") {
     const articles = await readJsonFile(ARTICLES_FILE, []);
-    sendJson(res, 200, { articles: sortArticlesByDate(articles) });
+    sendJson(res, 200, {
+      articles: sortArticlesByDate(articles.filter((article) => isArticlePublished(article))),
+    });
     return;
   }
 
@@ -358,7 +385,10 @@ async function handleApi(req, res, url) {
     const article = await normalizeArticle(body, articles);
     const nextArticles = [article, ...articles];
     await writeJsonFile(ARTICLES_FILE, nextArticles);
-    sendJson(res, 201, { article });
+    sendJson(res, 201, {
+      article,
+      scheduled: !isArticlePublished(article),
+    });
     return;
   }
 

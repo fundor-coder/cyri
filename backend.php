@@ -228,6 +228,27 @@ function validate_date($value): string
     return $date;
 }
 
+function validate_publish_at($value): string
+{
+    $publishAt = clean_text($value, 40);
+    if (!preg_match(
+        '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})$/',
+        $publishAt
+    )) {
+        fail(400, 'A valid publication time is required.');
+    }
+
+    try {
+        $date = new DateTimeImmutable($publishAt);
+    } catch (Throwable $error) {
+        fail(400, 'A valid publication time is required.');
+    }
+
+    return $date
+        ->setTimezone(new DateTimeZone('UTC'))
+        ->format('Y-m-d\TH:i:s\Z');
+}
+
 function slugify(string $value): string
 {
     if (function_exists('iconv')) {
@@ -301,6 +322,7 @@ function normalize_article(
         'category' => $category,
         'imageId' => $imageId,
         'imageCredit' => $customImage ? ($imageCredit ?: 'CYRI') : '',
+        'publishAt' => validate_publish_at($input['publishAt'] ?? gmdate('c')),
         'title' => [
             'de' => $titleDe,
             'en' => $titleEn,
@@ -371,9 +393,30 @@ function normalize_message(array $input): array
 function sort_articles(array $articles): array
 {
     usort($articles, function ($a, $b) {
-        return strcmp((string) ($b['date'] ?? ''), (string) ($a['date'] ?? ''));
+        return article_publish_timestamp($b) <=> article_publish_timestamp($a);
     });
     return $articles;
+}
+
+function article_publish_timestamp(array $article): int
+{
+    $publishAt = strtotime((string) ($article['publishAt'] ?? ''));
+    if ($publishAt !== false) {
+        return $publishAt;
+    }
+
+    $date = strtotime((string) ($article['date'] ?? ''));
+    return $date === false ? 0 : $date;
+}
+
+function article_is_published(array $article, ?int $now = null): bool
+{
+    if (empty($article['publishAt'])) {
+        return true;
+    }
+
+    $publishAt = strtotime((string) $article['publishAt']);
+    return $publishAt !== false && $publishAt <= ($now ?? time());
 }
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
@@ -388,7 +431,8 @@ if ($route === '/health' && $method === 'GET') {
 }
 
 if ($route === '/articles' && $method === 'GET') {
-    send_json(200, ['articles' => sort_articles(read_json_file($articlesFile))]);
+    $articles = array_values(array_filter(read_json_file($articlesFile), 'article_is_published'));
+    send_json(200, ['articles' => sort_articles($articles)]);
 }
 
 if (preg_match('#^/uploads/([a-f0-9]{32}\.jpg)$#', $route, $uploadMatch) && in_array($method, ['GET', 'HEAD'], true)) {
@@ -413,7 +457,10 @@ if ($route === '/articles' && $method === 'POST') {
     $article = normalize_article($body, $articles, $allowedCategories, $allowedImages, $uploadsDir);
     array_unshift($articles, $article);
     write_json_file($articlesFile, $articles);
-    send_json(201, ['article' => $article]);
+    send_json(201, [
+        'article' => $article,
+        'scheduled' => !article_is_published($article),
+    ]);
 }
 
 if ($route === '/uploads' && $method === 'POST') {

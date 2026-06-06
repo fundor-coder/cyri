@@ -8,7 +8,7 @@ Backend routes:
 - `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
 - `POST backend.php?route=/auth/publish` checks the publish password and returns a temporary session token.
 - `POST backend.php?route=/uploads` stores an optimized custom article photo in `data/uploads`.
-- `POST backend.php?route=/articles` stores a new article when the session token is valid.
+- `POST backend.php?route=/articles` stores a new article immediately or with a future `publishAt` time.
 - `POST backend.php?route=/contact` stores contact messages in `data/messages.json`.
 - `/api/...` paths also work on Node and through the root Apache rewrite.
 
@@ -16,6 +16,11 @@ Deployment:
 - Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app.
 - PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically.
 - Static-only hosting is not enough for publishing or contact messages, because those features need the backend.
+
+Scheduled publishing:
+- Select `Schedule for later` in the protected publishing editor and choose a local date and time.
+- The browser sends the time as UTC. Future articles remain hidden from the public API until their launch time.
+- No cron job is required; the public article list is filtered whenever it is requested.
 
 Docker / Node server:
 - Build the optimized Node image with `docker build -t cyri-website .`.

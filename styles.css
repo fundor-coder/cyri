@@ -941,6 +941,83 @@ h3 {
   gap: 16px;
 }
 
+.schedule-control {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  border: 1px solid var(--glass-line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.38);
+  padding: 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 10px 24px rgba(27, 48, 65, 0.05);
+}
+
+.schedule-control legend {
+  padding: 0 7px;
+  color: var(--ink-soft);
+  font-weight: 720;
+}
+
+.schedule-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  border: 1px solid rgba(18, 22, 29, 0.08);
+  border-radius: 8px;
+  background: rgba(18, 22, 29, 0.045);
+  padding: 4px;
+}
+
+.publish-form .schedule-modes label {
+  display: block;
+  cursor: pointer;
+}
+
+.schedule-modes input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.schedule-modes span {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 8px 12px;
+  text-align: center;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.schedule-modes input:checked + span {
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--ink);
+  box-shadow:
+    0 8px 18px rgba(27, 48, 65, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+.schedule-modes input:focus-visible + span {
+  box-shadow:
+    0 0 0 4px rgba(39, 116, 216, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+.schedule-time small {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 520;
+}
+
 .field-label {
   display: block;
   margin-bottom: 10px;
@@ -1451,6 +1528,10 @@ h3 {
   .archive-grid,
   .team-grid,
   .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schedule-modes {
     grid-template-columns: 1fr;
   }
 
