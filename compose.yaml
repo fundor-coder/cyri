@@ -8,6 +8,8 @@ services:
       CYRI_DATA_DIR: /app/data
       CYRI_PUBLISH_PASSWORD: ${CYRI_PUBLISH_PASSWORD:-}
       CYRI_PUBLISH_PASSWORD_HASH: ${CYRI_PUBLISH_PASSWORD_HASH:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_TRANSLATION_MODEL: ${OPENAI_TRANSLATION_MODEL:-gpt-5.4-mini}
     volumes:
       - cyri-data:/app/data
 

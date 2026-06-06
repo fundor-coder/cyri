@@ -7,6 +7,7 @@ Run `npm start` and open `http://localhost:5173/` to view the site with the back
 Backend routes:
 - `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
 - `POST backend.php?route=/auth/publish` checks the publish password and returns a temporary session token.
+- `POST backend.php?route=/translate` translates German article fields into English with OpenAI.
 - `POST backend.php?route=/uploads` stores an optimized custom article photo in `data/uploads`.
 - `POST backend.php?route=/articles` stores a new article immediately or with a future `publishAt` time.
 - `POST backend.php?route=/contact` stores contact messages in `data/messages.json`.
@@ -23,9 +24,15 @@ Scheduled publishing:
 - The browser sends the time as UTC. Future articles remain hidden from the public API until their launch time.
 - No cron job is required; the public article list is filtered whenever it is requested.
 
+AI translation:
+- Set `OPENAI_API_KEY` in the server environment. Never put the key in `app.js`, `index.html` or Git.
+- The protected editor can translate the German title, summary and article text into English. Existing English fields are replaced only after clicking the translation button.
+- The default model is `gpt-5.4-mini`. Override it with `OPENAI_TRANSLATION_MODEL` if needed.
+- Translation requests are sent only from the Node or PHP backend. Review every translation before publishing.
+
 Docker / Node server:
 - Build the optimized Node image with `docker build -t cyri-website .`.
-- Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='France2026!' cyri-website`.
+- Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='France2026!' -e OPENAI_API_KEY='your-key' cyri-website`.
 - Or use `docker compose up -d --build`; `compose.yaml` automatically mounts the named `cyri-data` volume.
 - Open `http://localhost:5173/`. Published articles, uploaded photos and contact messages are stored in the `cyri-data` volume.
 - Do not delete the `cyri-data` volume during updates. `docker compose down` keeps it; `docker compose down -v` deletes it.

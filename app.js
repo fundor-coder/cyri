@@ -260,6 +260,12 @@ const content = {
       bodyDePlaceholder: "Write the article text here.",
       bodyEn: "English article text",
       bodyEnPlaceholder: "Optional English article text.",
+      translate: "Translate German article with AI",
+      translating: "Translating article...",
+      translateSuccess: "English title, summary and article text have been filled in.",
+      translateMissing: "Enter the German title, summary and article text first.",
+      translateNotConfigured: "AI translation is not configured on the server yet.",
+      translateError: "The article could not be translated. Please try again later.",
       cover: "Cover photo",
       ownImage: "Upload your own photo",
       ownImageHint: "Optional. JPG, PNG or WebP; the image is optimized before upload.",
@@ -510,6 +516,12 @@ const content = {
       bodyDePlaceholder: "Schreibe den Artikeltext hier.",
       bodyEn: "Englischer Artikeltext",
       bodyEnPlaceholder: "Optionaler englischer Artikeltext.",
+      translate: "Deutschen Artikel mit KI übersetzen",
+      translating: "Artikel wird übersetzt...",
+      translateSuccess: "Englischer Titel, Zusammenfassung und Artikeltext wurden ausgefüllt.",
+      translateMissing: "Fülle zuerst den deutschen Titel, die Zusammenfassung und den Artikeltext aus.",
+      translateNotConfigured: "Die KI-Übersetzung ist auf dem Server noch nicht eingerichtet.",
+      translateError: "Der Artikel konnte nicht übersetzt werden. Bitte versuche es später erneut.",
       cover: "Coverfoto",
       ownImage: "Eigenes Foto hochladen",
       ownImageHint: "Optional. JPG, PNG oder WebP; das Bild wird vor dem Upload optimiert.",
@@ -1320,6 +1332,49 @@ document.querySelector("[data-custom-image]").addEventListener("change", (event)
 document.querySelector("[data-custom-image-remove]").addEventListener("click", () => {
   clearCustomImage();
   document.querySelector("[data-publish-status]").textContent = "";
+});
+
+document.querySelector("[data-ai-translate]").addEventListener("click", async (event) => {
+  const form = document.querySelector("[data-publish-form]");
+  const button = event.currentTarget;
+  const status = document.querySelector("[data-translation-status]");
+  const title = form.elements.titleDe.value.trim();
+  const summary = form.elements.summaryDe.value.trim();
+  const body = form.elements.bodyDe.value.trim();
+
+  status.textContent = "";
+
+  if (!title || !summary || !body) {
+    status.textContent = t("publish.translateMissing");
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = t("publish.translating");
+
+  try {
+    const payload = await apiRequest("/translate", {
+      method: "POST",
+      auth: true,
+      body: { title, summary, body },
+    });
+    form.elements.titleEn.value = payload.translation.title;
+    form.elements.summaryEn.value = payload.translation.summary;
+    form.elements.bodyEn.value = payload.translation.body;
+    status.textContent = t("publish.translateSuccess");
+  } catch (error) {
+    if (error.status === 401) {
+      state.publisherUnlocked = false;
+      state.publisherToken = "";
+      sessionStorage.removeItem(PUBLISH_SESSION_KEY);
+      renderPublishTools();
+    }
+    status.textContent =
+      error.status === 503 ? t("publish.translateNotConfigured") : t("publish.translateError");
+  } finally {
+    button.disabled = false;
+    button.textContent = t("publish.translate");
+  }
 });
 
 document.querySelector("[data-contact-form]").addEventListener("submit", async (event) => {
