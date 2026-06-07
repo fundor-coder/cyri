@@ -1,8 +1,14 @@
 # Climate Youth Research Initiative Website
 
-A bilingual CYRI website with structured article data, an article-based AI research tool, a protected publishing backend, a contact-message backend and responsive Apple-inspired styling. CYRI publishes articles and does not conduct original research.
+A bilingual, youth-led environmental education platform with interactive topic paths, a knowledge quiz, structured article data, an article-based AI learning assistant, a protected publishing backend and responsive Apple-inspired styling. CYRI publishes educational content and does not conduct original research.
 
 Run `npm start` and open `http://localhost:5173/` to view the site with the backend enabled.
+
+Learning platform:
+- The `Learn` page connects the existing CYRI articles to interactive topic paths.
+- Visitors can switch between oceans, climate ecosystems and climate-ready cities.
+- A bilingual three-question knowledge check gives immediate explanations and a final score.
+- Articles remain the source-based foundation; infographics and social explainers are presented as additional educational formats.
 
 Backend routes:
 - `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
@@ -18,7 +24,7 @@ Deployment:
 - Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app. Set `CYRI_DATA_DIR` to a persistent server directory when the host uses ephemeral deployments.
 - PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically. `CYRI_DATA_DIR` can point to storage outside the deployment folder.
 - Static-only hosting is not enough for publishing, contact messages or AI answers, because those features need the backend.
-- GitHub Pages can display the frontend, but it cannot run the AI research tool or store published articles. Use the Node/Docker or PHP deployment as the production website when these functions must work.
+- GitHub Pages can display the frontend, but it cannot run the AI learning assistant or store published articles. Use the Node/Docker or PHP deployment as the production website when these functions must work.
 
 Scheduled publishing:
 - Select `Schedule for later` in the protected publishing editor and choose a local date and time.
@@ -31,7 +37,7 @@ AI translation:
 - The default model is `gpt-5.4-mini`. Override it with `OPENAI_TRANSLATION_MODEL` if needed.
 - Translation requests are sent only from the Node or PHP backend. Review every translation before publishing.
 
-AI research tool:
+AI learning assistant:
 - Set `OPENAI_API_KEY` in the server environment. The key stays in the Node or PHP backend and is never sent to visitors.
 - The backend selects up to three relevant published CYRI articles and instructs the model to answer only from that supplied material.
 - Answers include links back to the CYRI articles used. Unsupported questions should receive a clear statement that the available articles do not contain enough information.

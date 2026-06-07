@@ -8,6 +8,136 @@ const categories = [
 
 const articles = [];
 
+const learningTopics = [
+  {
+    id: "oceans",
+    articleId: "seegraswiesen-klima-kuesten-arten-2026",
+    imageId: "seagrass-meadow",
+    title: {
+      en: "Oceans & coasts",
+      de: "Meere & Küsten",
+    },
+    intro: {
+      en: "Explore how marine ecosystems protect coastlines, store carbon and support biodiversity.",
+      de: "Entdecke, wie Meeresökosysteme Küsten schützen, Kohlenstoff speichern und Artenvielfalt fördern.",
+    },
+    question: {
+      en: "How can an underwater meadow help the climate?",
+      de: "Wie kann eine Unterwasserwiese dem Klima helfen?",
+    },
+    concepts: {
+      en: ["Blue carbon", "Coastal protection", "Biodiversity"],
+      de: ["Blue Carbon", "Küstenschutz", "Biodiversität"],
+    },
+  },
+  {
+    id: "climate",
+    articleId: "korallenbleiche-erklaert-2026",
+    imageId: "coral-bleaching-2023",
+    title: {
+      en: "Climate & ecosystems",
+      de: "Klima & Ökosysteme",
+    },
+    intro: {
+      en: "Understand how warming changes sensitive ecosystems and why local protection still matters.",
+      de: "Verstehe, wie Erwärmung empfindliche Ökosysteme verändert und warum lokaler Schutz trotzdem wichtig ist.",
+    },
+    question: {
+      en: "Why does heat make coral reefs turn white?",
+      de: "Warum lässt Hitze Korallenriffe weiß werden?",
+    },
+    concepts: {
+      en: ["Marine heatwaves", "Resilience", "Climate action"],
+      de: ["Marine Hitzewellen", "Widerstandskraft", "Klimaschutz"],
+    },
+  },
+  {
+    id: "cities",
+    articleId: "schwammstadt-regenwasser-hitze-2026",
+    imageId: "sponge-city-rain-garden",
+    title: {
+      en: "Cities & adaptation",
+      de: "Städte & Anpassung",
+    },
+    intro: {
+      en: "Learn how urban planning can respond to heat, heavy rain and drought at the same time.",
+      de: "Lerne, wie Stadtplanung gleichzeitig auf Hitze, Starkregen und Trockenheit reagieren kann.",
+    },
+    question: {
+      en: "What changes when a city treats rain as a resource?",
+      de: "Was verändert sich, wenn eine Stadt Regen als Ressource behandelt?",
+    },
+    concepts: {
+      en: ["Rainwater storage", "Urban heat", "Climate adaptation"],
+      de: ["Regenwasserspeicherung", "Stadthitze", "Klimaanpassung"],
+    },
+  },
+];
+
+const quizQuestions = [
+  {
+    question: {
+      en: "What does coral bleaching mean?",
+      de: "Was bedeutet Korallenbleiche?",
+    },
+    options: {
+      en: [
+        "The coral has always died",
+        "The coral has expelled its symbiotic algae under stress",
+        "The reef is covered by white sand",
+      ],
+      de: [
+        "Die Koralle ist immer bereits gestorben",
+        "Die Koralle hat unter Stress ihre symbiotischen Algen abgestoßen",
+        "Das Riff ist von weißem Sand bedeckt",
+      ],
+    },
+    correct: 1,
+    explanation: {
+      en: "Bleached corals are severely stressed but not automatically dead. They may recover if conditions improve quickly.",
+      de: "Gebleichte Korallen sind stark gestresst, aber nicht automatisch tot. Verbessern sich die Bedingungen schnell, können sie sich erholen.",
+    },
+  },
+  {
+    question: {
+      en: "Where can seagrass meadows store carbon for a long time?",
+      de: "Wo können Seegraswiesen Kohlenstoff langfristig speichern?",
+    },
+    options: {
+      en: ["Mainly in the sediment", "Only in fish", "Only at the water surface"],
+      de: ["Vor allem im Sediment", "Nur in Fischen", "Nur an der Wasseroberfläche"],
+    },
+    correct: 0,
+    explanation: {
+      en: "A large part of the long-term carbon storage associated with seagrass lies in the sediment beneath the plants.",
+      de: "Ein großer Teil der langfristigen Kohlenstoffspeicherung von Seegras liegt im Sediment unter den Pflanzen.",
+    },
+  },
+  {
+    question: {
+      en: "What is the basic idea of a sponge city?",
+      de: "Was ist die Grundidee einer Schwammstadt?",
+    },
+    options: {
+      en: [
+        "Drain all rainwater immediately",
+        "Store and reuse rainwater within the city",
+        "Build only taller buildings",
+      ],
+      de: [
+        "Regenwasser sofort vollständig ableiten",
+        "Regenwasser in der Stadt speichern und wieder nutzen",
+        "Nur höhere Gebäude bauen",
+      ],
+    },
+    correct: 1,
+    explanation: {
+      en: "Sponge cities retain rainwater so it can infiltrate, evaporate or be reused instead of disappearing immediately into drains.",
+      de: "Schwammstädte halten Regenwasser zurück, damit es versickern, verdunsten oder wiederverwendet werden kann.",
+    },
+  },
+];
+
 const photoSources = [
   {
     id: "sponge-city-rain-garden",
@@ -115,14 +245,19 @@ const content = {
       close: "Close",
     },
     seo: {
-      title: "CYRI | Youth-led climate articles",
+      title: "CYRI | Youth-led environmental education",
       description:
-        "Climate Youth Research Initiative publishes understandable climate and marine protection articles.",
+        "CYRI is a youth-led digital learning platform for climate, nature and environmental protection.",
       pages: {
         home: {
-          title: "CYRI | Youth-led climate articles",
+          title: "CYRI | Youth-led environmental education",
           description:
-            "Climate Youth Research Initiative publishes understandable climate and marine protection articles.",
+            "Explore understandable articles, interactive learning paths and educational formats on climate, nature and environmental protection.",
+        },
+        learn: {
+          title: "Learn | CYRI",
+          description:
+            "Explore interactive CYRI learning paths, environmental topics and a short knowledge quiz.",
         },
         articles: {
           title: "Articles | CYRI",
@@ -130,14 +265,14 @@ const content = {
             "Read CYRI articles on climate policy, renewable energy, biodiversity, marine protection and sustainable cities.",
         },
         research: {
-          title: "Research Tool | CYRI",
+          title: "Learning Assistant | CYRI",
           description:
             "Ask questions and receive AI-assisted answers based only on published CYRI articles.",
         },
         about: {
           title: "About | CYRI",
           description:
-            "Learn about CYRI, a two-person youth-led climate article initiative currently in development in Germany.",
+            "Learn about CYRI, a two-person youth-led environmental education platform currently in development in Germany.",
         },
         publish: {
           title: "Publish | CYRI",
@@ -164,55 +299,127 @@ const content = {
     nav: {
       home: "Home",
       mission: "Mission",
+      learn: "Learn",
       articles: "Articles",
-      research: "Research",
+      research: "Ask CYRI",
       about: "About",
       publish: "Publish",
       contact: "Contact",
     },
     hero: {
-      eyebrow: "Climate Youth Research Initiative",
-      title: "Youth-led climate articles for a more sustainable future.",
+      eyebrow: "Youth-led environmental education",
+      title: "Understand the environment. Question it. Help shape it.",
       subtitle:
-        "CYRI publishes understandable climate and marine protection articles for young people, educators and the public.",
-      primaryCta: "Read Latest Articles",
-      secondaryCta: "Our Mission",
+        "CYRI is a digital learning platform where young people publish clear articles, visual explainers and social media content about climate, nature and environmental protection.",
+      primaryCta: "Start learning",
+      secondaryCta: "Read articles",
       imageAlt: "Bleached coral reef",
+    },
+    learningIntro: {
+      eyebrow: "Learn actively",
+      title: "From reading to understanding.",
+      intro:
+        "Choose a topic, ask questions and check what you have learned. CYRI connects reliable information with interactive environmental education.",
+      cta: "Explore the learning platform",
+      paths: [
+        {
+          step: "01",
+          title: "Explore",
+          text: "Find a clear entry point into climate, nature and environmental topics.",
+        },
+        {
+          step: "02",
+          title: "Question",
+          text: "Use the CYRI assistant to ask questions about published articles.",
+        },
+        {
+          step: "03",
+          title: "Check",
+          text: "Test your understanding with short knowledge checks and explanations.",
+        },
+      ],
     },
     mission: {
       eyebrow: "Mission",
       title: "Our Mission",
-      intro: "CYRI is an independent youth-led climate article initiative based in Germany.",
+      intro: "CYRI is an independent youth-led environmental education platform based in Germany.",
       paragraphOne:
-        "Our goal is to make climate science, climate policy and sustainability topics understandable for young people and the wider public.",
+        "Our goal is to make climate science, nature conservation, environmental policy and sustainability understandable for young people and the wider public.",
       paragraphTwo:
-        "We publish articles based on credible, traceable sources. CYRI does not conduct original research.",
+        "We create articles, visual explainers and social media formats based on credible, traceable sources. CYRI does not conduct original research.",
       focus: [
         {
-          title: "Clear articles",
-          text: "We turn complex climate topics into precise, accessible public articles.",
+          title: "Understandable knowledge",
+          text: "We turn complex environmental topics into precise, accessible learning content.",
         },
         {
-          title: "Transparent sources",
-          text: "We make sources visible and separate facts, context and interpretation clearly.",
+          title: "Interactive learning",
+          text: "Topic explorers, questions and quizzes help readers engage with information actively.",
         },
         {
-          title: "Responsible publishing",
-          text: "We publish carefully edited articles for readers who want serious climate context.",
+          title: "Youth perspectives",
+          text: "Young people shape the topics, formats and language while sources remain transparent.",
         },
       ],
     },
     latest: {
-      eyebrow: "Latest thinking",
-      title: "Latest Articles",
-      intro: "Published CYRI articles appear here automatically once they are added.",
-      viewAll: "View all articles",
+      eyebrow: "New learning content",
+      title: "Latest learning articles",
+      intro: "New source-based CYRI learning articles appear here automatically.",
+      viewAll: "View all learning articles",
+    },
+    learn: {
+      eyebrow: "Learning platform",
+      title: "Environmental knowledge that you can explore.",
+      intro:
+        "Start with a question, discover the key concepts and continue with the full source-based article.",
+      topicsEyebrow: "Choose a topic",
+      topicsTitle: "What do you want to understand?",
+      topicsAria: "Learning topics",
+      guidingQuestion: "Guiding question",
+      concepts: "Key concepts",
+      openArticle: "Open learning article",
+      askAssistant: "Ask CYRI",
+      formatsEyebrow: "Formats",
+      formatsTitle: "Knowledge for different contexts.",
+      formatsIntro:
+        "The same topic can be explored in depth, understood visually or prepared for social media.",
+      formats: [
+        {
+          status: "Available now",
+          title: "Learning articles",
+          text: "Source-based long-form explanations with clear structure and further reading.",
+        },
+        {
+          status: "In development",
+          title: "Infographics",
+          text: "Visual summaries that make processes, comparisons and key figures easier to grasp.",
+        },
+        {
+          status: "On our channels",
+          title: "Social explainers",
+          text: "Compact educational posts for Instagram, LinkedIn and X.",
+        },
+      ],
+      quizEyebrow: "Knowledge check",
+      quizTitle: "What stayed with you?",
+      quizIntro: "Three short questions based on current CYRI learning articles.",
+      questionProgress: "Question {current} of {total}",
+      correct: "Correct.",
+      incorrect: "Not quite.",
+      next: "Next question",
+      finish: "Show result",
+      resultTitle: "Your result",
+      resultText: "You answered {score} of {total} questions correctly.",
+      resultStrong: "Strong foundation. Continue with a new topic or ask a deeper question.",
+      resultDeveloping: "A good start. The linked learning articles explain each answer in more depth.",
+      restart: "Restart quiz",
     },
     articles: {
-      eyebrow: "Articles",
-      title: "Climate and marine protection, explained clearly.",
+      eyebrow: "Learning articles",
+      title: "Environmental topics, explained clearly.",
       intro:
-        "Read CYRI articles on climate protection, marine protection, renewable energy, climate policy, biodiversity and sustainable cities.",
+        "Explore source-based CYRI articles on climate, nature, marine protection, renewable energy, biodiversity and sustainable cities.",
       newestEyebrow: "Newest",
       newestTitle: "Newest Articles",
       archiveEyebrow: "Archive",
@@ -230,10 +437,10 @@ const content = {
       noResults: "No older articles match this category yet.",
     },
     research: {
-      eyebrow: "Research tool",
-      title: "Ask questions about CYRI articles.",
+      eyebrow: "Learning assistant",
+      title: "Ask questions about CYRI learning content.",
       intro:
-        "Receive concise AI-assisted answers based only on the content of published CYRI articles.",
+        "Receive concise AI-assisted explanations based only on published CYRI learning articles.",
       questionLabel: "Your question",
       questionPlaceholder: "What does coral bleaching have to do with climate change?",
       submit: "Ask CYRI",
@@ -244,31 +451,31 @@ const content = {
       privacyNote:
         "Your question is sent to the configured AI provider for processing. Do not enter personal or confidential information.",
       missing: "Enter a question with at least five characters.",
-      unavailable: "The AI research tool is not configured on the server yet.",
+      unavailable: "The AI learning assistant is not configured on the server yet.",
       rateLimited: "Too many questions were submitted. Please try again in a few minutes.",
       error: "The question could not be answered. Please try again later.",
     },
     about: {
       eyebrow: "About",
-      title: "An ambitious youth-led initiative from Germany.",
-      intro: "CYRI is an independent youth-led climate article initiative currently in development.",
-      storyTitle: "Building a clear bridge between climate topics and the public.",
+      title: "A youth-led platform for environmental education.",
+      intro: "CYRI is an independent youth-led digital education platform currently in development.",
+      storyTitle: "Making environmental knowledge accessible and useful.",
       storyOne:
-        "CYRI is being developed to help young people understand climate topics, evaluate public debates and participate in sustainability conversations with confidence.",
+        "CYRI helps young people understand environmental topics, evaluate public debates and participate in sustainability conversations with confidence.",
       storyTwo:
-        "The initiative focuses on careful article work, accessible writing, transparent sourcing and responsible publishing.",
+        "The platform combines careful editorial work, accessible writing, transparent sourcing and interactive learning formats.",
       teamEyebrow: "Team",
       teamTitle: "Core team",
       team: [
         {
           name: "Tobias Göppert",
-          role: "Co-founder & editorial lead",
-          text: "Co-founded CYRI and leads article direction, public positioning, editorial standards and source-based climate articles.",
+          role: "Co-founder & education lead",
+          text: "Co-founded CYRI and leads educational direction, editorial standards, learning formats and source-based environmental content.",
         },
         {
           name: "Jarne Bub",
           role: "Co-founder & operations lead",
-          text: "Co-founded CYRI and supports article planning, publishing workflows, organization and quality control.",
+          text: "Co-founded CYRI and leads platform organization, publishing workflows, format development and quality control.",
         },
       ],
     },
@@ -293,8 +500,8 @@ const content = {
     },
     publish: {
       eyebrow: "Publish",
-      title: "Publish a CYRI article.",
-      intro: "Add a new climate or marine protection article with the protected backend editor.",
+      title: "Publish a CYRI learning article.",
+      intro: "Add new source-based environmental education content with the protected editor.",
       panelEyebrow: "Editor access",
       panelTitle: "Protected publishing backend.",
       panelText:
@@ -380,10 +587,10 @@ const content = {
         "This website sends contact messages and protected publishing requests to the CYRI backend.",
       localDataTitle: "Backend data",
       localDataText:
-        "Contact messages are stored on the server for processing. Published articles are stored in the article backend. Questions entered in the research tool are sent to the configured AI provider for processing. A complete privacy policy should be finalized before public launch.",
+        "Contact messages are stored on the server for processing. Published articles are stored in the article backend. Questions entered in the learning assistant are sent to the configured AI provider for processing. A complete privacy policy should be finalized before public launch.",
     },
     footer: {
-      statement: "Youth-led climate articles for a more sustainable future.",
+      statement: "Youth-led environmental education for a more sustainable future.",
       language: "Language",
       social: "Social",
       imprint: "Imprint",
@@ -397,14 +604,19 @@ const content = {
       close: "Schließen",
     },
     seo: {
-      title: "CYRI | Jugendgeführte Klimaartikel",
+      title: "CYRI | Jugendgeführte Umweltbildung",
       description:
-        "Climate Youth Research Initiative veröffentlicht verständliche Artikel zu Klima- und Meeresschutz.",
+        "CYRI ist eine jugendgeführte digitale Lernplattform für Klima-, Natur- und Umweltschutz.",
       pages: {
         home: {
-          title: "CYRI | Jugendgeführte Klimaartikel",
+          title: "CYRI | Jugendgeführte Umweltbildung",
           description:
-            "Climate Youth Research Initiative veröffentlicht verständliche Artikel zu Klima- und Meeresschutz.",
+            "Entdecke verständliche Artikel, interaktive Lernpfade und Bildungsformate zu Klima-, Natur- und Umweltschutz.",
+        },
+        learn: {
+          title: "Lernen | CYRI",
+          description:
+            "Entdecke interaktive CYRI-Lernpfade, Umweltthemen und einen kurzen Wissenscheck.",
         },
         articles: {
           title: "Artikel | CYRI",
@@ -412,14 +624,14 @@ const content = {
             "Lies CYRI-Artikel zu Klimapolitik, erneuerbarer Energie, Biodiversität, Meeresschutz und nachhaltigen Städten.",
         },
         research: {
-          title: "Recherche-Tool | CYRI",
+          title: "Lernassistent | CYRI",
           description:
             "Stelle Fragen und erhalte KI-gestützte Antworten auf Basis veröffentlichter CYRI-Artikel.",
         },
         about: {
           title: "Über uns | CYRI",
           description:
-            "Erfahre mehr über CYRI, eine zweiköpfige jugendgeführte Klimaartikelinitiative im Aufbau in Deutschland.",
+            "Erfahre mehr über CYRI, eine zweiköpfige jugendgeführte Plattform für Umweltbildung im Aufbau in Deutschland.",
         },
         publish: {
           title: "Publizieren | CYRI",
@@ -446,55 +658,127 @@ const content = {
     nav: {
       home: "Start",
       mission: "Mission",
+      learn: "Lernen",
       articles: "Artikel",
-      research: "Recherche",
+      research: "CYRI fragen",
       about: "Über uns",
       publish: "Publizieren",
       contact: "Kontakt",
     },
     hero: {
-      eyebrow: "Climate Youth Research Initiative",
-      title: "Jugendgeführte Klimaartikel für eine nachhaltigere Zukunft.",
+      eyebrow: "Jugendgeführte Umweltbildung",
+      title: "Umwelt verstehen. Hinterfragen. Mitgestalten.",
       subtitle:
-        "CYRI veröffentlicht verständliche Artikel zu Klima- und Meeresschutz für junge Menschen, Bildungseinrichtungen und die Öffentlichkeit.",
-      primaryCta: "Neueste Artikel lesen",
-      secondaryCta: "Unsere Mission",
+        "CYRI ist eine digitale Lernplattform, auf der junge Menschen verständliche Artikel, visuelle Erklärformate und Social-Media-Beiträge zu Klima-, Natur- und Umweltschutz veröffentlichen.",
+      primaryCta: "Jetzt lernen",
+      secondaryCta: "Artikel lesen",
       imageAlt: "Gebleichter Korallenriffbereich",
+    },
+    learningIntro: {
+      eyebrow: "Aktiv lernen",
+      title: "Vom Lesen zum Verstehen.",
+      intro:
+        "Wähle ein Thema, stelle Fragen und überprüfe dein Wissen. CYRI verbindet verlässliche Informationen mit interaktiver Umweltbildung.",
+      cta: "Lernplattform entdecken",
+      paths: [
+        {
+          step: "01",
+          title: "Entdecken",
+          text: "Finde einen verständlichen Einstieg in Klima-, Natur- und Umweltthemen.",
+        },
+        {
+          step: "02",
+          title: "Nachfragen",
+          text: "Stelle dem CYRI-Assistenten Fragen zu den veröffentlichten Artikeln.",
+        },
+        {
+          step: "03",
+          title: "Überprüfen",
+          text: "Teste dein Verständnis mit kurzen Wissensfragen und Erklärungen.",
+        },
+      ],
     },
     mission: {
       eyebrow: "Mission",
       title: "Unsere Mission",
-      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikelinitiative aus Deutschland.",
+      intro: "CYRI ist eine unabhängige, jugendgeführte Plattform für Umweltbildung aus Deutschland.",
       paragraphOne:
-        "Unser Ziel ist es, Klimawissenschaft, Klimapolitik und Nachhaltigkeitsthemen für junge Menschen und die breite Öffentlichkeit verständlich zu machen.",
+        "Unser Ziel ist es, Klimawissenschaft, Naturschutz, Umweltpolitik und Nachhaltigkeit für junge Menschen und die breite Öffentlichkeit verständlich zu machen.",
       paragraphTwo:
-        "Wir veröffentlichen Artikel auf Basis glaubwürdiger, nachvollziehbarer Quellen. CYRI führt keine eigene Forschung durch.",
+        "Wir erstellen Artikel, visuelle Erklärformate und Social-Media-Inhalte auf Basis glaubwürdiger, nachvollziehbarer Quellen. CYRI führt keine eigene Forschung durch.",
       focus: [
         {
-          title: "Klare Artikel",
-          text: "Wir machen komplexe Klimathemen in präzisen und zugänglichen Artikeln verständlich.",
+          title: "Verständliches Wissen",
+          text: "Wir machen komplexe Umweltthemen in präzisen und zugänglichen Lerninhalten verständlich.",
         },
         {
-          title: "Transparente Quellen",
-          text: "Wir machen Quellen sichtbar und trennen Fakten, Kontext und Einordnung klar voneinander.",
+          title: "Interaktives Lernen",
+          text: "Themenexplorer, Fragen und Quizze helfen dabei, Informationen aktiv zu verarbeiten.",
         },
         {
-          title: "Verantwortliches Publizieren",
-          text: "Wir veröffentlichen sorgfältig redigierte Artikel für Leserinnen und Leser, die seriöse Klimaeinordnung suchen.",
+          title: "Jugendliche Perspektiven",
+          text: "Junge Menschen prägen Themen, Formate und Sprache, während Quellen transparent bleiben.",
         },
       ],
     },
     latest: {
-      eyebrow: "Aktuelle Perspektiven",
-      title: "Neueste Artikel",
-      intro: "Veröffentlichte CYRI-Artikel erscheinen hier automatisch, sobald sie angelegt wurden.",
-      viewAll: "Alle Artikel ansehen",
+      eyebrow: "Neue Lerninhalte",
+      title: "Neueste Lernartikel",
+      intro: "Neue quellenbasierte CYRI-Lernartikel erscheinen hier automatisch.",
+      viewAll: "Alle Lernartikel ansehen",
+    },
+    learn: {
+      eyebrow: "Lernplattform",
+      title: "Umweltwissen, das du selbst erkunden kannst.",
+      intro:
+        "Starte mit einer Frage, entdecke die wichtigsten Begriffe und vertiefe das Thema anschließend im vollständigen, quellenbasierten Artikel.",
+      topicsEyebrow: "Thema wählen",
+      topicsTitle: "Was möchtest du verstehen?",
+      topicsAria: "Lernthemen",
+      guidingQuestion: "Leitfrage",
+      concepts: "Schlüsselbegriffe",
+      openArticle: "Lernartikel öffnen",
+      askAssistant: "CYRI fragen",
+      formatsEyebrow: "Formate",
+      formatsTitle: "Wissen für unterschiedliche Situationen.",
+      formatsIntro:
+        "Dasselbe Thema kann ausführlich vertieft, visuell verstanden oder für Social Media aufbereitet werden.",
+      formats: [
+        {
+          status: "Jetzt verfügbar",
+          title: "Lernartikel",
+          text: "Quellenbasierte Langform-Erklärungen mit klarer Struktur und weiterführenden Informationen.",
+        },
+        {
+          status: "Im Aufbau",
+          title: "Infografiken",
+          text: "Visuelle Zusammenfassungen, die Abläufe, Vergleiche und Kennzahlen leichter erfassbar machen.",
+        },
+        {
+          status: "Auf unseren Kanälen",
+          title: "Social Erklärformate",
+          text: "Kompakte Bildungsbeiträge für Instagram, LinkedIn und X.",
+        },
+      ],
+      quizEyebrow: "Wissenscheck",
+      quizTitle: "Was ist hängen geblieben?",
+      quizIntro: "Drei kurze Fragen auf Basis aktueller CYRI-Lernartikel.",
+      questionProgress: "Frage {current} von {total}",
+      correct: "Richtig.",
+      incorrect: "Noch nicht ganz.",
+      next: "Nächste Frage",
+      finish: "Ergebnis anzeigen",
+      resultTitle: "Dein Ergebnis",
+      resultText: "Du hast {score} von {total} Fragen richtig beantwortet.",
+      resultStrong: "Starke Grundlage. Vertiefe ein neues Thema oder stelle eine weiterführende Frage.",
+      resultDeveloping: "Ein guter Anfang. Die verlinkten Lernartikel erklären jede Antwort ausführlicher.",
+      restart: "Quiz neu starten",
     },
     articles: {
-      eyebrow: "Artikel",
-      title: "Klima- und Meeresschutz klar erklärt.",
+      eyebrow: "Lernartikel",
+      title: "Umweltthemen klar erklärt.",
       intro:
-        "Lies CYRI-Artikel zu Klimaschutz, Meeresschutz, erneuerbarer Energie, Klimapolitik, Biodiversität und nachhaltigen Städten.",
+        "Entdecke quellenbasierte CYRI-Artikel zu Klima, Natur, Meeresschutz, erneuerbarer Energie, Biodiversität und nachhaltigen Städten.",
       newestEyebrow: "Neueste",
       newestTitle: "Neueste Artikel",
       archiveEyebrow: "Archiv",
@@ -512,10 +796,10 @@ const content = {
       noResults: "Zu dieser Kategorie gibt es noch keine älteren Artikel.",
     },
     research: {
-      eyebrow: "Recherche-Tool",
-      title: "Stelle Fragen zu den CYRI-Artikeln.",
+      eyebrow: "Lernassistent",
+      title: "Stelle Fragen zu den CYRI-Lerninhalten.",
       intro:
-        "Erhalte kurze KI-gestützte Antworten, die ausschließlich auf veröffentlichten CYRI-Artikeln basieren.",
+        "Erhalte kurze KI-gestützte Erklärungen, die ausschließlich auf veröffentlichten CYRI-Lernartikeln basieren.",
       questionLabel: "Deine Frage",
       questionPlaceholder: "Was hat Korallenbleiche mit dem Klimawandel zu tun?",
       submit: "CYRI fragen",
@@ -526,31 +810,31 @@ const content = {
       privacyNote:
         "Deine Frage wird zur Verarbeitung an den eingerichteten KI-Anbieter übermittelt. Gib keine persönlichen oder vertraulichen Informationen ein.",
       missing: "Gib eine Frage mit mindestens fünf Zeichen ein.",
-      unavailable: "Das KI-Recherche-Tool ist auf dem Server noch nicht eingerichtet.",
+      unavailable: "Der KI-Lernassistent ist auf dem Server noch nicht eingerichtet.",
       rateLimited: "Es wurden zu viele Fragen gestellt. Bitte versuche es in einigen Minuten erneut.",
       error: "Die Frage konnte nicht beantwortet werden. Bitte versuche es später erneut.",
     },
     about: {
       eyebrow: "Über uns",
-      title: "Eine ambitionierte jugendgeführte Initiative aus Deutschland.",
-      intro: "CYRI ist eine unabhängige, jugendgeführte Klimaartikelinitiative, die sich derzeit im Aufbau befindet.",
-      storyTitle: "Eine klare Brücke zwischen Klimathemen und Öffentlichkeit bauen.",
+      title: "Eine jugendgeführte Plattform für Umweltbildung.",
+      intro: "CYRI ist eine unabhängige, jugendgeführte digitale Bildungsplattform, die sich derzeit im Aufbau befindet.",
+      storyTitle: "Umweltwissen zugänglich und nutzbar machen.",
       storyOne:
-        "CYRI entsteht, um jungen Menschen zu helfen, Klimathemen zu verstehen, öffentliche Debatten einzuordnen und selbstbewusst an Nachhaltigkeitsgesprächen teilzunehmen.",
+        "CYRI hilft jungen Menschen, Umweltthemen zu verstehen, öffentliche Debatten einzuordnen und selbstbewusst an Nachhaltigkeitsgesprächen teilzunehmen.",
       storyTwo:
-        "Die Initiative konzentriert sich auf sorgfältige Artikelarbeit, verständliche Texte, transparente Quellen und verantwortliches Publizieren.",
+        "Die Plattform verbindet sorgfältige Redaktionsarbeit, verständliche Sprache, transparente Quellen und interaktive Lernformate.",
       teamEyebrow: "Team",
       teamTitle: "Kernteam",
       team: [
         {
           name: "Tobias Göppert",
-          role: "Mitgründer & redaktionelle Leitung",
-          text: "Hat CYRI mitgegründet und leitet Artikelstrategie, öffentliche Positionierung, redaktionelle Standards und quellenbasierte Klimaartikel.",
+          role: "Mitgründer & Bildungsleitung",
+          text: "Hat CYRI mitgegründet und leitet Bildungsstrategie, redaktionelle Standards, Lernformate und quellenbasierte Umweltinhalte.",
         },
         {
           name: "Jarne Bub",
           role: "Mitgründer & Organisation",
-          text: "Hat CYRI mitgegründet und unterstützt Artikelplanung, Veröffentlichungsabläufe, Organisation und Qualitätskontrolle.",
+          text: "Hat CYRI mitgegründet und leitet Plattformorganisation, Veröffentlichungsabläufe, Formatentwicklung und Qualitätskontrolle.",
         },
       ],
     },
@@ -575,8 +859,8 @@ const content = {
     },
     publish: {
       eyebrow: "Publizieren",
-      title: "Einen CYRI-Artikel veröffentlichen.",
-      intro: "Füge einen neuen Artikel zu Klima- oder Meeresschutz über den geschützten Backend-Editor hinzu.",
+      title: "Einen CYRI-Lernartikel veröffentlichen.",
+      intro: "Füge neue quellenbasierte Inhalte für die Umweltbildung über den geschützten Editor hinzu.",
       panelEyebrow: "Editor-Zugang",
       panelTitle: "Geschütztes Veröffentlichungsbackend.",
       panelText:
@@ -662,10 +946,10 @@ const content = {
         "Diese Website sendet Kontaktanfragen und geschützte Veröffentlichungsanfragen an das CYRI-Backend.",
       localDataTitle: "Serverdaten",
       localDataText:
-        "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Fragen im Recherche-Tool werden zur Beantwortung an den konfigurierten KI-Anbieter übermittelt. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
+        "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Fragen im Lernassistenten werden zur Beantwortung an den konfigurierten KI-Anbieter übermittelt. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
     },
     footer: {
-      statement: "Jugendgeführte Klimaartikel für eine nachhaltigere Zukunft.",
+      statement: "Jugendgeführte Umweltbildung für eine nachhaltigere Zukunft.",
       language: "Sprache",
       social: "Social Media",
       imprint: "Impressum",
@@ -684,10 +968,15 @@ const state = {
   publisherUnlocked: Boolean(sessionStorage.getItem(PUBLISH_SESSION_KEY)),
   publishedArticles: [],
   customImagePreviewUrl: "",
+  learningTopic: "oceans",
+  quizIndex: 0,
+  quizAnswers: [],
+  quizComplete: false,
 };
 
 const routes = new Set([
   "home",
+  "learn",
   "articles",
   "research",
   "about",
@@ -774,7 +1063,7 @@ async function loadArticlesFromBackend() {
 
 async function loadStaticArticles() {
   try {
-    const response = await fetch("content/articles.json?v=20260607-3", { cache: "no-cache" });
+    const response = await fetch("content/articles.json?v=20260607-4", { cache: "no-cache" });
     if (!response.ok) throw new Error("Static article corpus is not available.");
     const payload = await response.json();
     articles.splice(0, articles.length, ...(Array.isArray(payload) ? payload : []));
@@ -921,6 +1210,200 @@ function renderMissionFocus() {
       `
     )
     .join("");
+}
+
+function formatLearningText(template, values) {
+  return Object.entries(values).reduce(
+    (text, [key, value]) => text.replace(`{${key}}`, String(value)),
+    template
+  );
+}
+
+function renderLearningPaths() {
+  const container = document.querySelector("[data-learning-paths]");
+  if (!container) return;
+  container.innerHTML = t("learningIntro.paths")
+    .map(
+      (path) => `
+        <article class="learning-path-card">
+          <span class="learning-step">${escapeHtml(path.step)}</span>
+          <h3>${escapeHtml(path.title)}</h3>
+          <p>${escapeHtml(path.text)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function renderLearningTopics() {
+  const selector = document.querySelector("[data-learning-topics]");
+  const detail = document.querySelector("[data-learning-detail]");
+  if (!selector || !detail) return;
+
+  const activeTopic =
+    learningTopics.find((topic) => topic.id === state.learningTopic) || learningTopics[0];
+  selector.innerHTML = learningTopics
+    .map((topic) => {
+      const photo = getPhoto(topic.imageId);
+      const active = topic.id === activeTopic.id;
+      return `
+        <button
+          class="topic-tab${active ? " is-active" : ""}"
+          type="button"
+          role="tab"
+          aria-selected="${active}"
+          data-learning-topic="${escapeHtml(topic.id)}"
+        >
+          <img src="${escapeHtml(photo.src)}" alt="" loading="lazy" />
+          <span>${escapeHtml(topic.title[state.lang])}</span>
+        </button>
+      `;
+    })
+    .join("");
+
+  const photo = getPhoto(activeTopic.imageId);
+  detail.innerHTML = `
+    <figure class="topic-visual">
+      <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" />
+      <figcaption>${renderPhotoCredit(photo)}</figcaption>
+    </figure>
+    <div class="topic-copy">
+      <p class="eyebrow">${escapeHtml(activeTopic.title[state.lang])}</p>
+      <h2>${escapeHtml(activeTopic.question[state.lang])}</h2>
+      <p>${escapeHtml(activeTopic.intro[state.lang])}</p>
+      <div class="topic-concepts">
+        <strong>${escapeHtml(t("learn.concepts"))}</strong>
+        <div>
+          ${activeTopic.concepts[state.lang]
+            .map((concept) => `<span>${escapeHtml(concept)}</span>`)
+            .join("")}
+        </div>
+      </div>
+      <div class="topic-actions">
+        <button
+          class="button button-primary"
+          type="button"
+          data-article-id="${escapeHtml(activeTopic.articleId)}"
+        >
+          ${escapeHtml(t("learn.openArticle"))}
+        </button>
+        <a class="button button-secondary" href="#research">${escapeHtml(
+          t("learn.askAssistant")
+        )}</a>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearningFormats() {
+  const container = document.querySelector("[data-learning-formats]");
+  if (!container) return;
+  container.innerHTML = t("learn.formats")
+    .map(
+      (format, index) => `
+        <article class="format-card">
+          <div class="format-card-top">
+            <span class="format-number">${String(index + 1).padStart(2, "0")}</span>
+            <span class="format-status">${escapeHtml(format.status)}</span>
+          </div>
+          <h3>${escapeHtml(format.title)}</h3>
+          <p>${escapeHtml(format.text)}</p>
+        </article>
+      `
+    )
+    .join("");
+}
+
+function quizScore() {
+  return state.quizAnswers.reduce(
+    (score, answer, index) => score + (answer === quizQuestions[index].correct ? 1 : 0),
+    0
+  );
+}
+
+function renderLearningQuiz() {
+  const container = document.querySelector("[data-learning-quiz]");
+  if (!container) return;
+
+  if (state.quizComplete) {
+    const score = quizScore();
+    const total = quizQuestions.length;
+    const strong = score >= Math.ceil(total * 0.67);
+    container.innerHTML = `
+      <div class="quiz-result">
+        <span class="quiz-score">${score}/${total}</span>
+        <div>
+          <p class="eyebrow">${escapeHtml(t("learn.resultTitle"))}</p>
+          <h3>${escapeHtml(
+            formatLearningText(t("learn.resultText"), { score, total })
+          )}</h3>
+          <p>${escapeHtml(t(strong ? "learn.resultStrong" : "learn.resultDeveloping"))}</p>
+        </div>
+      </div>
+      <button class="button button-secondary" type="button" data-quiz-reset>
+        ${escapeHtml(t("learn.restart"))}
+      </button>
+    `;
+    return;
+  }
+
+  const question = quizQuestions[state.quizIndex];
+  const selectedAnswer = state.quizAnswers[state.quizIndex];
+  const answered = Number.isInteger(selectedAnswer);
+  const correct = selectedAnswer === question.correct;
+  const progress = ((state.quizIndex + 1) / quizQuestions.length) * 100;
+  container.innerHTML = `
+    <div class="quiz-progress-row">
+      <span>${escapeHtml(
+        formatLearningText(t("learn.questionProgress"), {
+          current: state.quizIndex + 1,
+          total: quizQuestions.length,
+        })
+      )}</span>
+      <span>${state.quizIndex + 1}/${quizQuestions.length}</span>
+    </div>
+    <div class="quiz-progress"><span style="width: ${progress}%"></span></div>
+    <h3 class="quiz-question">${escapeHtml(question.question[state.lang])}</h3>
+    <div class="quiz-options">
+      ${question.options[state.lang]
+        .map((option, index) => {
+          let className = "quiz-option";
+          if (answered && index === question.correct) className += " is-correct";
+          if (answered && index === selectedAnswer && !correct) className += " is-incorrect";
+          return `
+            <button
+              class="${className}"
+              type="button"
+              data-quiz-option="${index}"
+              ${answered ? "disabled" : ""}
+            >
+              <span>${String.fromCharCode(65 + index)}</span>
+              ${escapeHtml(option)}
+            </button>
+          `;
+        })
+        .join("")}
+    </div>
+    ${
+      answered
+        ? `
+          <div class="quiz-feedback ${correct ? "is-correct" : "is-incorrect"}">
+            <strong>${escapeHtml(t(correct ? "learn.correct" : "learn.incorrect"))}</strong>
+            <p>${escapeHtml(question.explanation[state.lang])}</p>
+          </div>
+          <button class="button button-primary" type="button" data-quiz-next>
+            ${escapeHtml(
+              t(
+                state.quizIndex === quizQuestions.length - 1
+                  ? "learn.finish"
+                  : "learn.next"
+              )
+            )}
+          </button>
+        `
+        : ""
+    }
+  `;
 }
 
 function localizedArticleValue(article, field) {
@@ -1199,6 +1682,10 @@ async function uploadCustomImage(file, credit) {
 
 function renderDynamicContent() {
   renderMissionFocus();
+  renderLearningPaths();
+  renderLearningTopics();
+  renderLearningFormats();
+  renderLearningQuiz();
   renderFilters();
   renderArticles();
   renderTeam();
@@ -1394,6 +1881,38 @@ document.addEventListener("click", (event) => {
     updateStaticText();
     renderDynamicContent();
     resetResearchAnswer();
+    return;
+  }
+
+  const learningTopicButton = event.target.closest("[data-learning-topic]");
+  if (learningTopicButton) {
+    state.learningTopic = learningTopicButton.dataset.learningTopic;
+    renderLearningTopics();
+    return;
+  }
+
+  const quizOptionButton = event.target.closest("[data-quiz-option]");
+  if (quizOptionButton) {
+    state.quizAnswers[state.quizIndex] = Number(quizOptionButton.dataset.quizOption);
+    renderLearningQuiz();
+    return;
+  }
+
+  if (event.target.closest("[data-quiz-next]")) {
+    if (state.quizIndex === quizQuestions.length - 1) {
+      state.quizComplete = true;
+    } else {
+      state.quizIndex += 1;
+    }
+    renderLearningQuiz();
+    return;
+  }
+
+  if (event.target.closest("[data-quiz-reset]")) {
+    state.quizIndex = 0;
+    state.quizAnswers = [];
+    state.quizComplete = false;
+    renderLearningQuiz();
     return;
   }
 

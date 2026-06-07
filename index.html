@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>CYRI | Youth-led climate articles</title>
+    <title>CYRI | Youth-led environmental education</title>
     <meta
       name="description"
-      content="Climate Youth Research Initiative publishes understandable climate and marine protection articles."
+      content="CYRI is a youth-led digital learning platform for climate, nature and environmental protection."
     />
     <meta name="theme-color" content="#f7fbfa" />
-    <meta property="og:title" content="CYRI | Youth-led climate articles" />
+    <meta property="og:title" content="CYRI | Youth-led environmental education" />
     <meta
       property="og:description"
-      content="Independent youth-led climate articles from Germany."
+      content="Interactive youth-led environmental education from Germany."
     />
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260607-3" />
-    <script src="app.js?v=20260607-3" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260607-4" />
+    <script src="app.js?v=20260607-4" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -46,8 +46,9 @@
           <div class="nav-links">
             <a href="#home" data-nav-link="home" data-i18n="nav.home">Home</a>
             <a href="#mission" data-nav-link="mission" data-i18n="nav.mission">Mission</a>
+            <a href="#learn" data-nav-link="learn" data-i18n="nav.learn">Learn</a>
             <a href="#articles" data-nav-link="articles" data-i18n="nav.articles">Articles</a>
-            <a href="#research" data-nav-link="research" data-i18n="nav.research">Research</a>
+            <a href="#research" data-nav-link="research" data-i18n="nav.research">Ask CYRI</a>
             <a href="#about" data-nav-link="about" data-i18n="nav.about">About</a>
             <a href="#contact" data-nav-link="contact" data-i18n="nav.contact">Contact</a>
           </div>
@@ -66,20 +67,21 @@
         <section class="hero section">
           <div class="hero-inner shell">
             <div class="hero-copy reveal">
-              <p class="eyebrow" data-i18n="hero.eyebrow">Climate Youth Research Initiative</p>
+              <p class="eyebrow" data-i18n="hero.eyebrow">Youth-led environmental education</p>
               <h1 data-i18n="hero.title">
-                Youth-led climate articles for a more sustainable future.
+                Understand the environment. Question it. Help shape it.
               </h1>
               <p class="hero-subtitle" data-i18n="hero.subtitle">
-                CYRI publishes understandable climate and marine protection articles for young
-                people, educators and the public.
+                CYRI is a digital learning platform where young people publish clear articles,
+                visual explainers and social media content about climate, nature and environmental
+                protection.
               </p>
               <div class="hero-actions">
-                <a class="button button-primary" href="#articles" data-i18n="hero.primaryCta">
-                  Read Latest Articles
+                <a class="button button-primary" href="#learn" data-i18n="hero.primaryCta">
+                  Start learning
                 </a>
-                <a class="button button-secondary" href="#mission" data-i18n="hero.secondaryCta">
-                  Our Mission
+                <a class="button button-secondary" href="#articles" data-i18n="hero.secondaryCta">
+                  Read articles
                 </a>
               </div>
             </div>
@@ -95,25 +97,44 @@
           </div>
         </section>
 
+        <section class="section learning-intro-section">
+          <div class="shell">
+            <div class="section-heading section-heading-row reveal">
+              <div>
+                <p class="eyebrow" data-i18n="learningIntro.eyebrow">Learn actively</p>
+                <h2 data-i18n="learningIntro.title">From reading to understanding.</h2>
+                <p data-i18n="learningIntro.intro">
+                  Choose a topic, ask questions and check what you have learned. CYRI connects
+                  reliable information with interactive environmental education.
+                </p>
+              </div>
+              <a class="section-link" href="#learn" data-i18n="learningIntro.cta">
+                Explore the learning platform
+              </a>
+            </div>
+            <div class="learning-path-grid reveal" data-learning-paths></div>
+          </div>
+        </section>
+
         <section class="section mission-section" id="mission-section" data-anchor="mission">
           <div class="shell">
             <div class="section-heading reveal">
               <p class="eyebrow" data-i18n="mission.eyebrow">Mission</p>
               <h2 data-i18n="mission.title">Our Mission</h2>
               <p data-i18n="mission.intro">
-                CYRI is an independent youth-led climate article initiative based in Germany.
+                CYRI is an independent youth-led environmental education platform based in Germany.
               </p>
             </div>
 
             <div class="mission-layout">
               <div class="mission-copy reveal">
                 <p data-i18n="mission.paragraphOne">
-                  Our goal is to make climate science, climate policy and sustainability topics
-                  understandable for young people and the wider public.
+                  Our goal is to make climate science, nature conservation, environmental policy
+                  and sustainability understandable for young people and the wider public.
                 </p>
                 <p data-i18n="mission.paragraphTwo">
-                  We publish articles based on credible, traceable sources. CYRI does not conduct
-                  original research.
+                  We create articles, visual explainers and social media formats based on credible,
+                  traceable sources. CYRI does not conduct original research.
                 </p>
               </div>
 
@@ -126,10 +147,10 @@
           <div class="shell">
             <div class="section-heading section-heading-row reveal">
               <div>
-                <p class="eyebrow" data-i18n="latest.eyebrow">Latest thinking</p>
-                <h2 data-i18n="latest.title">Latest Articles</h2>
+                <p class="eyebrow" data-i18n="latest.eyebrow">New learning content</p>
+                <h2 data-i18n="latest.title">Latest learning articles</h2>
                 <p data-i18n="latest.intro">
-                  Published CYRI articles appear here automatically once they are added.
+                  New source-based CYRI learning articles appear here automatically.
                 </p>
               </div>
               <a class="section-link" href="#articles" data-i18n="latest.viewAll">View all articles</a>
@@ -140,14 +161,73 @@
         </section>
       </section>
 
+      <section class="page" data-page="learn">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="learn.eyebrow">Learning platform</p>
+            <h1 data-i18n="learn.title">Environmental knowledge that you can explore.</h1>
+            <p data-i18n="learn.intro">
+              Start with a question, discover the key concepts and continue with the full
+              source-based article.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell">
+            <div class="section-heading reveal">
+              <p class="eyebrow" data-i18n="learn.topicsEyebrow">Choose a topic</p>
+              <h2 data-i18n="learn.topicsTitle">What do you want to understand?</h2>
+            </div>
+            <div class="topic-explorer reveal">
+              <div
+                class="topic-selector"
+                data-learning-topics
+                role="tablist"
+                aria-label="Learning topics"
+                data-i18n-aria="learn.topicsAria"
+              ></div>
+              <article class="topic-detail" data-learning-detail></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section formats-section">
+          <div class="shell">
+            <div class="section-heading reveal">
+              <p class="eyebrow" data-i18n="learn.formatsEyebrow">Formats</p>
+              <h2 data-i18n="learn.formatsTitle">Knowledge for different contexts.</h2>
+              <p data-i18n="learn.formatsIntro">
+                The same topic can be explored in depth, understood visually or prepared for social
+                media.
+              </p>
+            </div>
+            <div class="format-grid reveal" data-learning-formats></div>
+          </div>
+        </section>
+
+        <section class="section quiz-section">
+          <div class="shell quiz-layout">
+            <div class="quiz-intro reveal">
+              <p class="eyebrow" data-i18n="learn.quizEyebrow">Knowledge check</p>
+              <h2 data-i18n="learn.quizTitle">What stayed with you?</h2>
+              <p data-i18n="learn.quizIntro">
+                Three short questions based on current CYRI learning articles.
+              </p>
+            </div>
+            <div class="quiz-panel reveal" data-learning-quiz aria-live="polite"></div>
+          </div>
+        </section>
+      </section>
+
       <section class="page" data-page="articles">
         <section class="page-hero section">
           <div class="shell narrow reveal">
-            <p class="eyebrow" data-i18n="articles.eyebrow">Articles</p>
-            <h1 data-i18n="articles.title">Climate and marine protection, explained clearly.</h1>
+            <p class="eyebrow" data-i18n="articles.eyebrow">Learning articles</p>
+            <h1 data-i18n="articles.title">Environmental topics, explained clearly.</h1>
             <p data-i18n="articles.intro">
-              Read CYRI articles on climate protection, marine protection, renewable energy,
-              climate policy, biodiversity and sustainable cities.
+              Explore source-based CYRI articles on climate, nature, marine protection, renewable
+              energy, biodiversity and sustainable cities.
             </p>
           </div>
         </section>
@@ -182,10 +262,10 @@
       <section class="page" data-page="research">
         <section class="page-hero section">
           <div class="shell narrow reveal">
-            <p class="eyebrow" data-i18n="research.eyebrow">Research tool</p>
-            <h1 data-i18n="research.title">Ask questions about CYRI articles.</h1>
+            <p class="eyebrow" data-i18n="research.eyebrow">Learning assistant</p>
+            <h1 data-i18n="research.title">Ask questions about CYRI learning content.</h1>
             <p data-i18n="research.intro">
-              Receive concise answers based only on the content and sources of published CYRI articles.
+              Receive concise AI-assisted explanations based only on published CYRI learning articles.
             </p>
           </div>
         </section>
@@ -230,9 +310,9 @@
         <section class="page-hero section">
           <div class="shell narrow reveal">
             <p class="eyebrow" data-i18n="about.eyebrow">About</p>
-            <h1 data-i18n="about.title">An ambitious youth-led initiative from Germany.</h1>
+            <h1 data-i18n="about.title">A youth-led platform for environmental education.</h1>
             <p data-i18n="about.intro">
-              CYRI is an independent youth-led climate article initiative currently in development.
+              CYRI is an independent youth-led digital education platform currently in development.
             </p>
           </div>
         </section>
@@ -240,14 +320,14 @@
         <section class="section compact-section">
           <div class="shell about-layout">
             <div class="about-copy reveal">
-              <h2 data-i18n="about.storyTitle">Building a clear bridge between climate topics and the public.</h2>
+              <h2 data-i18n="about.storyTitle">Making environmental knowledge accessible and useful.</h2>
               <p data-i18n="about.storyOne">
-                CYRI is being developed to help young people understand climate topics, evaluate
-                public debates and participate in sustainability conversations with confidence.
+                CYRI helps young people understand environmental topics, evaluate public debates
+                and participate in sustainability conversations with confidence.
               </p>
               <p data-i18n="about.storyTwo">
-                The initiative focuses on careful article work, accessible writing, transparent
-                sourcing and responsible publishing.
+                The platform combines careful editorial work, accessible writing, transparent
+                sourcing and interactive learning formats.
               </p>
             </div>
             <div class="team-section reveal">
@@ -310,9 +390,9 @@
         <section class="page-hero section">
           <div class="shell narrow reveal">
             <p class="eyebrow" data-i18n="publish.eyebrow">Publish</p>
-            <h1 data-i18n="publish.title">Publish a CYRI article.</h1>
+            <h1 data-i18n="publish.title">Publish a CYRI learning article.</h1>
             <p data-i18n="publish.intro">
-              Add a new climate or marine protection article with the protected backend editor.
+              Add new source-based environmental education content with the protected editor.
             </p>
           </div>
         </section>
@@ -607,15 +687,16 @@
             <span class="brand-text">CYRI</span>
           </a>
           <p data-i18n="footer.statement">
-            Youth-led climate articles for a more sustainable future.
+            Youth-led environmental education for a more sustainable future.
           </p>
         </div>
 
         <nav class="footer-links" aria-label="Footer navigation">
           <a href="#home" data-i18n="nav.home">Home</a>
           <a href="#mission" data-i18n="nav.mission">Mission</a>
+          <a href="#learn" data-i18n="nav.learn">Learn</a>
           <a href="#articles" data-i18n="nav.articles">Articles</a>
-          <a href="#research" data-i18n="nav.research">Research</a>
+          <a href="#research" data-i18n="nav.research">Ask CYRI</a>
           <a href="#about" data-i18n="nav.about">About</a>
           <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>
