@@ -6,9 +6,163 @@ const categories = [
   { id: "marine", en: "Marine Protection", de: "Meeresschutz" },
 ];
 
-const articles = [];
+const articles = [
+  {
+    id: "korallenbleiche-erklaert-2026",
+    date: "2026-06-07",
+    category: "marine",
+    imageId: "coral-bleaching-2023",
+    publishAt: "2026-06-07T00:00:00.000Z",
+    title: {
+      de: "Korallenbleiche erklärt: Warum Riffe weiß werden und was jetzt noch helfen kann",
+      en: "Coral Bleaching Explained: Why Reefs Turn White and What Can Still Help",
+    },
+    summary: {
+      de: "Marine Hitzewellen setzen Korallenriffe weltweit unter Druck. Was dabei biologisch passiert und warum Meeresschutz ohne Klimaschutz nicht reicht.",
+      en: "Marine heatwaves are putting coral reefs under pressure worldwide. What happens biologically and why marine protection is not enough without climate action.",
+    },
+    body: {
+      de: `## Korallenbleiche ist ein Notfall
+
+Wenn Korallenriffe weiß werden, sieht das auf Fotos oft still aus. Tatsächlich ist Korallenbleiche ein Notfall. Im April 2025 berichtete die International Coral Reef Initiative, dass seit Anfang 2023 bereits 84 Prozent der weltweiten Korallenriffe Hitzestress in einem Ausmaß ausgesetzt waren, das Bleiche auslösen kann. Das ist kein Randthema für Meerestiere irgendwo weit weg. Korallenriffe gehören zu den artenreichsten Lebensräumen des Ozeans, und ihr Zustand zeigt sehr direkt, wie stark sich die Meere unter dem Klimawandel verändern.
+
+Korallenbleiche ist mehr als ein einzelnes Naturschauspiel. Sie steht an der Schnittstelle von Klimawandel, Meeresschutz, Biodiversität und menschlicher Sicherheit. Wer verstehen will, warum die Erwärmung der Ozeane so folgenreich ist, findet in Korallenriffen ein besonders klares Beispiel. Hier werden globale Veränderungen innerhalb weniger Wochen sichtbar: Ein buntes, lebendiges Riff kann in kurzer Zeit weiß, fragil und still wirken.
+
+## Korallen sind Tiere mit einer engen Partnerschaft
+
+Korallen wirken auf den ersten Blick wie Pflanzen oder Steine. Biologisch sind sie aber Tiere. Riffbildende Steinkorallen leben in enger Partnerschaft mit winzigen Algen, die in ihrem Gewebe sitzen. Diese Algen liefern einen großen Teil der Energie, die Korallen zum Wachsen brauchen, und geben den Riffen ihre kräftigen Farben. Solange diese Partnerschaft funktioniert, können Korallen Kalkskelette aufbauen, Riffe bilden und Lebensraum für viele andere Arten schaffen.
+
+Diese Verbindung ist empfindlich. Länger anhaltender Hitzestress kann die Symbiose stören. Dann entstehen Stoffe, die für beide Seiten problematisch werden. Um sich zu schützen, stoßen Korallen ihre Algen ab. Zurück bleibt das weiße Kalkskelett, das durch das Gewebe hindurch sichtbar wird. Genau das ist Korallenbleiche.
+
+Ein wichtiges Detail wird dabei oft missverstanden: Gebleichte Korallen sind nicht automatisch tot. Wenn sich die Bedingungen schnell wieder verbessern, können sie sich erholen und neue Algen aufnehmen. Bleibt der Stress aber zu lange bestehen oder kehrt er immer wieder zurück, werden die Tiere geschwächt, anfälliger für Krankheiten und sterben häufiger ab. Einige Korallen reagieren robuster als andere. Forschende untersuchen deshalb intensiv, welche biologischen Merkmale über Widerstandskraft und Erholung entscheiden.
+
+## Warum die Ozeane für Korallen immer riskanter werden
+
+Der wichtigste Auslöser großflächiger Bleichen sind heute marine Hitzewellen. Gemeint sind ungewöhnlich warme Phasen im Meer, die über Tage, Wochen oder sogar Monate anhalten und ganze Regionen erfassen können. Für Korallen ist das besonders kritisch, weil sie nicht einfach ausweichen können. Sie sind an ihren Standort gebunden. Wenn das Wasser dort zu warm wird, müssen sie die Belastung aushalten oder sie verlieren ihre Symbiosepartner.
+
+Hinzu kommt ein zweiter Stressfaktor: die Ozeanversauerung. Die Meere nehmen einen großen Teil des zusätzlichen Kohlendioxids aus der Atmosphäre auf. Dadurch verändert sich die Chemie des Wassers. Für kalkbildende Organismen wie Korallen wird es schwieriger, ihre Skelette aufzubauen und stabil zu halten. Hitze und Versauerung wirken deshalb nicht getrennt voneinander, sondern als Doppelbelastung.
+
+Dass diese Entwicklung kein fernes Zukunftsszenario mehr ist, zeigen die vergangenen Jahre deutlich. 2024 bestätigten ICRI und NOAA das vierte globale Korallenbleiche-Ereignis. Schon zuvor hatte das Global Coral Reef Monitoring Network dokumentiert, dass zwischen 2009 und 2018 weltweit rund 14 Prozent der Korallen verloren gingen. In vielen Regionen werden die Erholungsphasen zwischen den Hitzestress-Ereignissen immer kürzer.
+
+Lokale Belastungen verschärfen das Problem zusätzlich. Wenn zu viele Nährstoffe und Sedimente vom Land ins Meer gelangen, Riffe durch Überfischung aus dem Gleichgewicht geraten oder Küstenentwicklung und Verschmutzung ihren Zustand weiter verschlechtern, sinkt ihre Widerstandskraft. Ein ohnehin gestresstes Riff verkraftet eine Hitzewelle schlechter als ein gesundes.
+
+## Was wir verlieren, wenn Riffe verschwinden
+
+Korallenriffe bedecken weniger als ein Prozent des Meeresbodens, unterstützen aber mindestens ein Viertel aller marinen Arten. Sie sind Kinderstube, Jagdgebiet und Rückzugsraum zugleich. Wenn Riffe abbauen, verlieren nicht nur Korallen ihren Platz, sondern ganze Nahrungsnetze geraten unter Druck. Fische, Wirbellose, Algen und viele spezialisierte Arten hängen direkt oder indirekt von intakten Riffstrukturen ab.
+
+Auch für Menschen sind Riffe wichtig. Sie schützen Küsten vor Wellen, Stürmen und Erosion. Sie sichern Einkommen durch Fischerei und Tourismus und stützen in vielen tropischen Regionen die Ernährungssicherheit. Wenn Riffe geschwächt werden, trifft das deshalb nicht nur die Unterwasserwelt. Es betrifft auch Küstengemeinden, Inselstaaten und regionale Wirtschaftsräume, die auf gesunde Meeresökosysteme angewiesen sind.
+
+Korallenriffe sind zugleich Frühwarnsysteme des Klimawandels. Ihre Reaktion ist sichtbar, schnell und biologisch gut erklärbar. Wenn ein Riff bleicht, wird unmittelbar erkennbar, was Ozeanerwärmung in einem empfindlichen Ökosystem anrichtet. Die Bleiche macht sichtbar, was in vielen anderen Lebensräumen langsamer oder schwerer zu beobachten ist.
+
+## Was Schutz jetzt wirklich bedeutet
+
+Die wichtigste Konsequenz ist unbequem, aber eindeutig: Ohne schnellen Klimaschutz lassen sich Korallenriffe nicht dauerhaft sichern. Der IPCC geht davon aus, dass Korallenriffe bei 1,5 Grad globaler Erwärmung um weitere 70 bis 90 Prozent zurückgehen könnten. Bei 2 Grad wären es mehr als 99 Prozent. Diese Spanne zeigt, warum jedes Zehntelgrad zählt. Für Korallen ist der Unterschied zwischen 1,5 und 2 Grad nicht abstrakt, sondern existenziell.
+
+Trotzdem wäre es falsch, daraus zu schließen, dass lokaler Meeresschutz nichts bringt. Riffe haben bessere Chancen, Hitzestress zu überstehen und sich danach zu erholen, wenn zusätzliche Belastungen sinken. Dazu gehören sauberes Wasser, weniger Nährstoff- und Sedimenteinträge von Land, nachhaltige Fischerei und der Schutz vor direkter Zerstörung. Wo weniger Algenüberwucherung, Verschmutzung und Übernutzung hinzukommen, steigt die Widerstandskraft eines Riffs.
+
+Auch die Forschung arbeitet an Lösungen, die Zeit gewinnen können. Studien zeigen, dass sich Korallenarten in ihrer Widerstandsfähigkeit unterscheiden und bestimmte biologische Merkmale ihre Erholung nach Störungen beeinflussen. Neue Arbeiten deuten etwa darauf hin, dass die Erholung eines Riffs stark davon abhängt, wie gut sich junge Korallen nach einer Störung neu ansiedeln können. Andere Forschungsprojekte prüfen, ob mikrobiombasierte Ansätze oder gezielte Restaurierung die Hitzetoleranz kurzfristig verbessern können.
+
+Solche Maßnahmen sind sinnvoll, wenn sie sorgfältig geplant, lokal angepasst und langfristig begleitet werden. Restaurierung kann ein wichtiger Baustein sein, aber nur zusammen mit Emissionsminderung und dem Abbau lokaler Stressoren. Sie ist kein technischer Ersatz für Klimaschutz, sondern eine Ergänzung dort, wo sie realistische Chancen auf Stabilisierung schafft.
+
+## Was aus der Korallenbleiche zu lernen ist
+
+Korallenbleiche ist leicht zu erkennen, aber schwer zu unterschätzen. Ein weißes Riff ist kein bloßes Naturbild, sondern ein sichtbares Signal dafür, dass die Klimakrise längst im Ozean angekommen ist. Gleichzeitig zeigt das Thema etwas Wichtiges: Meeresschutz ist nicht nur Artenschutz unter Wasser. Er verbindet Klimapolitik, Küstenschutz, Wissenschaft, Bildung und die Frage, wie vorsorgend Gesellschaften auf ökologische Krisen reagieren.
+
+Wer Korallenbleiche versteht, versteht deshalb mehr als ein einzelnes Umweltproblem. Man versteht, warum Klimaschutz und Meeresschutz zusammengehören. Hoffnung ist dort am realistischsten, wo sie mit klarer Wissenschaft, glaubwürdigen Quellen und rechtzeitigem Handeln verbunden wird. Korallenriffe brauchen keine symbolische Aufmerksamkeit. Sie brauchen sinkende Emissionen, weniger lokale Belastung und den politischen Willen, ein empfindliches Ökosystem nicht erst dann ernst zu nehmen, wenn es schon flächig verblasst.`,
+      en: `## Coral bleaching is an emergency
+
+When coral reefs turn white, photographs can make the scene look strangely quiet. In reality, coral bleaching is an emergency. In April 2025, the International Coral Reef Initiative reported that since early 2023, 84 percent of the world's coral reefs had already been exposed to heat stress at levels capable of causing bleaching. This is not a marginal issue affecting distant marine animals. Coral reefs are among the most biodiverse habitats in the ocean, and their condition shows very directly how profoundly climate change is altering the seas.
+
+Coral bleaching is more than a single natural spectacle. It sits at the intersection of climate change, marine protection, biodiversity and human security. Reefs offer a particularly clear example of why ocean warming has such far-reaching consequences. Global changes can become visible here within weeks: a colourful, living reef can quickly appear white, fragile and silent.
+
+## Corals are animals with a close partnership
+
+At first glance, corals can look like plants or rocks. Biologically, however, they are animals. Reef-building hard corals live in a close partnership with tiny algae inside their tissue. These algae provide much of the energy corals need to grow and give reefs their vivid colours. As long as this partnership works, corals can build calcium carbonate skeletons, form reefs and create habitat for many other species.
+
+This relationship is sensitive. Prolonged heat stress can disrupt the symbiosis. Substances are then produced that become harmful to both partners. To protect themselves, corals expel the algae. What remains visible through the tissue is the white calcium carbonate skeleton. This is coral bleaching.
+
+One important detail is often misunderstood: bleached corals are not automatically dead. If conditions improve quickly, they can recover and take up new algae. But if the stress lasts too long or repeatedly returns, the animals weaken, become more vulnerable to disease and are more likely to die. Some corals are more resilient than others, which is why researchers are studying the biological traits that determine resistance and recovery.
+
+## Why the oceans are becoming more dangerous for corals
+
+Marine heatwaves are now the main trigger of large-scale bleaching. These are unusually warm periods in the ocean that can last for days, weeks or even months and affect entire regions. They are especially dangerous for corals because the animals cannot simply move away. Corals are fixed in place. If the water around them becomes too warm, they must endure the stress or lose their symbiotic partners.
+
+There is also a second stressor: ocean acidification. The oceans absorb a large share of the additional carbon dioxide in the atmosphere, changing the chemistry of seawater. This makes it more difficult for calcifying organisms such as corals to build and maintain their skeletons. Heat and acidification therefore do not act independently but create a double burden.
+
+Recent years make clear that this is no distant future scenario. In 2024, ICRI and NOAA confirmed the fourth global coral bleaching event. The Global Coral Reef Monitoring Network had already documented that around 14 percent of the world's corals were lost between 2009 and 2018. In many regions, the recovery periods between heat-stress events are becoming shorter and shorter.
+
+Local pressures make the problem worse. When excessive nutrients and sediment flow from land into the sea, overfishing disrupts reef ecosystems, or coastal development and pollution cause further damage, reefs become less resilient. A reef that is already under pressure will cope with a heatwave less successfully than a healthy one.
+
+## What we lose when reefs disappear
+
+Coral reefs cover less than one percent of the seafloor but support at least a quarter of all marine species. They serve as nurseries, hunting grounds and refuges at the same time. When reefs deteriorate, corals are not the only organisms to lose their habitat; entire food webs come under pressure. Fish, invertebrates, algae and many specialised species depend directly or indirectly on intact reef structures.
+
+Reefs are also important to people. They protect coasts from waves, storms and erosion. They support livelihoods through fishing and tourism and contribute to food security in many tropical regions. Weakened reefs therefore affect more than the underwater world. Coastal communities, island states and regional economies all depend on healthy marine ecosystems.
+
+Coral reefs also act as early-warning systems for climate change. Their response is visible, rapid and biologically understandable. When a reef bleaches, the impact of ocean warming on a sensitive ecosystem becomes immediately apparent. Bleaching makes visible what develops more slowly or is harder to observe in many other habitats.
+
+## What protection really means now
+
+The most important conclusion is uncomfortable but clear: without rapid climate action, coral reefs cannot be protected in the long term. The IPCC projects that coral reefs could decline by a further 70 to 90 percent at 1.5 degrees Celsius of global warming. At 2 degrees, losses could exceed 99 percent. This range shows why every tenth of a degree matters. For corals, the difference between 1.5 and 2 degrees is not abstract but existential.
+
+It would still be wrong to conclude that local marine protection makes no difference. Reefs have a better chance of surviving heat stress and recovering afterwards when additional pressures are reduced. Measures include clean water, lower nutrient and sediment runoff from land, sustainable fishing and protection from direct destruction. When algal overgrowth, pollution and overuse are kept in check, reef resilience increases.
+
+Research is also exploring ways to buy time. Studies show that coral species differ in resilience and that certain biological traits influence recovery after disturbance. Recent work suggests that reef recovery depends strongly on how successfully young corals can settle after a disturbance. Other projects are investigating whether microbiome-based approaches or targeted restoration can improve heat tolerance in the short term.
+
+These measures can be valuable when they are carefully planned, locally adapted and monitored over the long term. Restoration can be an important part of the response, but only alongside emissions reductions and the removal of local stressors. It is not a technological substitute for climate action, but a complement where it has a realistic chance of stabilising reefs.
+
+## What coral bleaching can teach us
+
+Coral bleaching is easy to recognise but difficult to overstate. A white reef is not merely a striking image from nature. It is a visible signal that the climate crisis has long since reached the ocean. The issue also makes something else clear: marine protection is not only about conserving species underwater. It connects climate policy, coastal protection, science, education and the way societies prepare for ecological crises.
+
+Understanding coral bleaching therefore means understanding more than one environmental problem. It reveals why climate action and marine protection belong together. Hope is most realistic when it is tied to clear science, credible sources and timely action. Coral reefs do not need symbolic attention. They need falling emissions, fewer local pressures and the political will to take a sensitive ecosystem seriously before it fades across entire regions.`,
+    },
+    sources: [
+      {
+        label: "International Coral Reef Initiative: Fourth Global Bleaching Event",
+        url: "https://icriforum.org/4gbe-2025/",
+      },
+      {
+        label: "NOAA Ocean Service: What is coral bleaching?",
+        url: "https://oceanservice.noaa.gov/facts/coral_bleach.html",
+      },
+      {
+        label: "IPCC: Special Report on Global Warming of 1.5 °C",
+        url: "https://www.ipcc.ch/sr15/chapter/spm/",
+      },
+      {
+        label: "UNEP: Status of Coral Reefs of the World 2020",
+        url: "https://www.unep.org/resources/status-coral-reefs-world-2020",
+      },
+      {
+        label: "Alfred-Wegener-Institut: Ozeanversauerung",
+        url: "https://www.awi.de/themen/ozeanversauerung.html",
+      },
+      {
+        label: "Max-Planck-Gesellschaft: Korallenriffe unter Hitzestress",
+        url: "https://www.mpg.de/21886637/korallenriffe",
+      },
+      {
+        label: "GEOMAR: Mikroorganismen und die Widerstandskraft von Korallen",
+        url: "https://www.geomar.de/forschen/fb3/ueberblick/fb3-news/fb3-newsdetails?tx_news_pi1%5Bnews%5D=7779",
+      },
+    ],
+  },
+];
 
 const photoSources = [
+  {
+    id: "coral-bleaching-2023",
+    src: "assets/photos/coral-bleaching-florida-2023-hd.jpg",
+    credit: "Dan Eidsmoe / Symbiosis · CC BY 2.0 · resized",
+    license: "CC BY 2.0 · web-optimized",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:%22The_Great_Coral_Bleaching_of_2023%22_-_53088200178.jpg",
+    label: {
+      en: "Heat-stressed corals during the 2023 bleaching event in Florida",
+      de: "Hitzegestresste Korallen während der Bleiche 2023 in Florida",
+    },
+  },
   {
     id: "coral",
     src: "assets/photos/coral-reef-bleaching-hd.jpg",
@@ -175,6 +329,7 @@ const content = {
       olderTitle: "Older Articles",
       olderIntro: "Browse previous CYRI publications by topic and format.",
       readMore: "Read more",
+      sourcesTitle: "Sources and further reading",
       modalNote: "Photo sources are shown in the lower corner of each image.",
       filters: {
         all: "All",
@@ -431,6 +586,7 @@ const content = {
       olderTitle: "Ältere Artikel",
       olderIntro: "Durchsuche frühere CYRI-Veröffentlichungen nach Thema und Format.",
       readMore: "Weiterlesen",
+      sourcesTitle: "Quellen und weiterführende Informationen",
       modalNote: "Bildquellen werden unten rechts im jeweiligen Foto angezeigt.",
       filters: {
         all: "Alle",
@@ -1192,6 +1348,18 @@ function closeArticle() {
   document.body.classList.remove("no-scroll");
 }
 
+function renderArticleBody(body) {
+  return body
+    .split(/\n{2,}/)
+    .map((block) => {
+      const heading = block.match(/^##\s+(.+)$/);
+      return heading
+        ? `<h3>${escapeHtml(heading[1])}</h3>`
+        : `<p>${escapeHtml(block)}</p>`;
+    })
+    .join("");
+}
+
 function updateArticleModal() {
   const article = allArticles().find((item) => item.id === state.activeArticleId);
   if (!article) return;
@@ -1201,6 +1369,8 @@ function updateArticleModal() {
   const photoWrap = document.querySelector("[data-modal-photo-wrap]");
   const photoImage = document.querySelector("[data-modal-photo]");
   const photoCredit = document.querySelector("[data-modal-credit]");
+  const sourcesWrap = document.querySelector("[data-modal-sources]");
+  const sourcesList = document.querySelector("[data-modal-source-list]");
   document.querySelector("[data-modal-category]").textContent = category[state.lang];
   document.querySelector("[data-modal-title]").textContent = localizedArticleValue(article, "title");
   document.querySelector("[data-modal-date]").textContent = formatDate(article.date);
@@ -1210,12 +1380,21 @@ function updateArticleModal() {
   photoImage.src = photo.src;
   photoImage.alt = photo.label[state.lang];
   photoCredit.innerHTML = renderPhotoCredit(photo);
-  document.querySelector("[data-modal-body]").innerHTML = body
-    ? body
-        .split(/\n{2,}/)
-        .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
-        .join("")
-    : "";
+  document.querySelector("[data-modal-body]").innerHTML = body ? renderArticleBody(body) : "";
+
+  const sources = Array.isArray(article.sources) ? article.sources : [];
+  sourcesWrap.hidden = sources.length === 0;
+  sourcesList.innerHTML = sources
+    .map(
+      (source) => `
+        <li>
+          <a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">
+            ${escapeHtml(source.label)}
+          </a>
+        </li>
+      `
+    )
+    .join("");
 }
 
 function observeReveals() {

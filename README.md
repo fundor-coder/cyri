@@ -45,6 +45,7 @@ Persistent storage:
 For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment instead of relying on the local default.
 
 Photo sources:
+- `assets/photos/coral-bleaching-florida-2023-hd.jpg`: Dan Eidsmoe / Symbiosis via Wikimedia Commons, CC BY 2.0; resized for web delivery.
 - `assets/photos/coral-reef-bleaching-hd.jpg`: Jay Galvin via Wikimedia Commons, CC BY 2.0.
 - `assets/photos/ocean-plastic-hd.jpg`: Kevin Krejci via Wikimedia Commons, CC BY 2.0.
 - `assets/photos/mangrove-forest-hd.jpg`: Emonjnu via Wikimedia Commons, CC BY-SA 4.0.
