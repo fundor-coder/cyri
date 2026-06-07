@@ -1,6 +1,6 @@
 # Climate Youth Research Initiative Website
 
-A bilingual CYRI website with structured article data, hash-based page tabs, a protected publishing backend, a contact-message backend and responsive Apple-inspired styling. CYRI publishes articles and does not conduct original research.
+A bilingual CYRI website with structured article data, an article-based AI research tool, a protected publishing backend, a contact-message backend and responsive Apple-inspired styling. CYRI publishes articles and does not conduct original research.
 
 Run `npm start` and open `http://localhost:5173/` to view the site with the backend enabled.
 
@@ -8,6 +8,7 @@ Backend routes:
 - `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
 - `POST backend.php?route=/auth/publish` checks the publish password and returns a temporary session token.
 - `POST backend.php?route=/translate` translates German article fields into English with OpenAI.
+- `POST backend.php?route=/research` answers questions using published CYRI articles as the only content basis.
 - `POST backend.php?route=/uploads` stores an optimized custom article photo in `data/uploads`.
 - `POST backend.php?route=/articles` stores a new article immediately or with a future `publishAt` time.
 - `POST backend.php?route=/contact` stores contact messages in `data/messages.json`.
@@ -16,8 +17,8 @@ Backend routes:
 Deployment:
 - Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app. Set `CYRI_DATA_DIR` to a persistent server directory when the host uses ephemeral deployments.
 - PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically. `CYRI_DATA_DIR` can point to storage outside the deployment folder.
-- Static-only hosting is not enough for publishing or contact messages, because those features need the backend.
-- GitHub Pages can display the frontend, but it cannot store published articles. Use the Node/Docker or PHP deployment as the production website when publishing must work.
+- Static-only hosting is not enough for publishing, contact messages or AI answers, because those features need the backend.
+- GitHub Pages can display the frontend, but it cannot run the AI research tool or store published articles. Use the Node/Docker or PHP deployment as the production website when these functions must work.
 
 Scheduled publishing:
 - Select `Schedule for later` in the protected publishing editor and choose a local date and time.
@@ -29,6 +30,14 @@ AI translation:
 - The protected editor can translate the German title, summary and article text into English. Existing English fields are replaced only after clicking the translation button.
 - The default model is `gpt-5.4-mini`. Override it with `OPENAI_TRANSLATION_MODEL` if needed.
 - Translation requests are sent only from the Node or PHP backend. Review every translation before publishing.
+
+AI research tool:
+- Set `OPENAI_API_KEY` in the server environment. The key stays in the Node or PHP backend and is never sent to visitors.
+- The backend selects up to three relevant published CYRI articles and instructs the model to answer only from that supplied material.
+- Answers include links back to the CYRI articles used. Unsupported questions should receive a clear statement that the available articles do not contain enough information.
+- The default model is `gpt-5.4-mini`. Override it with `OPENAI_RESEARCH_MODEL` if needed.
+- Public research requests are limited to 12 questions per IP address in 10 minutes.
+- Questions are transmitted to the configured AI provider. The interface tells visitors not to enter personal or confidential information.
 
 Docker / Node server:
 - Build the optimized Node image with `docker build -t cyri-website .`.

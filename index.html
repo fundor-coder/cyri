@@ -17,8 +17,8 @@
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260607-2" />
-    <script src="app.js?v=20260607-2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260607-3" />
+    <script src="app.js?v=20260607-3" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -47,6 +47,7 @@
             <a href="#home" data-nav-link="home" data-i18n="nav.home">Home</a>
             <a href="#mission" data-nav-link="mission" data-i18n="nav.mission">Mission</a>
             <a href="#articles" data-nav-link="articles" data-i18n="nav.articles">Articles</a>
+            <a href="#research" data-nav-link="research" data-i18n="nav.research">Research</a>
             <a href="#about" data-nav-link="about" data-i18n="nav.about">About</a>
             <a href="#contact" data-nav-link="contact" data-i18n="nav.contact">Contact</a>
           </div>
@@ -174,6 +175,53 @@
               <div class="filter-row" data-article-filters aria-label="Article categories"></div>
             </div>
             <div class="archive-grid reveal" data-articles-older></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="page" data-page="research">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="research.eyebrow">Research tool</p>
+            <h1 data-i18n="research.title">Ask questions about CYRI articles.</h1>
+            <p data-i18n="research.intro">
+              Receive concise answers based only on the content and sources of published CYRI articles.
+            </p>
+          </div>
+        </section>
+
+        <section class="section compact-section">
+          <div class="shell research-tool reveal">
+            <form class="research-form" data-research-form>
+              <label for="research-question" data-i18n="research.questionLabel">Your question</label>
+              <textarea
+                id="research-question"
+                name="question"
+                rows="5"
+                minlength="5"
+                maxlength="500"
+                required
+                data-i18n-placeholder="research.questionPlaceholder"
+                placeholder="What does coral bleaching have to do with climate change?"
+              ></textarea>
+              <button class="button button-primary" type="submit" data-i18n="research.submit">
+                Ask CYRI
+              </button>
+              <p class="research-note" data-i18n="research.privacyNote">
+                Your question is sent to the configured AI provider for processing. Do not enter
+                personal or confidential information.
+              </p>
+              <p class="form-status" data-research-status aria-live="polite"></p>
+            </form>
+
+            <section class="research-answer" data-research-answer hidden aria-live="polite">
+              <p class="eyebrow" data-i18n="research.answerEyebrow">Answer</p>
+              <div class="research-answer-copy" data-research-answer-copy></div>
+              <div class="research-references" data-research-references hidden>
+                <h2 data-i18n="research.referencesTitle">Based on these CYRI articles</h2>
+                <div class="research-reference-list" data-research-reference-list></div>
+              </div>
+            </section>
           </div>
         </section>
       </section>
@@ -567,6 +615,7 @@
           <a href="#home" data-i18n="nav.home">Home</a>
           <a href="#mission" data-i18n="nav.mission">Mission</a>
           <a href="#articles" data-i18n="nav.articles">Articles</a>
+          <a href="#research" data-i18n="nav.research">Research</a>
           <a href="#about" data-i18n="nav.about">About</a>
           <a href="#contact" data-i18n="nav.contact">Contact</a>
         </nav>

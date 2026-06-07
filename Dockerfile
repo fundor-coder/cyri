@@ -12,6 +12,7 @@ WORKDIR /app
 # the files needed by the Node server and the public frontend.
 COPY --chown=node:node package.json server.js app.js index.html styles.css ./
 COPY --chown=node:node assets ./assets
+COPY --chown=node:node content ./content
 
 RUN mkdir -p /app/data && chown -R node:node /app
 
