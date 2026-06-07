@@ -376,6 +376,24 @@ const content = {
       topicsEyebrow: "Choose a topic",
       topicsTitle: "What do you want to understand?",
       topicsAria: "Learning topics",
+      journeyEyebrow: "Your learning journey",
+      journeyTitle: "Learn at your own pace.",
+      journeyIntro:
+        "Explore a topic, open its learning article and complete the knowledge check. Your progress is saved on this device.",
+      journeyProgress: "Overall progress",
+      journeySaved: "Saved locally on this device",
+      journeyExplored: "Topic explored",
+      journeyArticle: "Learning article opened",
+      journeyQuiz: "Knowledge check completed",
+      journeyNext: "Recommended next step",
+      journeyExploreAction: "Explore {topic}",
+      journeyReadAction: "Read {topic}",
+      journeyQuizAction: "Start knowledge check",
+      journeyCompleteTitle: "Learning journey completed.",
+      journeyCompleteText:
+        "You explored every topic, opened all three learning articles and completed the knowledge check.",
+      journeyReset: "Reset progress",
+      journeyStatus: "{complete} of {total} steps",
       guidingQuestion: "Guiding question",
       concepts: "Key concepts",
       openArticle: "Open learning article",
@@ -735,6 +753,24 @@ const content = {
       topicsEyebrow: "Thema wählen",
       topicsTitle: "Was möchtest du verstehen?",
       topicsAria: "Lernthemen",
+      journeyEyebrow: "Dein Lernpfad",
+      journeyTitle: "Lerne in deinem eigenen Tempo.",
+      journeyIntro:
+        "Erkunde ein Thema, öffne den passenden Lernartikel und absolviere den Wissenscheck. Dein Fortschritt wird auf diesem Gerät gespeichert.",
+      journeyProgress: "Gesamtfortschritt",
+      journeySaved: "Lokal auf diesem Gerät gespeichert",
+      journeyExplored: "Thema erkundet",
+      journeyArticle: "Lernartikel geöffnet",
+      journeyQuiz: "Wissenscheck abgeschlossen",
+      journeyNext: "Empfohlener nächster Schritt",
+      journeyExploreAction: "{topic} erkunden",
+      journeyReadAction: "{topic} lesen",
+      journeyQuizAction: "Wissenscheck starten",
+      journeyCompleteTitle: "Lernpfad abgeschlossen.",
+      journeyCompleteText:
+        "Du hast alle Themen erkundet, alle drei Lernartikel geöffnet und den Wissenscheck abgeschlossen.",
+      journeyReset: "Fortschritt zurücksetzen",
+      journeyStatus: "{complete} von {total} Schritten",
       guidingQuestion: "Leitfrage",
       concepts: "Schlüsselbegriffe",
       openArticle: "Lernartikel öffnen",
@@ -958,6 +994,54 @@ const content = {
   },
 };
 
+const LEARNING_PROGRESS_KEY = "cyri-learning-progress";
+
+function loadLearningProgress() {
+  const fallback = {
+    visitedTopics: [],
+    readArticles: [],
+    quizCompleted: false,
+    quizScore: 0,
+    quizIndex: 0,
+    quizAnswers: [],
+    quizComplete: false,
+    lastTopic: "oceans",
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(LEARNING_PROGRESS_KEY) || "{}");
+    const validTopicIds = new Set(learningTopics.map((topic) => topic.id));
+    const validArticleIds = new Set(learningTopics.map((topic) => topic.articleId));
+    const quizAnswers = Array.isArray(saved.quizAnswers)
+      ? saved.quizAnswers.slice(0, quizQuestions.length)
+      : [];
+
+    return {
+      visitedTopics: Array.isArray(saved.visitedTopics)
+        ? saved.visitedTopics.filter((id) => validTopicIds.has(id))
+        : [],
+      readArticles: Array.isArray(saved.readArticles)
+        ? saved.readArticles.filter((id) => validArticleIds.has(id))
+        : [],
+      quizCompleted: Boolean(saved.quizCompleted),
+      quizScore: Number.isFinite(saved.quizScore) ? saved.quizScore : 0,
+      quizIndex:
+        Number.isInteger(saved.quizIndex) &&
+        saved.quizIndex >= 0 &&
+        saved.quizIndex < quizQuestions.length
+          ? saved.quizIndex
+          : 0,
+      quizAnswers,
+      quizComplete: Boolean(saved.quizComplete),
+      lastTopic: validTopicIds.has(saved.lastTopic) ? saved.lastTopic : "oceans",
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+const savedLearningProgress = loadLearningProgress();
+
 const state = {
   lang: localStorage.getItem("cyri-language") || (navigator.language.startsWith("de") ? "de" : "en"),
   page: "home",
@@ -968,10 +1052,16 @@ const state = {
   publisherUnlocked: Boolean(sessionStorage.getItem(PUBLISH_SESSION_KEY)),
   publishedArticles: [],
   customImagePreviewUrl: "",
-  learningTopic: "oceans",
-  quizIndex: 0,
-  quizAnswers: [],
-  quizComplete: false,
+  learningTopic: savedLearningProgress.lastTopic,
+  learningProgress: {
+    visitedTopics: savedLearningProgress.visitedTopics,
+    readArticles: savedLearningProgress.readArticles,
+    quizCompleted: savedLearningProgress.quizCompleted,
+    quizScore: savedLearningProgress.quizScore,
+  },
+  quizIndex: savedLearningProgress.quizIndex,
+  quizAnswers: savedLearningProgress.quizAnswers,
+  quizComplete: savedLearningProgress.quizComplete,
 };
 
 const routes = new Set([
@@ -1063,7 +1153,7 @@ async function loadArticlesFromBackend() {
 
 async function loadStaticArticles() {
   try {
-    const response = await fetch("content/articles.json?v=20260607-4", { cache: "no-cache" });
+    const response = await fetch("content/articles.json?v=20260607-5", { cache: "no-cache" });
     if (!response.ok) throw new Error("Static article corpus is not available.");
     const payload = await response.json();
     articles.splice(0, articles.length, ...(Array.isArray(payload) ? payload : []));
@@ -1217,6 +1307,203 @@ function formatLearningText(template, values) {
     (text, [key, value]) => text.replace(`{${key}}`, String(value)),
     template
   );
+}
+
+function saveLearningProgress() {
+  localStorage.setItem(
+    LEARNING_PROGRESS_KEY,
+    JSON.stringify({
+      ...state.learningProgress,
+      quizIndex: state.quizIndex,
+      quizAnswers: state.quizAnswers,
+      quizComplete: state.quizComplete,
+      lastTopic: state.learningTopic,
+    })
+  );
+}
+
+function markLearningTopicVisited(topicId) {
+  if (!state.learningProgress.visitedTopics.includes(topicId)) {
+    state.learningProgress.visitedTopics.push(topicId);
+  }
+  saveLearningProgress();
+}
+
+function markLearningArticleRead(articleId) {
+  const learningArticle = learningTopics.some((topic) => topic.articleId === articleId);
+  if (learningArticle && !state.learningProgress.readArticles.includes(articleId)) {
+    state.learningProgress.readArticles.push(articleId);
+    saveLearningProgress();
+    renderLearningJourney();
+  }
+}
+
+function learningProgressCount() {
+  return (
+    state.learningProgress.visitedTopics.length +
+    state.learningProgress.readArticles.length +
+    Number(state.learningProgress.quizCompleted)
+  );
+}
+
+function nextLearningStep() {
+  const activeTopic = learningTopics.find((topic) => topic.id === state.learningTopic);
+  if (
+    activeTopic &&
+    state.learningProgress.visitedTopics.includes(activeTopic.id) &&
+    !state.learningProgress.readArticles.includes(activeTopic.articleId)
+  ) {
+    return { type: "article", topic: activeTopic };
+  }
+
+  for (const topic of learningTopics) {
+    if (!state.learningProgress.visitedTopics.includes(topic.id)) {
+      return { type: "topic", topic };
+    }
+    if (!state.learningProgress.readArticles.includes(topic.articleId)) {
+      return { type: "article", topic };
+    }
+  }
+
+  if (!state.learningProgress.quizCompleted) {
+    return { type: "quiz" };
+  }
+
+  return { type: "complete" };
+}
+
+function renderLearningJourney() {
+  const container = document.querySelector("[data-learning-journey]");
+  if (!container) return;
+
+  const total = learningTopics.length * 2 + 1;
+  const complete = learningProgressCount();
+  const progress = Math.round((complete / total) * 100);
+  const nextStep = nextLearningStep();
+  let nextAction = "";
+
+  if (nextStep.type === "topic") {
+    nextAction = `
+      <button
+        class="button button-primary"
+        type="button"
+        data-learning-next-topic="${escapeHtml(nextStep.topic.id)}"
+      >
+        ${escapeHtml(
+          formatLearningText(t("learn.journeyExploreAction"), {
+            topic: nextStep.topic.title[state.lang],
+          })
+        )}
+      </button>
+    `;
+  } else if (nextStep.type === "article") {
+    nextAction = `
+      <button
+        class="button button-primary"
+        type="button"
+        data-learning-next-article="${escapeHtml(nextStep.topic.articleId)}"
+      >
+        ${escapeHtml(
+          formatLearningText(t("learn.journeyReadAction"), {
+            topic: nextStep.topic.title[state.lang],
+          })
+        )}
+      </button>
+    `;
+  } else if (nextStep.type === "quiz") {
+    nextAction = `
+      <button class="button button-primary" type="button" data-learning-next-quiz>
+        ${escapeHtml(t("learn.journeyQuizAction"))}
+      </button>
+    `;
+  } else {
+    nextAction = `
+      <button class="button button-secondary" type="button" data-learning-reset>
+        ${escapeHtml(t("learn.journeyReset"))}
+      </button>
+    `;
+  }
+
+  container.innerHTML = `
+    <div class="journey-progress-block">
+      <div class="journey-progress-copy">
+        <div>
+          <span>${escapeHtml(t("learn.journeyProgress"))}</span>
+          <strong>${escapeHtml(
+            formatLearningText(t("learn.journeyStatus"), { complete, total })
+          )}</strong>
+        </div>
+        <span>${progress}%</span>
+      </div>
+      <div
+        class="journey-progress-track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="${total}"
+        aria-valuenow="${complete}"
+      >
+        <span style="width: ${progress}%"></span>
+      </div>
+      <p>${escapeHtml(t("learn.journeySaved"))}</p>
+    </div>
+
+    <div class="journey-topic-grid">
+      ${learningTopics
+        .map((topic) => {
+          const photo = getPhoto(topic.imageId);
+          const explored = state.learningProgress.visitedTopics.includes(topic.id);
+          const articleRead = state.learningProgress.readArticles.includes(topic.articleId);
+          const topicComplete = Number(explored) + Number(articleRead);
+          return `
+            <button
+              class="journey-topic-card${topicComplete === 2 ? " is-complete" : ""}"
+              type="button"
+              data-learning-journey-topic="${escapeHtml(topic.id)}"
+            >
+              <img src="${escapeHtml(photo.src)}" alt="" loading="lazy" />
+              <span class="journey-topic-body">
+                <span class="journey-topic-heading">
+                  <strong>${escapeHtml(topic.title[state.lang])}</strong>
+                  <small>${topicComplete}/2</small>
+                </span>
+                <span class="journey-task${explored ? " is-complete" : ""}">
+                  <span aria-hidden="true">${explored ? "✓" : "1"}</span>
+                  ${escapeHtml(t("learn.journeyExplored"))}
+                </span>
+                <span class="journey-task${articleRead ? " is-complete" : ""}">
+                  <span aria-hidden="true">${articleRead ? "✓" : "2"}</span>
+                  ${escapeHtml(t("learn.journeyArticle"))}
+                </span>
+              </span>
+            </button>
+          `;
+        })
+        .join("")}
+    </div>
+
+    <div class="journey-next${nextStep.type === "complete" ? " is-complete" : ""}">
+      <div>
+        <p class="eyebrow">${escapeHtml(
+          nextStep.type === "complete"
+            ? t("learn.journeyQuiz")
+            : t("learn.journeyNext")
+        )}</p>
+        <h3>${escapeHtml(
+          nextStep.type === "complete"
+            ? t("learn.journeyCompleteTitle")
+            : nextStep.type === "quiz"
+              ? t("learn.journeyQuizAction")
+              : nextStep.topic.question[state.lang]
+        )}</h3>
+        ${
+          nextStep.type === "complete"
+            ? `<p>${escapeHtml(t("learn.journeyCompleteText"))}</p>`
+            : ""
+        }
+      </div>
+      ${nextAction}
+    </div>
+  `;
 }
 
 function renderLearningPaths() {
@@ -1683,6 +1970,7 @@ async function uploadCustomImage(file, credit) {
 function renderDynamicContent() {
   renderMissionFocus();
   renderLearningPaths();
+  renderLearningJourney();
   renderLearningTopics();
   renderLearningFormats();
   renderLearningQuiz();
@@ -1786,6 +2074,7 @@ function buildPublishedArticle(form) {
 
 function openArticle(id) {
   state.activeArticleId = id;
+  markLearningArticleRead(id);
   updateArticleModal();
   const modal = document.querySelector("[data-article-modal]");
   modal.hidden = false;
@@ -1887,13 +2176,74 @@ document.addEventListener("click", (event) => {
   const learningTopicButton = event.target.closest("[data-learning-topic]");
   if (learningTopicButton) {
     state.learningTopic = learningTopicButton.dataset.learningTopic;
+    markLearningTopicVisited(state.learningTopic);
     renderLearningTopics();
+    renderLearningJourney();
+    return;
+  }
+
+  const journeyTopicButton = event.target.closest("[data-learning-journey-topic]");
+  if (journeyTopicButton) {
+    state.learningTopic = journeyTopicButton.dataset.learningJourneyTopic;
+    markLearningTopicVisited(state.learningTopic);
+    renderLearningTopics();
+    renderLearningJourney();
+    document.querySelector(".topic-explorer")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+    return;
+  }
+
+  const nextTopicButton = event.target.closest("[data-learning-next-topic]");
+  if (nextTopicButton) {
+    state.learningTopic = nextTopicButton.dataset.learningNextTopic;
+    markLearningTopicVisited(state.learningTopic);
+    renderLearningTopics();
+    renderLearningJourney();
+    document.querySelector(".topic-explorer")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+    return;
+  }
+
+  const nextArticleButton = event.target.closest("[data-learning-next-article]");
+  if (nextArticleButton) {
+    openArticle(nextArticleButton.dataset.learningNextArticle);
+    return;
+  }
+
+  if (event.target.closest("[data-learning-next-quiz]")) {
+    document.querySelector(".quiz-section")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    return;
+  }
+
+  if (event.target.closest("[data-learning-reset]")) {
+    state.learningTopic = "oceans";
+    state.learningProgress = {
+      visitedTopics: [],
+      readArticles: [],
+      quizCompleted: false,
+      quizScore: 0,
+    };
+    state.quizIndex = 0;
+    state.quizAnswers = [];
+    state.quizComplete = false;
+    saveLearningProgress();
+    renderLearningJourney();
+    renderLearningTopics();
+    renderLearningQuiz();
     return;
   }
 
   const quizOptionButton = event.target.closest("[data-quiz-option]");
   if (quizOptionButton) {
     state.quizAnswers[state.quizIndex] = Number(quizOptionButton.dataset.quizOption);
+    saveLearningProgress();
     renderLearningQuiz();
     return;
   }
@@ -1901,10 +2251,14 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("[data-quiz-next]")) {
     if (state.quizIndex === quizQuestions.length - 1) {
       state.quizComplete = true;
+      state.learningProgress.quizCompleted = true;
+      state.learningProgress.quizScore = quizScore();
     } else {
       state.quizIndex += 1;
     }
+    saveLearningProgress();
     renderLearningQuiz();
+    renderLearningJourney();
     return;
   }
 
@@ -1912,6 +2266,7 @@ document.addEventListener("click", (event) => {
     state.quizIndex = 0;
     state.quizAnswers = [];
     state.quizComplete = false;
+    saveLearningProgress();
     renderLearningQuiz();
     return;
   }

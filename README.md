@@ -7,6 +7,8 @@ Run `npm start` and open `http://localhost:5173/` to view the site with the back
 Learning platform:
 - The `Learn` page connects the existing CYRI articles to interactive topic paths.
 - Visitors can switch between oceans, climate ecosystems and climate-ready cities.
+- A personal learning journey tracks explored topics, opened learning articles and quiz completion.
+- Learning progress is stored locally in the visitor's browser and includes a recommended next step.
 - A bilingual three-question knowledge check gives immediate explanations and a final score.
 - Articles remain the source-based foundation; infographics and social explainers are presented as additional educational formats.
 
