@@ -8,6 +8,244 @@ const categories = [
 
 const articles = [
   {
+    id: "schwammstadt-regenwasser-hitze-2026",
+    date: "2026-06-07",
+    category: "cities",
+    imageId: "sponge-city-rain-garden",
+    publishAt: "2026-06-07T09:01:00.000Z",
+    title: {
+      de: "Schwammstadt: Wie Städte Regenwasser speichern und sich gegen Hitze schützen können",
+      en: "Sponge Cities: How Urban Areas Can Store Rainwater and Protect People from Heat",
+    },
+    summary: {
+      de: "Die Schwammstadt speichert Regenwasser, statt es so schnell wie möglich abzuleiten. Das hilft gleichzeitig gegen Hitzestress, Starkregen und Trockenperioden und verändert, wie Straßen, Dächer, Höfe und Plätze geplant werden.",
+      en: "A sponge city stores rainwater instead of draining it away as quickly as possible. This helps address heat, heavy rainfall and drought at the same time and changes how streets, roofs, courtyards and public spaces are designed.",
+    },
+    body: {
+      de: `## Wenn dieselbe Stadt zu heiß, zu trocken und zugleich zu nass wird
+
+Lange wurde Stadtplanung oft so gedacht: Regenwasser soll möglichst schnell weg. Asphalt, Beton und Kanalisation waren dafür ideal. Unter den Bedingungen der Klimakrise wird aber sichtbar, wie begrenzt diese Logik ist. Städte sind heute gleichzeitig von Hitze, Starkregen, Überflutungen und Trockenheit betroffen. Genau auf dieses scheinbare Paradox antwortet das Konzept der Schwammstadt. Es versucht, Wasser nicht als Störfaktor zu behandeln, sondern als Ressource, die in der Stadt gehalten und klug genutzt werden soll.
+
+## Was eine Schwammstadt eigentlich ist
+
+Das Umweltbundesamt beschreibt die Schwammstadt als einen ganzheitlichen Ansatz, mit dem Städte Niederschlagswasser aufnehmen, speichern und später durch Verdunstung, Versickerung oder Wiedernutzung verzögert wieder abgeben. Dahinter steckt eine einfache Idee: Stadtentwicklung soll sich wieder stärker an einen natürlichen Wasserkreislauf annähern.
+
+Statt Wasser sofort in Rohre zu zwingen, wird es in Böden, Pflanzen, Becken, Grünflächen oder Speichern zurückgehalten. Die Schwammstadt ist deshalb kein einzelnes Bauprojekt, sondern ein Planungsprinzip, das viele Teile einer Stadt miteinander verbindet.
+
+## Warum das gegen Hitze hilft
+
+Eine der größten Stärken der Schwammstadt liegt in der Hitzeminderung. Das Umweltbundesamt betont, dass blau-grüne Infrastruktur und grünere Städte den Hitzeinsel-Effekt mindern und zugleich Lebensqualität, Gesundheit und Wohlbefinden verbessern können. Der Deutsche Wetterdienst weist darauf hin, dass die städtische Wärmeinsel die gesundheitliche Belastung in den Sommermonaten erhöht und besonders ältere Menschen, kleine Kinder sowie Personen mit Vorerkrankungen stärker trifft.
+
+Wenn Flächen entsiegelt, Bäume erhalten oder gepflanzt, Dächer begrünt und Wasser verfügbar gehalten wird, steigt die Verdunstung und damit lokal die Kühlwirkung. Auch verschattete Plätze, begrünte Fassaden und Wasserflächen helfen, die Umgebungstemperatur und die direkte Hitzebelastung zu senken.
+
+## Warum das auch gegen Starkregen und Trockenheit hilft
+
+Die Schwammstadt ist besonders interessant, weil sie mehrere Probleme gleichzeitig adressiert. Unversiegelte Flächen, Speicher und Rückhaltestrukturen können bei Starkregen Wasser aufnehmen und dadurch Überflutungen abmildern. Das gespeicherte Wasser steht anschließend länger zur Verfügung. Es kann verdunsten, versickern oder etwa über Zisternen für die Bewässerung wieder genutzt werden.
+
+So wird aus Regenwasser ein Puffer gegen extreme Wetterlagen in beide Richtungen. Bei Starkregen entlastet die Speicherung Kanalisation und Straßen. In Trockenphasen unterstützt dasselbe Wasser Pflanzen und Böden, statt vollständig aus dem Quartier verschwunden zu sein.
+
+## Wie eine Schwammstadt konkret aussieht
+
+Das Konzept wird greifbar, wenn man auf einzelne Stadträume schaut. Ein Schulhof kann weniger Asphalt und mehr schattige, wasserdurchlässige Flächen haben. Ein Dach kann begrünt sein und Regen zurückhalten. Eine Straße kann Bäume, Mulden oder Retentionsräume integrieren. Ein Platz kann mit Wasserflächen, Schatten und weniger stark aufheizenden Materialien geplant werden.
+
+Das Bundesumweltministerium nennt begrünte Dächer und Fassaden, Wasserflächen und verschattete Plätze als Maßnahmen, die Hitze lindern und den Regenwasserrückhalt verbessern. Entscheidend ist, dass solche Bausteine nicht isoliert, sondern als zusammenhängendes System gedacht werden.
+
+## Was sich politisch und planerisch ändern muss
+
+Die Schwammstadt ist keine reine Gestaltungsfrage, sondern auch eine politische und organisatorische Aufgabe. Behörden verweisen auf rechtliche, finanzielle und planerische Hemmnisse. Straßenbau, Grünflächen, Wasserwirtschaft, Gebäudeplanung und Katastrophenschutz müssen enger zusammenarbeiten, obwohl sie in Kommunen häufig auf verschiedene Ämter verteilt sind.
+
+Das Klimaanpassungsgesetz schafft dafür seit seinem Inkrafttreten am 1. Juli 2024 einen verbindlicheren Rahmen. Bund, Länder und Kommunen sollen Klimafolgen systematischer berücksichtigen und Vorsorge langfristiger planen. Für Städte bedeutet das mehr lokale Klimaanpassungskonzepte, mehr fachübergreifende Planung und mehr Druck, Hitze- und Starkregenvorsorge nicht als Nebenthema zu behandeln.
+
+## Warum dieses Thema alle angeht
+
+Die Schwammstadt klingt technisch, betrifft aber den Alltag fast jeder Person in einer Stadt. Es geht um Schulwege, Innenhöfe, Bushaltestellen, Sommernächte, Keller, Parks und Nachbarschaften. Klimaanpassung beginnt nicht erst bei Großprojekten, sondern bei der Frage, wie Städte mit Wasser, Boden, Schatten und Grün umgehen.
+
+Die Stadt der Zukunft wird nicht dadurch widerstandsfähig, dass sie Wasser immer schneller loswird. Sie wird widerstandsfähig, wenn sie Regen aufnehmen, speichern und in Hitzeperioden wieder nutzbar machen kann. Die Schwammstadt ist deshalb kein kurzfristiger Designtrend, sondern eine Grundlogik zukunftsfähiger Stadtentwicklung.`,
+      en: `## When the same city becomes too hot, too dry and too wet
+
+For a long time, urban planning followed a simple rule: rainwater should disappear as quickly as possible. Asphalt, concrete and drainage systems were ideal for that purpose. Under the conditions of the climate crisis, however, the limits of this logic are becoming clear. Cities are now affected by heat, heavy rainfall, flooding and drought at the same time. The sponge-city concept responds to this apparent paradox by treating water not as a nuisance but as a resource that should be retained and used intelligently within the city.
+
+## What a sponge city actually is
+
+Germany's Environment Agency describes the sponge city as a comprehensive approach that enables urban areas to absorb and store rainfall before releasing it more slowly through evaporation, infiltration or reuse. The underlying idea is simple: urban development should resemble a natural water cycle more closely.
+
+Instead of immediately forcing water into pipes, cities retain it in soil, vegetation, basins, green spaces or storage systems. A sponge city is therefore not one individual construction project but a planning principle that links many parts of the urban environment.
+
+## Why this helps reduce heat
+
+One of the sponge city's greatest strengths is its ability to reduce heat. Germany's Environment Agency emphasises that blue-green infrastructure and greener cities can limit the urban heat-island effect while improving quality of life, health and wellbeing. The German Weather Service notes that urban heat islands increase health risks during summer, particularly for older people, young children and people with existing medical conditions.
+
+When paved surfaces are opened up, trees are protected or planted, roofs are greened and water remains available, evaporation increases and provides local cooling. Shaded public spaces, green facades and water features can also reduce surrounding temperatures and direct heat exposure.
+
+## Why it also helps with heavy rain and drought
+
+The sponge city is particularly valuable because it tackles several problems at once. Permeable surfaces, storage systems and retention areas can absorb water during heavy rainfall and reduce flooding. That stored water then remains available for longer. It can evaporate, soak into the ground or be reused for irrigation through systems such as rainwater tanks.
+
+Rainwater therefore becomes a buffer against weather extremes in both directions. During heavy rain, storage reduces pressure on sewers and streets. During dry periods, the same water supports plants and soils instead of having disappeared completely from the neighbourhood.
+
+## What a sponge city looks like in practice
+
+The concept becomes easier to understand when applied to familiar urban spaces. A school playground can contain less asphalt and more shaded, water-permeable ground. A roof can be planted and retain rainfall. A street can include trees, swales or retention areas. A public square can be designed with water, shade and materials that absorb less heat.
+
+Germany's Federal Environment Ministry identifies green roofs and facades, water features and shaded spaces as measures that can reduce heat and improve rainwater retention. The crucial point is that these elements should form a connected system rather than remain isolated projects.
+
+## What needs to change in politics and planning
+
+The sponge city is not purely a design question. It is also a political and organisational task. Public authorities point to legal, financial and planning barriers. Road construction, parks departments, water management, building design and emergency planning need to work together even though they are often divided between separate municipal departments.
+
+Germany's Climate Adaptation Act has provided a more binding framework since it entered into force on 1 July 2024. Federal, state and local authorities are expected to consider climate impacts more systematically and plan preventive action over the long term. For cities, this means more local adaptation strategies, stronger cooperation across disciplines and greater pressure to treat heat and heavy-rain preparedness as core responsibilities rather than side issues.
+
+## Why this concerns everyone
+
+The sponge city may sound technical, but it affects the daily life of almost everyone living in an urban area. It is about routes to school, courtyards, bus stops, summer nights, basements, parks and neighbourhoods. Climate adaptation does not begin only with major infrastructure projects. It begins with how cities manage water, soil, shade and vegetation.
+
+The city of the future will not become resilient by removing water ever faster. It will become resilient by absorbing rain, storing it and making it useful again during periods of heat. The sponge city is therefore not a short-lived design trend but a basic principle of future-ready urban development.`,
+    },
+    sources: [
+      {
+        label: "Umweltbundesamt: Schwammstadt als Zukunftskonzept",
+        url: "https://www.umweltbundesamt.de/themen/klima-energie/klimafolgen-anpassung/anpassung-an-den-klimawandel/anpassung-auf-kommunaler-ebene/schwammstadt-zukunftskonzept-fuer-klimaresiliente",
+      },
+      {
+        label: "Umweltbundesamt: Klimaresiliente Schwammstädte",
+        url: "https://www.umweltbundesamt.de/klimaresiliente-schwammstaedte",
+      },
+      {
+        label: "Umweltbundesamt: Starkregen",
+        url: "https://www.umweltbundesamt.de/themen/wasser/extremereignisse/starkregen",
+      },
+      {
+        label: "Bundesumweltministerium: Das Klimaanpassungsgesetz",
+        url: "https://www.bundesumweltministerium.de/themen/klimaanpassung/das-klimaanpassungsgesetz-kang",
+      },
+      {
+        label: "Bundesumweltministerium: Hochwasserschutz",
+        url: "https://www.bundesumweltministerium.de/themen/wasser-und-binnengewaesser/hochwasserschutz",
+      },
+      {
+        label: "Deutscher Wetterdienst: Stadtklima-Projekt FPCUP",
+        url: "https://www.dwd.de/DE/klimaumwelt/klimaforschung/klimawirk/stadtpl/stadtklimaprojekte/projekt_fpcup/fpcup_node.html",
+      },
+    ],
+  },
+  {
+    id: "seegraswiesen-klima-kuesten-arten-2026",
+    date: "2026-06-07",
+    category: "marine",
+    imageId: "seagrass-meadow",
+    publishAt: "2026-06-07T00:45:00.000Z",
+    title: {
+      de: "Seegraswiesen: Warum diese Unterwasserwiesen für Klima, Küsten und Arten so wichtig sind",
+      en: "Seagrass Meadows: Why These Underwater Habitats Matter for Climate, Coasts and Wildlife",
+    },
+    summary: {
+      de: "Seegraswiesen sind weit mehr als grüne Flächen unter Wasser. Sie binden Kohlenstoff, stabilisieren Sedimente und bieten vielen Tieren Rückzugsräume, reagieren aber empfindlich auf Trübung, Nährstoffeinträge und Erwärmung.",
+      en: "Seagrass meadows are far more than green areas beneath the surface. They store carbon, stabilise sediments and shelter many animals, but are highly sensitive to murky water, nutrient pollution and warming.",
+    },
+    body: {
+      de: `## Ein unterschätzter Lebensraum
+
+Wer an Klimaschutz denkt, denkt meist an Wälder, Moore oder Windräder. Seegraswiesen kommen in dieser Vorstellung oft gar nicht vor. Dabei gehören sie in flachen deutschen Küstengewässern zu den wichtigsten marinen Lebensräumen: Sie schaffen Struktur am Meeresboden, geben Tieren Schutz und sind nach aktuellen amtlichen Einordnungen ein wichtiger Baustein für widerstandsfähige Küsten. Gerade darin liegt ihre Relevanz: Seegras verbindet Meeresschutz, Artenvielfalt und Klimafragen in einem einzigen Ökosystem.
+
+## Seegras ist keine Alge
+
+Seegras wirkt auf den ersten Blick wie irgendein Unterwassergrün, ist biologisch aber etwas anderes: Es ist eine Blütenpflanze. Für das Große Seegras beschreibt das Umweltbundesamt lange, bandförmige Blätter und dichte Bestände in flachen Küstengewässern der Ostsee. Das Bundesamt für Naturschutz ordnet Seegraswiesen außerdem als besonders schutzwürdige marine Biotoptypen ein. Diese Einordnung ist wichtig, weil sie zeigt: Seegras ist nicht nur Pflanzenbewuchs, sondern ein eigenständiger, schützenswerter Lebensraum.
+
+## Warum Seegraswiesen für Tiere so wichtig sind
+
+Wo Seegras wächst, entsteht dreidimensionale Struktur in einer sonst oft offenen Unterwasserlandschaft. Das macht Seegraswiesen für viele Arten attraktiv. Das Umweltbundesamt betont ihre Funktion als Lebensraum für zahlreiche Tiere. Das Küstenfischmonitoring des Thünen-Instituts erfasste in Seegraswiesen besonders Arten wie Seenadeln, Grundeln und Stichlinge. Für den ökologischen Alltag an der Küste heißt das: Seegraswiesen sind Rückzugsräume, Nahrungsorte und Aufwuchsbereiche, in denen Vielfalt nicht abstrakt, sondern konkret sichtbar wird.
+
+## Was Seegras mit dem Klima zu tun hat
+
+Die Klimafunktion von Seegras ist einer der Gründe, warum das Thema heute stärker diskutiert wird. Das Bundesamt für Naturschutz beschreibt Seegraswiesen als anerkannte Kohlenstoffspeicher, weil Kohlenstoff nicht nur in den Pflanzen selbst, sondern vor allem langfristig im Sediment unter ihnen gebunden werden kann.
+
+Genau hier setzt der Begriff Blue Carbon an: Gemeint ist Kohlenstoff, der in marinen und küstennahen Ökosystemen gespeichert wird. Gleichzeitig weist das Bundesamt darauf hin, dass die Speichermengen lokal stark variieren und nicht jedes Pflanzenteil dauerhaft gespeichert bleibt. Seegraswiesen sind für den Klimaschutz wichtig, ihre Wirkung sollte aber nicht übertrieben oder pauschal beziffert werden.
+
+## Seegras schützt nicht nur das Klima, sondern auch die Küste
+
+Intakte Seegrasbestände leisten mehr als Kohlenstoffspeicherung. Das Umweltbundesamt ordnet naturnahe Küstenschutzmaßnahmen wie Seegraswiesen als immer wichtiger ein, weil sie Wellenenergie abschwächen, Sedimente stabilisieren, Küsten vor Erosion schützen und zugleich Lebensraum schaffen. Seegras ist damit nicht nur ein Natur- und Klimaschutzthema, sondern auch ein Thema der Klimaanpassung.
+
+## Warum die Bestände zurückgehen
+
+Dass Seegras so wichtig ist, heißt leider nicht, dass es ihm gut geht. Umweltbundesamt und Bundesamt für Naturschutz verweisen auf mehrere Belastungen: zu hohe Nährstoffeinträge, trübes Wasser, anhaftende Algen, Schwebstoffe und steigende Temperaturen. All das verschlechtert die Lichtverhältnisse oder setzt die Pflanzen direkt unter Stress. In deutschen Gewässern sind Seegrasbestände deshalb erheblich zurückgegangen.
+
+Schutz bedeutet nicht nur, neue Flächen zu bepflanzen. Schutz bedeutet zuerst, die Ursachen des Verlusts zu verringern. Werden Nährstoffeinträge, Trübung und andere Belastungen nicht reduziert, behandelt eine Wiederanpflanzung nur die Symptome.
+
+## Kann Wiederherstellung funktionieren?
+
+Ja, aber nur unter passenden Bedingungen. Das Bundesamt für Naturschutz verweist auf verschiedene Methoden der Wiederherstellung, darunter Anpflanzung, Aussaat und natürliche Wiederansiedlung nach Verbesserungen des Sediments. Gleichzeitig ist noch nicht sicher, wie dauerhaft solche Maßnahmen unter anhaltendem Nährstoffdruck, hohen Schwebstoffanteilen oder weiterer Erwärmung gelingen.
+
+Genau deshalb sind Projekte wie SeaStore II wichtig. Das seit 2024 laufende Projekt erprobt die Wiederansiedlung von Seegras in der Ostsee unter realen Bedingungen. Es verbindet Naturschutz mit praktischer Forschung und untersucht, welche Methoden langfristig funktionieren können.
+
+## Warum dieses Thema größer ist, als es aussieht
+
+Seegraswiesen zeigen, dass wirksamer Klimaschutz im Meer oft unspektakulär aussieht. Keine große Maschine, kein einzelnes Gesetz und kein sichtbares Bauwerk, sondern ein empfindlicher Lebensraum, der nur dann funktioniert, wenn Wasserqualität, Schutzregeln und Renaturierung zusammenspielen.
+
+Wer versteht, warum Seegras wichtig ist, versteht einen entscheidenden Teil davon, wie Klima- und Meeresschutz an deutschen Küsten zusammenhängen. Seegraswiesen sind keine grüne Nebensache am Meeresboden. Sie sind Lebensraum, Kohlenstoffspeicher und natürlicher Küstenschutz zugleich.`,
+      en: `## An underestimated habitat
+
+When people think of climate action, forests, peatlands or wind turbines usually come to mind. Seagrass meadows are often missing from that picture. Yet in Germany's shallow coastal waters they are among the most important marine habitats. They create structure on the seabed, shelter animals and, according to current assessments by public authorities, contribute to more resilient coasts. This is precisely what makes them relevant: seagrass connects marine protection, biodiversity and climate issues within a single ecosystem.
+
+## Seagrass is not algae
+
+At first glance, seagrass may look like any other underwater greenery, but biologically it is something different: a flowering plant. Germany's Environment Agency describes common eelgrass as having long, ribbon-shaped leaves and forming dense stands in shallow Baltic coastal waters. The Federal Agency for Nature Conservation also classifies seagrass meadows as particularly valuable protected marine habitats. This distinction matters because seagrass is not simply vegetation. It forms a habitat in its own right that deserves protection.
+
+## Why seagrass meadows matter to animals
+
+Where seagrass grows, it creates three-dimensional structure in an underwater landscape that would otherwise often be open and exposed. This makes seagrass meadows attractive to many species. The Environment Agency highlights their role as habitat for numerous animals. Coastal fish monitoring by the Thünen Institute recorded species such as pipefish, gobies and sticklebacks particularly often in seagrass meadows. In practical ecological terms, these meadows provide shelter, feeding grounds and nursery areas where biodiversity becomes tangible rather than abstract.
+
+## What seagrass has to do with the climate
+
+The climate role of seagrass is one reason the habitat is receiving more attention. Germany's Federal Agency for Nature Conservation identifies seagrass meadows as recognised carbon stores because carbon can be held not only in the plants but, most importantly, in the sediment beneath them over long periods.
+
+This is where the term blue carbon comes in: it describes carbon stored in marine and coastal ecosystems. The agency also stresses that storage levels vary considerably from place to place and that not every part of a plant remains stored permanently. Seagrass meadows matter for climate protection, but their effect should not be exaggerated or reduced to one universal figure.
+
+## Seagrass protects more than the climate
+
+Healthy seagrass beds provide more than carbon storage. Germany's Environment Agency considers nature-based coastal protection measures such as seagrass increasingly important because they can reduce wave energy, stabilise sediments, protect coasts from erosion and create habitat at the same time. Seagrass is therefore not only a nature and climate issue but also part of adapting coastlines to climate change.
+
+## Why seagrass is declining
+
+Its importance does not mean that seagrass is thriving. The Environment Agency and Federal Agency for Nature Conservation identify several pressures: excessive nutrient inputs, murky water, algae growing on the leaves, suspended particles and rising temperatures. These factors reduce the available light or place the plants under direct stress. Seagrass populations in German waters have consequently declined substantially.
+
+Protection cannot mean only planting new areas. It must begin by reducing the causes of the loss. Unless nutrient pollution, water turbidity and other pressures are addressed, replanting treats only the symptoms.
+
+## Can restoration work?
+
+Yes, but only under suitable conditions. The Federal Agency for Nature Conservation describes several restoration methods, including planting, sowing seeds and enabling natural recolonisation after sediment conditions have improved. At the same time, it remains uncertain how durable restoration can be under continued nutrient pressure, high levels of suspended matter or further warming.
+
+This is why projects such as SeaStore II matter. The project, which began in 2024, is testing the restoration of seagrass in the Baltic Sea under real-world conditions. It combines conservation with applied research and examines which approaches can succeed over the long term.
+
+## Why this issue is bigger than it looks
+
+Seagrass meadows show that effective climate action in the ocean can look remarkably quiet. There is no large machine, single law or spectacular structure, but a sensitive habitat that can function only when water quality, protection rules and restoration work together.
+
+Understanding why seagrass matters reveals an essential part of the connection between climate action and marine protection along Germany's coasts. Seagrass meadows are not a minor patch of green on the seabed. They are habitat, carbon store and natural coastal protection at the same time.`,
+    },
+    sources: [
+      {
+        label: "Umweltbundesamt: Flaches Küstengewässer der Ostsee",
+        url: "https://www.umweltbundesamt.de/themen/wasser/gewaessertyp-des-jahres/gewaessertyp-des-jahres-2024-flaches",
+      },
+      {
+        label: "Bundesamt für Naturschutz: Blue Carbon und Meeresökosysteme",
+        url: "https://www.bfn.de/blue-carbon-natuerlicher-klimaschutz-durch-meeresoekosysteme",
+      },
+      {
+        label: "Bundesamt für Naturschutz: Blue Carbon-Speicher erhalten und stärken",
+        url: "https://www.bfn.de/blue-carbon-speicher-erhalten-und-staerken",
+      },
+      {
+        label: "Bundesamt für Naturschutz: SeaStore II",
+        url: "https://www.bfn.de/aktuelles/ank-projekt-des-monats-juni-seastore-ii",
+      },
+      {
+        label: "Thünen-Institut: Küstenfischgemeinschaften und Seegraswiesen",
+        url: "https://www.thuenen.de/de/fachinstitute/ostseefischerei/projekte/fischerei-umwelt-ostsee/wie-ist-der-zustand-unserer-kuestenfischgemeinschaft-kuefi-4",
+      },
+    ],
+  },
+  {
     id: "korallenbleiche-erklaert-2026",
     date: "2026-06-07",
     category: "marine",
@@ -151,6 +389,30 @@ Understanding coral bleaching therefore means understanding more than one enviro
 ];
 
 const photoSources = [
+  {
+    id: "sponge-city-rain-garden",
+    src: "assets/photos/sponge-city-rain-garden-hd.jpg",
+    credit: "Jeremy Jeziorski / Oregon Convention Center · CC BY 2.0 · resized",
+    license: "CC BY 2.0 · web-optimized",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Rain_Garden_(33234470895).jpg",
+    label: {
+      en: "Urban rain garden that retains and slowly releases stormwater",
+      de: "Städtischer Regengarten, der Niederschlagswasser zurückhält",
+    },
+  },
+  {
+    id: "seagrass-meadow",
+    src: "assets/photos/seagrass-meadow-zostera-hd.jpg",
+    credit: "Olivier Dugornay / Ifremer · CC BY 4.0 · resized",
+    license: "CC BY 4.0 · web-optimized",
+    sourceUrl:
+      "https://commons.wikimedia.org/wiki/File:Herbier_de_zost%C3%A8res_(Zostera_marina)_(Ifremer_00560-67187_-_21863).jpg",
+    label: {
+      en: "Common eelgrass meadow beneath shallow coastal water",
+      de: "Wiese aus Großem Seegras in flachem Küstenwasser",
+    },
+  },
   {
     id: "coral-bleaching-2023",
     src: "assets/photos/coral-bleaching-florida-2023-hd.jpg",
