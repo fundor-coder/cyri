@@ -136,6 +136,136 @@ const quizQuestions = [
       de: "Schwammstädte halten Regenwasser zurück, damit es versickern, verdunsten oder wiederverwendet werden kann.",
     },
   },
+  {
+    question: {
+      en: "How can seagrass meadows help protect coastlines?",
+      de: "Wie können Seegraswiesen Küsten schützen?",
+    },
+    options: {
+      en: [
+        "By slowing waves and stabilizing sediment",
+        "By increasing wave height",
+        "By removing all salt from seawater",
+      ],
+      de: [
+        "Indem sie Wellen bremsen und Sediment stabilisieren",
+        "Indem sie die Wellenhöhe vergrößern",
+        "Indem sie dem Meerwasser sämtliches Salz entziehen",
+      ],
+    },
+    correct: 0,
+    explanation: {
+      en: "Dense seagrass leaves slow water movement, while their roots and rhizomes help stabilize the seabed.",
+      de: "Dichte Seegrasblätter bremsen die Wasserbewegung, während Wurzeln und Rhizome den Meeresboden stabilisieren.",
+    },
+  },
+  {
+    question: {
+      en: "What is the main global driver of mass coral bleaching?",
+      de: "Was ist der wichtigste globale Auslöser für großflächige Korallenbleiche?",
+    },
+    options: {
+      en: ["Colder winter nights", "Prolonged heat stress in the ocean", "Normal tidal changes"],
+      de: ["Kältere Winternächte", "Anhaltender Hitzestress im Meer", "Normale Gezeitenwechsel"],
+    },
+    correct: 1,
+    explanation: {
+      en: "Unusually warm water and marine heatwaves can overwhelm corals and trigger bleaching across large reef areas.",
+      de: "Ungewöhnlich warmes Wasser und marine Hitzewellen können Korallen überfordern und großflächige Bleichen auslösen.",
+    },
+  },
+  {
+    question: {
+      en: "Why do green spaces help cool a sponge city?",
+      de: "Warum helfen Grünflächen dabei, eine Schwammstadt zu kühlen?",
+    },
+    options: {
+      en: [
+        "They create shade and support evaporation",
+        "They seal the ground more strongly",
+        "They prevent all air movement",
+      ],
+      de: [
+        "Sie spenden Schatten und fördern Verdunstung",
+        "Sie versiegeln den Boden stärker",
+        "Sie verhindern jede Luftbewegung",
+      ],
+    },
+    correct: 0,
+    explanation: {
+      en: "Trees, planted areas and stored water reduce heat through shade and evapotranspiration.",
+      de: "Bäume, bepflanzte Flächen und gespeichertes Wasser mindern Hitze durch Schatten und Verdunstung.",
+    },
+  },
+  {
+    question: {
+      en: "Can local reef protection replace global climate action?",
+      de: "Kann lokaler Riffschutz globalen Klimaschutz ersetzen?",
+    },
+    options: {
+      en: [
+        "Yes, completely",
+        "Only when reefs are very small",
+        "No, but it can improve local resilience",
+      ],
+      de: [
+        "Ja, vollständig",
+        "Nur wenn Riffe sehr klein sind",
+        "Nein, aber er kann die lokale Widerstandskraft verbessern",
+      ],
+    },
+    correct: 2,
+    explanation: {
+      en: "Reducing pollution and physical damage can help reefs cope, but limiting ocean warming still requires global emissions cuts.",
+      de: "Weniger Verschmutzung und Schäden können Riffen helfen, doch die Meereserwärmung lässt sich nur durch globale Emissionsminderung begrenzen.",
+    },
+  },
+  {
+    question: {
+      en: "Why are heavily sealed city surfaces a problem during heavy rain?",
+      de: "Warum sind stark versiegelte Stadtflächen bei Starkregen problematisch?",
+    },
+    options: {
+      en: [
+        "Water cannot infiltrate easily and runs off quickly",
+        "They absorb every drop immediately",
+        "They turn rainwater into drinking water",
+      ],
+      de: [
+        "Wasser kann schlecht versickern und fließt schnell ab",
+        "Sie nehmen jeden Tropfen sofort auf",
+        "Sie verwandeln Regenwasser in Trinkwasser",
+      ],
+    },
+    correct: 0,
+    explanation: {
+      en: "Concrete and asphalt limit infiltration, increasing rapid runoff and pressure on drainage systems.",
+      de: "Beton und Asphalt begrenzen die Versickerung, wodurch Wasser schneller abfließt und die Kanalisation stärker belastet wird.",
+    },
+  },
+  {
+    question: {
+      en: "Which statement best describes blue carbon?",
+      de: "Welche Aussage beschreibt Blue Carbon am besten?",
+    },
+    options: {
+      en: [
+        "Carbon stored by coastal and marine ecosystems",
+        "Carbon found only in deep-sea animals",
+        "Carbon used to color seawater blue",
+      ],
+      de: [
+        "Kohlenstoff, den Küsten- und Meeresökosysteme speichern",
+        "Kohlenstoff, der nur in Tiefseetieren vorkommt",
+        "Kohlenstoff, der Meerwasser blau färbt",
+      ],
+    },
+    correct: 0,
+    explanation: {
+      en: "Blue carbon refers to carbon captured and stored by coastal ecosystems such as seagrass meadows, salt marshes and mangroves.",
+      de: "Blue Carbon bezeichnet Kohlenstoff, den Küstenökosysteme wie Seegraswiesen, Salzwiesen und Mangroven aufnehmen und speichern.",
+    },
+  },
 ];
 
 const photoSources = [
@@ -421,7 +551,13 @@ const content = {
       ],
       quizEyebrow: "Knowledge check",
       quizTitle: "What stayed with you?",
-      quizIntro: "Three short questions based on current CYRI learning articles.",
+      quizIntro: "Choose how deeply you want to test your knowledge.",
+      quizLengthLabel: "Quiz length",
+      quizLengths: [
+        { value: 3, title: "Quick", text: "3 questions" },
+        { value: 6, title: "Focused", text: "6 questions" },
+        { value: 9, title: "Deep dive", text: "9 questions" },
+      ],
       questionProgress: "Question {current} of {total}",
       correct: "Correct.",
       incorrect: "Not quite.",
@@ -798,7 +934,13 @@ const content = {
       ],
       quizEyebrow: "Wissenscheck",
       quizTitle: "Was ist hängen geblieben?",
-      quizIntro: "Drei kurze Fragen auf Basis aktueller CYRI-Lernartikel.",
+      quizIntro: "Wähle selbst, wie ausführlich du dein Wissen prüfen möchtest.",
+      quizLengthLabel: "Quizlänge",
+      quizLengths: [
+        { value: 3, title: "Kurz", text: "3 Fragen" },
+        { value: 6, title: "Fokussiert", text: "6 Fragen" },
+        { value: 9, title: "Ausführlich", text: "9 Fragen" },
+      ],
       questionProgress: "Frage {current} von {total}",
       correct: "Richtig.",
       incorrect: "Noch nicht ganz.",
@@ -1005,6 +1147,7 @@ function loadLearningProgress() {
     quizIndex: 0,
     quizAnswers: [],
     quizComplete: false,
+    quizLength: 3,
     lastTopic: "oceans",
   };
 
@@ -1012,8 +1155,9 @@ function loadLearningProgress() {
     const saved = JSON.parse(localStorage.getItem(LEARNING_PROGRESS_KEY) || "{}");
     const validTopicIds = new Set(learningTopics.map((topic) => topic.id));
     const validArticleIds = new Set(learningTopics.map((topic) => topic.articleId));
+    const quizLength = [3, 6, 9].includes(saved.quizLength) ? saved.quizLength : 3;
     const quizAnswers = Array.isArray(saved.quizAnswers)
-      ? saved.quizAnswers.slice(0, quizQuestions.length)
+      ? saved.quizAnswers.slice(0, quizLength)
       : [];
 
     return {
@@ -1028,11 +1172,12 @@ function loadLearningProgress() {
       quizIndex:
         Number.isInteger(saved.quizIndex) &&
         saved.quizIndex >= 0 &&
-        saved.quizIndex < quizQuestions.length
+        saved.quizIndex < quizLength
           ? saved.quizIndex
           : 0,
       quizAnswers,
       quizComplete: Boolean(saved.quizComplete),
+      quizLength,
       lastTopic: validTopicIds.has(saved.lastTopic) ? saved.lastTopic : "oceans",
     };
   } catch {
@@ -1062,13 +1207,13 @@ const state = {
   quizIndex: savedLearningProgress.quizIndex,
   quizAnswers: savedLearningProgress.quizAnswers,
   quizComplete: savedLearningProgress.quizComplete,
+  quizLength: savedLearningProgress.quizLength,
 };
 
 const routes = new Set([
   "home",
   "learn",
   "articles",
-  "research",
   "about",
   "publish",
   "contact",
@@ -1153,7 +1298,7 @@ async function loadArticlesFromBackend() {
 
 async function loadStaticArticles() {
   try {
-    const response = await fetch("content/articles.json?v=20260607-5", { cache: "no-cache" });
+    const response = await fetch("content/articles.json?v=20260607-6", { cache: "no-cache" });
     if (!response.ok) throw new Error("Static article corpus is not available.");
     const payload = await response.json();
     articles.splice(0, articles.length, ...(Array.isArray(payload) ? payload : []));
@@ -1317,6 +1462,7 @@ function saveLearningProgress() {
       quizIndex: state.quizIndex,
       quizAnswers: state.quizAnswers,
       quizComplete: state.quizComplete,
+      quizLength: state.quizLength,
       lastTopic: state.learningTopic,
     })
   );
@@ -1574,9 +1720,9 @@ function renderLearningTopics() {
         >
           ${escapeHtml(t("learn.openArticle"))}
         </button>
-        <a class="button button-secondary" href="#research">${escapeHtml(
-          t("learn.askAssistant")
-        )}</a>
+        <button class="button button-secondary" type="button" data-open-learning-assistant>
+          ${escapeHtml(t("learn.askAssistant"))}
+        </button>
       </div>
     </div>
   `;
@@ -1602,21 +1748,50 @@ function renderLearningFormats() {
 }
 
 function quizScore() {
-  return state.quizAnswers.reduce(
+  return state.quizAnswers.slice(0, state.quizLength).reduce(
     (score, answer, index) => score + (answer === quizQuestions[index].correct ? 1 : 0),
     0
   );
 }
 
+function renderQuizLengthSelector() {
+  return `
+    <div class="quiz-length-picker">
+      <span>${escapeHtml(t("learn.quizLengthLabel"))}</span>
+      <div class="quiz-length-options" role="group" aria-label="${escapeHtml(
+        t("learn.quizLengthLabel")
+      )}">
+        ${t("learn.quizLengths")
+          .map(
+            (option) => `
+              <button
+                class="quiz-length-option${option.value === state.quizLength ? " is-active" : ""}"
+                type="button"
+                data-quiz-length="${option.value}"
+                aria-pressed="${option.value === state.quizLength}"
+              >
+                <strong>${escapeHtml(option.title)}</strong>
+                <small>${escapeHtml(option.text)}</small>
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderLearningQuiz() {
   const container = document.querySelector("[data-learning-quiz]");
   if (!container) return;
+  const lengthSelector = renderQuizLengthSelector();
 
   if (state.quizComplete) {
     const score = quizScore();
-    const total = quizQuestions.length;
+    const total = state.quizLength;
     const strong = score >= Math.ceil(total * 0.67);
     container.innerHTML = `
+      ${lengthSelector}
       <div class="quiz-result">
         <span class="quiz-score">${score}/${total}</span>
         <div>
@@ -1638,16 +1813,17 @@ function renderLearningQuiz() {
   const selectedAnswer = state.quizAnswers[state.quizIndex];
   const answered = Number.isInteger(selectedAnswer);
   const correct = selectedAnswer === question.correct;
-  const progress = ((state.quizIndex + 1) / quizQuestions.length) * 100;
+  const progress = ((state.quizIndex + 1) / state.quizLength) * 100;
   container.innerHTML = `
+    ${lengthSelector}
     <div class="quiz-progress-row">
       <span>${escapeHtml(
         formatLearningText(t("learn.questionProgress"), {
           current: state.quizIndex + 1,
-          total: quizQuestions.length,
+          total: state.quizLength,
         })
       )}</span>
-      <span>${state.quizIndex + 1}/${quizQuestions.length}</span>
+      <span>${state.quizIndex + 1}/${state.quizLength}</span>
     </div>
     <div class="quiz-progress"><span style="width: ${progress}%"></span></div>
     <h3 class="quiz-question">${escapeHtml(question.question[state.lang])}</h3>
@@ -1681,7 +1857,7 @@ function renderLearningQuiz() {
           <button class="button button-primary" type="button" data-quiz-next>
             ${escapeHtml(
               t(
-                state.quizIndex === quizQuestions.length - 1
+                state.quizIndex === state.quizLength - 1
                   ? "learn.finish"
                   : "learn.next"
               )
@@ -1984,6 +2160,7 @@ function renderDynamicContent() {
 function parseRoute() {
   const raw = window.location.hash.replace("#", "") || "home";
   if (raw === "mission") return { page: "home", anchor: "mission" };
+  if (raw === "research") return { page: "learn", anchor: "assistant" };
   if (routes.has(raw)) return { page: raw, anchor: null };
   return { page: "home", anchor: null };
 }
@@ -1993,7 +2170,7 @@ function showPage(shouldScroll = true) {
     page.classList.toggle("is-active", page.dataset.page === state.page);
   });
 
-  const activeKey = state.anchor || state.page;
+  const activeKey = state.anchor === "mission" ? "mission" : state.page;
   document.querySelectorAll("[data-nav-link]").forEach((link) => {
     link.classList.toggle("is-active", link.dataset.navLink === activeKey);
   });
@@ -2005,6 +2182,13 @@ function showPage(shouldScroll = true) {
   requestAnimationFrame(() => {
     if (state.anchor === "mission") {
       document.querySelector("[data-anchor='mission']").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    if (state.anchor === "assistant") {
+      document.querySelector("[data-learning-assistant]")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
       return;
     }
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -2222,6 +2406,15 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  if (event.target.closest("[data-open-learning-assistant]")) {
+    document.querySelector("[data-learning-assistant]")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    window.setTimeout(() => document.querySelector("#research-question")?.focus(), 420);
+    return;
+  }
+
   if (event.target.closest("[data-learning-reset]")) {
     state.learningTopic = "oceans";
     state.learningProgress = {
@@ -2240,6 +2433,20 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const quizLengthButton = event.target.closest("[data-quiz-length]");
+  if (quizLengthButton) {
+    const quizLength = Number(quizLengthButton.dataset.quizLength);
+    if ([3, 6, 9].includes(quizLength) && quizLength !== state.quizLength) {
+      state.quizLength = quizLength;
+      state.quizIndex = 0;
+      state.quizAnswers = [];
+      state.quizComplete = false;
+      saveLearningProgress();
+      renderLearningQuiz();
+    }
+    return;
+  }
+
   const quizOptionButton = event.target.closest("[data-quiz-option]");
   if (quizOptionButton) {
     state.quizAnswers[state.quizIndex] = Number(quizOptionButton.dataset.quizOption);
@@ -2249,7 +2456,7 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-quiz-next]")) {
-    if (state.quizIndex === quizQuestions.length - 1) {
+    if (state.quizIndex === state.quizLength - 1) {
       state.quizComplete = true;
       state.learningProgress.quizCompleted = true;
       state.learningProgress.quizScore = quizScore();
@@ -2586,7 +2793,7 @@ window.addEventListener("keydown", (event) => {
 
 updateStaticText();
 renderDynamicContent();
-syncRoute(false);
+syncRoute(window.location.hash === "#research" || window.location.hash === "#mission");
 observeReveals();
 loadStaticArticles();
 loadArticlesFromBackend().then((backendAvailable) => {

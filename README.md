@@ -9,7 +9,8 @@ Learning platform:
 - Visitors can switch between oceans, climate ecosystems and climate-ready cities.
 - A personal learning journey tracks explored topics, opened learning articles and quiz completion.
 - Learning progress is stored locally in the visitor's browser and includes a recommended next step.
-- A bilingual three-question knowledge check gives immediate explanations and a final score.
+- The knowledge check offers three selectable lengths with 3, 6 or 9 bilingual questions.
+- The CYRI AI learning assistant is integrated into the `Learn` page instead of appearing as a separate navigation item.
 - Articles remain the source-based foundation; infographics and social explainers are presented as additional educational formats.
 
 Backend routes:
