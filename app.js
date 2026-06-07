@@ -29,6 +29,18 @@ const learningTopics = [
       en: ["Blue carbon", "Coastal protection", "Biodiversity"],
       de: ["Blue Carbon", "Küstenschutz", "Biodiversität"],
     },
+    facts: {
+      en: [
+        "Seagrass captures carbon while growing. A large share can remain stored in the low-oxygen sediment below the meadow for long periods.",
+        "Leaves slow waves and currents. Roots and rhizomes hold sediment in place, helping coastlines resist erosion.",
+        "Seagrass meadows provide food, shelter and nursery habitat for many marine species.",
+      ],
+      de: [
+        "Seegras nimmt beim Wachstum Kohlenstoff auf. Ein großer Teil kann lange im sauerstoffarmen Sediment unter der Wiese gespeichert bleiben.",
+        "Die Blätter bremsen Wellen und Strömungen. Wurzeln und Rhizome halten Sediment fest und schützen Küsten vor Erosion.",
+        "Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben.",
+      ],
+    },
   },
   {
     id: "climate",
@@ -50,6 +62,18 @@ const learningTopics = [
       en: ["Marine heatwaves", "Resilience", "Climate action"],
       de: ["Marine Hitzewellen", "Widerstandskraft", "Klimaschutz"],
     },
+    facts: {
+      en: [
+        "Marine heatwaves are periods of unusually warm ocean water. If they persist, corals can lose the algae that supply much of their energy.",
+        "A bleached coral is stressed, not automatically dead. Quick cooling and lower local pressure can improve its chance of recovery.",
+        "Local reef protection strengthens resilience, but only rapid global emissions cuts can limit continued ocean warming.",
+      ],
+      de: [
+        "Marine Hitzewellen sind Phasen ungewöhnlich warmen Meerwassers. Halten sie an, können Korallen die Algen verlieren, die ihnen viel Energie liefern.",
+        "Eine gebleichte Koralle ist gestresst, aber nicht automatisch tot. Schnelle Abkühlung und weniger lokale Belastung verbessern ihre Erholungschance.",
+        "Lokaler Riffschutz stärkt die Widerstandskraft, doch nur schnelle globale Emissionsminderung kann die weitere Meereserwärmung begrenzen.",
+      ],
+    },
   },
   {
     id: "cities",
@@ -70,6 +94,18 @@ const learningTopics = [
     concepts: {
       en: ["Rainwater storage", "Urban heat", "Climate adaptation"],
       de: ["Regenwasserspeicherung", "Stadthitze", "Klimaanpassung"],
+    },
+    facts: {
+      en: [
+        "A sponge city keeps rain close to where it falls so it can infiltrate, evaporate or be reused instead of immediately entering drains.",
+        "Trees, planted areas and open water cool streets through shade and evaporation while sealed surfaces store heat.",
+        "The same green-blue infrastructure can reduce flood risk, heat and drought stress, making adaptation more efficient.",
+      ],
+      de: [
+        "Eine Schwammstadt hält Regen dort zurück, wo er fällt. So kann er versickern, verdunsten oder genutzt werden, statt sofort in die Kanalisation zu fließen.",
+        "Bäume, bepflanzte Flächen und offenes Wasser kühlen durch Schatten und Verdunstung, während versiegelte Flächen Hitze speichern.",
+        "Dieselbe grün-blaue Infrastruktur kann Überflutungsrisiko, Hitze und Trockenstress gleichzeitig verringern.",
+      ],
     },
   },
 ];
@@ -526,6 +562,9 @@ const content = {
       journeyStatus: "{complete} of {total} steps",
       guidingQuestion: "Guiding question",
       concepts: "Key concepts",
+      discoverHint: "Choose a concept to reveal the connection.",
+      discoverEyebrow: "Aha moment",
+      discoverProgress: "{complete} of {total} discovered",
       openArticle: "Open learning article",
       askAssistant: "Ask CYRI",
       formatsEyebrow: "Formats",
@@ -909,6 +948,9 @@ const content = {
       journeyStatus: "{complete} von {total} Schritten",
       guidingQuestion: "Leitfrage",
       concepts: "Schlüsselbegriffe",
+      discoverHint: "Wähle einen Begriff und entdecke den Zusammenhang.",
+      discoverEyebrow: "Aha-Moment",
+      discoverProgress: "{complete} von {total} entdeckt",
       openArticle: "Lernartikel öffnen",
       askAssistant: "CYRI fragen",
       formatsEyebrow: "Formate",
@@ -1148,6 +1190,7 @@ function loadLearningProgress() {
     quizAnswers: [],
     quizComplete: false,
     quizLength: 3,
+    discoveredConcepts: {},
     lastTopic: "oceans",
   };
 
@@ -1159,6 +1202,16 @@ function loadLearningProgress() {
     const quizAnswers = Array.isArray(saved.quizAnswers)
       ? saved.quizAnswers.slice(0, quizLength)
       : [];
+    const discoveredConcepts = Object.fromEntries(
+      learningTopics.map((topic) => [
+        topic.id,
+        Array.isArray(saved.discoveredConcepts?.[topic.id])
+          ? saved.discoveredConcepts[topic.id].filter(
+              (index) => Number.isInteger(index) && index >= 0 && index < topic.concepts.en.length
+            )
+          : [],
+      ])
+    );
 
     return {
       visitedTopics: Array.isArray(saved.visitedTopics)
@@ -1178,6 +1231,7 @@ function loadLearningProgress() {
       quizAnswers,
       quizComplete: Boolean(saved.quizComplete),
       quizLength,
+      discoveredConcepts,
       lastTopic: validTopicIds.has(saved.lastTopic) ? saved.lastTopic : "oceans",
     };
   } catch {
@@ -1203,11 +1257,13 @@ const state = {
     readArticles: savedLearningProgress.readArticles,
     quizCompleted: savedLearningProgress.quizCompleted,
     quizScore: savedLearningProgress.quizScore,
+    discoveredConcepts: savedLearningProgress.discoveredConcepts,
   },
   quizIndex: savedLearningProgress.quizIndex,
   quizAnswers: savedLearningProgress.quizAnswers,
   quizComplete: savedLearningProgress.quizComplete,
   quizLength: savedLearningProgress.quizLength,
+  activeConcept: null,
 };
 
 const routes = new Set([
@@ -1298,7 +1354,7 @@ async function loadArticlesFromBackend() {
 
 async function loadStaticArticles() {
   try {
-    const response = await fetch("content/articles.json?v=20260607-6", { cache: "no-cache" });
+    const response = await fetch("content/articles.json?v=20260607-7", { cache: "no-cache" });
     if (!response.ok) throw new Error("Static article corpus is not available.");
     const payload = await response.json();
     articles.splice(0, articles.length, ...(Array.isArray(payload) ? payload : []));
@@ -1463,6 +1519,7 @@ function saveLearningProgress() {
       quizAnswers: state.quizAnswers,
       quizComplete: state.quizComplete,
       quizLength: state.quizLength,
+      discoveredConcepts: state.learningProgress.discoveredConcepts,
       lastTopic: state.learningTopic,
     })
   );
@@ -1668,6 +1725,15 @@ function renderLearningPaths() {
     .join("");
 }
 
+function markConceptDiscovered(topicId, conceptIndex) {
+  const discovered = state.learningProgress.discoveredConcepts[topicId] || [];
+  if (!discovered.includes(conceptIndex)) {
+    state.learningProgress.discoveredConcepts[topicId] = [...discovered, conceptIndex];
+  }
+  state.activeConcept = conceptIndex;
+  saveLearningProgress();
+}
+
 function renderLearningTopics() {
   const selector = document.querySelector("[data-learning-topics]");
   const detail = document.querySelector("[data-learning-detail]");
@@ -1695,6 +1761,13 @@ function renderLearningTopics() {
     .join("");
 
   const photo = getPhoto(activeTopic.imageId);
+  const discovered = state.learningProgress.discoveredConcepts[activeTopic.id] || [];
+  const activeConcept =
+    Number.isInteger(state.activeConcept) &&
+    state.activeConcept >= 0 &&
+    state.activeConcept < activeTopic.concepts[state.lang].length
+      ? state.activeConcept
+      : null;
   detail.innerHTML = `
     <figure class="topic-visual">
       <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" />
@@ -1705,12 +1778,50 @@ function renderLearningTopics() {
       <h2>${escapeHtml(activeTopic.question[state.lang])}</h2>
       <p>${escapeHtml(activeTopic.intro[state.lang])}</p>
       <div class="topic-concepts">
-        <strong>${escapeHtml(t("learn.concepts"))}</strong>
+        <div class="topic-concepts-heading">
+          <strong>${escapeHtml(t("learn.concepts"))}</strong>
+          <span>${escapeHtml(
+            formatLearningText(t("learn.discoverProgress"), {
+              complete: discovered.length,
+              total: activeTopic.concepts[state.lang].length,
+            })
+          )}</span>
+        </div>
         <div>
           ${activeTopic.concepts[state.lang]
-            .map((concept) => `<span>${escapeHtml(concept)}</span>`)
+            .map(
+              (concept, index) => `
+                <button
+                  class="concept-button${activeConcept === index ? " is-active" : ""}${
+                    discovered.includes(index) ? " is-discovered" : ""
+                  }"
+                  type="button"
+                  data-learning-concept="${index}"
+                  aria-pressed="${activeConcept === index}"
+                >
+                  <span aria-hidden="true">${discovered.includes(index) ? "✓" : index + 1}</span>
+                  ${escapeHtml(concept)}
+                </button>
+              `
+            )
             .join("")}
         </div>
+      </div>
+      <div class="concept-reveal${activeConcept === null ? " is-prompt" : ""}" aria-live="polite">
+        ${
+          activeConcept === null
+            ? `
+              <span class="concept-spark" aria-hidden="true">+</span>
+              <p>${escapeHtml(t("learn.discoverHint"))}</p>
+            `
+            : `
+              <div>
+                <span>${escapeHtml(t("learn.discoverEyebrow"))}</span>
+                <strong>${escapeHtml(activeTopic.concepts[state.lang][activeConcept])}</strong>
+              </div>
+              <p>${escapeHtml(activeTopic.facts[state.lang][activeConcept])}</p>
+            `
+        }
       </div>
       <div class="topic-actions">
         <button
@@ -2360,6 +2471,7 @@ document.addEventListener("click", (event) => {
   const learningTopicButton = event.target.closest("[data-learning-topic]");
   if (learningTopicButton) {
     state.learningTopic = learningTopicButton.dataset.learningTopic;
+    state.activeConcept = null;
     markLearningTopicVisited(state.learningTopic);
     renderLearningTopics();
     renderLearningJourney();
@@ -2369,6 +2481,7 @@ document.addEventListener("click", (event) => {
   const journeyTopicButton = event.target.closest("[data-learning-journey-topic]");
   if (journeyTopicButton) {
     state.learningTopic = journeyTopicButton.dataset.learningJourneyTopic;
+    state.activeConcept = null;
     markLearningTopicVisited(state.learningTopic);
     renderLearningTopics();
     renderLearningJourney();
@@ -2382,6 +2495,7 @@ document.addEventListener("click", (event) => {
   const nextTopicButton = event.target.closest("[data-learning-next-topic]");
   if (nextTopicButton) {
     state.learningTopic = nextTopicButton.dataset.learningNextTopic;
+    state.activeConcept = null;
     markLearningTopicVisited(state.learningTopic);
     renderLearningTopics();
     renderLearningJourney();
@@ -2389,6 +2503,13 @@ document.addEventListener("click", (event) => {
       behavior: "smooth",
       block: "center",
     });
+    return;
+  }
+
+  const conceptButton = event.target.closest("[data-learning-concept]");
+  if (conceptButton) {
+    markConceptDiscovered(state.learningTopic, Number(conceptButton.dataset.learningConcept));
+    renderLearningTopics();
     return;
   }
 
@@ -2422,10 +2543,12 @@ document.addEventListener("click", (event) => {
       readArticles: [],
       quizCompleted: false,
       quizScore: 0,
+      discoveredConcepts: {},
     };
     state.quizIndex = 0;
     state.quizAnswers = [];
     state.quizComplete = false;
+    state.activeConcept = null;
     saveLearningProgress();
     renderLearningJourney();
     renderLearningTopics();

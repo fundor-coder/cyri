@@ -564,6 +564,8 @@ h3 {
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--green), var(--blue));
+  background-size: 180% 100%;
+  animation: progress-flow 5s linear infinite;
   transition: width 360ms ease;
 }
 
@@ -843,6 +845,7 @@ h3 {
   display: grid;
   grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1fr);
   min-height: 470px;
+  animation: topic-enter 420ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
 .topic-visual {
@@ -857,6 +860,7 @@ h3 {
   height: 100%;
   min-height: 470px;
   object-fit: cover;
+  animation: topic-image-enter 700ms cubic-bezier(0.2, 0.75, 0.25, 1);
 }
 
 .topic-visual figcaption {
@@ -899,25 +903,158 @@ h3 {
   margin-top: 12px;
 }
 
-.topic-concepts > strong {
+.topic-concepts-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topic-concepts-heading strong {
   color: var(--ink-soft);
   font-size: 0.86rem;
 }
 
-.topic-concepts > div {
+.topic-concepts-heading span {
+  color: var(--green);
+  font-size: 0.74rem;
+  font-weight: 720;
+}
+
+.topic-concepts > div:last-child {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.topic-concepts span {
-  border: 1px solid rgba(18, 22, 29, 0.08);
+.concept-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.88);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.82), rgba(239, 247, 249, 0.46)),
+    rgba(255, 255, 255, 0.5);
   color: var(--ink-soft);
+  cursor: pointer;
   font-size: 0.82rem;
   font-weight: 680;
-  padding: 7px 10px;
+  padding: 7px 11px 7px 7px;
+  box-shadow:
+    0 7px 18px rgba(27, 48, 65, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(18px) saturate(175%);
+  -webkit-backdrop-filter: blur(18px) saturate(175%);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.concept-button > span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(18, 22, 29, 0.07);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 780;
+}
+
+.concept-button:hover,
+.concept-button.is-active {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 1);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(230, 243, 248, 0.68)),
+    rgba(255, 255, 255, 0.66);
+  box-shadow:
+    0 12px 28px rgba(27, 48, 65, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.concept-button.is-discovered > span {
+  background: rgba(22, 131, 95, 0.13);
+  color: var(--green);
+}
+
+.concept-reveal {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-height: 114px;
+  overflow: hidden;
+  margin-top: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(228, 246, 239, 0.72), rgba(231, 240, 252, 0.56)),
+    rgba(255, 255, 255, 0.46);
+  padding: 18px;
+  box-shadow:
+    0 14px 34px rgba(27, 48, 65, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(24px) saturate(185%);
+  -webkit-backdrop-filter: blur(24px) saturate(185%);
+  animation: concept-reveal-enter 360ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.concept-reveal::after {
+  position: absolute;
+  top: -70%;
+  bottom: -70%;
+  left: -35%;
+  width: 28%;
+  transform: rotate(18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  content: "";
+  pointer-events: none;
+  animation: glass-sweep 850ms ease-out;
+}
+
+.concept-reveal > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.concept-reveal > div span {
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.concept-reveal > div strong {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+.concept-reveal p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.concept-reveal.is-prompt {
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  min-height: 76px;
+  background: rgba(255, 255, 255, 0.44);
+}
+
+.concept-spark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 999px;
+  background: linear-gradient(145deg, rgba(22, 131, 95, 0.16), rgba(39, 116, 216, 0.13));
+  color: var(--green);
+  font-size: 1.18rem;
+  font-weight: 620;
 }
 
 .topic-actions {
@@ -1080,6 +1217,8 @@ h3 {
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--green), var(--blue));
+  background-size: 180% 100%;
+  animation: progress-flow 4.5s linear infinite;
   transition: width 260ms ease;
 }
 
@@ -1135,6 +1274,7 @@ h3 {
 .quiz-option.is-correct {
   border-color: rgba(22, 131, 95, 0.35);
   background: rgba(222, 245, 236, 0.74);
+  animation: answer-correct 320ms ease;
 }
 
 .quiz-option.is-incorrect {
@@ -2286,6 +2426,69 @@ h3 {
   opacity: 1;
 }
 
+@keyframes topic-enter {
+  from {
+    transform: translateY(8px);
+    opacity: 0.72;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes topic-image-enter {
+  from {
+    transform: scale(1.035);
+    filter: saturate(0.88);
+  }
+  to {
+    transform: scale(1);
+    filter: saturate(1);
+  }
+}
+
+@keyframes concept-reveal-enter {
+  from {
+    transform: translateY(7px) scale(0.99);
+    opacity: 0.42;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes glass-sweep {
+  from {
+    transform: translateX(0) rotate(18deg);
+  }
+  to {
+    transform: translateX(520%) rotate(18deg);
+  }
+}
+
+@keyframes progress-flow {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+@keyframes answer-correct {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.012);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 1100px) {
   .latest-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2549,6 +2752,22 @@ h3 {
 
   .topic-copy h2 {
     font-size: 1.8rem;
+  }
+
+  .topic-concepts-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .concept-button {
+    flex: 1 1 auto;
+  }
+
+  .concept-reveal > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .topic-actions,

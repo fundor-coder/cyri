@@ -11,6 +11,7 @@ Learning platform:
 - Learning progress is stored locally in the visitor's browser and includes a recommended next step.
 - The knowledge check offers three selectable lengths with 3, 6 or 9 bilingual questions.
 - The CYRI AI learning assistant is integrated into the `Learn` page instead of appearing as a separate navigation item.
+- Each topic includes three interactive key-concept discoveries with animated explanations and locally saved discovery progress.
 - Articles remain the source-based foundation; infographics and social explainers are presented as additional educational formats.
 
 Backend routes:
