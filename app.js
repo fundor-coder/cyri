@@ -484,6 +484,8 @@ const photoSources = [
 
 const API_BASES = ["backend.php?route=", "api"];
 const PUBLISH_SESSION_KEY = "cyri-publish-token";
+const HOMEPAGE_ARTICLE_COUNT = 5;
+const FEATURED_ARTICLE_COUNT = 2;
 
 const content = {
   en: {
@@ -1257,17 +1259,19 @@ function renderArticleCard(article, featured = false) {
 }
 
 function renderArticles() {
-  const newest = sortedArticles().slice(0, 5);
-  const older = sortedArticles().slice(5);
+  const sorted = sortedArticles();
+  const homepageArticles = sorted.slice(0, HOMEPAGE_ARTICLE_COUNT);
+  const newest = sorted.slice(0, FEATURED_ARTICLE_COUNT);
+  const older = sorted.slice(FEATURED_ARTICLE_COUNT);
   const homepageContainer = document.querySelector("[data-latest-articles]");
   const newestContainer = document.querySelector("[data-articles-newest]");
   const olderContainer = document.querySelector("[data-articles-older]");
 
-  homepageContainer.innerHTML = newest.length
-    ? newest.map((article) => renderArticleCard(article)).join("")
+  homepageContainer.innerHTML = homepageArticles.length
+    ? homepageArticles.map((article) => renderArticleCard(article)).join("")
     : renderEmptyArticleState(t("articles.emptyLatest"), t("articles.emptyLatestHint"));
   newestContainer.innerHTML = newest.length
-    ? newest.slice(0, 3).map((article) => renderArticleCard(article, true)).join("")
+    ? newest.map((article) => renderArticleCard(article, true)).join("")
     : renderEmptyArticleState(t("articles.emptyNewest"), t("articles.emptyLatestHint"));
 
   const filteredOlder =
