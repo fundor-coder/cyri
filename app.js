@@ -310,7 +310,7 @@ const content = {
       eyebrow: "Youth-led environmental education",
       title: "Understand the environment. Question it. Help shape it.",
       subtitle:
-        "CYRI is a digital learning platform where young people publish clear articles, visual explainers and social media content about climate, nature and environmental protection.",
+        "We are building a digital youth platform for environmental education where young people publish clear articles, infographics and social media posts about climate, nature and environmental protection.",
       primaryCta: "Start learning",
       secondaryCta: "Read articles",
       imageAlt: "Bleached coral reef",
@@ -669,7 +669,7 @@ const content = {
       eyebrow: "Jugendgeführte Umweltbildung",
       title: "Umwelt verstehen. Hinterfragen. Mitgestalten.",
       subtitle:
-        "CYRI ist eine digitale Lernplattform, auf der junge Menschen verständliche Artikel, visuelle Erklärformate und Social-Media-Beiträge zu Klima-, Natur- und Umweltschutz veröffentlichen.",
+        "Wir bauen eine digitale Jugendplattform für Umweltbildung auf, auf der junge Menschen verständliche Artikel, Infografiken und Social-Media-Beiträge zu Klima-, Natur- und Umweltschutz veröffentlichen.",
       primaryCta: "Jetzt lernen",
       secondaryCta: "Artikel lesen",
       imageAlt: "Gebleichter Korallenriffbereich",
