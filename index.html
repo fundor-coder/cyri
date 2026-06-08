@@ -17,8 +17,8 @@
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260608-1" />
-    <script src="app.js?v=20260608-1" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260608-2" />
+    <script src="app.js?v=20260608-2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -164,11 +164,17 @@
         <section class="page-hero section">
           <div class="shell narrow reveal">
             <p class="eyebrow" data-i18n="learn.eyebrow">Learning platform</p>
-            <h1 data-i18n="learn.title">Environmental knowledge that you can explore.</h1>
-            <p data-i18n="learn.intro">
+            <h1 data-i18n="learn.title" data-audience-copy="title">
+              Environmental knowledge that you can explore.
+            </h1>
+            <p data-i18n="learn.intro" data-audience-copy="intro">
               Start with a question, discover the key concepts and continue with the full
               source-based article.
             </p>
+            <div
+              class="audience-switch learning-audience-switch"
+              data-learning-audience-switch
+            ></div>
           </div>
         </section>
 
@@ -176,8 +182,10 @@
           <div class="shell">
             <div class="section-heading reveal">
               <p class="eyebrow" data-i18n="learn.journeyEyebrow">Your learning journey</p>
-              <h2 data-i18n="learn.journeyTitle">Learn at your own pace.</h2>
-              <p data-i18n="learn.journeyIntro">
+              <h2 data-i18n="learn.journeyTitle" data-audience-copy="journeyTitle">
+                Learn at your own pace.
+              </h2>
+              <p data-i18n="learn.journeyIntro" data-audience-copy="journeyIntro">
                 Explore a topic, open its learning article and complete the knowledge check. Your
                 progress is saved on this device.
               </p>
@@ -190,7 +198,9 @@
           <div class="shell">
             <div class="section-heading reveal">
               <p class="eyebrow" data-i18n="learn.topicsEyebrow">Choose a topic</p>
-              <h2 data-i18n="learn.topicsTitle">What do you want to understand?</h2>
+              <h2 data-i18n="learn.topicsTitle" data-audience-copy="topicsTitle">
+                What do you want to understand?
+              </h2>
             </div>
             <div class="topic-explorer reveal">
               <div
@@ -209,8 +219,10 @@
           <div class="shell quiz-layout">
             <div class="quiz-intro reveal">
               <p class="eyebrow" data-i18n="learn.quizEyebrow">Knowledge check</p>
-              <h2 data-i18n="learn.quizTitle">What stayed with you?</h2>
-              <p data-i18n="learn.quizIntro">
+              <h2 data-i18n="learn.quizTitle" data-audience-copy="quizTitle">
+                What stayed with you?
+              </h2>
+              <p data-i18n="learn.quizIntro" data-audience-copy="quizIntro">
                 Choose how deeply you want to test your knowledge.
               </p>
             </div>
@@ -746,12 +758,51 @@
       </div>
     </footer>
 
+    <div class="audience-gate" data-audience-gate hidden aria-hidden="true">
+      <section
+        class="audience-gate-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="audience-gate-title"
+      >
+        <p class="eyebrow" data-i18n="audience.gateEyebrow">Set your learning level</p>
+        <h2 id="audience-gate-title" data-i18n="audience.gateTitle">Who is learning today?</h2>
+        <p data-i18n="audience.gateIntro">
+          Choose once so CYRI can adapt explanations and articles. You can change this setting at
+          any time.
+        </p>
+        <div class="audience-choice-grid">
+          <button type="button" class="audience-choice" data-audience-select="children">
+            <span class="audience-choice-icon" aria-hidden="true">01</span>
+            <strong data-i18n="audience.children">Children</strong>
+            <small data-i18n="audience.childrenDescription">
+              Shorter sentences, clear examples and compact articles.
+            </small>
+          </button>
+          <button type="button" class="audience-choice" data-audience-select="adults">
+            <span class="audience-choice-icon" aria-hidden="true">02</span>
+            <strong data-i18n="audience.adults">Adults</strong>
+            <small data-i18n="audience.adultsDescription">
+              Full explanations, terminology and complete articles.
+            </small>
+          </button>
+        </div>
+        <small class="audience-saved-note" data-i18n="audience.saved">
+          This choice is saved on this device.
+        </small>
+      </section>
+    </div>
+
     <div class="article-modal" data-article-modal hidden aria-hidden="true">
       <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <button class="modal-close" type="button" data-modal-close data-i18n-aria="accessibility.close">×</button>
         <p class="article-category" data-modal-category></p>
         <h2 id="modal-title" data-modal-title></h2>
         <time data-modal-date></time>
+        <div class="article-audience-bar">
+          <div class="audience-switch" data-article-audience-switch></div>
+          <p data-article-audience-note></p>
+        </div>
         <figure class="modal-photo" data-modal-photo-wrap hidden>
           <img src="" alt="" data-modal-photo />
           <figcaption data-modal-credit></figcaption>

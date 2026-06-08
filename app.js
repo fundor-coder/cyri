@@ -41,6 +41,28 @@ const learningTopics = [
         "Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben.",
       ],
     },
+    children: {
+      intro: {
+        en: "Discover how underwater meadows help animals, store carbon and soften waves near the coast.",
+        de: "Entdecke, wie Unterwasserwiesen Tieren helfen, Kohlenstoff speichern und Wellen an der Küste bremsen.",
+      },
+      question: {
+        en: "What can a meadow under the sea do?",
+        de: "Was kann eine Wiese unter dem Meer bewirken?",
+      },
+      facts: {
+        en: [
+          "Seagrass takes carbon from the water as it grows. Some of it stays in the seabed for a long time.",
+          "The leaves slow the water. The roots hold the seabed together, so waves remove less sand.",
+          "Small fish and many other animals find food and hiding places between the leaves.",
+        ],
+        de: [
+          "Seegras nimmt beim Wachsen Kohlenstoff aus dem Wasser auf. Ein Teil davon bleibt lange im Meeresboden.",
+          "Die Blätter bremsen das Wasser. Die Wurzeln halten den Boden fest, sodass Wellen weniger Sand wegtragen.",
+          "Kleine Fische und viele andere Tiere finden zwischen den Blättern Nahrung und Verstecke.",
+        ],
+      },
+    },
     lab: {
       control: { en: "Seagrass coverage", de: "Seegrasbedeckung" },
       metrics: {
@@ -109,6 +131,28 @@ const learningTopics = [
         "Eine gebleichte Koralle ist gestresst, aber nicht automatisch tot. Schnelle Abkühlung und weniger lokale Belastung verbessern ihre Erholungschance.",
         "Lokaler Riffschutz stärkt die Widerstandskraft, doch nur schnelle globale Emissionsminderung kann die weitere Meereserwärmung begrenzen.",
       ],
+    },
+    children: {
+      intro: {
+        en: "Find out why very warm seawater stresses corals and what can give a reef a better chance.",
+        de: "Finde heraus, warum sehr warmes Meerwasser Korallen stresst und was einem Riff helfen kann.",
+      },
+      question: {
+        en: "Why can warm water make corals turn white?",
+        de: "Warum können Korallen durch warmes Wasser weiß werden?",
+      },
+      facts: {
+        en: [
+          "If the sea stays unusually warm, corals become stressed. They can lose the tiny algae that give them energy and colour.",
+          "A white coral is not always dead. It may recover if the water cools soon and other pressures are low.",
+          "Clean water and protected reefs help locally. Slowing climate change is still necessary to stop the oceans warming further.",
+        ],
+        de: [
+          "Bleibt das Meer ungewöhnlich warm, geraten Korallen unter Stress. Sie können die winzigen Algen verlieren, die ihnen Energie und Farbe geben.",
+          "Eine weiße Koralle ist nicht immer tot. Kühlt das Wasser bald ab und gibt es wenig weitere Belastungen, kann sie sich erholen.",
+          "Sauberes Wasser und geschützte Riffe helfen vor Ort. Klimaschutz bleibt nötig, damit sich die Meere nicht weiter erwärmen.",
+        ],
+      },
     },
     lab: {
       control: { en: "Ocean heat stress", de: "Hitzestress im Meer" },
@@ -179,6 +223,28 @@ const learningTopics = [
         "Dieselbe grün-blaue Infrastruktur kann Überflutungsrisiko, Hitze und Trockenstress gleichzeitig verringern.",
       ],
     },
+    children: {
+      intro: {
+        en: "See how trees, soil and planted areas can keep rain in a city and make hot days more comfortable.",
+        de: "Sieh dir an, wie Bäume, Böden und bepflanzte Flächen Regen in der Stadt halten und heiße Tage angenehmer machen.",
+      },
+      question: {
+        en: "How can a city use rain instead of sending it away?",
+        de: "Wie kann eine Stadt Regen nutzen, statt ihn sofort abzuleiten?",
+      },
+      facts: {
+        en: [
+          "A sponge city keeps rain near the place where it falls. The water can soak into the soil, evaporate or be used later.",
+          "Trees provide shade. Plants and water also cool the air when water evaporates.",
+          "Green spaces can help with heavy rain, heat and dry periods at the same time.",
+        ],
+        de: [
+          "Eine Schwammstadt hält Regen dort, wo er fällt. Das Wasser kann versickern, verdunsten oder später genutzt werden.",
+          "Bäume spenden Schatten. Pflanzen und Wasser kühlen außerdem die Luft, wenn Wasser verdunstet.",
+          "Grünflächen können gleichzeitig bei Starkregen, Hitze und Trockenheit helfen.",
+        ],
+      },
+    },
     lab: {
       control: { en: "Sealed surfaces", de: "Versiegelte Flächen" },
       metrics: {
@@ -217,6 +283,51 @@ const learningTopics = [
     },
   },
 ];
+
+const childArticleVersions = {
+  "schwammstadt-regenwasser-hitze-2026": {
+    title: {
+      en: "Sponge cities: How rain can help cool a city",
+      de: "Schwammstadt: Wie Regen eine Stadt kühlen kann",
+    },
+    summary: {
+      en: "A sponge city keeps rainwater instead of sending it straight into drains. Trees, soil and green roofs can then use that water during hot and dry weather.",
+      de: "Eine Schwammstadt hält Regenwasser zurück, statt es sofort in die Kanalisation zu leiten. Bäume, Böden und Gründächer können dieses Wasser bei Hitze und Trockenheit nutzen.",
+    },
+    body: {
+      en: "## A city can work like a sponge\n\nA sponge soaks up water and releases it slowly. A sponge city tries to do something similar. Soil, parks, planted roofs and special basins collect rain where it falls.\n\n## Why this helps during heavy rain\n\nWater runs very quickly across concrete and asphalt. If too much reaches the drains at once, streets and basements can flood. Green and open ground gives some of the rain a place to stay.\n\n## Why stored water cools the city\n\nTrees give shade. Plants also release water into the air, which cools their surroundings. This works better when the soil has saved enough rainwater.\n\n## What could change near you\n\nA schoolyard could have fewer sealed surfaces, more trees and a rain garden. Roofs could carry plants, and rain tanks could save water for dry days. Many small areas work best when they are connected.",
+      de: "## Eine Stadt kann wie ein Schwamm funktionieren\n\nEin Schwamm nimmt Wasser auf und gibt es langsam wieder ab. Eine Schwammstadt versucht etwas Ähnliches. Böden, Parks, bepflanzte Dächer und besondere Becken sammeln Regen dort, wo er fällt.\n\n## Warum das bei Starkregen hilft\n\nÜber Beton und Asphalt fließt Wasser sehr schnell. Kommt zu viel auf einmal in der Kanalisation an, können Straßen und Keller überflutet werden. Grünflächen und offene Böden geben einem Teil des Regens Platz.\n\n## Warum gespeichertes Wasser die Stadt kühlt\n\nBäume spenden Schatten. Pflanzen geben außerdem Wasser an die Luft ab und kühlen so ihre Umgebung. Das funktioniert besser, wenn im Boden genug Regenwasser gespeichert ist.\n\n## Was sich in deiner Umgebung ändern könnte\n\nEin Schulhof könnte weniger versiegelte Flächen, mehr Bäume und einen Regengarten haben. Dächer könnten bepflanzt werden und Regentonnen Wasser für trockene Tage sammeln. Viele kleine Flächen wirken am besten, wenn sie miteinander verbunden sind.",
+    },
+  },
+  "seegraswiesen-klima-kuesten-arten-2026": {
+    title: {
+      en: "Seagrass meadows: Hidden helpers beneath the sea",
+      de: "Seegraswiesen: Versteckte Helfer unter dem Meer",
+    },
+    summary: {
+      en: "Seagrass is a flowering plant that grows below the water. Its meadows shelter animals, store carbon and help protect coastlines.",
+      de: "Seegras ist eine Blütenpflanze, die unter Wasser wächst. Seine Wiesen schützen Tiere, speichern Kohlenstoff und helfen den Küsten.",
+    },
+    body: {
+      en: "## A real meadow under water\n\nSeagrass is not algae. It has leaves and roots and can form large meadows in shallow coastal water. These meadows are living habitats.\n\n## A hiding place for animals\n\nSmall fish, pipefish and many other creatures find food and shelter between the leaves. Young animals can grow there with more protection from predators.\n\n## How seagrass helps the climate and coast\n\nSeagrass takes up carbon as it grows. Some carbon can remain in the seabed for a long time. The leaves slow waves, while the roots help hold sand and mud in place.\n\n## Why seagrass needs protection\n\nMurky water, too many nutrients and rising temperatures can harm seagrass. Restoring a meadow works best when the water is clean enough for the plants to grow.",
+      de: "## Eine echte Wiese unter Wasser\n\nSeegras ist keine Alge. Es besitzt Blätter und Wurzeln und kann im flachen Küstenwasser große Wiesen bilden. Diese Wiesen sind lebendige Lebensräume.\n\n## Ein Versteck für Tiere\n\nKleine Fische, Seenadeln und viele andere Tiere finden zwischen den Blättern Nahrung und Schutz. Jungtiere können dort besser vor Fressfeinden geschützt aufwachsen.\n\n## Wie Seegras Klima und Küste hilft\n\nSeegras nimmt beim Wachsen Kohlenstoff auf. Ein Teil davon kann lange im Meeresboden bleiben. Die Blätter bremsen Wellen und die Wurzeln helfen dabei, Sand und Schlamm festzuhalten.\n\n## Warum Seegras Schutz braucht\n\nTrübes Wasser, zu viele Nährstoffe und steigende Temperaturen können Seegras schaden. Eine neue Wiese kann nur dauerhaft wachsen, wenn das Wasser sauber genug ist.",
+    },
+  },
+  "korallenbleiche-erklaert-2026": {
+    title: {
+      en: "Coral bleaching: Why colourful reefs turn white",
+      de: "Korallenbleiche: Warum bunte Riffe weiß werden",
+    },
+    summary: {
+      en: "Corals can turn white when the sea stays too warm. The animals lose tiny algae that normally provide colour and much of their energy.",
+      de: "Korallen können weiß werden, wenn das Meer zu lange zu warm ist. Die Tiere verlieren winzige Algen, die ihnen Farbe und einen großen Teil ihrer Energie geben.",
+    },
+    body: {
+      en: "## Corals are animals\n\nA coral may look like a plant or stone, but it is an animal. Tiny algae live inside many corals. They provide food and create much of the reef's colour.\n\n## What happens when the water gets too warm\n\nLong heat stress disturbs this partnership. The coral expels the algae, and its white skeleton becomes visible through the tissue. This is called coral bleaching.\n\n## Can a white coral recover?\n\nA bleached coral is stressed, but it is not always dead. If the sea cools soon, it may take in algae again. Long or repeated heat makes recovery much harder.\n\n## What can help reefs\n\nCleaner water, careful fishing and protection from damage give reefs a better chance. But local action cannot stop ocean warming on its own. Global greenhouse-gas emissions must also fall quickly.",
+      de: "## Korallen sind Tiere\n\nEine Koralle sieht vielleicht wie eine Pflanze oder ein Stein aus, ist aber ein Tier. In vielen Korallen leben winzige Algen. Sie liefern Nahrung und sorgen für einen großen Teil der Farbe.\n\n## Was bei zu warmem Wasser passiert\n\nLanger Hitzestress stört diese Partnerschaft. Die Koralle stößt die Algen ab. Dadurch wird ihr weißes Kalkskelett durch das Gewebe sichtbar. Das nennt man Korallenbleiche.\n\n## Kann sich eine weiße Koralle erholen?\n\nEine gebleichte Koralle ist gestresst, aber nicht immer tot. Kühlt das Meer bald ab, kann sie wieder Algen aufnehmen. Lange oder wiederholte Hitze macht die Erholung viel schwieriger.\n\n## Was Riffen helfen kann\n\nSauberes Wasser, vorsichtige Fischerei und Schutz vor Schäden geben Riffen bessere Chancen. Maßnahmen vor Ort können die Erwärmung der Meere aber nicht allein stoppen. Auch der weltweite Ausstoß von Treibhausgasen muss schnell sinken.",
+    },
+  },
+};
 
 const quizQuestions = [
   {
@@ -579,6 +690,48 @@ const content = {
       about: "About",
       publish: "Publish",
       contact: "Contact",
+    },
+    audience: {
+      gateEyebrow: "Set your learning level",
+      gateTitle: "Who is learning today?",
+      gateIntro:
+        "Choose once so CYRI can adapt explanations and articles. You can change this setting at any time.",
+      children: "Children",
+      childrenDescription: "Shorter sentences, clear examples and compact articles.",
+      adults: "Adults",
+      adultsDescription: "Full explanations, terminology and complete articles.",
+      switchLabel: "Learning level",
+      articleLabel: "Article version",
+      childrenNote: "Clear and compact. The sources are the same as in the full article.",
+      adultsNote: "Complete article with all details and terminology.",
+      saved: "This choice is saved on this device.",
+      childFallbackTitle: "The most important points",
+      childFallbackIntro:
+        "This shorter version selects the central ideas from the full article.",
+      learning: {
+        children: {
+          title: "Environmental knowledge, explained step by step.",
+          intro:
+            "Choose a question, discover important ideas and try out what changes in nature and cities.",
+          journeyTitle: "Your discovery path.",
+          journeyIntro:
+            "Explore a topic, read its short article and check what you remember. Your progress is saved on this device.",
+          topicsTitle: "What would you like to discover?",
+          quizTitle: "What did you discover?",
+          quizIntro: "Choose between 3, 6 or 9 questions and test your knowledge.",
+        },
+        adults: {
+          title: "Environmental knowledge that you can explore.",
+          intro:
+            "Start with a question, discover the key concepts and continue with the full source-based article.",
+          journeyTitle: "Learn at your own pace.",
+          journeyIntro:
+            "Explore a topic, open its learning article and complete the knowledge check. Your progress is saved on this device.",
+          topicsTitle: "What do you want to understand?",
+          quizTitle: "What stayed with you?",
+          quizIntro: "Choose how deeply you want to test your knowledge.",
+        },
+      },
     },
     hero: {
       eyebrow: "Youth-led environmental education",
@@ -971,6 +1124,48 @@ const content = {
       publish: "Publizieren",
       contact: "Kontakt",
     },
+    audience: {
+      gateEyebrow: "Lernniveau festlegen",
+      gateTitle: "Wer lernt heute?",
+      gateIntro:
+        "Wähle einmal aus, damit CYRI Erklärungen und Artikel passend darstellen kann. Du kannst die Einstellung jederzeit ändern.",
+      children: "Kinder",
+      childrenDescription: "Kürzere Sätze, klare Beispiele und kompakte Artikel.",
+      adults: "Erwachsene",
+      adultsDescription: "Vollständige Erklärungen, Fachbegriffe und komplette Artikel.",
+      switchLabel: "Lernniveau",
+      articleLabel: "Artikelversion",
+      childrenNote: "Klar und kompakt. Die Quellen sind dieselben wie im vollständigen Artikel.",
+      adultsNote: "Vollständiger Artikel mit allen Details und Fachbegriffen.",
+      saved: "Diese Auswahl wird auf diesem Gerät gespeichert.",
+      childFallbackTitle: "Das Wichtigste",
+      childFallbackIntro:
+        "Diese kürzere Version wählt die zentralen Gedanken aus dem vollständigen Artikel aus.",
+      learning: {
+        children: {
+          title: "Umweltwissen Schritt für Schritt erklärt.",
+          intro:
+            "Wähle eine Frage, entdecke wichtige Ideen und probiere aus, was sich in Natur und Städten verändert.",
+          journeyTitle: "Dein Entdeckerpfad.",
+          journeyIntro:
+            "Erkunde ein Thema, lies den kurzen Artikel und prüfe, was du dir gemerkt hast. Dein Fortschritt wird auf diesem Gerät gespeichert.",
+          topicsTitle: "Was möchtest du entdecken?",
+          quizTitle: "Was hast du entdeckt?",
+          quizIntro: "Wähle 3, 6 oder 9 Fragen und teste dein Wissen.",
+        },
+        adults: {
+          title: "Umweltwissen, das du selbst erkunden kannst.",
+          intro:
+            "Starte mit einer Frage, entdecke die wichtigsten Begriffe und vertiefe das Thema anschließend im vollständigen, quellenbasierten Artikel.",
+          journeyTitle: "Lerne in deinem eigenen Tempo.",
+          journeyIntro:
+            "Erkunde ein Thema, öffne den passenden Lernartikel und absolviere den Wissenscheck. Dein Fortschritt wird auf diesem Gerät gespeichert.",
+          topicsTitle: "Was möchtest du verstehen?",
+          quizTitle: "Was ist hängen geblieben?",
+          quizIntro: "Wähle selbst, wie ausführlich du dein Wissen prüfen möchtest.",
+        },
+      },
+    },
     hero: {
       eyebrow: "Jugendgeführte Umweltbildung",
       title: "Umwelt verstehen. Hinterfragen. Mitgestalten.",
@@ -1297,6 +1492,12 @@ const content = {
 };
 
 const LEARNING_PROGRESS_KEY = "cyri-learning-progress";
+const AUDIENCE_KEY = "cyri-learning-audience";
+
+function loadAudience() {
+  const savedAudience = localStorage.getItem(AUDIENCE_KEY);
+  return ["children", "adults"].includes(savedAudience) ? savedAudience : null;
+}
 
 function loadLearningProgress() {
   const fallback = {
@@ -1413,6 +1614,32 @@ const routes = new Set([
 
 function t(path) {
   return path.split(".").reduce((value, key) => value?.[key], content[state.lang]) || "";
+}
+
+function activeAudience() {
+  return state.audience || "adults";
+}
+
+function isChildrenMode() {
+  return activeAudience() === "children";
+}
+
+function localizedValue(value) {
+  return value?.[state.lang] || value?.de || value?.en || "";
+}
+
+function learningTopicValue(topic, field) {
+  if (isChildrenMode() && topic.children?.[field]) {
+    return localizedValue(topic.children[field]);
+  }
+  return localizedValue(topic[field]);
+}
+
+function learningTopicFacts(topic) {
+  if (isChildrenMode() && topic.children?.facts?.[state.lang]) {
+    return topic.children.facts[state.lang];
+  }
+  return topic.facts[state.lang];
 }
 
 function escapeHtml(value) {
@@ -1609,6 +1836,82 @@ function updateStaticText() {
     button.classList.toggle("is-active", button.dataset.langButton === state.lang);
     button.setAttribute("aria-pressed", String(button.dataset.langButton === state.lang));
   });
+
+  updateAudienceInterface();
+}
+
+function renderAudienceSwitch(container, labelPath) {
+  if (!container) return;
+  const audience = activeAudience();
+  container.innerHTML = `
+    <span>${escapeHtml(t(labelPath))}</span>
+    <div class="audience-options" role="group" aria-label="${escapeHtml(t(labelPath))}">
+      <button
+        type="button"
+        data-audience-select="children"
+        aria-pressed="${audience === "children"}"
+        class="${audience === "children" ? "is-active" : ""}"
+      >
+        ${escapeHtml(t("audience.children"))}
+      </button>
+      <button
+        type="button"
+        data-audience-select="adults"
+        aria-pressed="${audience === "adults"}"
+        class="${audience === "adults" ? "is-active" : ""}"
+      >
+        ${escapeHtml(t("audience.adults"))}
+      </button>
+    </div>
+  `;
+}
+
+function updateAudienceGate() {
+  const gate = document.querySelector("[data-audience-gate]");
+  if (!gate) return;
+  const shouldOpen = state.page === "learn" && !state.audience;
+  gate.hidden = !shouldOpen;
+  gate.setAttribute("aria-hidden", String(!shouldOpen));
+  document.body.classList.toggle("audience-gate-open", shouldOpen);
+
+  if (shouldOpen) {
+    requestAnimationFrame(() => gate.querySelector("[data-audience-select]")?.focus());
+  }
+}
+
+function updateAudienceInterface() {
+  document.body.dataset.audience = activeAudience();
+  renderAudienceSwitch(
+    document.querySelector("[data-learning-audience-switch]"),
+    "audience.switchLabel"
+  );
+  renderAudienceSwitch(
+    document.querySelector("[data-article-audience-switch]"),
+    "audience.articleLabel"
+  );
+
+  const learningCopy = t(`audience.learning.${activeAudience()}`);
+  document.querySelectorAll("[data-audience-copy]").forEach((element) => {
+    const value = learningCopy?.[element.dataset.audienceCopy];
+    if (value) element.textContent = value;
+  });
+
+  const articleNote = document.querySelector("[data-article-audience-note]");
+  if (articleNote) {
+    articleNote.textContent = t(
+      isChildrenMode() ? "audience.childrenNote" : "audience.adultsNote"
+    );
+  }
+
+  updateAudienceGate();
+}
+
+function setAudience(audience) {
+  if (!["children", "adults"].includes(audience)) return;
+  state.audience = audience;
+  localStorage.setItem(AUDIENCE_KEY, audience);
+  updateStaticText();
+  renderDynamicContent();
 }
 
 function updateSeo() {
@@ -1831,7 +2134,7 @@ function renderLearningJourney() {
             ? t("learn.journeyCompleteTitle")
             : nextStep.type === "quiz"
               ? t("learn.journeyQuizAction")
-              : nextStep.topic.question[state.lang]
+              : learningTopicValue(nextStep.topic, "question")
         )}</h3>
         ${
           nextStep.type === "complete"
@@ -1897,6 +2200,7 @@ function renderLearningTopics() {
 
   const photo = getPhoto(activeTopic.imageId);
   const discovered = state.learningProgress.discoveredConcepts[activeTopic.id] || [];
+  const topicFacts = learningTopicFacts(activeTopic);
   const activeConcept =
     Number.isInteger(state.activeConcept) &&
     state.activeConcept >= 0 &&
@@ -1912,8 +2216,8 @@ function renderLearningTopics() {
     </figure>
     <div class="topic-copy">
       <p class="eyebrow">${escapeHtml(activeTopic.title[state.lang])}</p>
-      <h2>${escapeHtml(activeTopic.question[state.lang])}</h2>
-      <p>${escapeHtml(activeTopic.intro[state.lang])}</p>
+      <h2>${escapeHtml(learningTopicValue(activeTopic, "question"))}</h2>
+      <p>${escapeHtml(learningTopicValue(activeTopic, "intro"))}</p>
       <div class="topic-concepts">
         <div class="topic-concepts-heading">
           <strong>${escapeHtml(t("learn.concepts"))}</strong>
@@ -1956,7 +2260,7 @@ function renderLearningTopics() {
                 <span>${escapeHtml(t("learn.discoverEyebrow"))}</span>
                 <strong>${escapeHtml(activeTopic.concepts[state.lang][activeConcept])}</strong>
               </div>
-              <p>${escapeHtml(activeTopic.facts[state.lang][activeConcept])}</p>
+              <p>${escapeHtml(topicFacts[activeConcept])}</p>
             `
         }
       </div>
@@ -2180,6 +2484,64 @@ function localizedArticleValue(article, field) {
   return article[field]?.[state.lang] || article[field]?.de || article[field]?.en || "";
 }
 
+function shortenForChildren(text, maxLength = 320) {
+  const sentences = String(text)
+    .split(/(?<=[.!?])\s+/)
+    .filter(Boolean);
+  const selected = sentences.slice(0, 2).join(" ");
+  if (selected.length <= maxLength) return selected;
+  const shortened = selected.slice(0, maxLength);
+  return `${shortened.slice(0, shortened.lastIndexOf(" ")).trim()}...`;
+}
+
+function createChildArticleFallback(article) {
+  const summary = localizedArticleValue(article, "summary");
+  const body = localizedArticleValue(article, "body");
+  const blocks = body.split(/\n{2,}/).filter(Boolean);
+  const sections = [];
+  let currentHeading = "";
+
+  for (const block of blocks) {
+    const heading = block.match(/^##\s+(.+)$/);
+    if (heading) {
+      currentHeading = heading[1];
+      continue;
+    }
+    if (currentHeading && sections.length < 4) {
+      sections.push(`## ${currentHeading}\n\n${shortenForChildren(block)}`);
+      currentHeading = "";
+    }
+  }
+
+  return {
+    title: localizedArticleValue(article, "title"),
+    summary,
+    body: [
+      `## ${t("audience.childFallbackTitle")}`,
+      `${t("audience.childFallbackIntro")} ${summary}`,
+      ...sections,
+    ].join("\n\n"),
+  };
+}
+
+function articlePresentation(article) {
+  if (!isChildrenMode()) {
+    return {
+      title: localizedArticleValue(article, "title"),
+      summary: localizedArticleValue(article, "summary"),
+      body: localizedArticleValue(article, "body"),
+    };
+  }
+
+  const childVersion = childArticleVersions[article.id];
+  if (!childVersion) return createChildArticleFallback(article);
+  return {
+    title: localizedValue(childVersion.title),
+    summary: localizedValue(childVersion.summary),
+    body: localizedValue(childVersion.body),
+  };
+}
+
 function renderEmptyArticleState(title, text) {
   return `
     <article class="empty-card">
@@ -2192,6 +2554,7 @@ function renderEmptyArticleState(title, text) {
 function renderArticleCard(article, featured = false) {
   const category = getCategory(article.category);
   const photo = getArticlePhoto(article);
+  const presentation = articlePresentation(article);
   return `
     <article class="article-card${featured ? " article-card-featured" : ""}">
       <figure class="article-photo">
@@ -2203,8 +2566,8 @@ function renderArticleCard(article, featured = false) {
         <span aria-hidden="true">-</span>
         <time datetime="${article.date}">${formatDate(article.date)}</time>
       </div>
-      <h3>${escapeHtml(localizedArticleValue(article, "title"))}</h3>
-      <p>${escapeHtml(localizedArticleValue(article, "summary"))}</p>
+      <h3>${escapeHtml(presentation.title)}</h3>
+      <p>${escapeHtml(presentation.summary)}</p>
       <button class="card-button" type="button" data-article-id="${escapeHtml(article.id)}">
         ${escapeHtml(t("articles.readMore"))}
       </button>
@@ -2483,6 +2846,7 @@ function showPage(shouldScroll = true) {
   });
 
   updateSeo();
+  updateAudienceGate();
 
   if (!shouldScroll) return;
 
@@ -2599,22 +2963,31 @@ function updateArticleModal() {
   if (!article) return;
   const category = getCategory(article.category);
   const photo = getArticlePhoto(article);
-  const body = localizedArticleValue(article, "body");
+  const presentation = articlePresentation(article);
   const photoWrap = document.querySelector("[data-modal-photo-wrap]");
   const photoImage = document.querySelector("[data-modal-photo]");
   const photoCredit = document.querySelector("[data-modal-credit]");
   const sourcesWrap = document.querySelector("[data-modal-sources]");
   const sourcesList = document.querySelector("[data-modal-source-list]");
+  renderAudienceSwitch(
+    document.querySelector("[data-article-audience-switch]"),
+    "audience.articleLabel"
+  );
   document.querySelector("[data-modal-category]").textContent = category[state.lang];
-  document.querySelector("[data-modal-title]").textContent = localizedArticleValue(article, "title");
+  document.querySelector("[data-modal-title]").textContent = presentation.title;
   document.querySelector("[data-modal-date]").textContent = formatDate(article.date);
   document.querySelector("[data-modal-date]").dateTime = article.date;
-  document.querySelector("[data-modal-summary]").textContent = localizedArticleValue(article, "summary");
+  document.querySelector("[data-modal-summary]").textContent = presentation.summary;
+  document.querySelector("[data-article-audience-note]").textContent = t(
+    isChildrenMode() ? "audience.childrenNote" : "audience.adultsNote"
+  );
   photoWrap.hidden = false;
   photoImage.src = photo.src;
   photoImage.alt = photo.label[state.lang];
   photoCredit.innerHTML = renderPhotoCredit(photo);
-  document.querySelector("[data-modal-body]").innerHTML = body ? renderArticleBody(body) : "";
+  document.querySelector("[data-modal-body]").innerHTML = presentation.body
+    ? renderArticleBody(presentation.body)
+    : "";
 
   const sources = Array.isArray(article.sources) ? article.sources : [];
   sourcesWrap.hidden = sources.length === 0;
@@ -2661,6 +3034,12 @@ document.addEventListener("click", (event) => {
     updateStaticText();
     renderDynamicContent();
     resetResearchAnswer();
+    return;
+  }
+
+  const audienceButton = event.target.closest("[data-audience-select]");
+  if (audienceButton) {
+    setAudience(audienceButton.dataset.audienceSelect);
     return;
   }
 
