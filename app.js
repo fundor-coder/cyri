@@ -1,3 +1,5 @@
+const bi = (en, de) => ({ en, de });
+
 const categories = [
   { id: "policy", en: "Climate Policy", de: "Klimapolitik" },
   { id: "energy", en: "Renewable Energy", de: "Erneuerbare Energie" },
@@ -13,90 +15,38 @@ const learningTopics = [
     id: "oceans",
     articleId: "seegraswiesen-klima-kuesten-arten-2026",
     imageId: "seagrass-meadow",
-    title: {
-      en: "Oceans & coasts",
-      de: "Meere & Küsten",
-    },
-    intro: {
-      en: "Explore how marine ecosystems protect coastlines, store carbon and support biodiversity.",
-      de: "Entdecke, wie Meeresökosysteme Küsten schützen, Kohlenstoff speichern und Artenvielfalt fördern.",
-    },
-    question: {
-      en: "How can an underwater meadow help the climate?",
-      de: "Wie kann eine Unterwasserwiese dem Klima helfen?",
-    },
-    concepts: {
-      en: ["Blue carbon", "Coastal protection", "Biodiversity"],
-      de: ["Blue Carbon", "Küstenschutz", "Biodiversität"],
-    },
-    facts: {
-      en: [
-        "Seagrass captures carbon while growing. A large share can remain stored in the low-oxygen sediment below the meadow for long periods.",
-        "Leaves slow waves and currents. Roots and rhizomes hold sediment in place, helping coastlines resist erosion.",
-        "Seagrass meadows provide food, shelter and nursery habitat for many marine species.",
-      ],
-      de: [
-        "Seegras nimmt beim Wachstum Kohlenstoff auf. Ein großer Teil kann lange im sauerstoffarmen Sediment unter der Wiese gespeichert bleiben.",
-        "Die Blätter bremsen Wellen und Strömungen. Wurzeln und Rhizome halten Sediment fest und schützen Küsten vor Erosion.",
-        "Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben.",
-      ],
-    },
+    title: bi("Oceans & coasts", "Meere & Küsten"),
+    intro: bi("Explore how marine ecosystems protect coastlines, store carbon and support biodiversity.", "Entdecke, wie Meeresökosysteme Küsten schützen, Kohlenstoff speichern und Artenvielfalt fördern."),
+    question: bi("How can an underwater meadow help the climate?", "Wie kann eine Unterwasserwiese dem Klima helfen?"),
+    concepts: bi(["Blue carbon","Coastal protection","Biodiversity"], ["Blue Carbon","Küstenschutz","Biodiversität"]),
+    facts: bi(["Seagrass captures carbon while growing. A large share can remain stored in the low-oxygen sediment below the meadow for long periods.","Leaves slow waves and currents. Roots and rhizomes hold sediment in place, helping coastlines resist erosion.","Seagrass meadows provide food, shelter and nursery habitat for many marine species."], ["Seegras nimmt beim Wachstum Kohlenstoff auf. Ein großer Teil kann lange im sauerstoffarmen Sediment unter der Wiese gespeichert bleiben.","Die Blätter bremsen Wellen und Strömungen. Wurzeln und Rhizome halten Sediment fest und schützen Küsten vor Erosion.","Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben."]),
     children: {
-      intro: {
-        en: "Discover how underwater meadows help animals, store carbon and soften waves near the coast.",
-        de: "Entdecke, wie Unterwasserwiesen Tieren helfen, Kohlenstoff speichern und Wellen an der Küste bremsen.",
-      },
-      question: {
-        en: "What can a meadow under the sea do?",
-        de: "Was kann eine Wiese unter dem Meer bewirken?",
-      },
-      facts: {
-        en: [
-          "Seagrass takes carbon from the water as it grows. Some of it stays in the seabed for a long time.",
-          "The leaves slow the water. The roots hold the seabed together, so waves remove less sand.",
-          "Small fish and many other animals find food and hiding places between the leaves.",
-        ],
-        de: [
-          "Seegras nimmt beim Wachsen Kohlenstoff aus dem Wasser auf. Ein Teil davon bleibt lange im Meeresboden.",
-          "Die Blätter bremsen das Wasser. Die Wurzeln halten den Boden fest, sodass Wellen weniger Sand wegtragen.",
-          "Kleine Fische und viele andere Tiere finden zwischen den Blättern Nahrung und Verstecke.",
-        ],
-      },
+      intro: bi("Discover how underwater meadows help animals, store carbon and soften waves near the coast.", "Entdecke, wie Unterwasserwiesen Tieren helfen, Kohlenstoff speichern und Wellen an der Küste bremsen."),
+      question: bi("What can a meadow under the sea do?", "Was kann eine Wiese unter dem Meer bewirken?"),
+      facts: bi(["Seagrass takes carbon from the water as it grows. Some of it stays in the seabed for a long time.","The leaves slow the water. The roots hold the seabed together, so waves remove less sand.","Small fish and many other animals find food and hiding places between the leaves."], ["Seegras nimmt beim Wachsen Kohlenstoff aus dem Wasser auf. Ein Teil davon bleibt lange im Meeresboden.","Die Blätter bremsen das Wasser. Die Wurzeln halten den Boden fest, sodass Wellen weniger Sand wegtragen.","Kleine Fische und viele andere Tiere finden zwischen den Blättern Nahrung und Verstecke."]),
     },
     lab: {
-      control: { en: "Seagrass coverage", de: "Seegrasbedeckung" },
-      metrics: {
-        en: ["Carbon storage", "Coastal protection", "Habitat quality"],
-        de: ["Kohlenstoffspeicherung", "Küstenschutz", "Lebensraumqualität"],
-      },
+      control: bi("Seagrass coverage", "Seegrasbedeckung"),
+      metrics: bi(["Carbon storage","Coastal protection","Habitat quality"], ["Kohlenstoffspeicherung","Küstenschutz","Lebensraumqualität"]),
       levels: [
         {
-          label: { en: "Fragmented", de: "Lückenhaft" },
-          title: { en: "The meadow loses functions.", de: "Die Wiese verliert Funktionen." },
-          text: {
-            en: "Small, disconnected patches slow less water, stabilize less sediment and provide fewer protected habitats.",
-            de: "Kleine, getrennte Flächen bremsen weniger Wasser, stabilisieren weniger Sediment und bieten weniger geschützte Lebensräume.",
-          },
-          values: [28, 34, 30],
+          label: bi("Fragmented", "Lückenhaft"),
+          title: bi("The meadow loses functions.", "Die Wiese verliert Funktionen."),
+          text: bi("Small, disconnected patches slow less water, stabilize less sediment and provide fewer protected habitats.", "Kleine, getrennte Flächen bremsen weniger Wasser, stabilisieren weniger Sediment und bieten weniger geschützte Lebensräume."),
+          values: [28,34,30],
         },
         {
-          label: { en: "Recovering", de: "Erholt sich" },
-          title: { en: "Several benefits return.", de: "Mehrere Leistungen kehren zurück." },
-          text: {
-            en: "As the meadow becomes denser, roots bind more sediment and the ecosystem supports more species.",
-            de: "Wird die Wiese dichter, halten die Wurzeln mehr Sediment fest und das Ökosystem unterstützt mehr Arten.",
-          },
-          values: [62, 66, 64],
+          label: bi("Recovering", "Erholt sich"),
+          title: bi("Several benefits return.", "Mehrere Leistungen kehren zurück."),
+          text: bi("As the meadow becomes denser, roots bind more sediment and the ecosystem supports more species.", "Wird die Wiese dichter, halten die Wurzeln mehr Sediment fest und das Ökosystem unterstützt mehr Arten."),
+          values: [62,66,64],
         },
         {
-          label: { en: "Connected", de: "Zusammenhängend" },
-          title: { en: "The ecosystem works as a network.", de: "Das Ökosystem wirkt als Netzwerk." },
-          text: {
-            en: "A broad connected meadow offers the strongest combined effect in this qualitative learning model.",
-            de: "Eine breite zusammenhängende Wiese bietet in diesem qualitativen Lernmodell die stärkste kombinierte Wirkung.",
-          },
-          values: [88, 86, 91],
-        },
+          label: bi("Connected", "Zusammenhängend"),
+          title: bi("The ecosystem works as a network.", "Das Ökosystem wirkt als Netzwerk."),
+          text: bi("A broad connected meadow offers the strongest combined effect in this qualitative learning model.", "Eine breite zusammenhängende Wiese bietet in diesem qualitativen Lernmodell die stärkste kombinierte Wirkung."),
+          values: [88,86,91],
+        }
       ],
     },
   },
@@ -104,90 +54,38 @@ const learningTopics = [
     id: "climate",
     articleId: "korallenbleiche-erklaert-2026",
     imageId: "coral-bleaching-2023",
-    title: {
-      en: "Climate & ecosystems",
-      de: "Klima & Ökosysteme",
-    },
-    intro: {
-      en: "Understand how warming changes sensitive ecosystems and why local protection still matters.",
-      de: "Verstehe, wie Erwärmung empfindliche Ökosysteme verändert und warum lokaler Schutz trotzdem wichtig ist.",
-    },
-    question: {
-      en: "Why does heat make coral reefs turn white?",
-      de: "Warum lässt Hitze Korallenriffe weiß werden?",
-    },
-    concepts: {
-      en: ["Marine heatwaves", "Resilience", "Climate action"],
-      de: ["Marine Hitzewellen", "Widerstandskraft", "Klimaschutz"],
-    },
-    facts: {
-      en: [
-        "Marine heatwaves are periods of unusually warm ocean water. If they persist, corals can lose the algae that supply much of their energy.",
-        "A bleached coral is stressed, not automatically dead. Quick cooling and lower local pressure can improve its chance of recovery.",
-        "Local reef protection strengthens resilience, but only rapid global emissions cuts can limit continued ocean warming.",
-      ],
-      de: [
-        "Marine Hitzewellen sind Phasen ungewöhnlich warmen Meerwassers. Halten sie an, können Korallen die Algen verlieren, die ihnen viel Energie liefern.",
-        "Eine gebleichte Koralle ist gestresst, aber nicht automatisch tot. Schnelle Abkühlung und weniger lokale Belastung verbessern ihre Erholungschance.",
-        "Lokaler Riffschutz stärkt die Widerstandskraft, doch nur schnelle globale Emissionsminderung kann die weitere Meereserwärmung begrenzen.",
-      ],
-    },
+    title: bi("Climate & ecosystems", "Klima & Ökosysteme"),
+    intro: bi("Understand how warming changes sensitive ecosystems and why local protection still matters.", "Verstehe, wie Erwärmung empfindliche Ökosysteme verändert und warum lokaler Schutz trotzdem wichtig ist."),
+    question: bi("Why does heat make coral reefs turn white?", "Warum lässt Hitze Korallenriffe weiß werden?"),
+    concepts: bi(["Marine heatwaves","Resilience","Climate action"], ["Marine Hitzewellen","Widerstandskraft","Klimaschutz"]),
+    facts: bi(["Marine heatwaves are periods of unusually warm ocean water. If they persist, corals can lose the algae that supply much of their energy.","A bleached coral is stressed, not automatically dead. Quick cooling and lower local pressure can improve its chance of recovery.","Local reef protection strengthens resilience, but only rapid global emissions cuts can limit continued ocean warming."], ["Marine Hitzewellen sind Phasen ungewöhnlich warmen Meerwassers. Halten sie an, können Korallen die Algen verlieren, die ihnen viel Energie liefern.","Eine gebleichte Koralle ist gestresst, aber nicht automatisch tot. Schnelle Abkühlung und weniger lokale Belastung verbessern ihre Erholungschance.","Lokaler Riffschutz stärkt die Widerstandskraft, doch nur schnelle globale Emissionsminderung kann die weitere Meereserwärmung begrenzen."]),
     children: {
-      intro: {
-        en: "Find out why very warm seawater stresses corals and what can give a reef a better chance.",
-        de: "Finde heraus, warum sehr warmes Meerwasser Korallen stresst und was einem Riff helfen kann.",
-      },
-      question: {
-        en: "Why can warm water make corals turn white?",
-        de: "Warum können Korallen durch warmes Wasser weiß werden?",
-      },
-      facts: {
-        en: [
-          "If the sea stays unusually warm, corals become stressed. They can lose the tiny algae that give them energy and colour.",
-          "A white coral is not always dead. It may recover if the water cools soon and other pressures are low.",
-          "Clean water and protected reefs help locally. Slowing climate change is still necessary to stop the oceans warming further.",
-        ],
-        de: [
-          "Bleibt das Meer ungewöhnlich warm, geraten Korallen unter Stress. Sie können die winzigen Algen verlieren, die ihnen Energie und Farbe geben.",
-          "Eine weiße Koralle ist nicht immer tot. Kühlt das Wasser bald ab und gibt es wenig weitere Belastungen, kann sie sich erholen.",
-          "Sauberes Wasser und geschützte Riffe helfen vor Ort. Klimaschutz bleibt nötig, damit sich die Meere nicht weiter erwärmen.",
-        ],
-      },
+      intro: bi("Find out why very warm seawater stresses corals and what can give a reef a better chance.", "Finde heraus, warum sehr warmes Meerwasser Korallen stresst und was einem Riff helfen kann."),
+      question: bi("Why can warm water make corals turn white?", "Warum können Korallen durch warmes Wasser weiß werden?"),
+      facts: bi(["If the sea stays unusually warm, corals become stressed. They can lose the tiny algae that give them energy and colour.","A white coral is not always dead. It may recover if the water cools soon and other pressures are low.","Clean water and protected reefs help locally. Slowing climate change is still necessary to stop the oceans warming further."], ["Bleibt das Meer ungewöhnlich warm, geraten Korallen unter Stress. Sie können die winzigen Algen verlieren, die ihnen Energie und Farbe geben.","Eine weiße Koralle ist nicht immer tot. Kühlt das Wasser bald ab und gibt es wenig weitere Belastungen, kann sie sich erholen.","Sauberes Wasser und geschützte Riffe helfen vor Ort. Klimaschutz bleibt nötig, damit sich die Meere nicht weiter erwärmen."]),
     },
     lab: {
-      control: { en: "Ocean heat stress", de: "Hitzestress im Meer" },
-      metrics: {
-        en: ["Coral condition", "Recovery chance", "Bleaching risk"],
-        de: ["Korallenzustand", "Erholungschance", "Bleichrisiko"],
-      },
+      control: bi("Ocean heat stress", "Hitzestress im Meer"),
+      metrics: bi(["Coral condition","Recovery chance","Bleaching risk"], ["Korallenzustand","Erholungschance","Bleichrisiko"]),
       levels: [
         {
-          label: { en: "Moderate", de: "Moderat" },
-          title: { en: "The reef remains under pressure.", de: "Das Riff steht unter Druck." },
-          text: {
-            en: "Shorter or weaker heat stress can still affect corals, but many may retain their symbiotic algae.",
-            de: "Kürzerer oder schwächerer Hitzestress kann Korallen belasten, viele behalten jedoch ihre symbiotischen Algen.",
-          },
-          values: [76, 72, 30],
+          label: bi("Moderate", "Moderat"),
+          title: bi("The reef remains under pressure.", "Das Riff steht unter Druck."),
+          text: bi("Shorter or weaker heat stress can still affect corals, but many may retain their symbiotic algae.", "Kürzerer oder schwächerer Hitzestress kann Korallen belasten, viele behalten jedoch ihre symbiotischen Algen."),
+          values: [76,72,30],
         },
         {
-          label: { en: "High", de: "Hoch" },
-          title: { en: "Bleaching becomes likely.", de: "Eine Bleiche wird wahrscheinlich." },
-          text: {
-            en: "Persistent warm water increases stress and can cause corals to expel the algae that supply much of their energy.",
-            de: "Anhaltend warmes Wasser erhöht den Stress und kann dazu führen, dass Korallen ihre energieliefernden Algen abstoßen.",
-          },
-          values: [45, 48, 70],
+          label: bi("High", "Hoch"),
+          title: bi("Bleaching becomes likely.", "Eine Bleiche wird wahrscheinlich."),
+          text: bi("Persistent warm water increases stress and can cause corals to expel the algae that supply much of their energy.", "Anhaltend warmes Wasser erhöht den Stress und kann dazu führen, dass Korallen ihre energieliefernden Algen abstoßen."),
+          values: [45,48,70],
         },
         {
-          label: { en: "Extreme", de: "Extrem" },
-          title: { en: "The recovery window narrows.", de: "Das Erholungsfenster wird kleiner." },
-          text: {
-            en: "Long and intense marine heat can lead to widespread bleaching and higher mortality if conditions do not improve.",
-            de: "Lange und intensive Hitze im Meer kann zu großflächiger Bleiche und höherer Sterblichkeit führen, wenn sich die Bedingungen nicht bessern.",
-          },
-          values: [20, 22, 94],
-        },
+          label: bi("Extreme", "Extrem"),
+          title: bi("The recovery window narrows.", "Das Erholungsfenster wird kleiner."),
+          text: bi("Long and intense marine heat can lead to widespread bleaching and higher mortality if conditions do not improve.", "Lange und intensive Hitze im Meer kann zu großflächiger Bleiche und höherer Sterblichkeit führen, wenn sich die Bedingungen nicht bessern."),
+          values: [20,22,94],
+        }
       ],
     },
   },
@@ -195,332 +93,98 @@ const learningTopics = [
     id: "cities",
     articleId: "schwammstadt-regenwasser-hitze-2026",
     imageId: "sponge-city-rain-garden",
-    title: {
-      en: "Cities & adaptation",
-      de: "Städte & Anpassung",
-    },
-    intro: {
-      en: "Learn how urban planning can respond to heat, heavy rain and drought at the same time.",
-      de: "Lerne, wie Stadtplanung gleichzeitig auf Hitze, Starkregen und Trockenheit reagieren kann.",
-    },
-    question: {
-      en: "What changes when a city treats rain as a resource?",
-      de: "Was verändert sich, wenn eine Stadt Regen als Ressource behandelt?",
-    },
-    concepts: {
-      en: ["Rainwater storage", "Urban heat", "Climate adaptation"],
-      de: ["Regenwasserspeicherung", "Stadthitze", "Klimaanpassung"],
-    },
-    facts: {
-      en: [
-        "A sponge city keeps rain close to where it falls so it can infiltrate, evaporate or be reused instead of immediately entering drains.",
-        "Trees, planted areas and open water cool streets through shade and evaporation while sealed surfaces store heat.",
-        "The same green-blue infrastructure can reduce flood risk, heat and drought stress, making adaptation more efficient.",
-      ],
-      de: [
-        "Eine Schwammstadt hält Regen dort zurück, wo er fällt. So kann er versickern, verdunsten oder genutzt werden, statt sofort in die Kanalisation zu fließen.",
-        "Bäume, bepflanzte Flächen und offenes Wasser kühlen durch Schatten und Verdunstung, während versiegelte Flächen Hitze speichern.",
-        "Dieselbe grün-blaue Infrastruktur kann Überflutungsrisiko, Hitze und Trockenstress gleichzeitig verringern.",
-      ],
-    },
+    title: bi("Cities & adaptation", "Städte & Anpassung"),
+    intro: bi("Learn how urban planning can respond to heat, heavy rain and drought at the same time.", "Lerne, wie Stadtplanung gleichzeitig auf Hitze, Starkregen und Trockenheit reagieren kann."),
+    question: bi("What changes when a city treats rain as a resource?", "Was verändert sich, wenn eine Stadt Regen als Ressource behandelt?"),
+    concepts: bi(["Rainwater storage","Urban heat","Climate adaptation"], ["Regenwasserspeicherung","Stadthitze","Klimaanpassung"]),
+    facts: bi(["A sponge city keeps rain close to where it falls so it can infiltrate, evaporate or be reused instead of immediately entering drains.","Trees, planted areas and open water cool streets through shade and evaporation while sealed surfaces store heat.","The same green-blue infrastructure can reduce flood risk, heat and drought stress, making adaptation more efficient."], ["Eine Schwammstadt hält Regen dort zurück, wo er fällt. So kann er versickern, verdunsten oder genutzt werden, statt sofort in die Kanalisation zu fließen.","Bäume, bepflanzte Flächen und offenes Wasser kühlen durch Schatten und Verdunstung, während versiegelte Flächen Hitze speichern.","Dieselbe grün-blaue Infrastruktur kann Überflutungsrisiko, Hitze und Trockenstress gleichzeitig verringern."]),
     children: {
-      intro: {
-        en: "See how trees, soil and planted areas can keep rain in a city and make hot days more comfortable.",
-        de: "Sieh dir an, wie Bäume, Böden und bepflanzte Flächen Regen in der Stadt halten und heiße Tage angenehmer machen.",
-      },
-      question: {
-        en: "How can a city use rain instead of sending it away?",
-        de: "Wie kann eine Stadt Regen nutzen, statt ihn sofort abzuleiten?",
-      },
-      facts: {
-        en: [
-          "A sponge city keeps rain near the place where it falls. The water can soak into the soil, evaporate or be used later.",
-          "Trees provide shade. Plants and water also cool the air when water evaporates.",
-          "Green spaces can help with heavy rain, heat and dry periods at the same time.",
-        ],
-        de: [
-          "Eine Schwammstadt hält Regen dort, wo er fällt. Das Wasser kann versickern, verdunsten oder später genutzt werden.",
-          "Bäume spenden Schatten. Pflanzen und Wasser kühlen außerdem die Luft, wenn Wasser verdunstet.",
-          "Grünflächen können gleichzeitig bei Starkregen, Hitze und Trockenheit helfen.",
-        ],
-      },
+      intro: bi("See how trees, soil and planted areas can keep rain in a city and make hot days more comfortable.", "Sieh dir an, wie Bäume, Böden und bepflanzte Flächen Regen in der Stadt halten und heiße Tage angenehmer machen."),
+      question: bi("How can a city use rain instead of sending it away?", "Wie kann eine Stadt Regen nutzen, statt ihn sofort abzuleiten?"),
+      facts: bi(["A sponge city keeps rain near the place where it falls. The water can soak into the soil, evaporate or be used later.","Trees provide shade. Plants and water also cool the air when water evaporates.","Green spaces can help with heavy rain, heat and dry periods at the same time."], ["Eine Schwammstadt hält Regen dort, wo er fällt. Das Wasser kann versickern, verdunsten oder später genutzt werden.","Bäume spenden Schatten. Pflanzen und Wasser kühlen außerdem die Luft, wenn Wasser verdunstet.","Grünflächen können gleichzeitig bei Starkregen, Hitze und Trockenheit helfen."]),
     },
     lab: {
-      control: { en: "Sealed surfaces", de: "Versiegelte Flächen" },
-      metrics: {
-        en: ["Rain retention", "Cooling effect", "Flood resilience"],
-        de: ["Regenrückhalt", "Kühlwirkung", "Überflutungsschutz"],
-      },
+      control: bi("Sealed surfaces", "Versiegelte Flächen"),
+      metrics: bi(["Rain retention","Cooling effect","Flood resilience"], ["Regenrückhalt","Kühlwirkung","Überflutungsschutz"]),
       levels: [
         {
-          label: { en: "Low", de: "Gering" },
-          title: { en: "Water has room in the city.", de: "Wasser bekommt Raum in der Stadt." },
-          text: {
-            en: "More planted and permeable surfaces can store water, support evaporation and reduce rapid runoff.",
-            de: "Mehr bepflanzte und durchlässige Flächen können Wasser speichern, Verdunstung fördern und schnellen Abfluss verringern.",
-          },
-          values: [88, 82, 86],
+          label: bi("Low", "Gering"),
+          title: bi("Water has room in the city.", "Wasser bekommt Raum in der Stadt."),
+          text: bi("More planted and permeable surfaces can store water, support evaporation and reduce rapid runoff.", "Mehr bepflanzte und durchlässige Flächen können Wasser speichern, Verdunstung fördern und schnellen Abfluss verringern."),
+          values: [88,82,86],
         },
         {
-          label: { en: "Medium", de: "Mittel" },
-          title: { en: "Benefits depend on connected spaces.", de: "Die Wirkung hängt von verbundenen Flächen ab." },
-          text: {
-            en: "Individual rain gardens help, but disconnected measures cannot manage every heavy-rain event.",
-            de: "Einzelne Regengärten helfen, doch unverbundene Maßnahmen können nicht jedes Starkregenereignis bewältigen.",
-          },
-          values: [58, 56, 55],
+          label: bi("Medium", "Mittel"),
+          title: bi("Benefits depend on connected spaces.", "Die Wirkung hängt von verbundenen Flächen ab."),
+          text: bi("Individual rain gardens help, but disconnected measures cannot manage every heavy-rain event.", "Einzelne Regengärten helfen, doch unverbundene Maßnahmen können nicht jedes Starkregenereignis bewältigen."),
+          values: [58,56,55],
         },
         {
-          label: { en: "High", de: "Hoch" },
-          title: { en: "Rain becomes fast runoff.", de: "Regen wird zu schnellem Abfluss." },
-          text: {
-            en: "When most surfaces are sealed, little water infiltrates and both drainage pressure and urban heat increase.",
-            de: "Sind die meisten Flächen versiegelt, versickert wenig Wasser und sowohl Kanaldruck als auch Stadthitze nehmen zu.",
-          },
-          values: [20, 24, 25],
-        },
+          label: bi("High", "Hoch"),
+          title: bi("Rain becomes fast runoff.", "Regen wird zu schnellem Abfluss."),
+          text: bi("When most surfaces are sealed, little water infiltrates and both drainage pressure and urban heat increase.", "Sind die meisten Flächen versiegelt, versickert wenig Wasser und sowohl Kanaldruck als auch Stadthitze nehmen zu."),
+          values: [20,24,25],
+        }
       ],
     },
-  },
+  }
 ];
-
-const childArticleVersions = {
-  "schwammstadt-regenwasser-hitze-2026": {
-    title: {
-      en: "Sponge cities: How rain can help cool a city",
-      de: "Schwammstadt: Wie Regen eine Stadt kühlen kann",
-    },
-    summary: {
-      en: "A sponge city keeps rainwater instead of sending it straight into drains. Trees, soil and green roofs can then use that water during hot and dry weather.",
-      de: "Eine Schwammstadt hält Regenwasser zurück, statt es sofort in die Kanalisation zu leiten. Bäume, Böden und Gründächer können dieses Wasser bei Hitze und Trockenheit nutzen.",
-    },
-    body: {
-      en: "## A city can work like a sponge\n\nA sponge soaks up water and releases it slowly. A sponge city tries to do something similar. Soil, parks, planted roofs and special basins collect rain where it falls.\n\n## Why this helps during heavy rain\n\nWater runs very quickly across concrete and asphalt. If too much reaches the drains at once, streets and basements can flood. Green and open ground gives some of the rain a place to stay.\n\n## Why stored water cools the city\n\nTrees give shade. Plants also release water into the air, which cools their surroundings. This works better when the soil has saved enough rainwater.\n\n## What could change near you\n\nA schoolyard could have fewer sealed surfaces, more trees and a rain garden. Roofs could carry plants, and rain tanks could save water for dry days. Many small areas work best when they are connected.",
-      de: "## Eine Stadt kann wie ein Schwamm funktionieren\n\nEin Schwamm nimmt Wasser auf und gibt es langsam wieder ab. Eine Schwammstadt versucht etwas Ähnliches. Böden, Parks, bepflanzte Dächer und besondere Becken sammeln Regen dort, wo er fällt.\n\n## Warum das bei Starkregen hilft\n\nÜber Beton und Asphalt fließt Wasser sehr schnell. Kommt zu viel auf einmal in der Kanalisation an, können Straßen und Keller überflutet werden. Grünflächen und offene Böden geben einem Teil des Regens Platz.\n\n## Warum gespeichertes Wasser die Stadt kühlt\n\nBäume spenden Schatten. Pflanzen geben außerdem Wasser an die Luft ab und kühlen so ihre Umgebung. Das funktioniert besser, wenn im Boden genug Regenwasser gespeichert ist.\n\n## Was sich in deiner Umgebung ändern könnte\n\nEin Schulhof könnte weniger versiegelte Flächen, mehr Bäume und einen Regengarten haben. Dächer könnten bepflanzt werden und Regentonnen Wasser für trockene Tage sammeln. Viele kleine Flächen wirken am besten, wenn sie miteinander verbunden sind.",
-    },
-  },
-  "seegraswiesen-klima-kuesten-arten-2026": {
-    title: {
-      en: "Seagrass meadows: Hidden helpers beneath the sea",
-      de: "Seegraswiesen: Versteckte Helfer unter dem Meer",
-    },
-    summary: {
-      en: "Seagrass is a flowering plant that grows below the water. Its meadows shelter animals, store carbon and help protect coastlines.",
-      de: "Seegras ist eine Blütenpflanze, die unter Wasser wächst. Seine Wiesen schützen Tiere, speichern Kohlenstoff und helfen den Küsten.",
-    },
-    body: {
-      en: "## A real meadow under water\n\nSeagrass is not algae. It has leaves and roots and can form large meadows in shallow coastal water. These meadows are living habitats.\n\n## A hiding place for animals\n\nSmall fish, pipefish and many other creatures find food and shelter between the leaves. Young animals can grow there with more protection from predators.\n\n## How seagrass helps the climate and coast\n\nSeagrass takes up carbon as it grows. Some carbon can remain in the seabed for a long time. The leaves slow waves, while the roots help hold sand and mud in place.\n\n## Why seagrass needs protection\n\nMurky water, too many nutrients and rising temperatures can harm seagrass. Restoring a meadow works best when the water is clean enough for the plants to grow.",
-      de: "## Eine echte Wiese unter Wasser\n\nSeegras ist keine Alge. Es besitzt Blätter und Wurzeln und kann im flachen Küstenwasser große Wiesen bilden. Diese Wiesen sind lebendige Lebensräume.\n\n## Ein Versteck für Tiere\n\nKleine Fische, Seenadeln und viele andere Tiere finden zwischen den Blättern Nahrung und Schutz. Jungtiere können dort besser vor Fressfeinden geschützt aufwachsen.\n\n## Wie Seegras Klima und Küste hilft\n\nSeegras nimmt beim Wachsen Kohlenstoff auf. Ein Teil davon kann lange im Meeresboden bleiben. Die Blätter bremsen Wellen und die Wurzeln helfen dabei, Sand und Schlamm festzuhalten.\n\n## Warum Seegras Schutz braucht\n\nTrübes Wasser, zu viele Nährstoffe und steigende Temperaturen können Seegras schaden. Eine neue Wiese kann nur dauerhaft wachsen, wenn das Wasser sauber genug ist.",
-    },
-  },
-  "korallenbleiche-erklaert-2026": {
-    title: {
-      en: "Coral bleaching: Why colourful reefs turn white",
-      de: "Korallenbleiche: Warum bunte Riffe weiß werden",
-    },
-    summary: {
-      en: "Corals can turn white when the sea stays too warm. The animals lose tiny algae that normally provide colour and much of their energy.",
-      de: "Korallen können weiß werden, wenn das Meer zu lange zu warm ist. Die Tiere verlieren winzige Algen, die ihnen Farbe und einen großen Teil ihrer Energie geben.",
-    },
-    body: {
-      en: "## Corals are animals\n\nA coral may look like a plant or stone, but it is an animal. Tiny algae live inside many corals. They provide food and create much of the reef's colour.\n\n## What happens when the water gets too warm\n\nLong heat stress disturbs this partnership. The coral expels the algae, and its white skeleton becomes visible through the tissue. This is called coral bleaching.\n\n## Can a white coral recover?\n\nA bleached coral is stressed, but it is not always dead. If the sea cools soon, it may take in algae again. Long or repeated heat makes recovery much harder.\n\n## What can help reefs\n\nCleaner water, careful fishing and protection from damage give reefs a better chance. But local action cannot stop ocean warming on its own. Global greenhouse-gas emissions must also fall quickly.",
-      de: "## Korallen sind Tiere\n\nEine Koralle sieht vielleicht wie eine Pflanze oder ein Stein aus, ist aber ein Tier. In vielen Korallen leben winzige Algen. Sie liefern Nahrung und sorgen für einen großen Teil der Farbe.\n\n## Was bei zu warmem Wasser passiert\n\nLanger Hitzestress stört diese Partnerschaft. Die Koralle stößt die Algen ab. Dadurch wird ihr weißes Kalkskelett durch das Gewebe sichtbar. Das nennt man Korallenbleiche.\n\n## Kann sich eine weiße Koralle erholen?\n\nEine gebleichte Koralle ist gestresst, aber nicht immer tot. Kühlt das Meer bald ab, kann sie wieder Algen aufnehmen. Lange oder wiederholte Hitze macht die Erholung viel schwieriger.\n\n## Was Riffen helfen kann\n\nSauberes Wasser, vorsichtige Fischerei und Schutz vor Schäden geben Riffen bessere Chancen. Maßnahmen vor Ort können die Erwärmung der Meere aber nicht allein stoppen. Auch der weltweite Ausstoß von Treibhausgasen muss schnell sinken.",
-    },
-  },
-};
 
 const quizQuestions = [
   {
-    question: {
-      en: "What does coral bleaching mean?",
-      de: "Was bedeutet Korallenbleiche?",
-    },
-    options: {
-      en: [
-        "The coral has always died",
-        "The coral has expelled its symbiotic algae under stress",
-        "The reef is covered by white sand",
-      ],
-      de: [
-        "Die Koralle ist immer bereits gestorben",
-        "Die Koralle hat unter Stress ihre symbiotischen Algen abgestoßen",
-        "Das Riff ist von weißem Sand bedeckt",
-      ],
-    },
+    question: bi("What does coral bleaching mean?", "Was bedeutet Korallenbleiche?"),
+    options: bi(["The coral has always died","The coral has expelled its symbiotic algae under stress","The reef is covered by white sand"], ["Die Koralle ist immer bereits gestorben","Die Koralle hat unter Stress ihre symbiotischen Algen abgestoßen","Das Riff ist von weißem Sand bedeckt"]),
     correct: 1,
-    explanation: {
-      en: "Bleached corals are severely stressed but not automatically dead. They may recover if conditions improve quickly.",
-      de: "Gebleichte Korallen sind stark gestresst, aber nicht automatisch tot. Verbessern sich die Bedingungen schnell, können sie sich erholen.",
-    },
+    explanation: bi("Bleached corals are severely stressed but not automatically dead. They may recover if conditions improve quickly.", "Gebleichte Korallen sind stark gestresst, aber nicht automatisch tot. Verbessern sich die Bedingungen schnell, können sie sich erholen."),
   },
   {
-    question: {
-      en: "Where can seagrass meadows store carbon for a long time?",
-      de: "Wo können Seegraswiesen Kohlenstoff langfristig speichern?",
-    },
-    options: {
-      en: ["Mainly in the sediment", "Only in fish", "Only at the water surface"],
-      de: ["Vor allem im Sediment", "Nur in Fischen", "Nur an der Wasseroberfläche"],
-    },
+    question: bi("Where can seagrass meadows store carbon for a long time?", "Wo können Seegraswiesen Kohlenstoff langfristig speichern?"),
+    options: bi(["Mainly in the sediment","Only in fish","Only at the water surface"], ["Vor allem im Sediment","Nur in Fischen","Nur an der Wasseroberfläche"]),
     correct: 0,
-    explanation: {
-      en: "A large part of the long-term carbon storage associated with seagrass lies in the sediment beneath the plants.",
-      de: "Ein großer Teil der langfristigen Kohlenstoffspeicherung von Seegras liegt im Sediment unter den Pflanzen.",
-    },
+    explanation: bi("A large part of the long-term carbon storage associated with seagrass lies in the sediment beneath the plants.", "Ein großer Teil der langfristigen Kohlenstoffspeicherung von Seegras liegt im Sediment unter den Pflanzen."),
   },
   {
-    question: {
-      en: "What is the basic idea of a sponge city?",
-      de: "Was ist die Grundidee einer Schwammstadt?",
-    },
-    options: {
-      en: [
-        "Drain all rainwater immediately",
-        "Store and reuse rainwater within the city",
-        "Build only taller buildings",
-      ],
-      de: [
-        "Regenwasser sofort vollständig ableiten",
-        "Regenwasser in der Stadt speichern und wieder nutzen",
-        "Nur höhere Gebäude bauen",
-      ],
-    },
+    question: bi("What is the basic idea of a sponge city?", "Was ist die Grundidee einer Schwammstadt?"),
+    options: bi(["Drain all rainwater immediately","Store and reuse rainwater within the city","Build only taller buildings"], ["Regenwasser sofort vollständig ableiten","Regenwasser in der Stadt speichern und wieder nutzen","Nur höhere Gebäude bauen"]),
     correct: 1,
-    explanation: {
-      en: "Sponge cities retain rainwater so it can infiltrate, evaporate or be reused instead of disappearing immediately into drains.",
-      de: "Schwammstädte halten Regenwasser zurück, damit es versickern, verdunsten oder wiederverwendet werden kann.",
-    },
+    explanation: bi("Sponge cities retain rainwater so it can infiltrate, evaporate or be reused instead of disappearing immediately into drains.", "Schwammstädte halten Regenwasser zurück, damit es versickern, verdunsten oder wiederverwendet werden kann."),
   },
   {
-    question: {
-      en: "How can seagrass meadows help protect coastlines?",
-      de: "Wie können Seegraswiesen Küsten schützen?",
-    },
-    options: {
-      en: [
-        "By slowing waves and stabilizing sediment",
-        "By increasing wave height",
-        "By removing all salt from seawater",
-      ],
-      de: [
-        "Indem sie Wellen bremsen und Sediment stabilisieren",
-        "Indem sie die Wellenhöhe vergrößern",
-        "Indem sie dem Meerwasser sämtliches Salz entziehen",
-      ],
-    },
+    question: bi("How can seagrass meadows help protect coastlines?", "Wie können Seegraswiesen Küsten schützen?"),
+    options: bi(["By slowing waves and stabilizing sediment","By increasing wave height","By removing all salt from seawater"], ["Indem sie Wellen bremsen und Sediment stabilisieren","Indem sie die Wellenhöhe vergrößern","Indem sie dem Meerwasser sämtliches Salz entziehen"]),
     correct: 0,
-    explanation: {
-      en: "Dense seagrass leaves slow water movement, while their roots and rhizomes help stabilize the seabed.",
-      de: "Dichte Seegrasblätter bremsen die Wasserbewegung, während Wurzeln und Rhizome den Meeresboden stabilisieren.",
-    },
+    explanation: bi("Dense seagrass leaves slow water movement, while their roots and rhizomes help stabilize the seabed.", "Dichte Seegrasblätter bremsen die Wasserbewegung, während Wurzeln und Rhizome den Meeresboden stabilisieren."),
   },
   {
-    question: {
-      en: "What is the main global driver of mass coral bleaching?",
-      de: "Was ist der wichtigste globale Auslöser für großflächige Korallenbleiche?",
-    },
-    options: {
-      en: ["Colder winter nights", "Prolonged heat stress in the ocean", "Normal tidal changes"],
-      de: ["Kältere Winternächte", "Anhaltender Hitzestress im Meer", "Normale Gezeitenwechsel"],
-    },
+    question: bi("What is the main global driver of mass coral bleaching?", "Was ist der wichtigste globale Auslöser für großflächige Korallenbleiche?"),
+    options: bi(["Colder winter nights","Prolonged heat stress in the ocean","Normal tidal changes"], ["Kältere Winternächte","Anhaltender Hitzestress im Meer","Normale Gezeitenwechsel"]),
     correct: 1,
-    explanation: {
-      en: "Unusually warm water and marine heatwaves can overwhelm corals and trigger bleaching across large reef areas.",
-      de: "Ungewöhnlich warmes Wasser und marine Hitzewellen können Korallen überfordern und großflächige Bleichen auslösen.",
-    },
+    explanation: bi("Unusually warm water and marine heatwaves can overwhelm corals and trigger bleaching across large reef areas.", "Ungewöhnlich warmes Wasser und marine Hitzewellen können Korallen überfordern und großflächige Bleichen auslösen."),
   },
   {
-    question: {
-      en: "Why do green spaces help cool a sponge city?",
-      de: "Warum helfen Grünflächen dabei, eine Schwammstadt zu kühlen?",
-    },
-    options: {
-      en: [
-        "They create shade and support evaporation",
-        "They seal the ground more strongly",
-        "They prevent all air movement",
-      ],
-      de: [
-        "Sie spenden Schatten und fördern Verdunstung",
-        "Sie versiegeln den Boden stärker",
-        "Sie verhindern jede Luftbewegung",
-      ],
-    },
+    question: bi("Why do green spaces help cool a sponge city?", "Warum helfen Grünflächen dabei, eine Schwammstadt zu kühlen?"),
+    options: bi(["They create shade and support evaporation","They seal the ground more strongly","They prevent all air movement"], ["Sie spenden Schatten und fördern Verdunstung","Sie versiegeln den Boden stärker","Sie verhindern jede Luftbewegung"]),
     correct: 0,
-    explanation: {
-      en: "Trees, planted areas and stored water reduce heat through shade and evapotranspiration.",
-      de: "Bäume, bepflanzte Flächen und gespeichertes Wasser mindern Hitze durch Schatten und Verdunstung.",
-    },
+    explanation: bi("Trees, planted areas and stored water reduce heat through shade and evapotranspiration.", "Bäume, bepflanzte Flächen und gespeichertes Wasser mindern Hitze durch Schatten und Verdunstung."),
   },
   {
-    question: {
-      en: "Can local reef protection replace global climate action?",
-      de: "Kann lokaler Riffschutz globalen Klimaschutz ersetzen?",
-    },
-    options: {
-      en: [
-        "Yes, completely",
-        "Only when reefs are very small",
-        "No, but it can improve local resilience",
-      ],
-      de: [
-        "Ja, vollständig",
-        "Nur wenn Riffe sehr klein sind",
-        "Nein, aber er kann die lokale Widerstandskraft verbessern",
-      ],
-    },
+    question: bi("Can local reef protection replace global climate action?", "Kann lokaler Riffschutz globalen Klimaschutz ersetzen?"),
+    options: bi(["Yes, completely","Only when reefs are very small","No, but it can improve local resilience"], ["Ja, vollständig","Nur wenn Riffe sehr klein sind","Nein, aber er kann die lokale Widerstandskraft verbessern"]),
     correct: 2,
-    explanation: {
-      en: "Reducing pollution and physical damage can help reefs cope, but limiting ocean warming still requires global emissions cuts.",
-      de: "Weniger Verschmutzung und Schäden können Riffen helfen, doch die Meereserwärmung lässt sich nur durch globale Emissionsminderung begrenzen.",
-    },
+    explanation: bi("Reducing pollution and physical damage can help reefs cope, but limiting ocean warming still requires global emissions cuts.", "Weniger Verschmutzung und Schäden können Riffen helfen, doch die Meereserwärmung lässt sich nur durch globale Emissionsminderung begrenzen."),
   },
   {
-    question: {
-      en: "Why are heavily sealed city surfaces a problem during heavy rain?",
-      de: "Warum sind stark versiegelte Stadtflächen bei Starkregen problematisch?",
-    },
-    options: {
-      en: [
-        "Water cannot infiltrate easily and runs off quickly",
-        "They absorb every drop immediately",
-        "They turn rainwater into drinking water",
-      ],
-      de: [
-        "Wasser kann schlecht versickern und fließt schnell ab",
-        "Sie nehmen jeden Tropfen sofort auf",
-        "Sie verwandeln Regenwasser in Trinkwasser",
-      ],
-    },
+    question: bi("Why are heavily sealed city surfaces a problem during heavy rain?", "Warum sind stark versiegelte Stadtflächen bei Starkregen problematisch?"),
+    options: bi(["Water cannot infiltrate easily and runs off quickly","They absorb every drop immediately","They turn rainwater into drinking water"], ["Wasser kann schlecht versickern und fließt schnell ab","Sie nehmen jeden Tropfen sofort auf","Sie verwandeln Regenwasser in Trinkwasser"]),
     correct: 0,
-    explanation: {
-      en: "Concrete and asphalt limit infiltration, increasing rapid runoff and pressure on drainage systems.",
-      de: "Beton und Asphalt begrenzen die Versickerung, wodurch Wasser schneller abfließt und die Kanalisation stärker belastet wird.",
-    },
+    explanation: bi("Concrete and asphalt limit infiltration, increasing rapid runoff and pressure on drainage systems.", "Beton und Asphalt begrenzen die Versickerung, wodurch Wasser schneller abfließt und die Kanalisation stärker belastet wird."),
   },
   {
-    question: {
-      en: "Which statement best describes blue carbon?",
-      de: "Welche Aussage beschreibt Blue Carbon am besten?",
-    },
-    options: {
-      en: [
-        "Carbon stored by coastal and marine ecosystems",
-        "Carbon found only in deep-sea animals",
-        "Carbon used to color seawater blue",
-      ],
-      de: [
-        "Kohlenstoff, den Küsten- und Meeresökosysteme speichern",
-        "Kohlenstoff, der nur in Tiefseetieren vorkommt",
-        "Kohlenstoff, der Meerwasser blau färbt",
-      ],
-    },
+    question: bi("Which statement best describes blue carbon?", "Welche Aussage beschreibt Blue Carbon am besten?"),
+    options: bi(["Carbon stored by coastal and marine ecosystems","Carbon found only in deep-sea animals","Carbon used to color seawater blue"], ["Kohlenstoff, den Küsten- und Meeresökosysteme speichern","Kohlenstoff, der nur in Tiefseetieren vorkommt","Kohlenstoff, der Meerwasser blau färbt"]),
     correct: 0,
-    explanation: {
-      en: "Blue carbon refers to carbon captured and stored by coastal ecosystems such as seagrass meadows, salt marshes and mangroves.",
-      de: "Blue Carbon bezeichnet Kohlenstoff, den Küstenökosysteme wie Seegraswiesen, Salzwiesen und Mangroven aufnehmen und speichern.",
-    },
-  },
+    explanation: bi("Blue carbon refers to carbon captured and stored by coastal ecosystems such as seagrass meadows, salt marshes and mangroves.", "Blue Carbon bezeichnet Kohlenstoff, den Küstenökosysteme wie Seegraswiesen, Salzwiesen und Mangroven aufnehmen und speichern."),
+  }
 ];
 
 const photoSources = [
@@ -529,36 +193,24 @@ const photoSources = [
     src: "assets/photos/sponge-city-rain-garden-hd.jpg",
     credit: "Jeremy Jeziorski / Oregon Convention Center · CC BY 2.0 · resized",
     license: "CC BY 2.0 · web-optimized",
-    sourceUrl:
-      "https://commons.wikimedia.org/wiki/File:Rain_Garden_(33234470895).jpg",
-    label: {
-      en: "Urban rain garden that retains and slowly releases stormwater",
-      de: "Städtischer Regengarten, der Niederschlagswasser zurückhält",
-    },
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Rain_Garden_(33234470895).jpg",
+    label: bi("Urban rain garden that retains and slowly releases stormwater", "Städtischer Regengarten, der Niederschlagswasser zurückhält"),
   },
   {
     id: "seagrass-meadow",
     src: "assets/photos/seagrass-meadow-zostera-hd.jpg",
     credit: "Olivier Dugornay / Ifremer · CC BY 4.0 · resized",
     license: "CC BY 4.0 · web-optimized",
-    sourceUrl:
-      "https://commons.wikimedia.org/wiki/File:Herbier_de_zost%C3%A8res_(Zostera_marina)_(Ifremer_00560-67187_-_21863).jpg",
-    label: {
-      en: "Common eelgrass meadow beneath shallow coastal water",
-      de: "Wiese aus Großem Seegras in flachem Küstenwasser",
-    },
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Herbier_de_zost%C3%A8res_(Zostera_marina)_(Ifremer_00560-67187_-_21863).jpg",
+    label: bi("Common eelgrass meadow beneath shallow coastal water", "Wiese aus Großem Seegras in flachem Küstenwasser"),
   },
   {
     id: "coral-bleaching-2023",
     src: "assets/photos/coral-bleaching-florida-2023-hd.jpg",
     credit: "Dan Eidsmoe / Symbiosis · CC BY 2.0 · resized",
     license: "CC BY 2.0 · web-optimized",
-    sourceUrl:
-      "https://commons.wikimedia.org/wiki/File:%22The_Great_Coral_Bleaching_of_2023%22_-_53088200178.jpg",
-    label: {
-      en: "Heat-stressed corals during the 2023 bleaching event in Florida",
-      de: "Hitzegestresste Korallen während der Bleiche 2023 in Florida",
-    },
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:%22The_Great_Coral_Bleaching_of_2023%22_-_53088200178.jpg",
+    label: bi("Heat-stressed corals during the 2023 bleaching event in Florida", "Hitzegestresste Korallen während der Bleiche 2023 in Florida"),
   },
   {
     id: "coral",
@@ -566,10 +218,7 @@ const photoSources = [
     credit: "Jay Galvin / Wikimedia Commons",
     license: "CC BY 2.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Coral_Reef_Bleaching.jpg",
-    label: {
-      en: "Coral bleaching",
-      de: "Korallenbleiche",
-    },
+    label: bi("Coral bleaching", "Korallenbleiche"),
   },
   {
     id: "marine-debris",
@@ -577,10 +226,7 @@ const photoSources = [
     credit: "Kevin Krejci / Wikimedia Commons",
     license: "CC BY 2.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Plastic_Ocean_(4408273247).jpg",
-    label: {
-      en: "Marine debris",
-      de: "Meeresmüll",
-    },
+    label: bi("Marine debris", "Meeresmüll"),
   },
   {
     id: "mangrove",
@@ -588,10 +234,7 @@ const photoSources = [
     credit: "Emonjnu / Wikimedia Commons",
     license: "CC BY-SA 4.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:The_mighty_Mangrove_forest.jpg",
-    label: {
-      en: "Mangrove forest",
-      de: "Mangrovenwald",
-    },
+    label: bi("Mangrove forest", "Mangrovenwald"),
   },
   {
     id: "glacier",
@@ -599,10 +242,7 @@ const photoSources = [
     credit: "Gzzz / Wikimedia Commons",
     license: "CC BY-SA 4.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Glacier_d%27Aletsch_panorama.jpg",
-    label: {
-      en: "Glacier change",
-      de: "Gletscherwandel",
-    },
+    label: bi("Glacier change", "Gletscherwandel"),
   },
   {
     id: "solar",
@@ -610,11 +250,8 @@ const photoSources = [
     credit: "U.S. Department of Energy / Wikimedia Commons",
     license: "Public Domain",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Block_Island_Wind_Farm.jpg",
-    label: {
-      en: "Offshore wind energy",
-      de: "Offshore-Windenergie",
-    },
-  },
+    label: bi("Offshore wind energy", "Offshore-Windenergie"),
+  }
 ];
 
 const API_BASES = ["backend.php?route=", "api"];
@@ -1599,6 +1236,7 @@ const state = {
   quizLength: savedLearningProgress.quizLength,
   labLevels: savedLearningProgress.labLevels,
   activeConcept: null,
+  audience: loadAudience(),
 };
 
 const routes = new Set([
@@ -1715,7 +1353,7 @@ async function loadArticlesFromBackend() {
 
 async function loadStaticArticles() {
   try {
-    const response = await fetch("content/articles.json?v=20260608-1", { cache: "no-cache" });
+    const response = await fetch("content/articles.json?v=20260608-3", { cache: "no-cache" });
     if (!response.ok) throw new Error("Static article corpus is not available.");
     const payload = await response.json();
     articles.splice(0, articles.length, ...(Array.isArray(payload) ? payload : []));
@@ -1968,6 +1606,21 @@ function markLearningTopicVisited(topicId) {
     state.learningProgress.visitedTopics.push(topicId);
   }
   saveLearningProgress();
+}
+
+function selectLearningTopic(topicId, shouldScroll = false) {
+  state.learningTopic = topicId;
+  state.activeConcept = null;
+  markLearningTopicVisited(topicId);
+  renderLearningTopics();
+  renderLearningJourney();
+
+  if (shouldScroll) {
+    document.querySelector(".topic-explorer")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
 }
 
 function markLearningArticleRead(articleId) {
@@ -2480,8 +2133,10 @@ function renderLearningQuiz() {
   `;
 }
 
-function localizedArticleValue(article, field) {
-  return article[field]?.[state.lang] || article[field]?.de || article[field]?.en || "";
+function localizedArticle(article) {
+  return Object.fromEntries(
+    ["title", "summary", "body"].map((field) => [field, localizedValue(article[field])])
+  );
 }
 
 function shortenForChildren(text, maxLength = 320) {
@@ -2495,8 +2150,7 @@ function shortenForChildren(text, maxLength = 320) {
 }
 
 function createChildArticleFallback(article) {
-  const summary = localizedArticleValue(article, "summary");
-  const body = localizedArticleValue(article, "body");
+  const { title, summary, body } = localizedArticle(article);
   const blocks = body.split(/\n{2,}/).filter(Boolean);
   const sections = [];
   let currentHeading = "";
@@ -2514,7 +2168,7 @@ function createChildArticleFallback(article) {
   }
 
   return {
-    title: localizedArticleValue(article, "title"),
+    title,
     summary,
     body: [
       `## ${t("audience.childFallbackTitle")}`,
@@ -2525,15 +2179,9 @@ function createChildArticleFallback(article) {
 }
 
 function articlePresentation(article) {
-  if (!isChildrenMode()) {
-    return {
-      title: localizedArticleValue(article, "title"),
-      summary: localizedArticleValue(article, "summary"),
-      body: localizedArticleValue(article, "body"),
-    };
-  }
+  if (!isChildrenMode()) return localizedArticle(article);
 
-  const childVersion = childArticleVersions[article.id];
+  const childVersion = article.children;
   if (!childVersion) return createChildArticleFallback(article);
   return {
     title: localizedValue(childVersion.title),
@@ -2687,6 +2335,13 @@ function renderPublishTools() {
   }
 
   updatePublishScheduleControls();
+}
+
+function lockPublisher() {
+  state.publisherUnlocked = false;
+  state.publisherToken = "";
+  sessionStorage.removeItem(PUBLISH_SESSION_KEY);
+  renderPublishTools();
 }
 
 function clearCustomImage() {
@@ -3043,41 +2698,15 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  const learningTopicButton = event.target.closest("[data-learning-topic]");
-  if (learningTopicButton) {
-    state.learningTopic = learningTopicButton.dataset.learningTopic;
-    state.activeConcept = null;
-    markLearningTopicVisited(state.learningTopic);
-    renderLearningTopics();
-    renderLearningJourney();
-    return;
-  }
-
-  const journeyTopicButton = event.target.closest("[data-learning-journey-topic]");
-  if (journeyTopicButton) {
-    state.learningTopic = journeyTopicButton.dataset.learningJourneyTopic;
-    state.activeConcept = null;
-    markLearningTopicVisited(state.learningTopic);
-    renderLearningTopics();
-    renderLearningJourney();
-    document.querySelector(".topic-explorer")?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-    return;
-  }
-
-  const nextTopicButton = event.target.closest("[data-learning-next-topic]");
-  if (nextTopicButton) {
-    state.learningTopic = nextTopicButton.dataset.learningNextTopic;
-    state.activeConcept = null;
-    markLearningTopicVisited(state.learningTopic);
-    renderLearningTopics();
-    renderLearningJourney();
-    document.querySelector(".topic-explorer")?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
+  const topicButton = event.target.closest(
+    "[data-learning-topic], [data-learning-journey-topic], [data-learning-next-topic]"
+  );
+  if (topicButton) {
+    const topicId =
+      topicButton.dataset.learningTopic ||
+      topicButton.dataset.learningJourneyTopic ||
+      topicButton.dataset.learningNextTopic;
+    selectLearningTopic(topicId, !topicButton.dataset.learningTopic);
     return;
   }
 
@@ -3306,10 +2935,7 @@ document.querySelector("[data-ai-translate]").addEventListener("click", async (e
     status.textContent = t("publish.translateSuccess");
   } catch (error) {
     if (error.status === 401) {
-      state.publisherUnlocked = false;
-      state.publisherToken = "";
-      sessionStorage.removeItem(PUBLISH_SESSION_KEY);
-      renderPublishTools();
+      lockPublisher();
     }
     status.textContent =
       error.status === 503 ? t("publish.translateNotConfigured") : t("publish.translateError");
@@ -3483,10 +3109,7 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
     renderDynamicContent();
   } catch (error) {
     if (error.status === 401) {
-      state.publisherUnlocked = false;
-      state.publisherToken = "";
-      sessionStorage.removeItem(PUBLISH_SESSION_KEY);
-      renderPublishTools();
+      lockPublisher();
     }
     status.textContent =
       customImage && !customImageUploaded && error.status !== 401
