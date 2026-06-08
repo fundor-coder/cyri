@@ -41,6 +41,42 @@ const learningTopics = [
         "Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben.",
       ],
     },
+    lab: {
+      control: { en: "Seagrass coverage", de: "Seegrasbedeckung" },
+      metrics: {
+        en: ["Carbon storage", "Coastal protection", "Habitat quality"],
+        de: ["Kohlenstoffspeicherung", "Küstenschutz", "Lebensraumqualität"],
+      },
+      levels: [
+        {
+          label: { en: "Fragmented", de: "Lückenhaft" },
+          title: { en: "The meadow loses functions.", de: "Die Wiese verliert Funktionen." },
+          text: {
+            en: "Small, disconnected patches slow less water, stabilize less sediment and provide fewer protected habitats.",
+            de: "Kleine, getrennte Flächen bremsen weniger Wasser, stabilisieren weniger Sediment und bieten weniger geschützte Lebensräume.",
+          },
+          values: [28, 34, 30],
+        },
+        {
+          label: { en: "Recovering", de: "Erholt sich" },
+          title: { en: "Several benefits return.", de: "Mehrere Leistungen kehren zurück." },
+          text: {
+            en: "As the meadow becomes denser, roots bind more sediment and the ecosystem supports more species.",
+            de: "Wird die Wiese dichter, halten die Wurzeln mehr Sediment fest und das Ökosystem unterstützt mehr Arten.",
+          },
+          values: [62, 66, 64],
+        },
+        {
+          label: { en: "Connected", de: "Zusammenhängend" },
+          title: { en: "The ecosystem works as a network.", de: "Das Ökosystem wirkt als Netzwerk." },
+          text: {
+            en: "A broad connected meadow offers the strongest combined effect in this qualitative learning model.",
+            de: "Eine breite zusammenhängende Wiese bietet in diesem qualitativen Lernmodell die stärkste kombinierte Wirkung.",
+          },
+          values: [88, 86, 91],
+        },
+      ],
+    },
   },
   {
     id: "climate",
@@ -74,6 +110,42 @@ const learningTopics = [
         "Lokaler Riffschutz stärkt die Widerstandskraft, doch nur schnelle globale Emissionsminderung kann die weitere Meereserwärmung begrenzen.",
       ],
     },
+    lab: {
+      control: { en: "Ocean heat stress", de: "Hitzestress im Meer" },
+      metrics: {
+        en: ["Coral condition", "Recovery chance", "Bleaching risk"],
+        de: ["Korallenzustand", "Erholungschance", "Bleichrisiko"],
+      },
+      levels: [
+        {
+          label: { en: "Moderate", de: "Moderat" },
+          title: { en: "The reef remains under pressure.", de: "Das Riff steht unter Druck." },
+          text: {
+            en: "Shorter or weaker heat stress can still affect corals, but many may retain their symbiotic algae.",
+            de: "Kürzerer oder schwächerer Hitzestress kann Korallen belasten, viele behalten jedoch ihre symbiotischen Algen.",
+          },
+          values: [76, 72, 30],
+        },
+        {
+          label: { en: "High", de: "Hoch" },
+          title: { en: "Bleaching becomes likely.", de: "Eine Bleiche wird wahrscheinlich." },
+          text: {
+            en: "Persistent warm water increases stress and can cause corals to expel the algae that supply much of their energy.",
+            de: "Anhaltend warmes Wasser erhöht den Stress und kann dazu führen, dass Korallen ihre energieliefernden Algen abstoßen.",
+          },
+          values: [45, 48, 70],
+        },
+        {
+          label: { en: "Extreme", de: "Extrem" },
+          title: { en: "The recovery window narrows.", de: "Das Erholungsfenster wird kleiner." },
+          text: {
+            en: "Long and intense marine heat can lead to widespread bleaching and higher mortality if conditions do not improve.",
+            de: "Lange und intensive Hitze im Meer kann zu großflächiger Bleiche und höherer Sterblichkeit führen, wenn sich die Bedingungen nicht bessern.",
+          },
+          values: [20, 22, 94],
+        },
+      ],
+    },
   },
   {
     id: "cities",
@@ -105,6 +177,42 @@ const learningTopics = [
         "Eine Schwammstadt hält Regen dort zurück, wo er fällt. So kann er versickern, verdunsten oder genutzt werden, statt sofort in die Kanalisation zu fließen.",
         "Bäume, bepflanzte Flächen und offenes Wasser kühlen durch Schatten und Verdunstung, während versiegelte Flächen Hitze speichern.",
         "Dieselbe grün-blaue Infrastruktur kann Überflutungsrisiko, Hitze und Trockenstress gleichzeitig verringern.",
+      ],
+    },
+    lab: {
+      control: { en: "Sealed surfaces", de: "Versiegelte Flächen" },
+      metrics: {
+        en: ["Rain retention", "Cooling effect", "Flood resilience"],
+        de: ["Regenrückhalt", "Kühlwirkung", "Überflutungsschutz"],
+      },
+      levels: [
+        {
+          label: { en: "Low", de: "Gering" },
+          title: { en: "Water has room in the city.", de: "Wasser bekommt Raum in der Stadt." },
+          text: {
+            en: "More planted and permeable surfaces can store water, support evaporation and reduce rapid runoff.",
+            de: "Mehr bepflanzte und durchlässige Flächen können Wasser speichern, Verdunstung fördern und schnellen Abfluss verringern.",
+          },
+          values: [88, 82, 86],
+        },
+        {
+          label: { en: "Medium", de: "Mittel" },
+          title: { en: "Benefits depend on connected spaces.", de: "Die Wirkung hängt von verbundenen Flächen ab." },
+          text: {
+            en: "Individual rain gardens help, but disconnected measures cannot manage every heavy-rain event.",
+            de: "Einzelne Regengärten helfen, doch unverbundene Maßnahmen können nicht jedes Starkregenereignis bewältigen.",
+          },
+          values: [58, 56, 55],
+        },
+        {
+          label: { en: "High", de: "Hoch" },
+          title: { en: "Rain becomes fast runoff.", de: "Regen wird zu schnellem Abfluss." },
+          text: {
+            en: "When most surfaces are sealed, little water infiltrates and both drainage pressure and urban heat increase.",
+            de: "Sind die meisten Flächen versiegelt, versickert wenig Wasser und sowohl Kanaldruck als auch Stadthitze nehmen zu.",
+          },
+          values: [20, 24, 25],
+        },
       ],
     },
   },
@@ -565,6 +673,11 @@ const content = {
       discoverHint: "Choose a concept to reveal the connection.",
       discoverEyebrow: "Aha moment",
       discoverProgress: "{complete} of {total} discovered",
+      labEyebrow: "Cause & effect lab",
+      labTitle: "Change one condition. Watch the system respond.",
+      labControl: "Change condition",
+      labImpact: "System response",
+      labModelNote: "Qualitative learning model, not a forecast.",
       openArticle: "Open learning article",
       askAssistant: "Ask CYRI",
       formatsEyebrow: "Formats",
@@ -951,6 +1064,11 @@ const content = {
       discoverHint: "Wähle einen Begriff und entdecke den Zusammenhang.",
       discoverEyebrow: "Aha-Moment",
       discoverProgress: "{complete} von {total} entdeckt",
+      labEyebrow: "Ursache-Wirkungs-Labor",
+      labTitle: "Verändere eine Bedingung und beobachte die Reaktion.",
+      labControl: "Bedingung verändern",
+      labImpact: "Systemreaktion",
+      labModelNote: "Qualitatives Lernmodell, keine Prognose.",
       openArticle: "Lernartikel öffnen",
       askAssistant: "CYRI fragen",
       formatsEyebrow: "Formate",
@@ -1191,6 +1309,11 @@ function loadLearningProgress() {
     quizComplete: false,
     quizLength: 3,
     discoveredConcepts: {},
+    labLevels: {
+      oceans: 1,
+      climate: 1,
+      cities: 1,
+    },
     lastTopic: "oceans",
   };
 
@@ -1212,6 +1335,15 @@ function loadLearningProgress() {
           : [],
       ])
     );
+    const labLevels = Object.fromEntries(
+      learningTopics.map((topic) => {
+        const savedLevel = saved.labLevels?.[topic.id];
+        return [
+          topic.id,
+          Number.isInteger(savedLevel) && savedLevel >= 0 && savedLevel <= 2 ? savedLevel : 1,
+        ];
+      })
+    );
 
     return {
       visitedTopics: Array.isArray(saved.visitedTopics)
@@ -1232,6 +1364,7 @@ function loadLearningProgress() {
       quizComplete: Boolean(saved.quizComplete),
       quizLength,
       discoveredConcepts,
+      labLevels,
       lastTopic: validTopicIds.has(saved.lastTopic) ? saved.lastTopic : "oceans",
     };
   } catch {
@@ -1263,6 +1396,7 @@ const state = {
   quizAnswers: savedLearningProgress.quizAnswers,
   quizComplete: savedLearningProgress.quizComplete,
   quizLength: savedLearningProgress.quizLength,
+  labLevels: savedLearningProgress.labLevels,
   activeConcept: null,
 };
 
@@ -1354,7 +1488,7 @@ async function loadArticlesFromBackend() {
 
 async function loadStaticArticles() {
   try {
-    const response = await fetch("content/articles.json?v=20260607-7", { cache: "no-cache" });
+    const response = await fetch("content/articles.json?v=20260608-1", { cache: "no-cache" });
     if (!response.ok) throw new Error("Static article corpus is not available.");
     const payload = await response.json();
     articles.splice(0, articles.length, ...(Array.isArray(payload) ? payload : []));
@@ -1520,6 +1654,7 @@ function saveLearningProgress() {
       quizComplete: state.quizComplete,
       quizLength: state.quizLength,
       discoveredConcepts: state.learningProgress.discoveredConcepts,
+      labLevels: state.labLevels,
       lastTopic: state.learningTopic,
     })
   );
@@ -1768,6 +1903,8 @@ function renderLearningTopics() {
     state.activeConcept < activeTopic.concepts[state.lang].length
       ? state.activeConcept
       : null;
+  const labLevel = state.labLevels[activeTopic.id] ?? 1;
+  const labResult = activeTopic.lab.levels[labLevel];
   detail.innerHTML = `
     <figure class="topic-visual">
       <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" />
@@ -1823,6 +1960,65 @@ function renderLearningTopics() {
             `
         }
       </div>
+      <section class="topic-lab" aria-labelledby="topic-lab-title">
+        <div class="topic-lab-heading">
+          <div>
+            <span>${escapeHtml(t("learn.labEyebrow"))}</span>
+            <h3 id="topic-lab-title">${escapeHtml(t("learn.labTitle"))}</h3>
+          </div>
+          <small>${escapeHtml(t("learn.labModelNote"))}</small>
+        </div>
+        <div class="lab-control">
+          <div>
+            <span>${escapeHtml(t("learn.labControl"))}</span>
+            <strong>${escapeHtml(activeTopic.lab.control[state.lang])}</strong>
+          </div>
+          <div
+            class="lab-level-options"
+            role="group"
+            aria-label="${escapeHtml(activeTopic.lab.control[state.lang])}"
+          >
+            ${activeTopic.lab.levels
+              .map(
+                (level, index) => `
+                  <button
+                    class="lab-level-option${labLevel === index ? " is-active" : ""}"
+                    type="button"
+                    data-lab-level="${index}"
+                    aria-pressed="${labLevel === index}"
+                  >
+                    ${escapeHtml(level.label[state.lang])}
+                  </button>
+                `
+              )
+              .join("")}
+          </div>
+        </div>
+        <div class="lab-result" data-lab-level-tone="${labLevel}" aria-live="polite">
+          <div class="lab-result-copy">
+            <span>${escapeHtml(t("learn.labImpact"))}</span>
+            <h3>${escapeHtml(labResult.title[state.lang])}</h3>
+            <p>${escapeHtml(labResult.text[state.lang])}</p>
+          </div>
+          <div class="lab-metrics">
+            ${activeTopic.lab.metrics[state.lang]
+              .map(
+                (metric, index) => `
+                  <div class="lab-metric">
+                    <div>
+                      <span>${escapeHtml(metric)}</span>
+                      <strong>${labResult.values[index]}%</strong>
+                    </div>
+                    <div class="lab-meter" aria-hidden="true">
+                      <span style="--lab-value: ${labResult.values[index]}%"></span>
+                    </div>
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
+        </div>
+      </section>
       <div class="topic-actions">
         <button
           class="button button-primary"
@@ -2513,6 +2709,17 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const labLevelButton = event.target.closest("[data-lab-level]");
+  if (labLevelButton) {
+    const level = Number(labLevelButton.dataset.labLevel);
+    if (Number.isInteger(level) && level >= 0 && level <= 2) {
+      state.labLevels[state.learningTopic] = level;
+      saveLearningProgress();
+      renderLearningTopics();
+    }
+    return;
+  }
+
   const nextArticleButton = event.target.closest("[data-learning-next-article]");
   if (nextArticleButton) {
     openArticle(nextArticleButton.dataset.learningNextArticle);
@@ -2548,6 +2755,11 @@ document.addEventListener("click", (event) => {
     state.quizIndex = 0;
     state.quizAnswers = [];
     state.quizComplete = false;
+    state.labLevels = {
+      oceans: 1,
+      climate: 1,
+      cities: 1,
+    };
     state.activeConcept = null;
     saveLearningProgress();
     renderLearningJourney();
