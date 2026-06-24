@@ -153,6 +153,240 @@ const explainerTools = [
   },
 ];
 
+const missionFocuses = [
+  {
+    id: "reef-rescue",
+    topicId: "climate",
+    articleId: "korallenbleiche-erklaert-2026",
+    imageId: "coral-bleaching-2023",
+    title: bi("Reef rescue mission", "Riff-Rettungsmission"),
+    short: bi(
+      "Understand heat stress, local pressure and recovery chances.",
+      "Verstehe Hitzestress, lokalen Druck und Erholungschancen."
+    ),
+    region: bi("Coral reef system", "Korallenriff-System"),
+    signal: bi("Heat stress is the warning signal.", "Hitzestress ist das Warnsignal."),
+    problem: bi(
+      "A reef can look bright and alive, but a marine heatwave can push corals into bleaching within weeks.",
+      "Ein Riff kann lebendig wirken, aber eine marine Hitzewelle kann Korallen innerhalb weniger Wochen in die Bleiche treiben."
+    ),
+    goal: bi(
+      "Find which actions protect reefs locally and which choices reduce the long-term heat risk.",
+      "Finde heraus, welche Maßnahmen Riffe lokal schützen und welche Entscheidungen das langfristige Hitzrisiko senken."
+    ),
+    evidence: bi(
+      "Compare water temperature, bleaching signs and local pressures such as pollution or broken coral.",
+      "Vergleiche Wassertemperatur, Bleichzeichen und lokale Belastungen wie Verschmutzung oder beschädigte Korallen."
+    ),
+    experiment: bi(
+      "Build a heat-stress timeline: one card for warming, one for algae loss, one for recovery or death.",
+      "Baue eine Hitzestress-Zeitleiste: eine Karte für Erwärmung, eine für Algenverlust, eine für Erholung oder Absterben."
+    ),
+    discussion: bi(
+      "Why can local reef protection help even though climate action remains necessary?",
+      "Warum kann lokaler Riffschutz helfen, obwohl Klimaschutz weiterhin nötig bleibt?"
+    ),
+    share: bi(
+      "A white coral is a warning, not always the end. Recovery depends on time, stress and protection.",
+      "Eine weiße Koralle ist eine Warnung, nicht immer das Ende. Erholung hängt von Zeit, Stress und Schutz ab."
+    ),
+    base: [58, 46, 50, 42],
+  },
+  {
+    id: "schoolyard-cooling",
+    topicId: "cities",
+    articleId: "schwammstadt-regenwasser-hitze-2026",
+    imageId: "sponge-city-rain-garden",
+    title: bi("Schoolyard climate lab", "Schulhof-Klimalabor"),
+    short: bi(
+      "Map heat, shade, rainwater and better design choices.",
+      "Kartiere Hitze, Schatten, Regenwasser und bessere Gestaltung."
+    ),
+    region: bi("Your school or neighbourhood", "Deine Schule oder dein Viertel"),
+    signal: bi("Sealed ground makes heat and heavy rain worse.", "Versiegelter Boden verschärft Hitze und Starkregen."),
+    problem: bi(
+      "Asphalt stores heat and sends rainwater away quickly, so one place can be too hot and flood-prone at the same time.",
+      "Asphalt speichert Hitze und leitet Regen schnell ab, dadurch kann ein Ort gleichzeitig zu heiß und überflutungsanfällig sein."
+    ),
+    goal: bi(
+      "Turn a real place into a redesign case with shade, open soil, plants and water storage.",
+      "Mache aus einem echten Ort einen Umgestaltungsfall mit Schatten, offenem Boden, Pflanzen und Wasserspeicherung."
+    ),
+    evidence: bi(
+      "Mark three hot spots, three shade spots and places where rainwater could soak in.",
+      "Markiere drei Hitzeorte, drei Schattenorte und Stellen, an denen Regen versickern könnte."
+    ),
+    experiment: bi(
+      "Compare two surfaces with a thermometer or touch-safe observation: sunlit asphalt versus shaded soil.",
+      "Vergleiche zwei Flächen mit Thermometer oder sicherer Beobachtung: sonniger Asphalt gegen schattigen Boden."
+    ),
+    discussion: bi(
+      "Who benefits first when a schoolyard becomes cooler and greener?",
+      "Wer profitiert zuerst, wenn ein Schulhof kühler und grüner wird?"
+    ),
+    share: bi(
+      "A sponge city starts small: shade, soil and stored rain can change how a place feels.",
+      "Eine Schwammstadt beginnt klein: Schatten, Boden und gespeicherter Regen verändern, wie sich ein Ort anfühlt."
+    ),
+    base: [50, 62, 48, 54],
+  },
+  {
+    id: "blue-carbon",
+    topicId: "oceans",
+    articleId: "seegraswiesen-klima-kuesten-arten-2026",
+    imageId: "seagrass-meadow",
+    title: bi("Blue carbon detective", "Blue-Carbon-Detektiv"),
+    short: bi(
+      "Explore why coastal ecosystems matter for climate and animals.",
+      "Erkunde, warum Küstenökosysteme für Klima und Tiere wichtig sind."
+    ),
+    region: bi("Coasts and shallow seas", "Küsten und Flachmeere"),
+    signal: bi("Hidden carbon stores can be lost when habitats are damaged.", "Versteckte Kohlenstoffspeicher können bei Schäden verloren gehen."),
+    problem: bi(
+      "Seagrass, mangroves and salt marshes can store carbon, but damage can weaken habitats and release stored material.",
+      "Seegras, Mangroven und Salzwiesen können Kohlenstoff speichern, aber Schäden schwächen Lebensräume und können gespeichertes Material freisetzen."
+    ),
+    goal: bi(
+      "Connect carbon storage with coastal protection and biodiversity instead of treating them as separate topics.",
+      "Verbinde Kohlenstoffspeicherung mit Küstenschutz und Biodiversität, statt sie getrennt zu betrachten."
+    ),
+    evidence: bi(
+      "Look for three services: carbon storage, wave slowing and nursery habitat for young animals.",
+      "Suche drei Leistungen: Kohlenstoffspeicherung, Wellenbremsung und Kinderstube für Jungtiere."
+    ),
+    experiment: bi(
+      "Use paper strips in water to model how plant leaves slow movement compared with open water.",
+      "Nutze Papierstreifen im Wasser, um zu modellieren, wie Pflanzenblätter Bewegung im Vergleich zu offenem Wasser bremsen."
+    ),
+    discussion: bi(
+      "Why is protecting an existing ecosystem often smarter than rebuilding it later?",
+      "Warum ist es oft klüger, ein bestehendes Ökosystem zu schützen, statt es später wieder aufzubauen?"
+    ),
+    share: bi(
+      "A seagrass meadow is not just underwater grass. It can store carbon, slow waves and shelter young animals.",
+      "Eine Seegraswiese ist nicht nur Gras unter Wasser. Sie kann Kohlenstoff speichern, Wellen bremsen und Jungtiere schützen."
+    ),
+    base: [62, 58, 66, 44],
+  },
+  {
+    id: "fair-future",
+    topicId: "climate",
+    articleId: "korallenbleiche-erklaert-2026",
+    imageId: "mangrove",
+    title: bi("Fair future case", "Fair-Future-Fall"),
+    short: bi(
+      "Connect climate impacts, responsibility and practical support.",
+      "Verbinde Klimafolgen, Verantwortung und praktische Unterstützung."
+    ),
+    region: bi("Global South connection", "Globaler-Süden-Bezug"),
+    signal: bi("Risk and responsibility are not distributed equally.", "Risiko und Verantwortung sind ungleich verteilt."),
+    problem: bi(
+      "Some communities face strong climate impacts even though they contributed far less to the emissions that drive them.",
+      "Manche Gemeinschaften erleben starke Klimafolgen, obwohl sie viel weniger zu den verursachenden Emissionen beigetragen haben."
+    ),
+    goal: bi(
+      "Build a fair question map: who is affected, who benefits, who can help and what support is respectful?",
+      "Baue eine Fairness-Karte: Wer ist betroffen, wer profitiert, wer kann helfen und welche Unterstützung ist respektvoll?"
+    ),
+    evidence: bi(
+      "Separate climate hazard, exposure, vulnerability and available support before proposing solutions.",
+      "Trenne Klimagefahr, Exposition, Verwundbarkeit und vorhandene Unterstützung, bevor du Lösungen vorschlägst."
+    ),
+    experiment: bi(
+      "Run a role debate with four seats: affected community, local government, high-emission country and youth group.",
+      "Führe eine Rollendebatte mit vier Sitzen: betroffene Gemeinschaft, lokale Regierung, emissionsstarkes Land und Jugendgruppe."
+    ),
+    discussion: bi(
+      "What makes climate help fair instead of paternalistic?",
+      "Was macht Klimahilfe fair statt bevormundend?"
+    ),
+    share: bi(
+      "Climate justice asks three questions: who caused the risk, who is affected and who has power to help?",
+      "Klimagerechtigkeit stellt drei Fragen: Wer verursacht das Risiko, wer ist betroffen und wer kann helfen?"
+    ),
+    base: [46, 44, 50, 68],
+  },
+];
+
+const missionRoles = [
+  {
+    id: "explorer",
+    title: bi("Explorer", "Entdecker:in"),
+    text: bi(
+      "Find visible clues and turn them into questions.",
+      "Findet sichtbare Hinweise und macht daraus Fragen."
+    ),
+    action: bi(
+      "Create a five-photo evidence walk with one question per photo.",
+      "Erstelle einen Fünf-Foto-Beobachtungsgang mit einer Frage pro Bild."
+    ),
+    boosts: [14, 10, 8, 4],
+  },
+  {
+    id: "scientist",
+    title: bi("Model builder", "Modellbauer:in"),
+    text: bi(
+      "Compare causes, effects and uncertainty.",
+      "Vergleicht Ursachen, Wirkungen und Unsicherheiten."
+    ),
+    action: bi(
+      "Draw a cause-effect model and mark where evidence is strong or uncertain.",
+      "Zeichne ein Ursache-Wirkungs-Modell und markiere, wo Belege stark oder unsicher sind."
+    ),
+    boosts: [18, 8, 6, 6],
+  },
+  {
+    id: "organiser",
+    title: bi("Action organiser", "Aktionsplaner:in"),
+    text: bi(
+      "Turn knowledge into a realistic school or youth-group step.",
+      "Macht aus Wissen einen realistischen Schritt für Schule oder Jugendgruppe."
+    ),
+    action: bi(
+      "Write a one-page plan with goal, people, material, time and first next step.",
+      "Schreibe einen Ein-Seiten-Plan mit Ziel, Menschen, Material, Zeit und erstem nächsten Schritt."
+    ),
+    boosts: [8, 12, 10, 14],
+  },
+  {
+    id: "storyteller",
+    title: bi("Storyteller", "Erklärprofi"),
+    text: bi(
+      "Make the topic clear without making it too simple.",
+      "Macht das Thema klar, ohne es zu stark zu vereinfachen."
+    ),
+    action: bi(
+      "Build a 30-second explanation with hook, one fact, one model and one fair action.",
+      "Baue eine 30-Sekunden-Erklärung mit Einstieg, Fakt, Modell und fairer Handlung."
+    ),
+    boosts: [10, 6, 12, 16],
+  },
+];
+
+const missionPaces = [
+  {
+    id: "spark",
+    title: bi("15 min spark", "15-Minuten-Start"),
+    text: bi("A quick classroom or youth-group impulse.", "Ein kurzer Impuls für Klasse oder Jugendgruppe."),
+    deliverable: bi("One question, one model, one next step.", "Eine Frage, ein Modell, ein nächster Schritt."),
+    boosts: [4, 2, 2, 2],
+  },
+  {
+    id: "lesson",
+    title: bi("45 min lesson", "45-Minuten-Lerneinheit"),
+    text: bi("A complete session with evidence and discussion.", "Eine komplette Einheit mit Belegen und Diskussion."),
+    deliverable: bi("A mini poster with evidence, model and action.", "Ein Mini-Plakat mit Beleg, Modell und Handlung."),
+    boosts: [8, 7, 6, 6],
+  },
+  {
+    id: "project",
+    title: bi("1 week project", "1-Wochen-Projekt"),
+    text: bi("A deeper group project with a visible outcome.", "Ein vertieftes Gruppenprojekt mit sichtbarem Ergebnis."),
+    deliverable: bi("A public learning product or school proposal.", "Ein öffentliches Lernprodukt oder Schulvorschlag."),
+    boosts: [12, 12, 12, 14],
+  },
+];
+
 const mapHotspots = [
   {
     id: "rhine",
@@ -622,7 +856,7 @@ const content = {
         learn: {
           title: "Learn | CYRI",
           description:
-            "Explore interactive CYRI learning paths, environmental topics and a short knowledge quiz.",
+            "Explore CYRI learning paths, an environmental mission lab, interactive models and a short knowledge quiz.",
         },
         articles: {
           title: "Articles | CYRI",
@@ -669,6 +903,7 @@ const content = {
       research: "Ask CYRI",
       learnMenu: "Learning menu",
       learnOverview: "Overview",
+      learnMission: "Mission Lab",
       learnTopics: "Topics",
       learnTools: "Explainer tools",
       learnMap: "World map",
@@ -803,9 +1038,11 @@ const content = {
       journeyExploreAction: "Explore {topic}",
       journeyReadAction: "Read {topic}",
       journeyQuizAction: "Start knowledge check",
+      journeyMission: "Mission step",
+      journeyMissionAction: "Build mission",
       journeyCompleteTitle: "Learning journey completed.",
       journeyCompleteText:
-        "You explored every topic, opened all three learning articles and completed the knowledge check.",
+        "You explored every topic, opened all three learning articles, completed the knowledge check and saved a mission.",
       journeyReset: "Reset progress",
       journeyStatus: "{complete} of {total} steps",
       guidingQuestion: "Guiding question",
@@ -823,6 +1060,31 @@ const content = {
       toolsPrompt: "Learning prompt",
       toolsExample: "Example output",
       toolsSteps: "Mini method",
+      missionEyebrow: "Mission control",
+      missionTitle: "Build your own environmental mission.",
+      missionIntro:
+        "Choose a real environmental challenge, switch roles and timeframes, then get a ready-to-use learning mission with models, experiments and action steps.",
+      missionFocusLabel: "Choose challenge",
+      missionRoleLabel: "Choose role",
+      missionPaceLabel: "Choose time",
+      missionModelTitle: "Live learning model",
+      missionImpactScore: "mission strength",
+      missionMeters: ["Understanding", "Ecosystem effect", "Community link", "Action power"],
+      missionModelNote:
+        "This is a learning model. It turns your choices into a visible plan, not into measured live data.",
+      missionKitTitle: "Field kit",
+      missionPlanTitle: "Mission plan",
+      missionEvidence: "Evidence to look for",
+      missionExperiment: "Mini experiment",
+      missionDiscussion: "Discussion question",
+      missionShare: "Post idea",
+      missionRoleAction: "Role move",
+      missionDeliverable: "Output",
+      missionOpenTopic: "Open topic",
+      missionOpenArticle: "Read article",
+      missionAskAssistant: "Ask CYRI",
+      missionSave: "Save mission to journey",
+      missionSaved: "Mission saved to your learning journey.",
       mapEyebrow: "Global connections",
       mapTitle: "Click through the world map and test models.",
       mapIntro:
@@ -1096,7 +1358,7 @@ const content = {
         learn: {
           title: "Lernen | CYRI",
           description:
-            "Entdecke interaktive CYRI-Lernpfade, Umweltthemen und einen kurzen Wissenscheck.",
+            "Entdecke CYRI-Lernpfade, ein Umwelt-Mission-Lab, interaktive Modelle und einen kurzen Wissenscheck.",
         },
         articles: {
           title: "Artikel | CYRI",
@@ -1143,6 +1405,7 @@ const content = {
       research: "CYRI fragen",
       learnMenu: "Lernmenü",
       learnOverview: "Übersicht",
+      learnMission: "Mission Lab",
       learnTopics: "Themen",
       learnTools: "Erklärtools",
       learnMap: "Weltkarte",
@@ -1277,9 +1540,11 @@ const content = {
       journeyExploreAction: "{topic} erkunden",
       journeyReadAction: "{topic} lesen",
       journeyQuizAction: "Wissenscheck starten",
+      journeyMission: "Missionsschritt",
+      journeyMissionAction: "Mission bauen",
       journeyCompleteTitle: "Lernpfad abgeschlossen.",
       journeyCompleteText:
-        "Du hast alle Themen erkundet, alle drei Lernartikel geöffnet und den Wissenscheck abgeschlossen.",
+        "Du hast alle Themen erkundet, alle drei Lernartikel geöffnet, den Wissenscheck abgeschlossen und eine Mission gespeichert.",
       journeyReset: "Fortschritt zurücksetzen",
       journeyStatus: "{complete} von {total} Schritten",
       guidingQuestion: "Leitfrage",
@@ -1297,6 +1562,31 @@ const content = {
       toolsPrompt: "Lernimpuls",
       toolsExample: "Beispiel-Ausgabe",
       toolsSteps: "Mini-Methode",
+      missionEyebrow: "Mission Control",
+      missionTitle: "Baue deine eigene Umweltmission.",
+      missionIntro:
+        "Wähle eine echte Umweltherausforderung, wechsle Rollen und Zeitrahmen und erhalte eine fertige Lernmission mit Modellen, Experimenten und Handlungsschritten.",
+      missionFocusLabel: "Herausforderung wählen",
+      missionRoleLabel: "Rolle wählen",
+      missionPaceLabel: "Zeit wählen",
+      missionModelTitle: "Live-Lernmodell",
+      missionImpactScore: "Missionsstärke",
+      missionMeters: ["Verstehen", "Ökosystemwirkung", "Gemeinschaftsbezug", "Handlungskraft"],
+      missionModelNote:
+        "Das ist ein Lernmodell. Es macht deine Auswahl als Plan sichtbar, nutzt aber keine live gemessenen Daten.",
+      missionKitTitle: "Forschungs-Kit",
+      missionPlanTitle: "Missionsplan",
+      missionEvidence: "Belege suchen",
+      missionExperiment: "Mini-Experiment",
+      missionDiscussion: "Diskussionsfrage",
+      missionShare: "Post-Idee",
+      missionRoleAction: "Rollen-Schritt",
+      missionDeliverable: "Ergebnis",
+      missionOpenTopic: "Thema öffnen",
+      missionOpenArticle: "Artikel lesen",
+      missionAskAssistant: "CYRI fragen",
+      missionSave: "Mission im Lernpfad speichern",
+      missionSaved: "Mission in deinem Lernpfad gespeichert.",
       mapEyebrow: "Globale Zusammenhänge",
       mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
@@ -1556,6 +1846,7 @@ const content = {
 const LEARNING_PROGRESS_KEY = "cyri-learning-progress";
 const AUDIENCE_KEY = "cyri-learning-audience";
 const LEARNING_POLL_KEY = "cyri-learning-poll";
+const MISSION_STATE_KEY = "cyri-mission-lab";
 
 function loadAudience() {
   const savedAudience = localStorage.getItem(AUDIENCE_KEY);
@@ -1567,12 +1858,34 @@ function loadPollChoice() {
   return pollOptions.some((option) => option.id === savedChoice) ? savedChoice : "";
 }
 
+function loadMissionLabState() {
+  const fallback = {
+    focus: missionFocuses[0].id,
+    role: missionRoles[0].id,
+    pace: missionPaces[1].id,
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(MISSION_STATE_KEY) || "{}");
+    return {
+      focus: missionFocuses.some((focus) => focus.id === saved.focus)
+        ? saved.focus
+        : fallback.focus,
+      role: missionRoles.some((role) => role.id === saved.role) ? saved.role : fallback.role,
+      pace: missionPaces.some((pace) => pace.id === saved.pace) ? saved.pace : fallback.pace,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
 function loadLearningProgress() {
   const fallback = {
     visitedTopics: [],
     readArticles: [],
     quizCompleted: false,
     quizScore: 0,
+    missionBuilt: false,
     quizIndex: 0,
     quizAnswers: [],
     quizComplete: false,
@@ -1608,6 +1921,7 @@ function loadLearningProgress() {
         : [],
       quizCompleted: Boolean(saved.quizCompleted),
       quizScore: Number.isFinite(saved.quizScore) ? saved.quizScore : 0,
+      missionBuilt: Boolean(saved.missionBuilt),
       quizIndex:
         Number.isInteger(saved.quizIndex) &&
         saved.quizIndex >= 0 &&
@@ -1626,6 +1940,7 @@ function loadLearningProgress() {
 }
 
 const savedLearningProgress = loadLearningProgress();
+const savedMissionLab = loadMissionLabState();
 
 const state = {
   lang: localStorage.getItem("cyri-language") || (navigator.language.startsWith("de") ? "de" : "en"),
@@ -1643,6 +1958,7 @@ const state = {
     readArticles: savedLearningProgress.readArticles,
     quizCompleted: savedLearningProgress.quizCompleted,
     quizScore: savedLearningProgress.quizScore,
+    missionBuilt: savedLearningProgress.missionBuilt,
     discoveredConcepts: savedLearningProgress.discoveredConcepts,
   },
   quizIndex: savedLearningProgress.quizIndex,
@@ -1651,6 +1967,9 @@ const state = {
   quizLength: savedLearningProgress.quizLength,
   activeConcept: null,
   activeExplainerTool: explainerTools[0].id,
+  activeMissionFocus: savedMissionLab.focus,
+  activeMissionRole: savedMissionLab.role,
+  activeMissionPace: savedMissionLab.pace,
   activeMapHotspot: mapHotspots[0].id,
   activeMapScenario: mapHotspots[0].model.scenarios[0].id,
   pollChoice: loadPollChoice(),
@@ -2018,6 +2337,17 @@ function saveLearningProgress() {
   );
 }
 
+function saveMissionLabState() {
+  localStorage.setItem(
+    MISSION_STATE_KEY,
+    JSON.stringify({
+      focus: state.activeMissionFocus,
+      role: state.activeMissionRole,
+      pace: state.activeMissionPace,
+    })
+  );
+}
+
 function markLearningTopicVisited(topicId) {
   if (!state.learningProgress.visitedTopics.includes(topicId)) {
     state.learningProgress.visitedTopics.push(topicId);
@@ -2053,7 +2383,8 @@ function learningProgressCount() {
   return (
     state.learningProgress.visitedTopics.length +
     state.learningProgress.readArticles.length +
-    Number(state.learningProgress.quizCompleted)
+    Number(state.learningProgress.quizCompleted) +
+    Number(state.learningProgress.missionBuilt)
   );
 }
 
@@ -2080,6 +2411,10 @@ function nextLearningStep() {
     return { type: "quiz" };
   }
 
+  if (!state.learningProgress.missionBuilt) {
+    return { type: "mission" };
+  }
+
   return { type: "complete" };
 }
 
@@ -2087,7 +2422,7 @@ function renderLearningJourney() {
   const container = document.querySelector("[data-learning-journey]");
   if (!container) return;
 
-  const total = learningTopics.length * 2 + 1;
+  const total = learningTopics.length * 2 + 2;
   const complete = learningProgressCount();
   const progress = Math.round((complete / total) * 100);
   const nextStep = nextLearningStep();
@@ -2125,6 +2460,12 @@ function renderLearningJourney() {
     nextAction = `
       <button class="button button-primary" type="button" data-learning-next-quiz>
         ${escapeHtml(t("learn.journeyQuizAction"))}
+      </button>
+    `;
+  } else if (nextStep.type === "mission") {
+    nextAction = `
+      <button class="button button-primary" type="button" data-learning-next-mission>
+        ${escapeHtml(t("learn.journeyMissionAction"))}
       </button>
     `;
   } else {
@@ -2197,6 +2538,8 @@ function renderLearningJourney() {
         <p class="eyebrow">${escapeHtml(
           nextStep.type === "complete"
             ? t("learn.journeyQuiz")
+            : nextStep.type === "mission"
+              ? t("learn.journeyMission")
             : t("learn.journeyNext")
         )}</p>
         <h3>${escapeHtml(
@@ -2204,6 +2547,8 @@ function renderLearningJourney() {
             ? t("learn.journeyCompleteTitle")
             : nextStep.type === "quiz"
               ? t("learn.journeyQuizAction")
+              : nextStep.type === "mission"
+                ? t("learn.journeyMissionAction")
               : learningTopicValue(nextStep.topic, "question")
         )}</h3>
         ${
@@ -2421,6 +2766,237 @@ function renderExplainerTools() {
         </ol>
       </div>
     </article>
+  `;
+}
+
+function boundedMissionMetric(value) {
+  return Math.max(8, Math.min(96, Math.round(value)));
+}
+
+function activeMissionSelection() {
+  const focus =
+    missionFocuses.find((item) => item.id === state.activeMissionFocus) || missionFocuses[0];
+  const role = missionRoles.find((item) => item.id === state.activeMissionRole) || missionRoles[0];
+  const pace = missionPaces.find((item) => item.id === state.activeMissionPace) || missionPaces[0];
+  return { focus, role, pace };
+}
+
+function missionMetricValues(focus, role, pace) {
+  return focus.base.map((value, index) =>
+    boundedMissionMetric(value + role.boosts[index] + pace.boosts[index])
+  );
+}
+
+function renderMissionLab() {
+  const container = document.querySelector("[data-mission-lab]");
+  if (!container) return;
+
+  const { focus, role, pace } = activeMissionSelection();
+  const photo = getPhoto(focus.imageId);
+  const topic = learningTopics.find((item) => item.id === focus.topicId) || learningTopics[0];
+  const metricLabels = t("learn.missionMeters");
+  const metricValues = missionMetricValues(focus, role, pace);
+  const missionScore = Math.round(
+    metricValues.reduce((sum, value) => sum + value, 0) / metricValues.length
+  );
+  const kitItems = [
+    { label: t("learn.missionEvidence"), text: localizedValue(focus.evidence) },
+    { label: t("learn.missionExperiment"), text: localizedValue(focus.experiment) },
+    { label: t("learn.missionDiscussion"), text: localizedValue(focus.discussion) },
+    { label: t("learn.missionShare"), text: localizedValue(focus.share) },
+  ];
+  const planItems = [
+    { label: t("learn.missionEvidence"), text: localizedValue(focus.evidence) },
+    { label: t("learn.missionRoleAction"), text: localizedValue(role.action) },
+    { label: t("learn.missionDeliverable"), text: localizedValue(pace.deliverable) },
+  ];
+
+  container.innerHTML = `
+    <div class="mission-lab-grid">
+      <aside class="mission-control-panel">
+        <div class="mission-control-group">
+          <p class="eyebrow">${escapeHtml(t("learn.missionFocusLabel"))}</p>
+          <div class="mission-focus-list" role="tablist" aria-label="${escapeHtml(
+            t("learn.missionFocusLabel")
+          )}">
+            ${missionFocuses
+              .map((item) => {
+                const active = item.id === focus.id;
+                const itemPhoto = getPhoto(item.imageId);
+                return `
+                  <button
+                    class="mission-focus-button${active ? " is-active" : ""}"
+                    type="button"
+                    role="tab"
+                    aria-selected="${active}"
+                    data-mission-lab-focus="${escapeHtml(item.id)}"
+                  >
+                    <img src="${escapeHtml(itemPhoto.src)}" alt="" loading="lazy" />
+                    <span>
+                      <strong>${escapeHtml(localizedValue(item.title))}</strong>
+                      <small>${escapeHtml(localizedValue(item.short))}</small>
+                    </span>
+                  </button>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+        <div class="mission-control-group">
+          <p class="eyebrow">${escapeHtml(t("learn.missionRoleLabel"))}</p>
+          <div class="mission-segment-grid" role="group" aria-label="${escapeHtml(
+            t("learn.missionRoleLabel")
+          )}">
+            ${missionRoles
+              .map((item) => {
+                const active = item.id === role.id;
+                return `
+                  <button
+                    class="mission-segment${active ? " is-active" : ""}"
+                    type="button"
+                    data-mission-role="${escapeHtml(item.id)}"
+                    aria-pressed="${active}"
+                  >
+                    <strong>${escapeHtml(localizedValue(item.title))}</strong>
+                    <small>${escapeHtml(localizedValue(item.text))}</small>
+                  </button>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+        <div class="mission-control-group">
+          <p class="eyebrow">${escapeHtml(t("learn.missionPaceLabel"))}</p>
+          <div class="mission-pace-row" role="group" aria-label="${escapeHtml(
+            t("learn.missionPaceLabel")
+          )}">
+            ${missionPaces
+              .map((item) => {
+                const active = item.id === pace.id;
+                return `
+                  <button
+                    class="mission-pace${active ? " is-active" : ""}"
+                    type="button"
+                    data-mission-pace="${escapeHtml(item.id)}"
+                    aria-pressed="${active}"
+                  >
+                    ${escapeHtml(localizedValue(item.title))}
+                  </button>
+                `;
+              })
+              .join("")}
+          </div>
+        </div>
+      </aside>
+
+      <article class="mission-dashboard">
+        <figure class="mission-photo">
+          <img src="${escapeHtml(photo.src)}" alt="${escapeHtml(photo.label[state.lang])}" />
+          <figcaption>${renderPhotoCredit(photo)}</figcaption>
+        </figure>
+        <div class="mission-dashboard-copy">
+          <span class="mission-region">${escapeHtml(localizedValue(focus.region))}</span>
+          <h3>${escapeHtml(localizedValue(focus.title))}</h3>
+          <p>${escapeHtml(localizedValue(focus.problem))}</p>
+          <div class="mission-signal">
+            <strong>${escapeHtml(localizedValue(focus.signal))}</strong>
+            <span>${escapeHtml(localizedValue(focus.goal))}</span>
+          </div>
+        </div>
+        <section class="mission-model" aria-label="${escapeHtml(t("learn.missionModelTitle"))}">
+          <div class="mission-score" style="--score: ${missionScore}%">
+            <span>${missionScore}</span>
+            <small>${escapeHtml(t("learn.missionImpactScore"))}</small>
+          </div>
+          <div class="mission-meter-list">
+            ${metricLabels
+              .map((label, index) => {
+                const value = metricValues[index];
+                return `
+                  <div class="mission-meter">
+                    <div>
+                      <span>${escapeHtml(label)}</span>
+                      <strong>${value}%</strong>
+                    </div>
+                    <i style="width: ${value}%"></i>
+                  </div>
+                `;
+              })
+              .join("")}
+          </div>
+          <p>${escapeHtml(t("learn.missionModelNote"))}</p>
+        </section>
+      </article>
+    </div>
+
+    <div class="mission-output-grid">
+      <section class="mission-kit">
+        <div class="mission-output-heading">
+          <p class="eyebrow">${escapeHtml(t("learn.missionKitTitle"))}</p>
+          <h3>${escapeHtml(localizedValue(topic.title))}</h3>
+        </div>
+        <div class="mission-kit-grid">
+          ${kitItems
+            .map(
+              (item, index) => `
+                <article class="mission-kit-item">
+                  <span>${String(index + 1).padStart(2, "0")}</span>
+                  <strong>${escapeHtml(item.label)}</strong>
+                  <p>${escapeHtml(item.text)}</p>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
+      </section>
+
+      <section class="mission-plan">
+        <div class="mission-output-heading">
+          <p class="eyebrow">${escapeHtml(t("learn.missionPlanTitle"))}</p>
+          <h3>${escapeHtml(localizedValue(pace.title))}</h3>
+          <p>${escapeHtml(localizedValue(pace.text))}</p>
+        </div>
+        <ol class="mission-plan-list">
+          ${planItems
+            .map(
+              (item) => `
+                <li>
+                  <strong>${escapeHtml(item.label)}</strong>
+                  <span>${escapeHtml(item.text)}</span>
+                </li>
+              `
+            )
+            .join("")}
+        </ol>
+        <div class="mission-actions">
+          <button
+            class="button button-secondary"
+            type="button"
+            data-mission-open-topic="${escapeHtml(focus.topicId)}"
+          >
+            ${escapeHtml(t("learn.missionOpenTopic"))}
+          </button>
+          <button
+            class="button button-secondary"
+            type="button"
+            data-mission-open-article="${escapeHtml(focus.articleId)}"
+          >
+            ${escapeHtml(t("learn.missionOpenArticle"))}
+          </button>
+          <button class="button button-secondary" type="button" data-mission-ask>
+            ${escapeHtml(t("learn.missionAskAssistant"))}
+          </button>
+          <button class="button button-primary" type="button" data-mission-save>
+            ${escapeHtml(t("learn.missionSave"))}
+          </button>
+        </div>
+        ${
+          state.learningProgress.missionBuilt
+            ? `<p class="mission-saved">${escapeHtml(t("learn.missionSaved"))}</p>`
+            : ""
+        }
+      </section>
+    </div>
   `;
 }
 
@@ -3087,6 +3663,7 @@ function renderDynamicContent() {
   renderMissionFocus();
   renderLearningPaths();
   renderLearningJourney();
+  renderMissionLab();
   renderLearningTopics();
   renderExplainerTools();
   renderLearningMap();
@@ -3102,7 +3679,13 @@ function renderDynamicContent() {
 
 function parseRoute() {
   const raw = window.location.hash.replace("#", "") || "home";
-  const learnAnchors = new Set(["learn-topics", "learn-tools", "learn-map", "learn-quiz"]);
+  const learnAnchors = new Set([
+    "learn-mission",
+    "learn-topics",
+    "learn-tools",
+    "learn-map",
+    "learn-quiz",
+  ]);
   if (raw === "mission") return { page: "home", anchor: "mission" };
   if (raw === "research") return { page: "learn", anchor: "assistant" };
   if (learnAnchors.has(raw)) return { page: "learn", anchor: raw };
@@ -3352,6 +3935,68 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const missionFocusButton = event.target.closest("[data-mission-lab-focus]");
+  if (missionFocusButton) {
+    state.activeMissionFocus = missionFocusButton.dataset.missionLabFocus;
+    state.learningProgress.missionBuilt = false;
+    saveMissionLabState();
+    saveLearningProgress();
+    renderMissionLab();
+    renderLearningJourney();
+    return;
+  }
+
+  const missionRoleButton = event.target.closest("[data-mission-role]");
+  if (missionRoleButton) {
+    state.activeMissionRole = missionRoleButton.dataset.missionRole;
+    state.learningProgress.missionBuilt = false;
+    saveMissionLabState();
+    saveLearningProgress();
+    renderMissionLab();
+    renderLearningJourney();
+    return;
+  }
+
+  const missionPaceButton = event.target.closest("[data-mission-pace]");
+  if (missionPaceButton) {
+    state.activeMissionPace = missionPaceButton.dataset.missionPace;
+    state.learningProgress.missionBuilt = false;
+    saveMissionLabState();
+    saveLearningProgress();
+    renderMissionLab();
+    renderLearningJourney();
+    return;
+  }
+
+  const missionTopicButton = event.target.closest("[data-mission-open-topic]");
+  if (missionTopicButton) {
+    selectLearningTopic(missionTopicButton.dataset.missionOpenTopic, true);
+    return;
+  }
+
+  const missionArticleButton = event.target.closest("[data-mission-open-article]");
+  if (missionArticleButton) {
+    openArticle(missionArticleButton.dataset.missionOpenArticle);
+    return;
+  }
+
+  if (event.target.closest("[data-mission-ask]")) {
+    document.querySelector("[data-learning-assistant]")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    window.setTimeout(() => document.querySelector("#research-question")?.focus(), 420);
+    return;
+  }
+
+  if (event.target.closest("[data-mission-save]")) {
+    state.learningProgress.missionBuilt = true;
+    saveLearningProgress();
+    renderLearningJourney();
+    renderMissionLab();
+    return;
+  }
+
   const mapButton = event.target.closest("[data-map-hotspot]");
   if (mapButton) {
     state.activeMapHotspot = mapButton.dataset.mapHotspot;
@@ -3390,6 +4035,14 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  if (event.target.closest("[data-learning-next-mission]")) {
+    document.querySelector(".mission-lab-section")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    return;
+  }
+
   if (event.target.closest("[data-open-learning-assistant]")) {
     document.querySelector("[data-learning-assistant]")?.scrollIntoView({
       behavior: "smooth",
@@ -3406,6 +4059,7 @@ document.addEventListener("click", (event) => {
       readArticles: [],
       quizCompleted: false,
       quizScore: 0,
+      missionBuilt: false,
       discoveredConcepts: {},
     };
     state.quizIndex = 0;
@@ -3414,6 +4068,7 @@ document.addEventListener("click", (event) => {
     state.activeConcept = null;
     saveLearningProgress();
     renderLearningJourney();
+    renderMissionLab();
     renderLearningTopics();
     renderLearningQuiz();
     return;
