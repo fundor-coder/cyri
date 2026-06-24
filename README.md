@@ -4,6 +4,11 @@ A bilingual, youth-led environmental education platform with interactive topic p
 
 Run `npm start` and open `http://localhost:5173/` to view the site with the backend enabled.
 
+Funding notice:
+- The action! funding notice is integrated site-wide before the footer.
+- The supplied RGB funding logo remains unchanged, readable and displayed on a white background with protected spacing according to the funding guidelines.
+- The accompanying text names the programme “action! Aktiv für eine globale Welt” and the funding by DSEE with BMZ funds.
+
 Learning platform:
 - The `Learn` page connects the existing CYRI articles to interactive topic paths.
 - Visitors can switch between oceans, climate ecosystems and climate-ready cities.

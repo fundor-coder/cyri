@@ -198,6 +198,9 @@ const API_BASES = ["backend.php?route=", "api"];
 const PUBLISH_SESSION_KEY = "cyri-publish-token";
 const HOMEPAGE_ARTICLE_COUNT = 5;
 const FEATURED_ARTICLE_COUNT = 2;
+const SITE_FEATURES = {
+  publishActionFunding: true,
+};
 
 const content = {
   en: {
@@ -628,6 +631,13 @@ const content = {
       imprint: "Imprint",
       privacy: "Privacy",
     },
+    funding: {
+      ariaLabel: "Funding information",
+      logoAlt:
+        "Funded by the German Foundation for Civic Engagement and Volunteering with funds from the Federal Ministry for Economic Cooperation and Development",
+      note:
+        "CYRI is funded through the programme “action! Aktiv für eine globale Welt” by the German Foundation for Civic Engagement and Volunteering (DSEE) with funds from the Federal Ministry for Economic Cooperation and Development (BMZ).",
+    },
   },
   de: {
     accessibility: {
@@ -1056,6 +1066,13 @@ const content = {
       social: "Social Media",
       imprint: "Impressum",
       privacy: "Datenschutz",
+    },
+    funding: {
+      ariaLabel: "Förderhinweis",
+      logoAlt:
+        "Gefördert durch die Deutsche Stiftung für Engagement und Ehrenamt mit Mitteln des Bundesministeriums für wirtschaftliche Zusammenarbeit und Entwicklung",
+      note:
+        "Das Projekt CYRI wird im Rahmen des Förderprogramms „action! Aktiv für eine globale Welt“ durch die Deutsche Stiftung für Engagement und Ehrenamt (DSEE) mit Mitteln des Bundesministeriums für wirtschaftliche Zusammenarbeit und Entwicklung (BMZ) gefördert.",
     },
   },
 };
@@ -2991,6 +3008,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+document.querySelector("[data-action-funding]").hidden = !SITE_FEATURES.publishActionFunding;
 updateStaticText();
 renderDynamicContent();
 syncRoute(window.location.hash === "#research" || window.location.hash === "#mission");
