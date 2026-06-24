@@ -1,6 +1,6 @@
 # Climate Youth Research Initiative Website
 
-A bilingual, youth-led environmental education platform with interactive topic paths, a knowledge quiz, structured article data, an article-based AI learning assistant, a protected publishing backend and responsive Apple-inspired styling. CYRI publishes educational content and does not conduct original research.
+A bilingual, youth-led environmental education platform with an interactive mission lab, topic paths, global map models, a knowledge quiz, structured article data, an article-based AI learning assistant, a protected publishing backend and responsive Apple-inspired styling. CYRI publishes educational content and does not conduct original research.
 
 Run `npm start` and open `http://localhost:5173/` to view the site with the backend enabled.
 
@@ -12,8 +12,9 @@ Funding notice:
 Learning platform:
 - The `Learn` page connects the existing CYRI articles to interactive topic paths.
 - Visitors can switch between oceans, climate ecosystems and climate-ready cities.
-- A personal learning journey tracks explored topics, opened learning articles and quiz completion.
+- A personal learning journey tracks explored topics, opened learning articles, quiz completion and saved environmental missions.
 - Learning progress is stored locally in the visitor's browser and includes a recommended next step.
+- The Mission Lab lets visitors combine an environmental challenge, learning role and time frame into a live model, field kit, mini experiment, discussion prompt and action plan.
 - The knowledge check offers three selectable lengths with 3, 6 or 9 bilingual questions.
 - The CYRI AI learning assistant is integrated into the `Learn` page instead of appearing as a separate navigation item.
 - Each topic includes three interactive key-concept discoveries with animated explanations and locally saved discovery progress.
