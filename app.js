@@ -70,6 +70,241 @@ const learningTopics = [
   }
 ];
 
+const explainerTools = [
+  {
+    id: "simple",
+    title: bi("Simple words", "Einfache Worte"),
+    prompt: bi(
+      "Turn a difficult term into a clear child-friendly explanation.",
+      "Mache aus einem schwierigen Begriff eine klare Erklärung für Kinder."
+    ),
+    example: bi(
+      "Biodiversity means many different living things sharing one habitat.",
+      "Biodiversität heißt: Viele verschiedene Lebewesen teilen sich einen Lebensraum."
+    ),
+    steps: bi(
+      ["Name the term.", "Explain it in one sentence.", "Add one everyday example."],
+      ["Begriff nennen.", "In einem Satz erklären.", "Ein Beispiel aus dem Alltag ergänzen."]
+    ),
+  },
+  {
+    id: "chain",
+    title: bi("Cause chain", "Ursache-Kette"),
+    prompt: bi(
+      "Build a chain from human action to environmental effect and possible solution.",
+      "Baue eine Kette von menschlichem Handeln über Umweltwirkung bis zur Lösung."
+    ),
+    example: bi(
+      "More sealed ground -> faster runoff -> higher flood risk -> more green-blue spaces.",
+      "Mehr versiegelter Boden -> schneller Abfluss -> höheres Überflutungsrisiko -> mehr Grün-Blau-Flächen."
+    ),
+    steps: bi(
+      ["Start with an action.", "Show the effect.", "Add a fair solution."],
+      ["Mit einer Handlung starten.", "Die Wirkung zeigen.", "Eine faire Lösung ergänzen."]
+    ),
+  },
+  {
+    id: "global",
+    title: bi("Global link", "Globaler Bezug"),
+    prompt: bi(
+      "Connect a local environmental question with a region affected elsewhere.",
+      "Verbinde eine lokale Umweltfrage mit einer betroffenen Region anderswo."
+    ),
+    example: bi(
+      "Our energy choices influence climate risks that can intensify drought stress in other regions.",
+      "Unsere Energieentscheidungen beeinflussen Klimarisiken, die Trockenstress in anderen Regionen verstärken können."
+    ),
+    steps: bi(
+      ["Describe the local decision.", "Name the global connection.", "Ask who is affected."],
+      ["Lokale Entscheidung beschreiben.", "Globalen Zusammenhang nennen.", "Fragen, wer betroffen ist."]
+    ),
+  },
+  {
+    id: "check",
+    title: bi("Fact check", "Faktencheck"),
+    prompt: bi(
+      "Separate claim, evidence and uncertainty before sharing a statement.",
+      "Trenne Behauptung, Beleg und Unsicherheit, bevor du eine Aussage teilst."
+    ),
+    example: bi(
+      "Claim: trees cool streets. Evidence: shade and evaporation. Limit: effect depends on place and care.",
+      "Behauptung: Bäume kühlen Straßen. Beleg: Schatten und Verdunstung. Grenze: Die Wirkung hängt vom Ort und von Pflege ab."
+    ),
+    steps: bi(
+      ["What is claimed?", "Which source supports it?", "What should stay cautious?"],
+      ["Was wird behauptet?", "Welche Quelle stützt es?", "Wo bleibt man vorsichtig?"]
+    ),
+  },
+  {
+    id: "clip",
+    title: bi("30-second clip", "30-Sekunden-Clip"),
+    prompt: bi(
+      "Shape a short educational video idea without making the topic one-sided.",
+      "Forme eine kurze Videoidee, ohne das Thema einseitig darzustellen."
+    ),
+    example: bi(
+      "Hook: Why does rain become a problem in cities? Scene: sealed ground. Turn: sponge city solutions.",
+      "Einstieg: Warum wird Regen in Städten zum Problem? Szene: versiegelter Boden. Wendung: Schwammstadt-Lösungen."
+    ),
+    steps: bi(
+      ["Hook the question.", "Show one visible example.", "End with one realistic action."],
+      ["Mit einer Frage starten.", "Ein sichtbares Beispiel zeigen.", "Mit einer realistischen Handlung enden."]
+    ),
+  },
+];
+
+const mapHotspots = [
+  {
+    id: "rhine",
+    x: 49,
+    y: 33,
+    title: bi("Germany: water and heat", "Deutschland: Wasser und Hitze"),
+    tag: bi("Local starting point", "Lokaler Startpunkt"),
+    challenge: bi(
+      "Cities and rivers feel heavy rain, heat and drought more directly as climate risks increase.",
+      "Städte und Flüsse spüren Starkregen, Hitze und Trockenheit stärker, wenn Klimarisiken zunehmen."
+    ),
+    connection: bi(
+      "Local adaptation shows why climate protection and fair infrastructure matter worldwide.",
+      "Lokale Anpassung zeigt, warum Klimaschutz und faire Infrastruktur weltweit wichtig sind."
+    ),
+    action: bi(
+      "Compare sealed and green spaces in your own area.",
+      "Vergleiche versiegelte und grüne Flächen in deiner Umgebung."
+    ),
+    sdgs: ["SDG 11", "SDG 13"],
+  },
+  {
+    id: "amazon",
+    x: 34,
+    y: 61,
+    title: bi("Amazon region: forest and climate", "Amazonasraum: Wald und Klima"),
+    tag: bi("Global South", "Globaler Süden"),
+    challenge: bi(
+      "Forests store carbon, shape rainfall and provide homes for many species and communities.",
+      "Wälder speichern Kohlenstoff, prägen Niederschläge und sind Lebensraum für viele Arten und Gemeinschaften."
+    ),
+    connection: bi(
+      "Consumption, land use and climate policy in one part of the world can affect ecosystems elsewhere.",
+      "Konsum, Landnutzung und Klimapolitik in einem Teil der Welt können Ökosysteme anderswo beeinflussen."
+    ),
+    action: bi(
+      "Ask where everyday products come from and which standards protect forests.",
+      "Frage, wo Alltagsprodukte herkommen und welche Standards Wälder schützen."
+    ),
+    sdgs: ["SDG 12", "SDG 15"],
+  },
+  {
+    id: "sahel",
+    x: 52,
+    y: 52,
+    title: bi("Sahel: drought and resilience", "Sahel: Dürre und Widerstandskraft"),
+    tag: bi("Climate justice", "Klimagerechtigkeit"),
+    challenge: bi(
+      "Drought, food security and changing rainfall can become connected social and ecological pressures.",
+      "Dürre, Ernährungssicherheit und veränderte Niederschläge können soziale und ökologische Belastungen verbinden."
+    ),
+    connection: bi(
+      "Climate impacts are not distributed equally, so solutions must include fairness and local knowledge.",
+      "Klimafolgen sind ungleich verteilt, deshalb brauchen Lösungen Fairness und lokales Wissen."
+    ),
+    action: bi(
+      "Discuss why adaptation support is part of climate responsibility.",
+      "Diskutiere, warum Anpassungsunterstützung zu Klimaverantwortung gehört."
+    ),
+    sdgs: ["SDG 2", "SDG 13"],
+  },
+  {
+    id: "coral-triangle",
+    x: 76,
+    y: 61,
+    title: bi("Coral Triangle: reefs and livelihoods", "Korallendreieck: Riffe und Lebensgrundlagen"),
+    tag: bi("Biodiversity", "Biodiversität"),
+    challenge: bi(
+      "Coral reefs can support fisheries, coastal protection and biodiversity, but heat stress puts them at risk.",
+      "Korallenriffe können Fischerei, Küstenschutz und Artenvielfalt stützen, aber Hitzestress gefährdet sie."
+    ),
+    connection: bi(
+      "Ocean warming links emissions, coastal safety and livelihoods across countries.",
+      "Ozeanerwärmung verbindet Emissionen, Küstenschutz und Lebensgrundlagen über Ländergrenzen hinweg."
+    ),
+    action: bi(
+      "Explain why reef protection needs both local care and global emissions cuts.",
+      "Erkläre, warum Riffschutz lokale Maßnahmen und globale Emissionsminderung braucht."
+    ),
+    sdgs: ["SDG 14", "SDG 13"],
+  },
+  {
+    id: "pacific",
+    x: 86,
+    y: 66,
+    title: bi("Pacific islands: sea level and justice", "Pazifikinseln: Meeresspiegel und Gerechtigkeit"),
+    tag: bi("Global partnership", "Globale Partnerschaft"),
+    challenge: bi(
+      "Low-lying islands can face sea-level rise, storms and difficult choices about adaptation.",
+      "Flache Inselstaaten können Meeresspiegelanstieg, Stürme und schwierige Anpassungsentscheidungen erleben."
+    ),
+    connection: bi(
+      "People who contributed least to emissions can still face severe climate risks.",
+      "Menschen, die wenig zu Emissionen beigetragen haben, können trotzdem starke Klimarisiken tragen."
+    ),
+    action: bi(
+      "Create a fair-question card: who caused the risk, who is affected, who can help?",
+      "Erstelle eine Fairness-Frage: Wer verursacht das Risiko, wer ist betroffen, wer kann helfen?"
+    ),
+    sdgs: ["SDG 10", "SDG 13", "SDG 17"],
+  },
+];
+
+const actionCards = [
+  {
+    title: bi("Ask better questions", "Bessere Fragen stellen"),
+    text: bi(
+      "Start discussions with causes, affected people and possible solutions instead of blame.",
+      "Starte Gespräche mit Ursachen, betroffenen Menschen und Lösungen statt mit Schuldzuweisungen."
+    ),
+  },
+  {
+    title: bi("Share carefully", "Sorgfältig teilen"),
+    text: bi(
+      "Use short posts that include a source, a clear message and one uncertainty.",
+      "Nutze kurze Beiträge mit Quelle, klarer Botschaft und einer benannten Unsicherheit."
+    ),
+  },
+  {
+    title: bi("Map your place", "Deinen Ort kartieren"),
+    text: bi(
+      "Document heat, shade, water and biodiversity spots near school or in your community.",
+      "Dokumentiere Hitze, Schatten, Wasser und Biodiversität an Schule oder im Ort."
+    ),
+  },
+  {
+    title: bi("Invite participation", "Beteiligung ermöglichen"),
+    text: bi(
+      "Choose formats that work for different ages, language levels and learning needs.",
+      "Wähle Formate, die für verschiedene Altersgruppen, Sprachniveaus und Lernbedarfe funktionieren."
+    ),
+  },
+];
+
+const pollOptions = [
+  {
+    id: "maps",
+    title: bi("Interactive maps", "Interaktive Karten"),
+    text: bi("Show places, risks and possible solutions.", "Orte, Risiken und mögliche Lösungen zeigen."),
+  },
+  {
+    id: "clips",
+    title: bi("Short videos", "Kurzvideos"),
+    text: bi("Explain one question in under one minute.", "Eine Frage in unter einer Minute erklären."),
+  },
+  {
+    id: "school",
+    title: bi("School actions", "Schulaktionen"),
+    text: bi("Turn learning into small group projects.", "Lernen in kleine Gruppenprojekte übersetzen."),
+  },
+];
+
 const quizQuestions = [
   {
     question: bi("What does coral bleaching mean?", "Was bedeutet Korallenbleiche?"),
@@ -409,6 +644,28 @@ const content = {
       labEyebrow: "Cause & effect lab",
       openArticle: "Open learning article",
       askAssistant: "Ask CYRI",
+      toolsEyebrow: "Explainer tools",
+      toolsTitle: "Understand, compare, explain.",
+      toolsIntro:
+        "Use short learning tools to turn environmental topics into simple explanations, discussion questions and source-based mini formats.",
+      toolsPrompt: "Learning prompt",
+      toolsExample: "Example output",
+      toolsSteps: "Mini method",
+      mapEyebrow: "Global connections",
+      mapTitle: "Environmental protection on the world map.",
+      mapIntro:
+        "Explore how climate, water, biodiversity and justice are connected between places in Germany and regions of the Global South.",
+      mapAria: "Interactive learning map with global environmental hotspots",
+      mapChallenge: "Challenge",
+      mapConnection: "Global connection",
+      mapAction: "Learning action",
+      actionEyebrow: "Take part",
+      actionTitle: "From knowledge to action.",
+      actionIntro:
+        "CYRI turns learning into small, realistic next steps for school, youth groups and social media.",
+      pollTitle: "What should CYRI build next?",
+      pollIntro: "Your choice is saved only on this device.",
+      pollSaved: "Saved as your learning priority.",
       formatsEyebrow: "Formats",
       formatsTitle: "Knowledge for different contexts.",
       formatsIntro:
@@ -606,6 +863,10 @@ const content = {
       editorialTitle: "Responsible under § 18 Abs. 2 MStV",
       editorialText:
         "Tobias Göppert and Jarne Bub are responsible for editorial article content. A full address for the responsible person must be added before public launch.",
+      publisherResponsibilityEyebrow: "Funded content",
+      publisherResponsibilityTitle: "Responsibility for CYRI content",
+      publisherResponsibilityText:
+        "CYRI is solely responsible as publisher for the content of this website. The published content does not necessarily reflect the views of the Federal Ministry for Economic Cooperation and Development.",
       liabilityEyebrow: "Liability notice",
       liabilityTitle: "Liability for content",
       liabilityContent:
@@ -845,6 +1106,28 @@ const content = {
       labEyebrow: "Ursache-Wirkungs-Labor",
       openArticle: "Lernartikel öffnen",
       askAssistant: "CYRI fragen",
+      toolsEyebrow: "Erklärtools",
+      toolsTitle: "Verstehen, vergleichen, erklären.",
+      toolsIntro:
+        "Nutze kurze Lernwerkzeuge, um Umweltthemen in einfache Erklärungen, Diskussionsfragen und quellenbasierte Mini-Formate zu übersetzen.",
+      toolsPrompt: "Lernimpuls",
+      toolsExample: "Beispiel-Ausgabe",
+      toolsSteps: "Mini-Methode",
+      mapEyebrow: "Globale Zusammenhänge",
+      mapTitle: "Umweltschutz auf der Weltkarte.",
+      mapIntro:
+        "Erkunde, wie Klima, Wasser, Biodiversität und Gerechtigkeit zwischen Orten in Deutschland und Regionen des Globalen Südens zusammenhängen.",
+      mapAria: "Interaktive Lernkarte mit globalen Umweltorten",
+      mapChallenge: "Herausforderung",
+      mapConnection: "Globaler Zusammenhang",
+      mapAction: "Lernaktion",
+      actionEyebrow: "Mitmachen",
+      actionTitle: "Vom Wissen ins Handeln.",
+      actionIntro:
+        "CYRI übersetzt Lernen in kleine, realistische nächste Schritte für Schule, Jugendgruppen und Social Media.",
+      pollTitle: "Was soll CYRI als Nächstes ausbauen?",
+      pollIntro: "Deine Auswahl wird nur auf diesem Gerät gespeichert.",
+      pollSaved: "Als deine Lernpriorität gespeichert.",
       formatsEyebrow: "Formate",
       formatsTitle: "Wissen für unterschiedliche Situationen.",
       formatsIntro:
@@ -1042,6 +1325,10 @@ const content = {
       editorialTitle: "Verantwortlich nach § 18 Abs. 2 MStV",
       editorialText:
         "Tobias Göppert und Jarne Bub sind für redaktionelle Artikelinhalte verantwortlich. Eine vollständige Anschrift der verantwortlichen Person muss vor einem öffentlichen Launch ergänzt werden.",
+      publisherResponsibilityEyebrow: "Geförderte Inhalte",
+      publisherResponsibilityTitle: "Verantwortung für CYRI-Inhalte",
+      publisherResponsibilityText:
+        "CYRI ist als Herausgeber allein für die Inhalte dieser Website verantwortlich. Die veröffentlichten Inhalte spiegeln nicht notwendigerweise die Ansichten des Bundesministeriums für wirtschaftliche Zusammenarbeit und Entwicklung wider.",
       liabilityEyebrow: "Haftungshinweis",
       liabilityTitle: "Haftung für Inhalte",
       liabilityContent:
@@ -1079,10 +1366,16 @@ const content = {
 
 const LEARNING_PROGRESS_KEY = "cyri-learning-progress";
 const AUDIENCE_KEY = "cyri-learning-audience";
+const LEARNING_POLL_KEY = "cyri-learning-poll";
 
 function loadAudience() {
   const savedAudience = localStorage.getItem(AUDIENCE_KEY);
   return ["children", "adults"].includes(savedAudience) ? savedAudience : null;
+}
+
+function loadPollChoice() {
+  const savedChoice = localStorage.getItem(LEARNING_POLL_KEY);
+  return pollOptions.some((option) => option.id === savedChoice) ? savedChoice : "";
 }
 
 function loadLearningProgress() {
@@ -1168,6 +1461,9 @@ const state = {
   quizComplete: savedLearningProgress.quizComplete,
   quizLength: savedLearningProgress.quizLength,
   activeConcept: null,
+  activeExplainerTool: explainerTools[0].id,
+  activeMapHotspot: mapHotspots[0].id,
+  pollChoice: loadPollChoice(),
   audience: loadAudience(),
 };
 
@@ -1888,6 +2184,178 @@ function renderLearningTopics() {
   `;
 }
 
+function renderExplainerTools() {
+  const container = document.querySelector("[data-explainer-tools]");
+  if (!container) return;
+
+  const activeTool =
+    explainerTools.find((tool) => tool.id === state.activeExplainerTool) || explainerTools[0];
+
+  container.innerHTML = `
+    <div class="explainer-tool-list" role="tablist" aria-label="${escapeHtml(
+      t("learn.toolsEyebrow")
+    )}">
+      ${explainerTools
+        .map((tool, index) => {
+          const active = tool.id === activeTool.id;
+          return `
+            <button
+              class="explainer-tool-button${active ? " is-active" : ""}"
+              type="button"
+              role="tab"
+              aria-selected="${active}"
+              data-explainer-tool="${escapeHtml(tool.id)}"
+            >
+              <span aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+              <strong>${escapeHtml(localizedValue(tool.title))}</strong>
+              <small>${escapeHtml(localizedValue(tool.prompt))}</small>
+            </button>
+          `;
+        })
+        .join("")}
+    </div>
+    <article class="explainer-tool-detail" aria-live="polite">
+      <p class="eyebrow">${escapeHtml(t("learn.toolsPrompt"))}</p>
+      <h3>${escapeHtml(localizedValue(activeTool.title))}</h3>
+      <p>${escapeHtml(localizedValue(activeTool.prompt))}</p>
+      <div class="explainer-example">
+        <strong>${escapeHtml(t("learn.toolsExample"))}</strong>
+        <p>${escapeHtml(localizedValue(activeTool.example))}</p>
+      </div>
+      <div class="explainer-steps">
+        <strong>${escapeHtml(t("learn.toolsSteps"))}</strong>
+        <ol>
+          ${localizedValue(activeTool.steps)
+            .map((step) => `<li>${escapeHtml(step)}</li>`)
+            .join("")}
+        </ol>
+      </div>
+    </article>
+  `;
+}
+
+function renderLearningMap() {
+  const container = document.querySelector("[data-learning-map]");
+  if (!container) return;
+
+  const activeHotspot =
+    mapHotspots.find((hotspot) => hotspot.id === state.activeMapHotspot) || mapHotspots[0];
+
+  container.innerHTML = `
+    <div class="map-stage" role="group" aria-label="${escapeHtml(t("learn.mapAria"))}">
+      <div class="map-grid" aria-hidden="true"></div>
+      <div class="map-land map-land-americas" aria-hidden="true"></div>
+      <div class="map-land map-land-eurasia" aria-hidden="true"></div>
+      <div class="map-land map-land-africa" aria-hidden="true"></div>
+      <div class="map-land map-land-australia" aria-hidden="true"></div>
+      ${mapHotspots
+        .map((hotspot) => {
+          const active = hotspot.id === activeHotspot.id;
+          return `
+            <button
+              class="map-marker${active ? " is-active" : ""}"
+              type="button"
+              style="--x: ${hotspot.x}%; --y: ${hotspot.y}%"
+              data-map-hotspot="${escapeHtml(hotspot.id)}"
+              aria-pressed="${active}"
+            >
+              <span class="map-marker-dot" aria-hidden="true"></span>
+              <span class="map-marker-label">${escapeHtml(localizedValue(hotspot.tag))}</span>
+            </button>
+          `;
+        })
+        .join("")}
+    </div>
+    <article class="map-detail" aria-live="polite">
+      <span class="map-tag">${escapeHtml(localizedValue(activeHotspot.tag))}</span>
+      <h3>${escapeHtml(localizedValue(activeHotspot.title))}</h3>
+      <dl>
+        <div>
+          <dt>${escapeHtml(t("learn.mapChallenge"))}</dt>
+          <dd>${escapeHtml(localizedValue(activeHotspot.challenge))}</dd>
+        </div>
+        <div>
+          <dt>${escapeHtml(t("learn.mapConnection"))}</dt>
+          <dd>${escapeHtml(localizedValue(activeHotspot.connection))}</dd>
+        </div>
+        <div>
+          <dt>${escapeHtml(t("learn.mapAction"))}</dt>
+          <dd>${escapeHtml(localizedValue(activeHotspot.action))}</dd>
+        </div>
+      </dl>
+      <div class="sdg-row">
+        ${activeHotspot.sdgs.map((sdg) => `<span>${escapeHtml(sdg)}</span>`).join("")}
+      </div>
+    </article>
+  `;
+}
+
+function renderActionBuilder() {
+  const container = document.querySelector("[data-action-builder]");
+  if (!container) return;
+
+  const selected = state.pollChoice;
+  const baseVotes = [5, 4, 3];
+  const voteCounts = pollOptions.map((option, index) => baseVotes[index] + (option.id === selected ? 4 : 0));
+  const totalVotes = voteCounts.reduce((sum, count) => sum + count, 0);
+
+  container.innerHTML = `
+    <div class="action-card-grid">
+      ${actionCards
+        .map(
+          (card, index) => `
+            <article class="action-card">
+              <span>${String(index + 1).padStart(2, "0")}</span>
+              <h3>${escapeHtml(localizedValue(card.title))}</h3>
+              <p>${escapeHtml(localizedValue(card.text))}</p>
+            </article>
+          `
+        )
+        .join("")}
+    </div>
+    <section class="poll-panel" aria-live="polite">
+      <div>
+        <p class="eyebrow">${escapeHtml(t("learn.actionEyebrow"))}</p>
+        <h3>${escapeHtml(t("learn.pollTitle"))}</h3>
+        <p>${escapeHtml(t("learn.pollIntro"))}</p>
+      </div>
+      <div class="poll-options">
+        ${pollOptions
+          .map((option) => {
+            const active = selected === option.id;
+            return `
+              <button
+                class="poll-option${active ? " is-active" : ""}"
+                type="button"
+                data-poll-choice="${escapeHtml(option.id)}"
+                aria-pressed="${active}"
+              >
+                <strong>${escapeHtml(localizedValue(option.title))}</strong>
+                <small>${escapeHtml(localizedValue(option.text))}</small>
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+      <div class="poll-results">
+        ${pollOptions
+          .map((option, index) => {
+            const percentage = Math.round((voteCounts[index] / totalVotes) * 100);
+            return `
+              <div class="poll-result">
+                <span>${escapeHtml(localizedValue(option.title))}</span>
+                <strong>${percentage}%</strong>
+                <i style="width: ${percentage}%"></i>
+              </div>
+            `;
+          })
+          .join("")}
+      </div>
+      ${selected ? `<p class="poll-saved">${escapeHtml(t("learn.pollSaved"))}</p>` : ""}
+    </section>
+  `;
+}
+
 function renderLearningFormats() {
   const container = document.querySelector("[data-learning-formats]");
   if (!container) return;
@@ -2369,6 +2837,9 @@ function renderDynamicContent() {
   renderLearningPaths();
   renderLearningJourney();
   renderLearningTopics();
+  renderExplainerTools();
+  renderLearningMap();
+  renderActionBuilder();
   renderLearningFormats();
   renderLearningQuiz();
   renderFilters();
@@ -2610,6 +3081,28 @@ document.addEventListener("click", (event) => {
   if (conceptButton) {
     markConceptDiscovered(state.learningTopic, Number(conceptButton.dataset.learningConcept));
     renderLearningTopics();
+    return;
+  }
+
+  const explainerButton = event.target.closest("[data-explainer-tool]");
+  if (explainerButton) {
+    state.activeExplainerTool = explainerButton.dataset.explainerTool;
+    renderExplainerTools();
+    return;
+  }
+
+  const mapButton = event.target.closest("[data-map-hotspot]");
+  if (mapButton) {
+    state.activeMapHotspot = mapButton.dataset.mapHotspot;
+    renderLearningMap();
+    return;
+  }
+
+  const pollButton = event.target.closest("[data-poll-choice]");
+  if (pollButton) {
+    state.pollChoice = pollButton.dataset.pollChoice;
+    localStorage.setItem(LEARNING_POLL_KEY, state.pollChoice);
+    renderActionBuilder();
     return;
   }
 
