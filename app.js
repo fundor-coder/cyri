@@ -856,7 +856,7 @@ const content = {
         learn: {
           title: "Learn | CYRI",
           description:
-            "Explore CYRI learning paths, an environmental mission lab, interactive models and a short knowledge quiz.",
+            "Explore CYRI's environmental mission lab, interactive models, global maps and knowledge challenges.",
         },
         articles: {
           title: "Articles | CYRI",
@@ -934,7 +934,7 @@ const content = {
         children: {
           title: "Environmental knowledge, explained step by step.",
           intro:
-            "Choose a question, discover important ideas and try out what changes in nature and cities.",
+            "Choose a mission, test choices and see what changes in nature, cities and communities.",
           journeyTitle: "Your discovery path.",
           journeyIntro:
             "Explore a topic, read its short article and check what you remember. Your progress is saved on this device.",
@@ -945,7 +945,7 @@ const content = {
         adults: {
           title: "Environmental knowledge that you can explore.",
           intro:
-            "Start with a question, discover the key concepts and continue with the full source-based article.",
+            "Start with a mission, test models, compare choices and continue with source-based articles.",
           journeyTitle: "Learn at your own pace.",
           journeyIntro:
             "Explore a topic, open its learning article and complete the knowledge check. Your progress is saved on this device.",
@@ -1021,12 +1021,12 @@ const content = {
       eyebrow: "Learning platform",
       title: "Environmental knowledge that you can explore.",
       intro:
-        "Start with a question, discover the key concepts and continue with the full source-based article.",
+        "Start with a mission, test models, compare choices and continue with source-based articles.",
       topicsEyebrow: "Choose a topic",
       topicsTitle: "What do you want to understand?",
       topicsAria: "Learning topics",
-      journeyEyebrow: "Your learning journey",
-      journeyTitle: "Learn at your own pace.",
+      journeyEyebrow: "Mission board",
+      journeyTitle: "Choose your next move.",
       journeyIntro:
         "Explore a topic, open its learning article and complete the knowledge check. Your progress is saved on this device.",
       journeyProgress: "Overall progress",
@@ -1040,7 +1040,7 @@ const content = {
       journeyQuizAction: "Start knowledge check",
       journeyMission: "Mission step",
       journeyMissionAction: "Build mission",
-      journeyCompleteTitle: "Learning journey completed.",
+      journeyCompleteTitle: "Mission board completed.",
       journeyCompleteText:
         "You explored every topic, opened all three learning articles, completed the knowledge check and saved a mission.",
       journeyReset: "Reset progress",
@@ -1068,6 +1068,7 @@ const content = {
       missionRoleLabel: "Choose role",
       missionPaceLabel: "Choose time",
       missionModelTitle: "Live learning model",
+      missionImpactMap: "Impact cockpit",
       missionImpactScore: "mission strength",
       missionMeters: ["Understanding", "Ecosystem effect", "Community link", "Action power"],
       missionModelNote:
@@ -1083,8 +1084,8 @@ const content = {
       missionOpenTopic: "Open topic",
       missionOpenArticle: "Read article",
       missionAskAssistant: "Ask CYRI",
-      missionSave: "Save mission to journey",
-      missionSaved: "Mission saved to your learning journey.",
+      missionSave: "Save mission locally",
+      missionSaved: "Mission saved locally on this device.",
       mapEyebrow: "Global connections",
       mapTitle: "Click through the world map and test models.",
       mapIntro:
@@ -1353,12 +1354,12 @@ const content = {
         home: {
           title: "CYRI | Jugendgeführte Umweltbildung",
           description:
-            "Entdecke verständliche Artikel, interaktive Lernpfade und Bildungsformate zu Klima-, Natur- und Umweltschutz.",
+            "Entdecke verständliche Artikel, interaktive Missionen und Bildungsformate zu Klima-, Natur- und Umweltschutz.",
         },
         learn: {
           title: "Lernen | CYRI",
           description:
-            "Entdecke CYRI-Lernpfade, ein Umwelt-Mission-Lab, interaktive Modelle und einen kurzen Wissenscheck.",
+            "Entdecke CYRIs Umwelt-Mission-Lab, interaktive Modelle, globale Karten und Wissenschallenges.",
         },
         articles: {
           title: "Artikel | CYRI",
@@ -1436,7 +1437,7 @@ const content = {
         children: {
           title: "Umweltwissen Schritt für Schritt erklärt.",
           intro:
-            "Wähle eine Frage, entdecke wichtige Ideen und probiere aus, was sich in Natur und Städten verändert.",
+            "Wähle eine Mission, teste Entscheidungen und sieh, was sich in Natur, Städten und Gemeinschaften verändert.",
           journeyTitle: "Dein Entdeckerpfad.",
           journeyIntro:
             "Erkunde ein Thema, lies den kurzen Artikel und prüfe, was du dir gemerkt hast. Dein Fortschritt wird auf diesem Gerät gespeichert.",
@@ -1447,7 +1448,7 @@ const content = {
         adults: {
           title: "Umweltwissen, das du selbst erkunden kannst.",
           intro:
-            "Starte mit einer Frage, entdecke die wichtigsten Begriffe und vertiefe das Thema anschließend im vollständigen, quellenbasierten Artikel.",
+            "Starte mit einer Mission, teste Modelle, vergleiche Entscheidungen und vertiefe das Thema mit quellenbasierten Artikeln.",
           journeyTitle: "Lerne in deinem eigenen Tempo.",
           journeyIntro:
             "Erkunde ein Thema, öffne den passenden Lernartikel und absolviere den Wissenscheck. Dein Fortschritt wird auf diesem Gerät gespeichert.",
@@ -1523,12 +1524,12 @@ const content = {
       eyebrow: "Lernplattform",
       title: "Umweltwissen, das du selbst erkunden kannst.",
       intro:
-        "Starte mit einer Frage, entdecke die wichtigsten Begriffe und vertiefe das Thema anschließend im vollständigen, quellenbasierten Artikel.",
+        "Starte mit einer Mission, teste Modelle, vergleiche Entscheidungen und vertiefe das Thema mit quellenbasierten Artikeln.",
       topicsEyebrow: "Thema wählen",
       topicsTitle: "Was möchtest du verstehen?",
       topicsAria: "Lernthemen",
-      journeyEyebrow: "Dein Lernpfad",
-      journeyTitle: "Lerne in deinem eigenen Tempo.",
+      journeyEyebrow: "Mission Board",
+      journeyTitle: "Wähle deinen nächsten Zug.",
       journeyIntro:
         "Erkunde ein Thema, öffne den passenden Lernartikel und absolviere den Wissenscheck. Dein Fortschritt wird auf diesem Gerät gespeichert.",
       journeyProgress: "Gesamtfortschritt",
@@ -1542,7 +1543,7 @@ const content = {
       journeyQuizAction: "Wissenscheck starten",
       journeyMission: "Missionsschritt",
       journeyMissionAction: "Mission bauen",
-      journeyCompleteTitle: "Lernpfad abgeschlossen.",
+      journeyCompleteTitle: "Mission Board abgeschlossen.",
       journeyCompleteText:
         "Du hast alle Themen erkundet, alle drei Lernartikel geöffnet, den Wissenscheck abgeschlossen und eine Mission gespeichert.",
       journeyReset: "Fortschritt zurücksetzen",
@@ -1570,6 +1571,7 @@ const content = {
       missionRoleLabel: "Rolle wählen",
       missionPaceLabel: "Zeit wählen",
       missionModelTitle: "Live-Lernmodell",
+      missionImpactMap: "Impact-Cockpit",
       missionImpactScore: "Missionsstärke",
       missionMeters: ["Verstehen", "Ökosystemwirkung", "Gemeinschaftsbezug", "Handlungskraft"],
       missionModelNote:
@@ -1585,8 +1587,8 @@ const content = {
       missionOpenTopic: "Thema öffnen",
       missionOpenArticle: "Artikel lesen",
       missionAskAssistant: "CYRI fragen",
-      missionSave: "Mission im Lernpfad speichern",
-      missionSaved: "Mission in deinem Lernpfad gespeichert.",
+      missionSave: "Mission lokal speichern",
+      missionSaved: "Mission lokal auf diesem Gerät gespeichert.",
       mapEyebrow: "Globale Zusammenhänge",
       mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
@@ -2360,7 +2362,6 @@ function selectLearningTopic(topicId, shouldScroll = false) {
   state.activeConcept = null;
   markLearningTopicVisited(topicId);
   renderLearningTopics();
-  renderLearningJourney();
 
   if (shouldScroll) {
     document.querySelector(".topic-explorer")?.scrollIntoView({
@@ -2375,191 +2376,7 @@ function markLearningArticleRead(articleId) {
   if (learningArticle && !state.learningProgress.readArticles.includes(articleId)) {
     state.learningProgress.readArticles.push(articleId);
     saveLearningProgress();
-    renderLearningJourney();
   }
-}
-
-function learningProgressCount() {
-  return (
-    state.learningProgress.visitedTopics.length +
-    state.learningProgress.readArticles.length +
-    Number(state.learningProgress.quizCompleted) +
-    Number(state.learningProgress.missionBuilt)
-  );
-}
-
-function nextLearningStep() {
-  const activeTopic = learningTopics.find((topic) => topic.id === state.learningTopic);
-  if (
-    activeTopic &&
-    state.learningProgress.visitedTopics.includes(activeTopic.id) &&
-    !state.learningProgress.readArticles.includes(activeTopic.articleId)
-  ) {
-    return { type: "article", topic: activeTopic };
-  }
-
-  for (const topic of learningTopics) {
-    if (!state.learningProgress.visitedTopics.includes(topic.id)) {
-      return { type: "topic", topic };
-    }
-    if (!state.learningProgress.readArticles.includes(topic.articleId)) {
-      return { type: "article", topic };
-    }
-  }
-
-  if (!state.learningProgress.quizCompleted) {
-    return { type: "quiz" };
-  }
-
-  if (!state.learningProgress.missionBuilt) {
-    return { type: "mission" };
-  }
-
-  return { type: "complete" };
-}
-
-function renderLearningJourney() {
-  const container = document.querySelector("[data-learning-journey]");
-  if (!container) return;
-
-  const total = learningTopics.length * 2 + 2;
-  const complete = learningProgressCount();
-  const progress = Math.round((complete / total) * 100);
-  const nextStep = nextLearningStep();
-  let nextAction = "";
-
-  if (nextStep.type === "topic") {
-    nextAction = `
-      <button
-        class="button button-primary"
-        type="button"
-        data-learning-next-topic="${escapeHtml(nextStep.topic.id)}"
-      >
-        ${escapeHtml(
-          formatLearningText(t("learn.journeyExploreAction"), {
-            topic: nextStep.topic.title[state.lang],
-          })
-        )}
-      </button>
-    `;
-  } else if (nextStep.type === "article") {
-    nextAction = `
-      <button
-        class="button button-primary"
-        type="button"
-        data-learning-next-article="${escapeHtml(nextStep.topic.articleId)}"
-      >
-        ${escapeHtml(
-          formatLearningText(t("learn.journeyReadAction"), {
-            topic: nextStep.topic.title[state.lang],
-          })
-        )}
-      </button>
-    `;
-  } else if (nextStep.type === "quiz") {
-    nextAction = `
-      <button class="button button-primary" type="button" data-learning-next-quiz>
-        ${escapeHtml(t("learn.journeyQuizAction"))}
-      </button>
-    `;
-  } else if (nextStep.type === "mission") {
-    nextAction = `
-      <button class="button button-primary" type="button" data-learning-next-mission>
-        ${escapeHtml(t("learn.journeyMissionAction"))}
-      </button>
-    `;
-  } else {
-    nextAction = `
-      <button class="button button-secondary" type="button" data-learning-reset>
-        ${escapeHtml(t("learn.journeyReset"))}
-      </button>
-    `;
-  }
-
-  container.innerHTML = `
-    <div class="journey-progress-block">
-      <div class="journey-progress-copy">
-        <div>
-          <span>${escapeHtml(t("learn.journeyProgress"))}</span>
-          <strong>${escapeHtml(
-            formatLearningText(t("learn.journeyStatus"), { complete, total })
-          )}</strong>
-        </div>
-        <span>${progress}%</span>
-      </div>
-      <div
-        class="journey-progress-track"
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="${total}"
-        aria-valuenow="${complete}"
-      >
-        <span style="width: ${progress}%"></span>
-      </div>
-      <p>${escapeHtml(t("learn.journeySaved"))}</p>
-    </div>
-
-    <div class="journey-topic-grid">
-      ${learningTopics
-        .map((topic) => {
-          const photo = getPhoto(topic.imageId);
-          const explored = state.learningProgress.visitedTopics.includes(topic.id);
-          const articleRead = state.learningProgress.readArticles.includes(topic.articleId);
-          const topicComplete = Number(explored) + Number(articleRead);
-          return `
-            <button
-              class="journey-topic-card${topicComplete === 2 ? " is-complete" : ""}"
-              type="button"
-              data-learning-journey-topic="${escapeHtml(topic.id)}"
-            >
-              <img src="${escapeHtml(photo.src)}" alt="" loading="lazy" />
-              <span class="journey-topic-body">
-                <span class="journey-topic-heading">
-                  <strong>${escapeHtml(topic.title[state.lang])}</strong>
-                  <small>${topicComplete}/2</small>
-                </span>
-                <span class="journey-task${explored ? " is-complete" : ""}">
-                  <span aria-hidden="true">${explored ? "✓" : "1"}</span>
-                  ${escapeHtml(t("learn.journeyExplored"))}
-                </span>
-                <span class="journey-task${articleRead ? " is-complete" : ""}">
-                  <span aria-hidden="true">${articleRead ? "✓" : "2"}</span>
-                  ${escapeHtml(t("learn.journeyArticle"))}
-                </span>
-              </span>
-            </button>
-          `;
-        })
-        .join("")}
-    </div>
-
-    <div class="journey-next${nextStep.type === "complete" ? " is-complete" : ""}">
-      <div>
-        <p class="eyebrow">${escapeHtml(
-          nextStep.type === "complete"
-            ? t("learn.journeyQuiz")
-            : nextStep.type === "mission"
-              ? t("learn.journeyMission")
-            : t("learn.journeyNext")
-        )}</p>
-        <h3>${escapeHtml(
-          nextStep.type === "complete"
-            ? t("learn.journeyCompleteTitle")
-            : nextStep.type === "quiz"
-              ? t("learn.journeyQuizAction")
-              : nextStep.type === "mission"
-                ? t("learn.journeyMissionAction")
-              : learningTopicValue(nextStep.topic, "question")
-        )}</h3>
-        ${
-          nextStep.type === "complete"
-            ? `<p>${escapeHtml(t("learn.journeyCompleteText"))}</p>`
-            : ""
-        }
-      </div>
-      ${nextAction}
-    </div>
-  `;
 }
 
 function renderLearningPaths() {
@@ -2799,6 +2616,12 @@ function renderMissionLab() {
   const missionScore = Math.round(
     metricValues.reduce((sum, value) => sum + value, 0) / metricValues.length
   );
+  const nodePositions = [
+    { x: 50, y: 13 },
+    { x: 84, y: 49 },
+    { x: 50, y: 86 },
+    { x: 16, y: 49 },
+  ];
   const kitItems = [
     { label: t("learn.missionEvidence"), text: localizedValue(focus.evidence) },
     { label: t("learn.missionExperiment"), text: localizedValue(focus.experiment) },
@@ -2902,6 +2725,37 @@ function renderMissionLab() {
             <strong>${escapeHtml(localizedValue(focus.signal))}</strong>
             <span>${escapeHtml(localizedValue(focus.goal))}</span>
           </div>
+        </div>
+        <div
+          class="mission-holo"
+          aria-label="${escapeHtml(t("learn.missionImpactMap"))}"
+          style="--holo-score: ${missionScore}%; --pulse-speed: ${Math.max(
+            3.2,
+            7 - missionScore / 20
+          )}s"
+        >
+          <div class="mission-holo-grid" aria-hidden="true"></div>
+          <div class="mission-holo-ring mission-holo-ring-one" aria-hidden="true"></div>
+          <div class="mission-holo-ring mission-holo-ring-two" aria-hidden="true"></div>
+          <div class="mission-holo-core">
+            <strong>${missionScore}</strong>
+            <span>${escapeHtml(t("learn.missionImpactScore"))}</span>
+          </div>
+          ${metricLabels
+            .map((label, index) => {
+              const value = metricValues[index];
+              const position = nodePositions[index];
+              return `
+                <span
+                  class="mission-node mission-node-${index + 1}"
+                  style="--node-x: ${position.x}%; --node-y: ${position.y}%; --node-strength: ${value}%"
+                >
+                  <strong>${value}%</strong>
+                  <small>${escapeHtml(label)}</small>
+                </span>
+              `;
+            })
+            .join("")}
         </div>
         <section class="mission-model" aria-label="${escapeHtml(t("learn.missionModelTitle"))}">
           <div class="mission-score" style="--score: ${missionScore}%">
@@ -3662,7 +3516,6 @@ async function uploadCustomImage(file, credit) {
 function renderDynamicContent() {
   renderMissionFocus();
   renderLearningPaths();
-  renderLearningJourney();
   renderMissionLab();
   renderLearningTopics();
   renderExplainerTools();
@@ -3909,14 +3762,10 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  const topicButton = event.target.closest(
-    "[data-learning-topic], [data-learning-journey-topic], [data-learning-next-topic]"
-  );
+  const topicButton = event.target.closest("[data-learning-topic], [data-learning-next-topic]");
   if (topicButton) {
     const topicId =
-      topicButton.dataset.learningTopic ||
-      topicButton.dataset.learningJourneyTopic ||
-      topicButton.dataset.learningNextTopic;
+      topicButton.dataset.learningTopic || topicButton.dataset.learningNextTopic;
     selectLearningTopic(topicId, !topicButton.dataset.learningTopic);
     return;
   }
@@ -3942,7 +3791,6 @@ document.addEventListener("click", (event) => {
     saveMissionLabState();
     saveLearningProgress();
     renderMissionLab();
-    renderLearningJourney();
     return;
   }
 
@@ -3953,7 +3801,6 @@ document.addEventListener("click", (event) => {
     saveMissionLabState();
     saveLearningProgress();
     renderMissionLab();
-    renderLearningJourney();
     return;
   }
 
@@ -3964,7 +3811,6 @@ document.addEventListener("click", (event) => {
     saveMissionLabState();
     saveLearningProgress();
     renderMissionLab();
-    renderLearningJourney();
     return;
   }
 
@@ -3992,7 +3838,6 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("[data-mission-save]")) {
     state.learningProgress.missionBuilt = true;
     saveLearningProgress();
-    renderLearningJourney();
     renderMissionLab();
     return;
   }
@@ -4067,7 +3912,6 @@ document.addEventListener("click", (event) => {
     state.quizComplete = false;
     state.activeConcept = null;
     saveLearningProgress();
-    renderLearningJourney();
     renderMissionLab();
     renderLearningTopics();
     renderLearningQuiz();
@@ -4106,7 +3950,6 @@ document.addEventListener("click", (event) => {
     }
     saveLearningProgress();
     renderLearningQuiz();
-    renderLearningJourney();
     return;
   }
 
