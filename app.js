@@ -502,6 +502,13 @@ const content = {
       learn: "Learn",
       articles: "Articles",
       research: "Ask CYRI",
+      learnMenu: "Learning menu",
+      learnOverview: "Overview",
+      learnTopics: "Topics",
+      learnTools: "Explainer tools",
+      learnMap: "World map",
+      learnQuiz: "Knowledge check",
+      learningArticles: "Learning articles",
       about: "About",
       publish: "Publish",
       contact: "Contact",
@@ -964,6 +971,13 @@ const content = {
       learn: "Lernen",
       articles: "Artikel",
       research: "CYRI fragen",
+      learnMenu: "Lernmenü",
+      learnOverview: "Übersicht",
+      learnTopics: "Themen",
+      learnTools: "Erklärtools",
+      learnMap: "Weltkarte",
+      learnQuiz: "Wissenscheck",
+      learningArticles: "Lernartikel",
       about: "Über uns",
       publish: "Publizieren",
       contact: "Kontakt",
@@ -2851,8 +2865,10 @@ function renderDynamicContent() {
 
 function parseRoute() {
   const raw = window.location.hash.replace("#", "") || "home";
+  const learnAnchors = new Set(["learn-topics", "learn-tools", "learn-map", "learn-quiz"]);
   if (raw === "mission") return { page: "home", anchor: "mission" };
   if (raw === "research") return { page: "learn", anchor: "assistant" };
+  if (learnAnchors.has(raw)) return { page: "learn", anchor: raw };
   if (routes.has(raw)) return { page: raw, anchor: null };
   return { page: "home", anchor: null };
 }
@@ -2862,7 +2878,8 @@ function showPage(shouldScroll = true) {
     page.classList.toggle("is-active", page.dataset.page === state.page);
   });
 
-  const activeKey = state.anchor === "mission" ? "mission" : state.page;
+  const activeKey =
+    state.anchor === "mission" ? "mission" : state.page === "articles" ? "learn" : state.page;
   document.querySelectorAll("[data-nav-link]").forEach((link) => {
     link.classList.toggle("is-active", link.dataset.navLink === activeKey);
   });
@@ -2879,6 +2896,13 @@ function showPage(shouldScroll = true) {
     }
     if (state.anchor === "assistant") {
       document.querySelector("[data-learning-assistant]")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      return;
+    }
+    if (state.anchor?.startsWith("learn-")) {
+      document.querySelector(`[data-anchor='${state.anchor}']`)?.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
