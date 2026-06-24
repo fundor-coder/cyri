@@ -630,212 +630,6 @@ h3 {
   padding-bottom: 80px;
 }
 
-.learning-journey-section {
-  padding-top: 48px;
-  padding-bottom: 84px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.34);
-}
-
-.learning-journey {
-  display: grid;
-  gap: 28px;
-}
-
-.journey-progress-block {
-  display: grid;
-  gap: 10px;
-}
-
-.journey-progress-copy {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.journey-progress-copy > div {
-  display: grid;
-  gap: 4px;
-}
-
-.journey-progress-copy span {
-  color: var(--muted);
-  font-size: 0.84rem;
-  font-weight: 680;
-}
-
-.journey-progress-copy strong {
-  color: var(--ink);
-  font-size: 1.2rem;
-}
-
-.journey-progress-copy > span {
-  color: var(--green);
-  font-size: 1.4rem;
-  font-weight: 780;
-}
-
-.journey-progress-track {
-  height: 9px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(18, 22, 29, 0.08);
-}
-
-.journey-progress-track span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--green), var(--blue));
-  background-size: 180% 100%;
-  animation: progress-flow 5s linear infinite;
-  transition: width 360ms ease;
-}
-
-.journey-progress-block > p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.journey-topic-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.journey-topic-card {
-  display: grid;
-  grid-template-rows: 148px minmax(0, 1fr);
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--glass-edge);
-  border-radius: var(--radius-md);
-  background:
-    linear-gradient(150deg, rgba(255, 255, 255, 0.86), rgba(236, 247, 244, 0.46)),
-    rgba(255, 255, 255, 0.48);
-  box-shadow: var(--glass-shadow);
-  color: var(--ink);
-  cursor: pointer;
-  padding: 0;
-  text-align: left;
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-}
-
-.journey-topic-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(39, 116, 216, 0.22);
-  box-shadow:
-    0 24px 58px rgba(22, 34, 50, 0.13),
-    inset 0 1px 0 rgba(255, 255, 255, 0.94);
-}
-
-.journey-topic-card.is-complete {
-  border-color: rgba(22, 131, 95, 0.28);
-}
-
-.journey-topic-card > img {
-  width: 100%;
-  height: 148px;
-  object-fit: cover;
-}
-
-.journey-topic-body {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-  padding: 18px;
-}
-
-.journey-topic-heading {
-  display: flex;
-  align-items: start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 4px;
-}
-
-.journey-topic-heading strong {
-  font-size: 1.02rem;
-}
-
-.journey-topic-heading small {
-  flex: 0 0 auto;
-  border-radius: 999px;
-  background: rgba(18, 22, 29, 0.07);
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 740;
-  padding: 4px 7px;
-}
-
-.journey-topic-card.is-complete .journey-topic-heading small {
-  background: rgba(22, 131, 95, 0.12);
-  color: var(--green);
-}
-
-.journey-task {
-  display: grid;
-  grid-template-columns: 24px minmax(0, 1fr);
-  align-items: center;
-  gap: 9px;
-  color: var(--muted);
-  font-size: 0.84rem;
-}
-
-.journey-task > span {
-  display: grid;
-  width: 24px;
-  height: 24px;
-  place-items: center;
-  border: 1px solid rgba(18, 22, 29, 0.1);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--muted);
-  font-size: 0.7rem;
-  font-weight: 780;
-}
-
-.journey-task.is-complete {
-  color: var(--ink-soft);
-}
-
-.journey-task.is-complete > span {
-  border-color: rgba(22, 131, 95, 0.24);
-  background: rgba(22, 131, 95, 0.12);
-  color: var(--green);
-}
-
-.journey-next {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  border-top: 1px solid rgba(18, 22, 29, 0.08);
-  border-bottom: 1px solid rgba(18, 22, 29, 0.08);
-  padding: 22px 0;
-}
-
-.journey-next > div {
-  max-width: 720px;
-}
-
-.journey-next .eyebrow {
-  margin-bottom: 6px;
-}
-
-.journey-next h3,
-.journey-next p:last-child {
-  margin-bottom: 0;
-}
-
-.journey-next.is-complete {
-  border-color: rgba(22, 131, 95, 0.2);
-}
-
 .learning-path-grid,
 .format-grid {
   display: grid;
@@ -1604,6 +1398,7 @@ h3 {
 
 .mission-photo {
   position: relative;
+  grid-row: 1 / span 2;
   min-height: 100%;
   margin: 0;
   overflow: hidden;
@@ -1659,6 +1454,153 @@ h3 {
 .mission-dashboard-copy p {
   margin: 0;
   color: var(--muted);
+}
+
+.mission-holo {
+  position: relative;
+  display: grid;
+  min-height: 320px;
+  overflow: hidden;
+  margin: 0 30px 30px;
+  place-items: center;
+  border: 1px solid rgba(18, 22, 29, 0.08);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(circle at center, rgba(39, 116, 216, 0.16), transparent 28%),
+    radial-gradient(circle at 25% 30%, rgba(22, 131, 95, 0.16), transparent 30%),
+    linear-gradient(145deg, rgba(15, 29, 42, 0.92), rgba(21, 56, 59, 0.88));
+  box-shadow:
+    0 24px 58px rgba(21, 45, 58, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.mission-holo::before,
+.mission-holo::after {
+  position: absolute;
+  inset: 15%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  content: "";
+  pointer-events: none;
+}
+
+.mission-holo::before {
+  transform: rotate(18deg) scaleX(1.28);
+}
+
+.mission-holo::after {
+  transform: rotate(-23deg) scaleX(1.18);
+}
+
+.mission-holo-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.23;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(circle at center, black, transparent 74%);
+}
+
+.mission-holo-ring {
+  position: absolute;
+  width: 44%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(132, 216, 190, 0.42);
+  border-radius: 999px;
+  box-shadow:
+    0 0 22px rgba(22, 131, 95, 0.16),
+    inset 0 0 18px rgba(39, 116, 216, 0.14);
+  animation: mission-orbit var(--pulse-speed) linear infinite;
+}
+
+.mission-holo-ring-two {
+  width: 62%;
+  border-color: rgba(111, 175, 235, 0.34);
+  animation-direction: reverse;
+  animation-duration: calc(var(--pulse-speed) * 1.35);
+}
+
+.mission-holo-core {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 112px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
+    conic-gradient(rgba(89, 203, 166, 0.95) var(--holo-score), rgba(255, 255, 255, 0.1) 0);
+  color: #ffffff;
+  box-shadow:
+    0 0 34px rgba(22, 131, 95, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.26);
+}
+
+.mission-holo-core strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.mission-holo-core span {
+  max-width: 78px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.66rem;
+  font-weight: 730;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.mission-node {
+  position: absolute;
+  z-index: 3;
+  left: var(--node-x);
+  top: var(--node-y);
+  display: grid;
+  width: 114px;
+  min-height: 70px;
+  transform: translate(-50%, -50%);
+  align-content: center;
+  gap: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08)),
+    rgba(10, 22, 31, 0.46);
+  color: #ffffff;
+  padding: 9px;
+  text-align: center;
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.22),
+    0 0 calc(var(--node-strength) * 0.26) rgba(89, 203, 166, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.mission-node::before {
+  position: absolute;
+  inset: -9px;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(89, 203, 166, 0.28), transparent 62%);
+  content: "";
+  opacity: calc(var(--node-strength) / 120);
+}
+
+.mission-node strong {
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.mission-node small {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.64rem;
+  font-weight: 710;
+  line-height: 1.15;
 }
 
 .mission-signal {
@@ -3697,7 +3639,6 @@ h3 {
   .formats-section,
   .learning-path-card,
   .format-card,
-  .journey-topic-card,
   .topic-explorer,
   .quiz-panel,
   .focus-card,
@@ -3821,7 +3762,6 @@ body[data-audience="children"] .modal-body h3 {
 }
 
 .photo-frame,
-.journey-topic-card,
 .learning-path-card,
 .format-card,
 .topic-explorer,
@@ -3922,6 +3862,12 @@ body[data-audience="children"] .modal-body h3 {
   }
 }
 
+@keyframes mission-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes answer-correct {
   0% {
     transform: scale(1);
@@ -3977,6 +3923,14 @@ body[data-audience="children"] .modal-body h3 {
     max-height: 360px;
   }
 
+  .mission-photo {
+    grid-row: auto;
+  }
+
+  .mission-holo {
+    margin: 0 22px 22px;
+  }
+
   .mission-model {
     grid-template-columns: 1fr;
   }
@@ -4029,10 +3983,6 @@ body[data-audience="children"] .modal-body h3 {
 
   .quiz-intro {
     position: static;
-  }
-
-  .journey-topic-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .research-answer {
@@ -4222,6 +4172,29 @@ body[data-audience="children"] .modal-body h3 {
     min-height: 74px;
   }
 
+  .mission-holo {
+    min-height: 360px;
+    margin: 0 16px 20px;
+  }
+
+  .mission-holo-core {
+    width: 92px;
+  }
+
+  .mission-node {
+    width: 96px;
+    min-height: 62px;
+    padding: 8px;
+  }
+
+  .mission-node strong {
+    font-size: 0.92rem;
+  }
+
+  .mission-node small {
+    font-size: 0.58rem;
+  }
+
   .explainer-tool-detail,
   .mission-control-panel,
   .mission-dashboard-copy,
@@ -4275,30 +4248,6 @@ body[data-audience="children"] .modal-body h3 {
     right: 12px;
     left: 12px;
     white-space: normal;
-  }
-
-  .journey-topic-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .journey-topic-card {
-    grid-template-columns: 116px minmax(0, 1fr);
-    grid-template-rows: minmax(154px, auto);
-  }
-
-  .journey-topic-card > img {
-    width: 116px;
-    height: 100%;
-    min-height: 154px;
-  }
-
-  .journey-next {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .journey-next .button {
-    width: 100%;
   }
 
   .topic-selector {
