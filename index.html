@@ -17,8 +17,8 @@
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260624-2" />
-    <script src="app.js?v=20260624-2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260624-3" />
+    <script src="app.js?v=20260624-3" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -46,8 +46,18 @@
           <div class="nav-links">
             <a href="#home" data-nav-link="home" data-i18n="nav.home">Home</a>
             <a href="#mission" data-nav-link="mission" data-i18n="nav.mission">Mission</a>
-            <a href="#learn" data-nav-link="learn" data-i18n="nav.learn">Learn</a>
-            <a href="#articles" data-nav-link="articles" data-i18n="nav.articles">Articles</a>
+            <div class="nav-menu">
+              <a href="#learn" data-nav-link="learn" data-i18n="nav.learn">Learn</a>
+              <div class="nav-submenu" aria-label="Learning menu" data-i18n-aria="nav.learnMenu">
+                <a href="#learn" data-i18n="nav.learnOverview">Overview</a>
+                <a href="#learn-topics" data-i18n="nav.learnTopics">Topics</a>
+                <a href="#learn-tools" data-i18n="nav.learnTools">Explainer tools</a>
+                <a href="#learn-map" data-i18n="nav.learnMap">World map</a>
+                <a href="#learn-quiz" data-i18n="nav.learnQuiz">Knowledge check</a>
+                <a href="#research" data-i18n="nav.research">Ask CYRI</a>
+                <a href="#articles" data-i18n="nav.learningArticles">Learning articles</a>
+              </div>
+            </div>
             <a href="#about" data-nav-link="about" data-i18n="nav.about">About</a>
             <a href="#contact" data-nav-link="contact" data-i18n="nav.contact">Contact</a>
           </div>
@@ -194,7 +204,7 @@
           </div>
         </section>
 
-        <section class="section compact-section">
+        <section class="section compact-section" data-anchor="learn-topics">
           <div class="shell">
             <div class="section-heading reveal">
               <p class="eyebrow" data-i18n="learn.topicsEyebrow">Choose a topic</p>
@@ -215,7 +225,7 @@
           </div>
         </section>
 
-        <section class="section explainer-tools-section">
+        <section class="section explainer-tools-section" data-anchor="learn-tools">
           <div class="shell">
             <div class="section-heading reveal">
               <p class="eyebrow" data-i18n="learn.toolsEyebrow">Explainer tools</p>
@@ -229,7 +239,7 @@
           </div>
         </section>
 
-        <section class="section map-lab-section">
+        <section class="section map-lab-section" data-anchor="learn-map">
           <div class="shell">
             <div class="section-heading reveal">
               <p class="eyebrow" data-i18n="learn.mapEyebrow">Global connections</p>
@@ -257,7 +267,7 @@
           </div>
         </section>
 
-        <section class="section quiz-section">
+        <section class="section quiz-section" data-anchor="learn-quiz">
           <div class="shell quiz-layout">
             <div class="quiz-intro reveal">
               <p class="eyebrow" data-i18n="learn.quizEyebrow">Knowledge check</p>
