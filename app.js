@@ -173,6 +173,39 @@ const mapHotspots = [
       "Vergleiche versiegelte und grüne Flächen in deiner Umgebung."
     ),
     sdgs: ["SDG 11", "SDG 13"],
+    model: {
+      title: bi("City water model", "Stadtwasser-Modell"),
+      metrics: bi(["Runoff pressure", "Cooling", "Habitat"], ["Abflussdruck", "Kühlung", "Lebensraum"]),
+      scenarios: [
+        {
+          id: "sealed",
+          label: bi("Sealed streets", "Versiegelte Straßen"),
+          values: [82, 24, 18],
+          outcome: bi(
+            "Water runs off quickly, streets heat up and small habitats disappear.",
+            "Wasser fließt schnell ab, Straßen heizen sich auf und kleine Lebensräume verschwinden."
+          ),
+        },
+        {
+          id: "mixed",
+          label: bi("Mixed blocks", "Gemischte Blöcke"),
+          values: [55, 48, 42],
+          outcome: bi(
+            "Some green spaces slow runoff, but heavy rain can still overload drains.",
+            "Einige Grünflächen bremsen Abfluss, aber Starkregen kann die Kanalisation weiter überlasten."
+          ),
+        },
+        {
+          id: "sponge",
+          label: bi("Sponge network", "Schwamm-Netz"),
+          values: [28, 74, 68],
+          outcome: bi(
+            "Rain gardens, trees and open soil store water and cool the neighbourhood.",
+            "Regengärten, Bäume und offene Böden speichern Wasser und kühlen das Viertel."
+          ),
+        },
+      ],
+    },
   },
   {
     id: "amazon",
@@ -193,6 +226,39 @@ const mapHotspots = [
       "Frage, wo Alltagsprodukte herkommen und welche Standards Wälder schützen."
     ),
     sdgs: ["SDG 12", "SDG 15"],
+    model: {
+      title: bi("Forest pressure model", "Wald-Druck-Modell"),
+      metrics: bi(["Forest pressure", "Carbon storage", "Species refuge"], ["Walddruck", "Kohlenstoffspeicher", "Arten-Rückzugsraum"]),
+      scenarios: [
+        {
+          id: "pressure",
+          label: bi("High pressure", "Hoher Druck"),
+          values: [78, 38, 32],
+          outcome: bi(
+            "More pressure means less connected habitat and weaker long-term carbon storage.",
+            "Mehr Druck bedeutet weniger verbundenen Lebensraum und schwächere langfristige Kohlenstoffspeicherung."
+          ),
+        },
+        {
+          id: "standards",
+          label: bi("Better standards", "Bessere Standards"),
+          values: [46, 58, 54],
+          outcome: bi(
+            "Traceable supply chains and protected areas can reduce harm, but need monitoring.",
+            "Nachverfolgbare Lieferketten und Schutzgebiete können Schäden senken, brauchen aber Kontrolle."
+          ),
+        },
+        {
+          id: "restoration",
+          label: bi("Restoration links", "Wiedervernetzung"),
+          values: [26, 72, 76],
+          outcome: bi(
+            "Restoration and local rights can reconnect habitats and strengthen resilience.",
+            "Wiederherstellung und lokale Rechte können Lebensräume verbinden und Widerstandskraft stärken."
+          ),
+        },
+      ],
+    },
   },
   {
     id: "sahel",
@@ -213,6 +279,39 @@ const mapHotspots = [
       "Diskutiere, warum Anpassungsunterstützung zu Klimaverantwortung gehört."
     ),
     sdgs: ["SDG 2", "SDG 13"],
+    model: {
+      title: bi("Drought resilience model", "Dürre-Resilienz-Modell"),
+      metrics: bi(["Drought stress", "Food security", "Adaptation"], ["Dürrestress", "Ernährungssicherheit", "Anpassung"]),
+      scenarios: [
+        {
+          id: "shock",
+          label: bi("Drought shock", "Dürre-Schock"),
+          values: [84, 30, 22],
+          outcome: bi(
+            "When rainfall shifts suddenly, water access and harvests can come under pressure.",
+            "Wenn sich Niederschläge plötzlich verändern, geraten Wasserzugang und Ernten unter Druck."
+          ),
+        },
+        {
+          id: "support",
+          label: bi("Adaptation support", "Anpassungshilfe"),
+          values: [56, 54, 58],
+          outcome: bi(
+            "Early warning, storage and local knowledge can reduce risk before a crisis escalates.",
+            "Frühwarnung, Speicherung und lokales Wissen können Risiken senken, bevor Krisen eskalieren."
+          ),
+        },
+        {
+          id: "resilience",
+          label: bi("Resilient farming", "Robuste Landwirtschaft"),
+          values: [38, 70, 74],
+          outcome: bi(
+            "Soil care, diverse crops and fair support make communities less vulnerable.",
+            "Bodenpflege, vielfältige Kulturen und faire Unterstützung machen Gemeinschaften weniger verwundbar."
+          ),
+        },
+      ],
+    },
   },
   {
     id: "coral-triangle",
@@ -233,6 +332,39 @@ const mapHotspots = [
       "Erkläre, warum Riffschutz lokale Maßnahmen und globale Emissionsminderung braucht."
     ),
     sdgs: ["SDG 14", "SDG 13"],
+    model: {
+      title: bi("Reef stress model", "Riffstress-Modell"),
+      metrics: bi(["Heat stress", "Recovery chance", "Local pressure"], ["Hitzestress", "Erholungschance", "Lokaler Druck"]),
+      scenarios: [
+        {
+          id: "heat",
+          label: bi("Heat wave", "Hitzewelle"),
+          values: [86, 24, 62],
+          outcome: bi(
+            "High ocean heat can trigger bleaching; local pressure makes recovery harder.",
+            "Hohe Meereshitze kann Bleiche auslösen; lokaler Druck erschwert Erholung."
+          ),
+        },
+        {
+          id: "local-care",
+          label: bi("Local reef care", "Lokaler Riffschutz"),
+          values: [70, 52, 34],
+          outcome: bi(
+            "Cleaner water and less physical damage improve recovery, even if warming remains a risk.",
+            "Saubereres Wasser und weniger Schäden verbessern Erholung, auch wenn Erwärmung riskant bleibt."
+          ),
+        },
+        {
+          id: "climate-care",
+          label: bi("Climate + local care", "Klima + lokaler Schutz"),
+          values: [42, 76, 26],
+          outcome: bi(
+            "Lower emissions and local protection give reefs the strongest chance over time.",
+            "Weniger Emissionen und lokaler Schutz geben Riffen langfristig die beste Chance."
+          ),
+        },
+      ],
+    },
   },
   {
     id: "pacific",
@@ -253,6 +385,39 @@ const mapHotspots = [
       "Erstelle eine Fairness-Frage: Wer verursacht das Risiko, wer ist betroffen, wer kann helfen?"
     ),
     sdgs: ["SDG 10", "SDG 13", "SDG 17"],
+    model: {
+      title: bi("Climate justice model", "Klimagerechtigkeits-Modell"),
+      metrics: bi(["Exposure", "Adaptation room", "Partnership"], ["Gefährdung", "Anpassungsspielraum", "Partnerschaft"]),
+      scenarios: [
+        {
+          id: "exposed",
+          label: bi("High exposure", "Hohe Gefährdung"),
+          values: [82, 26, 28],
+          outcome: bi(
+            "Sea-level rise and storms can limit choices when adaptation resources are low.",
+            "Meeresspiegelanstieg und Stürme begrenzen Handlungsspielräume, wenn Anpassungsressourcen fehlen."
+          ),
+        },
+        {
+          id: "planning",
+          label: bi("Adaptation plan", "Anpassungsplan"),
+          values: [62, 56, 50],
+          outcome: bi(
+            "Planning, safer infrastructure and local participation can widen choices.",
+            "Planung, sichere Infrastruktur und lokale Beteiligung können Optionen erweitern."
+          ),
+        },
+        {
+          id: "partnership",
+          label: bi("Fair partnership", "Faire Partnerschaft"),
+          values: [48, 72, 78],
+          outcome: bi(
+            "Long-term support and fair partnerships make climate responsibility more practical.",
+            "Langfristige Unterstützung und faire Partnerschaften machen Klimaverantwortung praktischer."
+          ),
+        },
+      ],
+    },
   },
 ];
 
@@ -659,13 +824,18 @@ const content = {
       toolsExample: "Example output",
       toolsSteps: "Mini method",
       mapEyebrow: "Global connections",
-      mapTitle: "Environmental protection on the world map.",
+      mapTitle: "Click through the world map and test models.",
       mapIntro:
-        "Explore how climate, water, biodiversity and justice are connected between places in Germany and regions of the Global South.",
+        "Choose a place, compare model scenarios and explore how climate, water, biodiversity and justice connect Germany with regions of the Global South.",
       mapAria: "Interactive learning map with global environmental hotspots",
       mapChallenge: "Challenge",
       mapConnection: "Global connection",
       mapAction: "Learning action",
+      mapOpenModel: "Click a place and test a model.",
+      modelChoose: "Choose a model scenario",
+      modelOutcome: "Model result",
+      modelNote:
+        "These models are learning simulations. They show relationships, not measured live data.",
       actionEyebrow: "Take part",
       actionTitle: "From knowledge to action.",
       actionIntro:
@@ -1128,13 +1298,18 @@ const content = {
       toolsExample: "Beispiel-Ausgabe",
       toolsSteps: "Mini-Methode",
       mapEyebrow: "Globale Zusammenhänge",
-      mapTitle: "Umweltschutz auf der Weltkarte.",
+      mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
-        "Erkunde, wie Klima, Wasser, Biodiversität und Gerechtigkeit zwischen Orten in Deutschland und Regionen des Globalen Südens zusammenhängen.",
+        "Wähle einen Ort, vergleiche Modellszenarien und erkunde, wie Klima, Wasser, Biodiversität und Gerechtigkeit Deutschland mit Regionen des Globalen Südens verbinden.",
       mapAria: "Interaktive Lernkarte mit globalen Umweltorten",
       mapChallenge: "Herausforderung",
       mapConnection: "Globaler Zusammenhang",
       mapAction: "Lernaktion",
+      mapOpenModel: "Klicke einen Ort an und teste ein Modell.",
+      modelChoose: "Modellszenario wählen",
+      modelOutcome: "Modellergebnis",
+      modelNote:
+        "Diese Modelle sind Lernsimulationen. Sie zeigen Zusammenhänge, keine live gemessenen Daten.",
       actionEyebrow: "Mitmachen",
       actionTitle: "Vom Wissen ins Handeln.",
       actionIntro:
@@ -1477,6 +1652,7 @@ const state = {
   activeConcept: null,
   activeExplainerTool: explainerTools[0].id,
   activeMapHotspot: mapHotspots[0].id,
+  activeMapScenario: mapHotspots[0].model.scenarios[0].id,
   pollChoice: loadPollChoice(),
   audience: loadAudience(),
 };
@@ -2254,14 +2430,29 @@ function renderLearningMap() {
 
   const activeHotspot =
     mapHotspots.find((hotspot) => hotspot.id === state.activeMapHotspot) || mapHotspots[0];
+  const activeScenario =
+    activeHotspot.model.scenarios.find((scenario) => scenario.id === state.activeMapScenario) ||
+    activeHotspot.model.scenarios[0];
 
   container.innerHTML = `
     <div class="map-stage" role="group" aria-label="${escapeHtml(t("learn.mapAria"))}">
       <div class="map-grid" aria-hidden="true"></div>
-      <div class="map-land map-land-americas" aria-hidden="true"></div>
-      <div class="map-land map-land-eurasia" aria-hidden="true"></div>
-      <div class="map-land map-land-africa" aria-hidden="true"></div>
-      <div class="map-land map-land-australia" aria-hidden="true"></div>
+      <svg class="world-map" viewBox="0 0 1000 520" role="img" aria-hidden="true">
+        <path class="map-coast map-coast-muted" d="M128 125 162 89 221 73 291 91 336 126 372 130 392 159 364 194 321 191 282 220 233 214 198 241 148 231 103 194 86 154Z" />
+        <path class="map-coast" d="M83 153 124 116 188 94 262 107 310 139 360 145 381 174 349 212 305 207 260 238 221 229 182 254 132 241 94 207Z" />
+        <path class="map-coast map-coast-muted" d="M265 268 315 291 347 341 335 397 300 461 265 420 246 360 225 317Z" />
+        <path class="map-coast" d="M290 265 334 296 358 342 343 407 304 476 273 425 253 365 236 315Z" />
+        <path class="map-coast map-coast-muted" d="M446 154 497 126 557 146 536 183 481 188Z" />
+        <path class="map-coast" d="M459 159 505 133 560 152 535 191 482 193Z" />
+        <path class="map-coast" d="M489 209 552 197 609 241 628 310 589 389 526 379 487 315 461 259Z" />
+        <path class="map-coast map-coast-muted" d="M576 124 662 96 777 111 880 165 925 230 876 278 780 258 731 302 661 271 594 290 540 232Z" />
+        <path class="map-coast" d="M582 135 669 108 774 124 872 176 916 231 870 268 782 247 730 292 663 260 598 280 550 229Z" />
+        <path class="map-coast" d="M770 342 830 327 875 357 862 403 805 411 754 381Z" />
+        <path class="map-coast map-island" d="M398 87 450 55 520 76 498 118 431 121Z" />
+        <path class="map-coast map-island" d="M887 288 921 300 942 326 913 342 877 322Z" />
+        <path class="map-coast map-island" d="M651 322 676 332 664 356 635 350Z" />
+      </svg>
+      <p class="map-instruction">${escapeHtml(t("learn.mapOpenModel"))}</p>
       ${mapHotspots
         .map((hotspot) => {
           const active = hotspot.id === activeHotspot.id;
@@ -2300,6 +2491,52 @@ function renderLearningMap() {
       <div class="sdg-row">
         ${activeHotspot.sdgs.map((sdg) => `<span>${escapeHtml(sdg)}</span>`).join("")}
       </div>
+      <section class="map-model">
+        <div class="map-model-heading">
+          <div>
+            <p class="eyebrow">${escapeHtml(t("learn.modelChoose"))}</p>
+            <h4>${escapeHtml(localizedValue(activeHotspot.model.title))}</h4>
+          </div>
+          <small>${escapeHtml(t("learn.modelNote"))}</small>
+        </div>
+        <div class="map-scenario-row" role="group" aria-label="${escapeHtml(t("learn.modelChoose"))}">
+          ${activeHotspot.model.scenarios
+            .map((scenario) => {
+              const active = scenario.id === activeScenario.id;
+              return `
+                <button
+                  class="map-scenario${active ? " is-active" : ""}"
+                  type="button"
+                  data-map-scenario="${escapeHtml(scenario.id)}"
+                  aria-pressed="${active}"
+                >
+                  ${escapeHtml(localizedValue(scenario.label))}
+                </button>
+              `;
+            })
+            .join("")}
+        </div>
+        <div class="model-meters">
+          ${activeHotspot.model.metrics[state.lang]
+            .map((metric, index) => {
+              const value = activeScenario.values[index];
+              return `
+                <div class="model-meter">
+                  <div>
+                    <span>${escapeHtml(metric)}</span>
+                    <strong>${value}%</strong>
+                  </div>
+                  <i style="width: ${value}%"></i>
+                </div>
+              `;
+            })
+            .join("")}
+        </div>
+        <div class="model-outcome">
+          <strong>${escapeHtml(t("learn.modelOutcome"))}</strong>
+          <p>${escapeHtml(localizedValue(activeScenario.outcome))}</p>
+        </div>
+      </section>
     </article>
   `;
 }
@@ -3118,6 +3355,15 @@ document.addEventListener("click", (event) => {
   const mapButton = event.target.closest("[data-map-hotspot]");
   if (mapButton) {
     state.activeMapHotspot = mapButton.dataset.mapHotspot;
+    const hotspot = mapHotspots.find((item) => item.id === state.activeMapHotspot);
+    state.activeMapScenario = hotspot?.model.scenarios[0]?.id || "";
+    renderLearningMap();
+    return;
+  }
+
+  const mapScenarioButton = event.target.closest("[data-map-scenario]");
+  if (mapScenarioButton) {
+    state.activeMapScenario = mapScenarioButton.dataset.mapScenario;
     renderLearningMap();
     return;
   }
