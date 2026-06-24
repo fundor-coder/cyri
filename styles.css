@@ -1498,49 +1498,48 @@ h3 {
   background-size: 54px 54px;
 }
 
-.map-land {
+.world-map {
   position: absolute;
-  border: 1px solid rgba(22, 131, 95, 0.12);
-  background:
-    linear-gradient(145deg, rgba(151, 199, 146, 0.72), rgba(224, 237, 179, 0.66)),
-    rgba(190, 215, 160, 0.72);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+  inset: 7% 4% 10%;
+  width: 92%;
+  height: 83%;
+  filter: drop-shadow(0 14px 24px rgba(27, 48, 65, 0.12));
 }
 
-.map-land-americas {
-  left: 14%;
-  top: 25%;
-  width: 25%;
-  height: 48%;
-  border-radius: 54% 38% 46% 52%;
-  transform: rotate(-12deg);
+.map-coast {
+  fill: rgba(133, 190, 137, 0.82);
+  stroke: rgba(22, 131, 95, 0.32);
+  stroke-width: 2.2;
+  vector-effect: non-scaling-stroke;
 }
 
-.map-land-eurasia {
-  left: 48%;
-  top: 22%;
-  width: 36%;
-  height: 30%;
-  border-radius: 48% 42% 38% 44%;
-  transform: rotate(4deg);
+.map-coast-muted {
+  fill: rgba(190, 215, 160, 0.62);
+  stroke: rgba(22, 131, 95, 0.2);
 }
 
-.map-land-africa {
-  left: 51%;
-  top: 48%;
-  width: 17%;
-  height: 31%;
-  border-radius: 46% 50% 56% 44%;
-  transform: rotate(8deg);
+.map-island {
+  fill: rgba(150, 198, 151, 0.76);
 }
 
-.map-land-australia {
-  left: 75%;
-  top: 66%;
-  width: 13%;
-  height: 12%;
-  border-radius: 48% 44% 52% 42%;
-  transform: rotate(-8deg);
+.map-instruction {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  left: 18px;
+  z-index: 2;
+  margin: 0;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 720;
+  padding: 8px 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(27, 48, 65, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .map-marker {
@@ -1647,6 +1646,111 @@ h3 {
   font-size: 0.76rem;
   font-weight: 740;
   padding: 6px 9px;
+}
+
+.map-model {
+  display: grid;
+  gap: 14px;
+  border-top: 1px solid rgba(18, 22, 29, 0.08);
+  padding-top: 18px;
+}
+
+.map-model-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.62fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.map-model-heading h4 {
+  margin: 0;
+  font-size: 1.08rem;
+}
+
+.map-model-heading small {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.map-scenario-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.map-scenario {
+  min-height: 44px;
+  border: 1px solid rgba(18, 22, 29, 0.08);
+  border-radius: var(--radius-xs);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 740;
+  line-height: 1.2;
+  padding: 8px 9px;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.map-scenario:hover,
+.map-scenario.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(22, 131, 95, 0.26);
+  background: rgba(227, 246, 238, 0.82);
+  color: var(--ink);
+}
+
+.model-meters {
+  display: grid;
+  gap: 10px;
+}
+
+.model-meter {
+  display: grid;
+  gap: 7px;
+}
+
+.model-meter > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 720;
+}
+
+.model-meter strong {
+  color: var(--green);
+  font-variant-numeric: tabular-nums;
+}
+
+.model-meter i {
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+  box-shadow: 0 5px 14px rgba(22, 131, 95, 0.16);
+  transition: width 260ms ease;
+}
+
+.model-outcome {
+  display: grid;
+  gap: 5px;
+  border-left: 3px solid var(--blue);
+  background: rgba(255, 255, 255, 0.45);
+  padding: 12px 14px;
+}
+
+.model-outcome strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+.model-outcome p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
 }
 
 .action-section {
@@ -3454,6 +3558,11 @@ body[data-audience="children"] .modal-body h3 {
     min-height: 380px;
   }
 
+  .map-model-heading,
+  .map-scenario-row {
+    grid-template-columns: 1fr;
+  }
+
   .topic-explorer {
     grid-template-columns: 1fr;
   }
@@ -3678,6 +3787,11 @@ body[data-audience="children"] .modal-body h3 {
     min-height: 430px;
   }
 
+  .world-map {
+    inset: 8% -15% 12%;
+    width: 130%;
+  }
+
   .map-marker {
     width: 104px;
   }
@@ -3685,6 +3799,12 @@ body[data-audience="children"] .modal-body h3 {
   .map-marker-label {
     font-size: 0.66rem;
     padding: 4px 6px;
+  }
+
+  .map-instruction {
+    right: 12px;
+    left: 12px;
+    white-space: normal;
   }
 
   .journey-topic-grid {
