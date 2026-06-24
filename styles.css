@@ -1258,6 +1258,455 @@ h3 {
   margin-top: 28px;
 }
 
+.explainer-tools-section {
+  padding-top: 76px;
+  padding-bottom: 76px;
+  border-top: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(135deg, rgba(245, 249, 246, 0.78), rgba(232, 240, 248, 0.48)),
+    rgba(255, 255, 255, 0.32);
+}
+
+.explainer-workbench {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.44fr) minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(230, 243, 248, 0.38)),
+    rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 30px 82px rgba(27, 48, 65, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(32px) saturate(185%);
+  -webkit-backdrop-filter: blur(32px) saturate(185%);
+}
+
+.explainer-tool-list {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  border-right: 1px solid rgba(18, 22, 29, 0.08);
+  background: rgba(255, 255, 255, 0.32);
+  padding: 18px;
+}
+
+.explainer-tool-button {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 3px 12px;
+  align-items: center;
+  min-height: 82px;
+  border: 1px solid rgba(18, 22, 29, 0.08);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 12px;
+  text-align: left;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+}
+
+.explainer-tool-button:hover,
+.explainer-tool-button.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(39, 116, 216, 0.28);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 247, 244, 0.62)),
+    rgba(255, 255, 255, 0.72);
+  box-shadow:
+    0 12px 28px rgba(27, 48, 65, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
+}
+
+.explainer-tool-button > span {
+  grid-row: 1 / 3;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(39, 116, 216, 0.11);
+  color: var(--blue);
+  font-size: 0.76rem;
+  font-weight: 790;
+}
+
+.explainer-tool-button strong {
+  font-size: 0.95rem;
+}
+
+.explainer-tool-button small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.explainer-tool-detail {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-height: 430px;
+  padding: 32px;
+}
+
+.explainer-tool-detail h3 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.explainer-tool-detail > p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.explainer-example,
+.explainer-steps {
+  display: grid;
+  gap: 8px;
+  border-left: 3px solid var(--green);
+  background: rgba(255, 255, 255, 0.44);
+  padding: 14px 16px;
+}
+
+.explainer-steps {
+  border-left-color: var(--blue);
+}
+
+.explainer-example strong,
+.explainer-steps strong {
+  color: var(--ink);
+  font-size: 0.86rem;
+}
+
+.explainer-example p,
+.explainer-steps ol {
+  margin: 0;
+  color: var(--muted);
+}
+
+.explainer-steps ol {
+  display: grid;
+  gap: 7px;
+  padding-left: 20px;
+}
+
+.map-lab-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(145deg, rgba(231, 246, 241, 0.52), rgba(232, 239, 250, 0.42)),
+    rgba(255, 255, 255, 0.24);
+}
+
+.map-lab {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.72fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.map-stage,
+.map-detail,
+.poll-panel,
+.action-card {
+  border: 1px solid var(--glass-edge);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(238, 247, 244, 0.48)),
+    rgba(255, 255, 255, 0.46);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(28px) saturate(175%);
+  -webkit-backdrop-filter: blur(28px) saturate(175%);
+}
+
+.map-stage {
+  position: relative;
+  min-height: 430px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(217, 238, 248, 0.92), rgba(230, 246, 242, 0.86)),
+    #dbeef4;
+}
+
+.map-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  background-image:
+    linear-gradient(rgba(18, 22, 29, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 22, 29, 0.09) 1px, transparent 1px);
+  background-size: 54px 54px;
+}
+
+.map-land {
+  position: absolute;
+  border: 1px solid rgba(22, 131, 95, 0.12);
+  background:
+    linear-gradient(145deg, rgba(151, 199, 146, 0.72), rgba(224, 237, 179, 0.66)),
+    rgba(190, 215, 160, 0.72);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.38);
+}
+
+.map-land-americas {
+  left: 14%;
+  top: 25%;
+  width: 25%;
+  height: 48%;
+  border-radius: 54% 38% 46% 52%;
+  transform: rotate(-12deg);
+}
+
+.map-land-eurasia {
+  left: 48%;
+  top: 22%;
+  width: 36%;
+  height: 30%;
+  border-radius: 48% 42% 38% 44%;
+  transform: rotate(4deg);
+}
+
+.map-land-africa {
+  left: 51%;
+  top: 48%;
+  width: 17%;
+  height: 31%;
+  border-radius: 46% 50% 56% 44%;
+  transform: rotate(8deg);
+}
+
+.map-land-australia {
+  left: 75%;
+  top: 66%;
+  width: 13%;
+  height: 12%;
+  border-radius: 48% 44% 52% 42%;
+  transform: rotate(-8deg);
+}
+
+.map-marker {
+  position: absolute;
+  z-index: 3;
+  left: var(--x);
+  top: var(--y);
+  display: grid;
+  gap: 7px;
+  width: 132px;
+  transform: translate(-50%, -50%);
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+  text-align: center;
+}
+
+.map-marker-dot {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  background: var(--blue);
+  box-shadow:
+    0 0 0 7px rgba(39, 116, 216, 0.16),
+    0 8px 18px rgba(27, 48, 65, 0.18);
+}
+
+.map-marker.is-active .map-marker-dot,
+.map-marker:hover .map-marker-dot {
+  background: var(--green);
+  box-shadow:
+    0 0 0 9px rgba(22, 131, 95, 0.2),
+    0 12px 24px rgba(27, 48, 65, 0.2);
+}
+
+.map-marker-label {
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 740;
+  line-height: 1.2;
+  padding: 5px 8px;
+  box-shadow: 0 8px 20px rgba(27, 48, 65, 0.1);
+}
+
+.map-detail {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  padding: 26px;
+}
+
+.map-tag {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(22, 131, 95, 0.11);
+  color: var(--green);
+  font-size: 0.76rem;
+  font-weight: 760;
+  padding: 7px 10px;
+}
+
+.map-detail h3 {
+  margin: 0;
+  font-size: 1.55rem;
+}
+
+.map-detail dl {
+  display: grid;
+  gap: 15px;
+  margin: 0;
+}
+
+.map-detail dt {
+  margin-bottom: 3px;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.map-detail dd {
+  margin: 0;
+  color: var(--muted);
+}
+
+.sdg-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.sdg-row span {
+  border-radius: 999px;
+  background: rgba(39, 116, 216, 0.1);
+  color: var(--blue);
+  font-size: 0.76rem;
+  font-weight: 740;
+  padding: 6px 9px;
+}
+
+.action-section {
+  padding-top: 76px;
+}
+
+.action-builder {
+  display: grid;
+  gap: 18px;
+}
+
+.action-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.action-card {
+  min-height: 190px;
+  padding: 20px;
+}
+
+.action-card > span {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: var(--blue);
+  font-weight: 780;
+}
+
+.action-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.poll-panel {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.55fr) minmax(0, 1fr) minmax(220px, 0.6fr);
+  gap: 22px;
+  align-items: start;
+  padding: 24px;
+}
+
+.poll-panel h3 {
+  margin-bottom: 8px;
+}
+
+.poll-panel p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.poll-options {
+  display: grid;
+  gap: 8px;
+}
+
+.poll-option {
+  display: grid;
+  gap: 2px;
+  border: 1px solid rgba(18, 22, 29, 0.09);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 12px 14px;
+  text-align: left;
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.poll-option:hover,
+.poll-option.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(22, 131, 95, 0.26);
+  background: rgba(230, 246, 239, 0.78);
+}
+
+.poll-option small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.poll-results {
+  display: grid;
+  gap: 11px;
+}
+
+.poll-result {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(18, 22, 29, 0.06);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 8px 9px 10px;
+}
+
+.poll-result i {
+  position: absolute;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
+}
+
+.poll-saved {
+  grid-column: 1 / -1;
+  color: var(--green) !important;
+  font-size: 0.82rem;
+  font-weight: 720;
+}
+
 .formats-section {
   margin-top: 72px;
 }
@@ -2910,7 +3359,8 @@ body[data-audience="children"] .modal-body h3 {
   .archive-grid,
   .team-grid,
   .learning-path-grid,
-  .format-grid {
+  .format-grid,
+  .action-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -2926,8 +3376,25 @@ body[data-audience="children"] .modal-body h3 {
   .contact-layout,
   .publish-layout,
   .research-tool,
-  .quiz-layout {
+  .quiz-layout,
+  .explainer-workbench,
+  .map-lab,
+  .poll-panel {
     grid-template-columns: 1fr;
+  }
+
+  .explainer-tool-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-right: 0;
+    border-bottom: 1px solid rgba(18, 22, 29, 0.08);
+  }
+
+  .explainer-tool-detail {
+    min-height: 0;
+  }
+
+  .map-stage {
+    min-height: 380px;
   }
 
   .topic-explorer {
@@ -3108,8 +3575,37 @@ body[data-audience="children"] .modal-body h3 {
   .team-grid,
   .form-grid,
   .learning-path-grid,
-  .format-grid {
+  .format-grid,
+  .action-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .explainer-tool-list {
+    grid-template-columns: 1fr;
+    padding: 14px;
+  }
+
+  .explainer-tool-button {
+    min-height: 74px;
+  }
+
+  .explainer-tool-detail,
+  .map-detail,
+  .poll-panel {
+    padding: 22px;
+  }
+
+  .map-stage {
+    min-height: 430px;
+  }
+
+  .map-marker {
+    width: 104px;
+  }
+
+  .map-marker-label {
+    font-size: 0.66rem;
+    padding: 4px 6px;
   }
 
   .journey-topic-grid {
