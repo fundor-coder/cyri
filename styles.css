@@ -81,8 +81,8 @@ label,
 input,
 textarea,
 select {
-  hyphens: none;
-  overflow-wrap: normal;
+  hyphens: auto;
+  overflow-wrap: anywhere;
   word-break: normal;
 }
 
@@ -92,6 +92,33 @@ textarea {
   max-width: 100%;
   font: inherit;
   letter-spacing: 0;
+}
+
+button,
+.button,
+.nav-links a,
+.nav-submenu a,
+.learning-path-card,
+.format-card,
+.topic-tab,
+.concept-button,
+.explainer-tool-button,
+.mission-focus-button,
+.mission-segment,
+.mission-pace,
+.mission-dashboard,
+.mission-kit,
+.mission-plan,
+.mission-kit-item,
+.mission-plan-list li,
+.map-detail,
+.map-scenario,
+.action-card,
+.poll-option,
+.quiz-option,
+.article-card {
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 img {
@@ -1350,6 +1377,7 @@ h3 {
 .mission-segment {
   display: grid;
   gap: 3px;
+  min-width: 0;
 }
 
 .mission-focus-button strong,
@@ -1458,6 +1486,7 @@ h3 {
 
 .mission-holo {
   position: relative;
+  isolation: isolate;
   display: grid;
   min-height: 320px;
   overflow: hidden;
@@ -1561,7 +1590,7 @@ h3 {
   top: var(--node-y);
   display: grid;
   width: 114px;
-  min-height: 70px;
+  min-height: 78px;
   transform: translate(-50%, -50%);
   align-content: center;
   gap: 3px;
@@ -1594,6 +1623,7 @@ h3 {
 .mission-node strong {
   font-size: 1.05rem;
   font-variant-numeric: tabular-nums;
+  min-width: 0;
 }
 
 .mission-node small {
@@ -1601,6 +1631,7 @@ h3 {
   font-size: 0.64rem;
   font-weight: 710;
   line-height: 1.15;
+  min-width: 0;
 }
 
 .mission-signal {
@@ -1676,6 +1707,7 @@ h3 {
 
 .mission-meter > div {
   display: flex;
+  align-items: start;
   justify-content: space-between;
   gap: 12px;
   color: var(--ink-soft);
@@ -1792,11 +1824,13 @@ h3 {
 }
 
 .mission-plan-list strong {
+  min-width: 0;
   color: var(--ink);
   font-size: 0.82rem;
 }
 
 .mission-plan-list span {
+  min-width: 0;
   color: var(--muted);
   font-size: 0.86rem;
 }
@@ -4183,7 +4217,7 @@ body[data-audience="children"] .modal-body h3 {
 
   .mission-node {
     width: 96px;
-    min-height: 62px;
+    min-height: 76px;
     padding: 8px;
   }
 

@@ -1,6 +1,6 @@
 # Climate Youth Research Initiative Website
 
-A bilingual, youth-led environmental education platform with an interactive mission lab, graphical impact cockpit, topic explorers, global map models, a knowledge quiz, structured article data, an article-based AI learning assistant, a protected publishing backend and responsive Apple-inspired styling. CYRI publishes educational content and does not conduct original research.
+A bilingual, youth-led environmental information platform for students with an interactive mission lab, graphical impact cockpit, topic explorers, global map models, a quiz, structured article data, an article-based CYRI assistant, a protected publishing backend and responsive Apple-inspired styling. CYRI publishes educational content and does not conduct original research.
 
 Run `npm start` and open `http://localhost:5173/` to view the site with the backend enabled.
 
@@ -9,18 +9,18 @@ Funding notice:
 - The supplied RGB funding logo remains unchanged, readable and displayed on a white background with protected spacing according to the funding guidelines.
 - The accompanying text names the programme “action! Aktiv für eine globale Welt” and the funding by DSEE with BMZ funds.
 
-Learning platform:
-- The `Learn` page puts interactive missions, models and experiments before passive reading.
+Student info experience:
+- The `Explore` page puts interactive missions, models and environmental facts before passive reading.
 - Visitors can switch between oceans, climate ecosystems and climate-ready cities.
 - Mission, quiz and discovery choices are stored locally in the visitor's browser.
-- The Mission Lab lets visitors combine an environmental challenge, learning role and time frame into a live model, animated impact cockpit, field kit, mini experiment, discussion prompt and action plan.
+- The Mission Lab lets visitors combine an environmental challenge, perspective and time frame into a live info model, animated impact cockpit, field kit, mini experiment, discussion prompt and action plan.
 - The knowledge check offers three selectable lengths with 3, 6 or 9 bilingual questions.
-- The CYRI AI learning assistant is integrated into the `Learn` page instead of appearing as a separate navigation item.
+- The CYRI assistant is integrated into the `Explore` page instead of appearing as a separate navigation item.
 - Each topic includes three interactive key-concept discoveries with animated explanations and locally saved discovery progress.
 - The explainer workbench adds child- and youth-friendly mini tools for simple language, cause chains, global links, fact checks and short-video planning.
-- The interactive learning map uses a clickable world map with hotspot-specific scenario models for climate, biodiversity, water and justice contexts, including SDG references and Global South examples.
+- The interactive world map uses clickable hotspots with scenario models for climate, biodiversity, water and justice contexts, including SDG references and Global South examples.
 - A local participation poll and action cards support low-threshold youth engagement without collecting personal data.
-- Articles remain the source-based foundation; infographics and social explainers are presented as additional educational formats.
+- Articles remain the source-based foundation; infographics and social explainers are presented as additional information formats.
 
 Backend routes:
 - `GET backend.php?route=/articles` returns published articles from `data/articles.json`.
@@ -36,7 +36,7 @@ Deployment:
 - Node hosting: upload the full folder, run `npm start`, and point the domain to the Node app. Set `CYRI_DATA_DIR` to a persistent server directory when the host uses ephemeral deployments.
 - PHP/Apache hosting: upload the full folder. The backend logic is in one file, `backend.php`. Make sure the `data` folder is writable; runtime JSON files are created automatically. `CYRI_DATA_DIR` can point to storage outside the deployment folder.
 - Static-only hosting is not enough for publishing, contact messages or AI answers, because those features need the backend.
-- GitHub Pages can display the frontend, but it cannot run the AI learning assistant or store published articles. Use the Node/Docker or PHP deployment as the production website when these functions must work.
+- GitHub Pages can display the frontend, but it cannot run the CYRI assistant or store published articles. Use the Node/Docker or PHP deployment as the production website when these functions must work.
 
 Scheduled publishing:
 - Select `Schedule for later` in the protected publishing editor and choose a local date and time.
@@ -49,7 +49,7 @@ AI translation:
 - The default model is `gpt-5.4-mini`. Override it with `OPENAI_TRANSLATION_MODEL` if needed.
 - Translation requests are sent only from the Node or PHP backend. Review every translation before publishing.
 
-AI learning assistant:
+CYRI assistant:
 - Set `OPENAI_API_KEY` in the server environment. The key stays in the Node or PHP backend and is never sent to visitors.
 - The backend selects up to three relevant published CYRI articles and instructs the model to answer only from that supplied material.
 - Answers include links back to the CYRI articles used. Unsupported questions should receive a clear statement that the available articles do not contain enough information.

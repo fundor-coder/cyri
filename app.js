@@ -54,7 +54,7 @@ const learningTopics = [
     articleId: "schwammstadt-regenwasser-hitze-2026",
     imageId: "sponge-city-rain-garden",
     title: bi("Cities & adaptation", "Städte & Anpassung"),
-    intro: bi("Learn how urban planning can respond to heat, heavy rain and drought at the same time.", "Lerne, wie Stadtplanung gleichzeitig auf Hitze, Starkregen und Trockenheit reagieren kann."),
+    intro: bi("See how urban planning can respond to heat, heavy rain and drought at the same time.", "Sieh dir an, wie Stadtplanung gleichzeitig auf Hitze, Starkregen und Trockenheit reagieren kann."),
     question: bi("What changes when a city treats rain as a resource?", "Was verändert sich, wenn eine Stadt Regen als Ressource behandelt?"),
     concepts: bi(["Rainwater storage","Urban heat","Climate adaptation"], ["Regenwasserspeicherung","Stadthitze","Klimaanpassung"]),
     facts: bi(["A sponge city keeps rain close to where it falls so it can infiltrate, evaporate or be reused instead of immediately entering drains.","Trees, planted areas and open water cool streets through shade and evaporation while sealed surfaces store heat.","The same green-blue infrastructure can reduce flood risk, heat and drought stress, making adaptation more efficient."], ["Eine Schwammstadt hält Regen dort zurück, wo er fällt. So kann er versickern, verdunsten oder genutzt werden, statt sofort in die Kanalisation zu fließen.","Bäume, bepflanzte Flächen und offenes Wasser kühlen durch Schatten und Verdunstung, während versiegelte Flächen Hitze speichern.","Dieselbe grün-blaue Infrastruktur kann Überflutungsrisiko, Hitze und Trockenstress gleichzeitig verringern."]),
@@ -293,8 +293,8 @@ const missionFocuses = [
       "Trenne Klimagefahr, Exposition, Verwundbarkeit und vorhandene Unterstützung, bevor du Lösungen vorschlägst."
     ),
     experiment: bi(
-      "Run a role debate with four seats: affected community, local government, high-emission country and youth group.",
-      "Führe eine Rollendebatte mit vier Sitzen: betroffene Gemeinschaft, lokale Regierung, emissionsstarkes Land und Jugendgruppe."
+      "Compare four viewpoints: affected community, local government, high-emission country and youth group.",
+      "Vergleiche vier Blickwinkel: betroffene Gemeinschaft, lokale Regierung, emissionsstarkes Land und Jugendgruppe."
     ),
     discussion: bi(
       "What makes climate help fair instead of paternalistic?",
@@ -339,12 +339,12 @@ const missionRoles = [
     id: "organiser",
     title: bi("Action organiser", "Aktionsplaner:in"),
     text: bi(
-      "Turn knowledge into a realistic school or youth-group step.",
-      "Macht aus Wissen einen realistischen Schritt für Schule oder Jugendgruppe."
+      "Turn information into a realistic step for your class, group or channel.",
+      "Macht aus Informationen einen realistischen Schritt für Klasse, Gruppe oder Kanal."
     ),
     action: bi(
-      "Write a one-page plan with goal, people, material, time and first next step.",
-      "Schreibe einen Ein-Seiten-Plan mit Ziel, Menschen, Material, Zeit und erstem nächsten Schritt."
+      "Write a short action card with goal, people, material, time and first next step.",
+      "Schreibe eine kurze Aktionskarte mit Ziel, Menschen, Material, Zeit und erstem nächsten Schritt."
     ),
     boosts: [8, 12, 10, 14],
   },
@@ -366,15 +366,15 @@ const missionRoles = [
 const missionPaces = [
   {
     id: "spark",
-    title: bi("15 min spark", "15-Minuten-Start"),
-    text: bi("A quick classroom or youth-group impulse.", "Ein kurzer Impuls für Klasse oder Jugendgruppe."),
+    title: bi("15 min quick check", "15-Minuten-Check"),
+    text: bi("A quick fact check you can do with others.", "Ein schneller Faktencheck, den du mit anderen machen kannst."),
     deliverable: bi("One question, one model, one next step.", "Eine Frage, ein Modell, ein nächster Schritt."),
     boosts: [4, 2, 2, 2],
   },
   {
-    id: "lesson",
-    title: bi("45 min lesson", "45-Minuten-Lerneinheit"),
-    text: bi("A complete session with evidence and discussion.", "Eine komplette Einheit mit Belegen und Diskussion."),
+    id: "deep-dive",
+    title: bi("45 min deep dive", "45-Minuten-Deep-Dive"),
+    text: bi("A focused deep dive with evidence and discussion.", "Ein fokussierter Deep-Dive mit Belegen und Diskussion."),
     deliverable: bi("A mini poster with evidence, model and action.", "Ein Mini-Plakat mit Beleg, Modell und Handlung."),
     boosts: [8, 7, 6, 6],
   },
@@ -382,7 +382,7 @@ const missionPaces = [
     id: "project",
     title: bi("1 week project", "1-Wochen-Projekt"),
     text: bi("A deeper group project with a visible outcome.", "Ein vertieftes Gruppenprojekt mit sichtbarem Ergebnis."),
-    deliverable: bi("A public learning product or school proposal.", "Ein öffentliches Lernprodukt oder Schulvorschlag."),
+    deliverable: bi("A public info post or action idea.", "Ein öffentlicher Infopost oder eine Aktionsidee."),
     boosts: [12, 12, 12, 14],
   },
 ];
@@ -680,8 +680,8 @@ const actionCards = [
   {
     title: bi("Invite participation", "Beteiligung ermöglichen"),
     text: bi(
-      "Choose formats that work for different ages, language levels and learning needs.",
-      "Wähle Formate, die für verschiedene Altersgruppen, Sprachniveaus und Lernbedarfe funktionieren."
+      "Choose formats that work for different ages, language levels and info needs.",
+      "Wähle Formate, die für verschiedene Altersgruppen, Sprachniveaus und Informationsbedarfe funktionieren."
     ),
   },
 ];
@@ -700,7 +700,7 @@ const pollOptions = [
   {
     id: "school",
     title: bi("School actions", "Schulaktionen"),
-    text: bi("Turn learning into small group projects.", "Lernen in kleine Gruppenprojekte übersetzen."),
+    text: bi("Turn environmental information into small group projects.", "Umweltinformationen in kleine Gruppenprojekte übersetzen."),
   },
 ];
 
@@ -846,15 +846,15 @@ const content = {
     seo: {
       title: "CYRI | Youth-led environmental education",
       description:
-        "CYRI is a youth-led digital learning platform for climate, nature and environmental protection.",
+        "CYRI is a youth-led digital info platform for climate, nature and environmental protection.",
       pages: {
         home: {
           title: "CYRI | Youth-led environmental education",
           description:
-            "Explore understandable articles, interactive learning paths and educational formats on climate, nature and environmental protection.",
+            "Explore understandable articles, interactive missions and environmental info formats on climate, nature and environmental protection.",
         },
         learn: {
-          title: "Learn | CYRI",
+          title: "Explore | CYRI",
           description:
             "Explore CYRI's environmental mission lab, interactive models, global maps and knowledge challenges.",
         },
@@ -864,14 +864,14 @@ const content = {
             "Read CYRI articles on climate policy, renewable energy, biodiversity, marine protection and sustainable cities.",
         },
         research: {
-          title: "Learning Assistant | CYRI",
+          title: "CYRI Assistant | CYRI",
           description:
-            "Ask questions and receive AI-assisted answers based only on published CYRI articles.",
+            "Ask questions and receive AI-assisted answers based only on published CYRI environmental articles.",
         },
         about: {
           title: "About | CYRI",
           description:
-            "Learn about CYRI, a two-person youth-led environmental education platform currently in development in Germany.",
+            "Read about CYRI, a two-person youth-led environmental info platform currently in development in Germany.",
         },
         publish: {
           title: "Publish | CYRI",
@@ -898,31 +898,31 @@ const content = {
     nav: {
       home: "Home",
       mission: "Mission",
-      learn: "Learn",
+      learn: "Explore",
       articles: "Articles",
       research: "Ask CYRI",
-      learnMenu: "Learning menu",
+      learnMenu: "Info menu",
       learnOverview: "Overview",
       learnMission: "Mission Lab",
       learnTopics: "Topics",
-      learnTools: "Explainer tools",
+      learnTools: "Info tools",
       learnMap: "World map",
-      learnQuiz: "Knowledge check",
-      learningArticles: "Learning articles",
+      learnQuiz: "Quiz",
+      learningArticles: "Info articles",
       about: "About",
       publish: "Publish",
       contact: "Contact",
     },
     audience: {
-      gateEyebrow: "Set your learning level",
-      gateTitle: "Who is learning today?",
+      gateEyebrow: "Choose your view",
+      gateTitle: "How much detail do you want?",
       gateIntro:
-        "Choose once so CYRI can adapt explanations and articles. You can change this setting at any time.",
-      children: "Children",
+        "Choose once so CYRI can show explanations and articles in the right level of detail. You can change this setting at any time.",
+      children: "Short & clear",
       childrenDescription: "Shorter sentences, clear examples and compact articles.",
-      adults: "Adults",
+      adults: "More detail",
       adultsDescription: "Full explanations, terminology and complete articles.",
-      switchLabel: "Learning level",
+      switchLabel: "Info style",
       articleLabel: "Article version",
       childrenNote: "Clear and compact. The sources are the same as in the full article.",
       adultsNote: "Complete article with all details and terminology.",
@@ -932,26 +932,26 @@ const content = {
         "This shorter version selects the central ideas from the full article.",
       learning: {
         children: {
-          title: "Environmental knowledge, explained step by step.",
+          title: "Environmental info you can click through.",
           intro:
             "Choose a mission, test choices and see what changes in nature, cities and communities.",
-          journeyTitle: "Your discovery path.",
+          journeyTitle: "Your discovery board.",
           journeyIntro:
-            "Explore a topic, read its short article and check what you remember. Your progress is saved on this device.",
+            "Open a topic, read the short article and test facts in the quiz. Your choices stay on this device.",
           topicsTitle: "What would you like to discover?",
           quizTitle: "What did you discover?",
-          quizIntro: "Choose between 3, 6 or 9 questions and test your knowledge.",
+          quizIntro: "Choose between 3, 6 or 9 questions and check the facts.",
         },
         adults: {
-          title: "Environmental knowledge that you can explore.",
+          title: "Environmental info you can explore.",
           intro:
             "Start with a mission, test models, compare choices and continue with source-based articles.",
-          journeyTitle: "Learn at your own pace.",
+          journeyTitle: "Choose your next move.",
           journeyIntro:
-            "Explore a topic, open its learning article and complete the knowledge check. Your progress is saved on this device.",
+            "Explore a topic, open its article and complete the quiz. Your choices stay on this device.",
           topicsTitle: "What do you want to understand?",
           quizTitle: "What stayed with you?",
-          quizIntro: "Choose how deeply you want to test your knowledge.",
+          quizIntro: "Choose how many questions you want to answer.",
         },
       },
     },
@@ -960,16 +960,16 @@ const content = {
       title: "Understand the environment. Question it. Help shape it.",
       subtitle:
         "We are building a digital youth platform for environmental education where young people publish clear articles, infographics and social media posts about climate, nature and environmental protection.",
-      primaryCta: "Start learning",
+      primaryCta: "Start exploring",
       secondaryCta: "Read articles",
       imageAlt: "Bleached coral reef",
     },
     learningIntro: {
-      eyebrow: "Learn actively",
-      title: "From reading to understanding.",
+      eyebrow: "Explore actively",
+      title: "From reading to seeing connections.",
       intro:
-        "Choose a topic, ask questions and check what you have learned. CYRI connects reliable information with interactive environmental education.",
-      cta: "Explore the learning platform",
+        "Choose a topic, ask questions and connect reliable information with interactive environmental facts.",
+      cta: "Explore CYRI info tools",
       paths: [
         {
           step: "01",
@@ -984,7 +984,7 @@ const content = {
         {
           step: "03",
           title: "Check",
-          text: "Test your understanding with short knowledge checks and explanations.",
+          text: "Check facts with short quizzes and explanations.",
         },
       ],
     },
@@ -999,11 +999,11 @@ const content = {
       focus: [
         {
           title: "Understandable knowledge",
-          text: "We turn complex environmental topics into precise, accessible learning content.",
+          text: "We turn complex environmental topics into precise, accessible information.",
         },
         {
-          title: "Interactive learning",
-          text: "Topic explorers, questions and quizzes help readers engage with information actively.",
+          title: "Interactive information",
+          text: "Topic explorers, questions and quizzes help readers connect information actively.",
         },
         {
           title: "Youth perspectives",
@@ -1012,27 +1012,27 @@ const content = {
       ],
     },
     latest: {
-      eyebrow: "New learning content",
-      title: "Latest learning articles",
-      intro: "New source-based CYRI learning articles appear here automatically.",
-      viewAll: "View all learning articles",
+      eyebrow: "New environmental info",
+      title: "Latest info articles",
+      intro: "New source-based CYRI info articles appear here automatically.",
+      viewAll: "View all info articles",
     },
     learn: {
-      eyebrow: "Learning platform",
-      title: "Environmental knowledge that you can explore.",
+      eyebrow: "For students",
+      title: "Environmental info you can explore.",
       intro:
         "Start with a mission, test models, compare choices and continue with source-based articles.",
       topicsEyebrow: "Choose a topic",
       topicsTitle: "What do you want to understand?",
-      topicsAria: "Learning topics",
+      topicsAria: "Environmental topics",
       journeyEyebrow: "Mission board",
       journeyTitle: "Choose your next move.",
       journeyIntro:
-        "Explore a topic, open its learning article and complete the knowledge check. Your progress is saved on this device.",
+        "Explore a topic, open its info article and complete the quiz. Your choices stay on this device.",
       journeyProgress: "Overall progress",
       journeySaved: "Saved locally on this device",
       journeyExplored: "Topic explored",
-      journeyArticle: "Learning article opened",
+      journeyArticle: "Info article opened",
       journeyQuiz: "Knowledge check completed",
       journeyNext: "Recommended next step",
       journeyExploreAction: "Explore {topic}",
@@ -1042,7 +1042,7 @@ const content = {
       journeyMissionAction: "Build mission",
       journeyCompleteTitle: "Mission board completed.",
       journeyCompleteText:
-        "You explored every topic, opened all three learning articles, completed the knowledge check and saved a mission.",
+        "You explored every topic, opened all three info articles, completed the quiz and saved a mission.",
       journeyReset: "Reset progress",
       journeyStatus: "{complete} of {total} steps",
       guidingQuestion: "Guiding question",
@@ -1051,36 +1051,36 @@ const content = {
       discoverEyebrow: "Aha moment",
       discoverProgress: "{complete} of {total} discovered",
       labEyebrow: "Cause & effect lab",
-      openArticle: "Open learning article",
+      openArticle: "Open info article",
       askAssistant: "Ask CYRI",
-      toolsEyebrow: "Explainer tools",
+      toolsEyebrow: "Info tools",
       toolsTitle: "Understand, compare, explain.",
       toolsIntro:
-        "Use short learning tools to turn environmental topics into simple explanations, discussion questions and source-based mini formats.",
-      toolsPrompt: "Learning prompt",
+        "Use short info tools to turn environmental topics into simple explanations, discussion questions and source-based mini formats.",
+      toolsPrompt: "Info prompt",
       toolsExample: "Example output",
-      toolsSteps: "Mini method",
+      toolsSteps: "Steps",
       missionEyebrow: "Mission control",
       missionTitle: "Build your own environmental mission.",
       missionIntro:
-        "Choose a real environmental challenge, switch roles and timeframes, then get a ready-to-use learning mission with models, experiments and action steps.",
+        "Choose a real environmental challenge, switch perspectives and timeframes, then get an info mission with models, experiments and action steps.",
       missionFocusLabel: "Choose challenge",
-      missionRoleLabel: "Choose role",
+      missionRoleLabel: "Choose perspective",
       missionPaceLabel: "Choose time",
-      missionModelTitle: "Live learning model",
+      missionModelTitle: "Live info model",
       missionImpactMap: "Impact cockpit",
       missionImpactScore: "mission strength",
       missionMeters: ["Understanding", "Ecosystem effect", "Community link", "Action power"],
       missionModelNote:
-        "This is a learning model. It turns your choices into a visible plan, not into measured live data.",
+        "This info model turns your choices into a visible overview, not into measured live data.",
       missionKitTitle: "Field kit",
       missionPlanTitle: "Mission plan",
       missionEvidence: "Evidence to look for",
       missionExperiment: "Mini experiment",
       missionDiscussion: "Discussion question",
       missionShare: "Post idea",
-      missionRoleAction: "Role move",
-      missionDeliverable: "Output",
+      missionRoleAction: "Next move",
+      missionDeliverable: "Result",
       missionOpenTopic: "Open topic",
       missionOpenArticle: "Read article",
       missionAskAssistant: "Ask CYRI",
@@ -1090,22 +1090,22 @@ const content = {
       mapTitle: "Click through the world map and test models.",
       mapIntro:
         "Choose a place, compare model scenarios and explore how climate, water, biodiversity and justice connect Germany with regions of the Global South.",
-      mapAria: "Interactive learning map with global environmental hotspots",
+      mapAria: "Interactive world map with global environmental hotspots",
       mapChallenge: "Challenge",
       mapConnection: "Global connection",
-      mapAction: "Learning action",
+      mapAction: "What to check",
       mapOpenModel: "Click a place and test a model.",
       modelChoose: "Choose a model scenario",
       modelOutcome: "Model result",
       modelNote:
-        "These models are learning simulations. They show relationships, not measured live data.",
+        "These info simulations show relationships, not measured live data.",
       actionEyebrow: "Take part",
       actionTitle: "From knowledge to action.",
       actionIntro:
-        "CYRI turns learning into small, realistic next steps for school, youth groups and social media.",
+        "CYRI turns environmental information into small, realistic next steps for school, youth groups and social media.",
       pollTitle: "What should CYRI build next?",
       pollIntro: "Your choice is saved only on this device.",
-      pollSaved: "Saved as your learning priority.",
+      pollSaved: "Saved as your info priority.",
       formatsEyebrow: "Formats",
       formatsTitle: "Knowledge for different contexts.",
       formatsIntro:
@@ -1113,7 +1113,7 @@ const content = {
       formats: [
         {
           status: "Available now",
-          title: "Learning articles",
+          title: "Info articles",
           text: "Source-based long-form explanations with clear structure and further reading.",
         },
         {
@@ -1129,7 +1129,7 @@ const content = {
       ],
       quizEyebrow: "Knowledge check",
       quizTitle: "What stayed with you?",
-      quizIntro: "Choose how deeply you want to test your knowledge.",
+      quizIntro: "Choose how many questions you want to answer.",
       quizLengthLabel: "Quiz length",
       quizLengths: [
         { value: 3, title: "Quick", text: "3 questions" },
@@ -1143,12 +1143,12 @@ const content = {
       finish: "Show result",
       resultTitle: "Your result",
       resultText: "You answered {score} of {total} questions correctly.",
-      resultStrong: "Strong foundation. Continue with a new topic or ask a deeper question.",
-      resultDeveloping: "A good start. The linked learning articles explain each answer in more depth.",
+      resultStrong: "Strong result. Continue with a new topic or ask a deeper question.",
+      resultDeveloping: "A good start. The linked info articles explain each answer in more depth.",
       restart: "Restart quiz",
     },
     articles: {
-      eyebrow: "Learning articles",
+      eyebrow: "Info articles",
       title: "Environmental topics, explained clearly.",
       intro:
         "Explore source-based CYRI articles on climate, nature, marine protection, renewable energy, biodiversity and sustainable cities.",
@@ -1169,10 +1169,10 @@ const content = {
       noResults: "No older articles match this category yet.",
     },
     research: {
-      eyebrow: "Learning assistant",
-      title: "Ask questions about CYRI learning content.",
+      eyebrow: "CYRI assistant",
+      title: "Ask questions about CYRI environmental info.",
       intro:
-        "Receive concise AI-assisted explanations based only on published CYRI learning articles.",
+        "Receive concise AI-assisted explanations based only on published CYRI info articles.",
       questionLabel: "Your question",
       questionPlaceholder: "What does coral bleaching have to do with climate change?",
       submit: "Ask CYRI",
@@ -1183,7 +1183,7 @@ const content = {
       privacyNote:
         "Your question is sent to the configured AI provider for processing. Do not enter personal or confidential information.",
       missing: "Enter a question with at least five characters.",
-      unavailable: "The AI learning assistant is not configured on the server yet.",
+      unavailable: "The CYRI assistant is not configured on the server yet.",
       rateLimited: "Too many questions were submitted. Please try again in a few minutes.",
       error: "The question could not be answered. Please try again later.",
     },
@@ -1195,14 +1195,14 @@ const content = {
       storyOne:
         "CYRI helps young people understand environmental topics, evaluate public debates and participate in sustainability conversations with confidence.",
       storyTwo:
-        "The platform combines careful editorial work, accessible writing, transparent sourcing and interactive learning formats.",
+        "The platform combines careful editorial work, accessible writing, transparent sourcing and interactive info formats.",
       teamEyebrow: "Team",
       teamTitle: "Core team",
       team: [
         {
           name: "Tobias Göppert",
           role: "Co-founder & education lead",
-          text: "Co-founded CYRI and leads educational direction, editorial standards, learning formats and source-based environmental content.",
+          text: "Co-founded CYRI and leads educational direction, editorial standards, info formats and source-based environmental content.",
         },
         {
           name: "Jarne Bub",
@@ -1232,7 +1232,7 @@ const content = {
     },
     publish: {
       eyebrow: "Publish",
-      title: "Publish a CYRI learning article.",
+      title: "Publish a CYRI info article.",
       intro: "Add new source-based environmental education content with the protected editor.",
       panelEyebrow: "Editor access",
       panelTitle: "Protected publishing backend.",
@@ -1323,7 +1323,7 @@ const content = {
         "This website sends contact messages and protected publishing requests to the CYRI backend.",
       localDataTitle: "Backend data",
       localDataText:
-        "Contact messages are stored on the server for processing. Published articles are stored in the article backend. Questions entered in the learning assistant are sent to the configured AI provider for processing. A complete privacy policy should be finalized before public launch.",
+        "Contact messages are stored on the server for processing. Published articles are stored in the article backend. Questions entered in the CYRI assistant are sent to the configured AI provider for processing. A complete privacy policy should be finalized before public launch.",
     },
     footer: {
       statement: "Youth-led environmental education for a more sustainable future.",
@@ -1349,7 +1349,7 @@ const content = {
     seo: {
       title: "CYRI | Jugendgeführte Umweltbildung",
       description:
-        "CYRI ist eine jugendgeführte digitale Lernplattform für Klima-, Natur- und Umweltschutz.",
+        "CYRI ist eine jugendgeführte digitale Infoplattform für Klima-, Natur- und Umweltschutz.",
       pages: {
         home: {
           title: "CYRI | Jugendgeführte Umweltbildung",
@@ -1357,7 +1357,7 @@ const content = {
             "Entdecke verständliche Artikel, interaktive Missionen und Bildungsformate zu Klima-, Natur- und Umweltschutz.",
         },
         learn: {
-          title: "Lernen | CYRI",
+          title: "Entdecken | CYRI",
           description:
             "Entdecke CYRIs Umwelt-Mission-Lab, interaktive Modelle, globale Karten und Wissenschallenges.",
         },
@@ -1367,7 +1367,7 @@ const content = {
             "Lies CYRI-Artikel zu Klimapolitik, erneuerbarer Energie, Biodiversität, Meeresschutz und nachhaltigen Städten.",
         },
         research: {
-          title: "Lernassistent | CYRI",
+          title: "CYRI-Assistent | CYRI",
           description:
             "Stelle Fragen und erhalte KI-gestützte Antworten auf Basis veröffentlichter CYRI-Artikel.",
         },
@@ -1401,31 +1401,31 @@ const content = {
     nav: {
       home: "Start",
       mission: "Mission",
-      learn: "Lernen",
+      learn: "Entdecken",
       articles: "Artikel",
       research: "CYRI fragen",
-      learnMenu: "Lernmenü",
+      learnMenu: "Info-Menü",
       learnOverview: "Übersicht",
       learnMission: "Mission Lab",
       learnTopics: "Themen",
-      learnTools: "Erklärtools",
+      learnTools: "Infotools",
       learnMap: "Weltkarte",
-      learnQuiz: "Wissenscheck",
-      learningArticles: "Lernartikel",
+      learnQuiz: "Quiz",
+      learningArticles: "Infoartikel",
       about: "Über uns",
       publish: "Publizieren",
       contact: "Kontakt",
     },
     audience: {
-      gateEyebrow: "Lernniveau festlegen",
-      gateTitle: "Wer lernt heute?",
+      gateEyebrow: "Ansicht wählen",
+      gateTitle: "Wie viele Details möchtest du?",
       gateIntro:
-        "Wähle einmal aus, damit CYRI Erklärungen und Artikel passend darstellen kann. Du kannst die Einstellung jederzeit ändern.",
-      children: "Kinder",
+        "Wähle einmal aus, damit CYRI Erklärungen und Artikel passend darstellt. Du kannst die Einstellung jederzeit ändern.",
+      children: "Kurz & klar",
       childrenDescription: "Kürzere Sätze, klare Beispiele und kompakte Artikel.",
-      adults: "Erwachsene",
+      adults: "Mehr Details",
       adultsDescription: "Vollständige Erklärungen, Fachbegriffe und komplette Artikel.",
-      switchLabel: "Lernniveau",
+      switchLabel: "Info-Stil",
       articleLabel: "Artikelversion",
       childrenNote: "Klar und kompakt. Die Quellen sind dieselben wie im vollständigen Artikel.",
       adultsNote: "Vollständiger Artikel mit allen Details und Fachbegriffen.",
@@ -1435,26 +1435,26 @@ const content = {
         "Diese kürzere Version wählt die zentralen Gedanken aus dem vollständigen Artikel aus.",
       learning: {
         children: {
-          title: "Umweltwissen Schritt für Schritt erklärt.",
+          title: "Umweltinfos zum Durchklicken.",
           intro:
             "Wähle eine Mission, teste Entscheidungen und sieh, was sich in Natur, Städten und Gemeinschaften verändert.",
-          journeyTitle: "Dein Entdeckerpfad.",
+          journeyTitle: "Dein Entdecker-Board.",
           journeyIntro:
-            "Erkunde ein Thema, lies den kurzen Artikel und prüfe, was du dir gemerkt hast. Dein Fortschritt wird auf diesem Gerät gespeichert.",
+            "Öffne ein Thema, lies den kurzen Artikel und prüfe Fakten im Quiz. Deine Auswahl bleibt auf diesem Gerät.",
           topicsTitle: "Was möchtest du entdecken?",
           quizTitle: "Was hast du entdeckt?",
-          quizIntro: "Wähle 3, 6 oder 9 Fragen und teste dein Wissen.",
+          quizIntro: "Wähle 3, 6 oder 9 Fragen und checke die Fakten.",
         },
         adults: {
-          title: "Umweltwissen, das du selbst erkunden kannst.",
+          title: "Umweltinfos, die du selbst erkunden kannst.",
           intro:
             "Starte mit einer Mission, teste Modelle, vergleiche Entscheidungen und vertiefe das Thema mit quellenbasierten Artikeln.",
-          journeyTitle: "Lerne in deinem eigenen Tempo.",
+          journeyTitle: "Wähle deinen nächsten Zug.",
           journeyIntro:
-            "Erkunde ein Thema, öffne den passenden Lernartikel und absolviere den Wissenscheck. Dein Fortschritt wird auf diesem Gerät gespeichert.",
+            "Erkunde ein Thema, öffne den passenden Artikel und mache das Quiz. Deine Auswahl bleibt auf diesem Gerät.",
           topicsTitle: "Was möchtest du verstehen?",
           quizTitle: "Was ist hängen geblieben?",
-          quizIntro: "Wähle selbst, wie ausführlich du dein Wissen prüfen möchtest.",
+          quizIntro: "Wähle selbst, wie viele Fragen du beantworten möchtest.",
         },
       },
     },
@@ -1463,16 +1463,16 @@ const content = {
       title: "Umwelt verstehen. Hinterfragen. Mitgestalten.",
       subtitle:
         "Wir bauen eine digitale Jugendplattform für Umweltbildung auf, auf der junge Menschen verständliche Artikel, Infografiken und Social-Media-Beiträge zu Klima-, Natur- und Umweltschutz veröffentlichen.",
-      primaryCta: "Jetzt lernen",
+      primaryCta: "Jetzt entdecken",
       secondaryCta: "Artikel lesen",
       imageAlt: "Gebleichter Korallenriffbereich",
     },
     learningIntro: {
-      eyebrow: "Aktiv lernen",
-      title: "Vom Lesen zum Verstehen.",
+      eyebrow: "Aktiv entdecken",
+      title: "Vom Lesen zu echten Zusammenhängen.",
       intro:
-        "Wähle ein Thema, stelle Fragen und überprüfe dein Wissen. CYRI verbindet verlässliche Informationen mit interaktiver Umweltbildung.",
-      cta: "Lernplattform entdecken",
+        "Wähle ein Thema, stelle Fragen und verbinde verlässliche Informationen mit interaktiven Umweltfakten.",
+      cta: "CYRI-Infotools entdecken",
       paths: [
         {
           step: "01",
@@ -1487,7 +1487,7 @@ const content = {
         {
           step: "03",
           title: "Überprüfen",
-          text: "Teste dein Verständnis mit kurzen Wissensfragen und Erklärungen.",
+          text: "Checke Fakten mit kurzen Quizfragen und Erklärungen.",
         },
       ],
     },
@@ -1502,11 +1502,11 @@ const content = {
       focus: [
         {
           title: "Verständliches Wissen",
-          text: "Wir machen komplexe Umweltthemen in präzisen und zugänglichen Lerninhalten verständlich.",
+          text: "Wir machen komplexe Umweltthemen mit präzisen und zugänglichen Informationen verständlich.",
         },
         {
-          title: "Interaktives Lernen",
-          text: "Themenexplorer, Fragen und Quizze helfen dabei, Informationen aktiv zu verarbeiten.",
+          title: "Interaktive Infos",
+          text: "Themenexplorer, Fragen und Quizze helfen dabei, Informationen aktiv zu verbinden.",
         },
         {
           title: "Jugendliche Perspektiven",
@@ -1515,27 +1515,27 @@ const content = {
       ],
     },
     latest: {
-      eyebrow: "Neue Lerninhalte",
-      title: "Neueste Lernartikel",
-      intro: "Neue quellenbasierte CYRI-Lernartikel erscheinen hier automatisch.",
-      viewAll: "Alle Lernartikel ansehen",
+      eyebrow: "Neue Umweltinfos",
+      title: "Neueste Infoartikel",
+      intro: "Neue quellenbasierte CYRI-Infoartikel erscheinen hier automatisch.",
+      viewAll: "Alle Infoartikel ansehen",
     },
     learn: {
-      eyebrow: "Lernplattform",
-      title: "Umweltwissen, das du selbst erkunden kannst.",
+      eyebrow: "Für Schüler:innen",
+      title: "Umweltinfos, die du selbst erkunden kannst.",
       intro:
         "Starte mit einer Mission, teste Modelle, vergleiche Entscheidungen und vertiefe das Thema mit quellenbasierten Artikeln.",
       topicsEyebrow: "Thema wählen",
       topicsTitle: "Was möchtest du verstehen?",
-      topicsAria: "Lernthemen",
+      topicsAria: "Umweltthemen",
       journeyEyebrow: "Mission Board",
       journeyTitle: "Wähle deinen nächsten Zug.",
       journeyIntro:
-        "Erkunde ein Thema, öffne den passenden Lernartikel und absolviere den Wissenscheck. Dein Fortschritt wird auf diesem Gerät gespeichert.",
+        "Erkunde ein Thema, öffne den passenden Infoartikel und mache das Quiz. Deine Auswahl bleibt auf diesem Gerät.",
       journeyProgress: "Gesamtfortschritt",
       journeySaved: "Lokal auf diesem Gerät gespeichert",
       journeyExplored: "Thema erkundet",
-      journeyArticle: "Lernartikel geöffnet",
+      journeyArticle: "Infoartikel geöffnet",
       journeyQuiz: "Wissenscheck abgeschlossen",
       journeyNext: "Empfohlener nächster Schritt",
       journeyExploreAction: "{topic} erkunden",
@@ -1545,7 +1545,7 @@ const content = {
       journeyMissionAction: "Mission bauen",
       journeyCompleteTitle: "Mission Board abgeschlossen.",
       journeyCompleteText:
-        "Du hast alle Themen erkundet, alle drei Lernartikel geöffnet, den Wissenscheck abgeschlossen und eine Mission gespeichert.",
+        "Du hast alle Themen erkundet, alle drei Infoartikel geöffnet, das Quiz abgeschlossen und eine Mission gespeichert.",
       journeyReset: "Fortschritt zurücksetzen",
       journeyStatus: "{complete} von {total} Schritten",
       guidingQuestion: "Leitfrage",
@@ -1554,36 +1554,36 @@ const content = {
       discoverEyebrow: "Aha-Moment",
       discoverProgress: "{complete} von {total} entdeckt",
       labEyebrow: "Ursache-Wirkungs-Labor",
-      openArticle: "Lernartikel öffnen",
+      openArticle: "Infoartikel öffnen",
       askAssistant: "CYRI fragen",
-      toolsEyebrow: "Erklärtools",
+      toolsEyebrow: "Infotools",
       toolsTitle: "Verstehen, vergleichen, erklären.",
       toolsIntro:
-        "Nutze kurze Lernwerkzeuge, um Umweltthemen in einfache Erklärungen, Diskussionsfragen und quellenbasierte Mini-Formate zu übersetzen.",
-      toolsPrompt: "Lernimpuls",
+        "Nutze kurze Infotools, um Umweltthemen in einfache Erklärungen, Diskussionsfragen und quellenbasierte Mini-Formate zu übersetzen.",
+      toolsPrompt: "Infoimpuls",
       toolsExample: "Beispiel-Ausgabe",
-      toolsSteps: "Mini-Methode",
+      toolsSteps: "Schritte",
       missionEyebrow: "Mission Control",
       missionTitle: "Baue deine eigene Umweltmission.",
       missionIntro:
-        "Wähle eine echte Umweltherausforderung, wechsle Rollen und Zeitrahmen und erhalte eine fertige Lernmission mit Modellen, Experimenten und Handlungsschritten.",
+        "Wähle eine echte Umweltherausforderung, wechsle Blickwinkel und Zeitrahmen und erhalte eine Infomission mit Modellen, Experimenten und Handlungsschritten.",
       missionFocusLabel: "Herausforderung wählen",
-      missionRoleLabel: "Rolle wählen",
+      missionRoleLabel: "Blickwinkel wählen",
       missionPaceLabel: "Zeit wählen",
-      missionModelTitle: "Live-Lernmodell",
+      missionModelTitle: "Live-Infomodell",
       missionImpactMap: "Impact-Cockpit",
       missionImpactScore: "Missionsstärke",
-      missionMeters: ["Verstehen", "Ökosystemwirkung", "Gemeinschaftsbezug", "Handlungskraft"],
+      missionMeters: ["Faktenlage", "Ökosystemwirkung", "Gemeinschaftsbezug", "Handlungsoptionen"],
       missionModelNote:
-        "Das ist ein Lernmodell. Es macht deine Auswahl als Plan sichtbar, nutzt aber keine live gemessenen Daten.",
+        "Dieses Infomodell macht deine Auswahl sichtbar, nutzt aber keine live gemessenen Daten.",
       missionKitTitle: "Forschungs-Kit",
       missionPlanTitle: "Missionsplan",
       missionEvidence: "Belege suchen",
       missionExperiment: "Mini-Experiment",
       missionDiscussion: "Diskussionsfrage",
       missionShare: "Post-Idee",
-      missionRoleAction: "Rollen-Schritt",
-      missionDeliverable: "Ergebnis",
+      missionRoleAction: "Nächster Schritt",
+      missionDeliverable: "Resultat",
       missionOpenTopic: "Thema öffnen",
       missionOpenArticle: "Artikel lesen",
       missionAskAssistant: "CYRI fragen",
@@ -1593,22 +1593,22 @@ const content = {
       mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
         "Wähle einen Ort, vergleiche Modellszenarien und erkunde, wie Klima, Wasser, Biodiversität und Gerechtigkeit Deutschland mit Regionen des Globalen Südens verbinden.",
-      mapAria: "Interaktive Lernkarte mit globalen Umweltorten",
+      mapAria: "Interaktive Weltkarte mit globalen Umweltorten",
       mapChallenge: "Herausforderung",
       mapConnection: "Globaler Zusammenhang",
-      mapAction: "Lernaktion",
+      mapAction: "Was du prüfen kannst",
       mapOpenModel: "Klicke einen Ort an und teste ein Modell.",
       modelChoose: "Modellszenario wählen",
       modelOutcome: "Modellergebnis",
       modelNote:
-        "Diese Modelle sind Lernsimulationen. Sie zeigen Zusammenhänge, keine live gemessenen Daten.",
+        "Diese Infosimulationen zeigen Zusammenhänge, keine live gemessenen Daten.",
       actionEyebrow: "Mitmachen",
       actionTitle: "Vom Wissen ins Handeln.",
       actionIntro:
-        "CYRI übersetzt Lernen in kleine, realistische nächste Schritte für Schule, Jugendgruppen und Social Media.",
+        "CYRI übersetzt Umweltinformationen in kleine, realistische nächste Schritte für Schule, Jugendgruppen und Social Media.",
       pollTitle: "Was soll CYRI als Nächstes ausbauen?",
       pollIntro: "Deine Auswahl wird nur auf diesem Gerät gespeichert.",
-      pollSaved: "Als deine Lernpriorität gespeichert.",
+      pollSaved: "Als deine Info-Priorität gespeichert.",
       formatsEyebrow: "Formate",
       formatsTitle: "Wissen für unterschiedliche Situationen.",
       formatsIntro:
@@ -1616,7 +1616,7 @@ const content = {
       formats: [
         {
           status: "Jetzt verfügbar",
-          title: "Lernartikel",
+          title: "Infoartikel",
           text: "Quellenbasierte Langform-Erklärungen mit klarer Struktur und weiterführenden Informationen.",
         },
         {
@@ -1632,7 +1632,7 @@ const content = {
       ],
       quizEyebrow: "Wissenscheck",
       quizTitle: "Was ist hängen geblieben?",
-      quizIntro: "Wähle selbst, wie ausführlich du dein Wissen prüfen möchtest.",
+      quizIntro: "Wähle selbst, wie viele Fragen du beantworten möchtest.",
       quizLengthLabel: "Quizlänge",
       quizLengths: [
         { value: 3, title: "Kurz", text: "3 Fragen" },
@@ -1646,12 +1646,12 @@ const content = {
       finish: "Ergebnis anzeigen",
       resultTitle: "Dein Ergebnis",
       resultText: "Du hast {score} von {total} Fragen richtig beantwortet.",
-      resultStrong: "Starke Grundlage. Vertiefe ein neues Thema oder stelle eine weiterführende Frage.",
-      resultDeveloping: "Ein guter Anfang. Die verlinkten Lernartikel erklären jede Antwort ausführlicher.",
+      resultStrong: "Starkes Ergebnis. Vertiefe ein neues Thema oder stelle eine weiterführende Frage.",
+      resultDeveloping: "Ein guter Anfang. Die verlinkten Infoartikel erklären jede Antwort ausführlicher.",
       restart: "Quiz neu starten",
     },
     articles: {
-      eyebrow: "Lernartikel",
+      eyebrow: "Infoartikel",
       title: "Umweltthemen klar erklärt.",
       intro:
         "Entdecke quellenbasierte CYRI-Artikel zu Klima, Natur, Meeresschutz, erneuerbarer Energie, Biodiversität und nachhaltigen Städten.",
@@ -1672,10 +1672,10 @@ const content = {
       noResults: "Zu dieser Kategorie gibt es noch keine älteren Artikel.",
     },
     research: {
-      eyebrow: "Lernassistent",
-      title: "Stelle Fragen zu den CYRI-Lerninhalten.",
+      eyebrow: "CYRI-Assistent",
+      title: "Stelle Fragen zu CYRI-Umweltinfos.",
       intro:
-        "Erhalte kurze KI-gestützte Erklärungen, die ausschließlich auf veröffentlichten CYRI-Lernartikeln basieren.",
+        "Erhalte kurze KI-gestützte Erklärungen, die ausschließlich auf veröffentlichten CYRI-Infoartikeln basieren.",
       questionLabel: "Deine Frage",
       questionPlaceholder: "Was hat Korallenbleiche mit dem Klimawandel zu tun?",
       submit: "CYRI fragen",
@@ -1686,7 +1686,7 @@ const content = {
       privacyNote:
         "Deine Frage wird zur Verarbeitung an den eingerichteten KI-Anbieter übermittelt. Gib keine persönlichen oder vertraulichen Informationen ein.",
       missing: "Gib eine Frage mit mindestens fünf Zeichen ein.",
-      unavailable: "Der KI-Lernassistent ist auf dem Server noch nicht eingerichtet.",
+      unavailable: "Der CYRI-Assistent ist auf dem Server noch nicht eingerichtet.",
       rateLimited: "Es wurden zu viele Fragen gestellt. Bitte versuche es in einigen Minuten erneut.",
       error: "Die Frage konnte nicht beantwortet werden. Bitte versuche es später erneut.",
     },
@@ -1698,14 +1698,14 @@ const content = {
       storyOne:
         "CYRI hilft jungen Menschen, Umweltthemen zu verstehen, öffentliche Debatten einzuordnen und selbstbewusst an Nachhaltigkeitsgesprächen teilzunehmen.",
       storyTwo:
-        "Die Plattform verbindet sorgfältige Redaktionsarbeit, verständliche Sprache, transparente Quellen und interaktive Lernformate.",
+        "Die Plattform verbindet sorgfältige Redaktionsarbeit, verständliche Sprache, transparente Quellen und interaktive Infoformate.",
       teamEyebrow: "Team",
       teamTitle: "Kernteam",
       team: [
         {
           name: "Tobias Göppert",
           role: "Mitgründer & Bildungsleitung",
-          text: "Hat CYRI mitgegründet und leitet Bildungsstrategie, redaktionelle Standards, Lernformate und quellenbasierte Umweltinhalte.",
+          text: "Hat CYRI mitgegründet und leitet Bildungsstrategie, redaktionelle Standards, Infoformate und quellenbasierte Umweltinhalte.",
         },
         {
           name: "Jarne Bub",
@@ -1735,7 +1735,7 @@ const content = {
     },
     publish: {
       eyebrow: "Publizieren",
-      title: "Einen CYRI-Lernartikel veröffentlichen.",
+      title: "Einen CYRI-Infoartikel veröffentlichen.",
       intro: "Füge neue quellenbasierte Inhalte für die Umweltbildung über den geschützten Editor hinzu.",
       panelEyebrow: "Editor-Zugang",
       panelTitle: "Geschütztes Veröffentlichungsbackend.",
@@ -1826,7 +1826,7 @@ const content = {
         "Diese Website sendet Kontaktanfragen und geschützte Veröffentlichungsanfragen an das CYRI-Backend.",
       localDataTitle: "Serverdaten",
       localDataText:
-        "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Fragen im Lernassistenten werden zur Beantwortung an den konfigurierten KI-Anbieter übermittelt. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
+        "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Fragen im CYRI-Assistenten werden zur Beantwortung an den konfigurierten KI-Anbieter übermittelt. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
     },
     footer: {
       statement: "Jugendgeführte Umweltbildung für eine nachhaltigere Zukunft.",
