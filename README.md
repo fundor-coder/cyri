@@ -14,7 +14,8 @@ Student info experience:
 - Visitors can switch between oceans, climate ecosystems and climate-ready cities.
 - Mission, quiz and discovery choices are stored locally in the visitor's browser.
 - The Mission Lab lets visitors combine an environmental challenge, perspective and time frame into a live info model, animated impact cockpit, field kit, mini experiment, discussion prompt and action plan.
-- The knowledge check offers three selectable lengths with 3, 6 or 9 bilingual questions.
+- The SDG Lab turns all 17 Sustainable Development Goals into clickable student cards with short explanations, reflection questions and links into the map models.
+- The knowledge check offers four selectable lengths with 3, 6, 9 or 12 bilingual questions, including SDG-focused prompts.
 - The CYRI assistant is integrated into the `Explore` page instead of appearing as a separate navigation item.
 - Each topic includes three interactive key-concept discoveries with animated explanations and locally saved discovery progress.
 - The explainer workbench adds child- and youth-friendly mini tools for simple language, cause chains, global links, fact checks and short-video planning.
