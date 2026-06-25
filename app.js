@@ -387,6 +387,298 @@ const missionPaces = [
   },
 ];
 
+const sdgGoals = [
+  {
+    number: 1,
+    color: "#e5243b",
+    title: bi("No Poverty", "Keine Armut"),
+    short: bi(
+      "Environmental risks hit people harder when money, housing and safety are missing.",
+      "Umweltrisiken treffen Menschen härter, wenn Geld, Wohnung und Sicherheit fehlen."
+    ),
+    focus: bi(
+      "Floods, heat and pollution become social questions when protection is unequally shared.",
+      "Fluten, Hitze und Verschmutzung werden soziale Fragen, wenn Schutz ungleich verteilt ist."
+    ),
+    question: bi(
+      "Who has the fewest options when an environmental crisis happens?",
+      "Wer hat die wenigsten Optionen, wenn eine Umweltkrise passiert?"
+    ),
+  },
+  {
+    number: 2,
+    color: "#dda63a",
+    title: bi("Zero Hunger", "Kein Hunger"),
+    short: bi(
+      "Healthy soils, reliable water and stable climate conditions shape food security.",
+      "Gesunde Böden, verlässliches Wasser und stabiles Klima prägen Ernährungssicherheit."
+    ),
+    focus: bi(
+      "Drought, heat and biodiversity loss can weaken harvests and local food systems.",
+      "Dürre, Hitze und Biodiversitätsverlust können Ernten und lokale Ernährungssysteme schwächen."
+    ),
+    question: bi(
+      "How can farming stay productive without exhausting soil and water?",
+      "Wie bleibt Landwirtschaft produktiv, ohne Boden und Wasser zu überlasten?"
+    ),
+  },
+  {
+    number: 3,
+    color: "#4c9f38",
+    title: bi("Good Health and Well-being", "Gesundheit und Wohlergehen"),
+    short: bi(
+      "Clean air, cooler places and safe water are part of health.",
+      "Saubere Luft, kühlere Orte und sicheres Wasser gehören zu Gesundheit."
+    ),
+    focus: bi(
+      "Heat stress, polluted air and unsafe water show how environment and health connect.",
+      "Hitzestress, verschmutzte Luft und unsicheres Wasser zeigen die Verbindung von Umwelt und Gesundheit."
+    ),
+    question: bi(
+      "Which environmental change would improve everyday health in your area first?",
+      "Welche Umweltveränderung würde Gesundheit in deiner Umgebung zuerst verbessern?"
+    ),
+  },
+  {
+    number: 4,
+    color: "#c5192d",
+    title: bi("Quality Education", "Hochwertige Bildung"),
+    short: bi(
+      "People need clear information to understand risks and choices.",
+      "Menschen brauchen klare Informationen, um Risiken und Entscheidungen zu verstehen."
+    ),
+    focus: bi(
+      "Environmental education turns complex facts into questions, models and useful explanations.",
+      "Umweltbildung macht aus komplexen Fakten Fragen, Modelle und verständliche Erklärungen."
+    ),
+    question: bi(
+      "Which fact becomes easier when you turn it into a model?",
+      "Welcher Fakt wird leichter, wenn du daraus ein Modell machst?"
+    ),
+  },
+  {
+    number: 5,
+    color: "#ff3a21",
+    title: bi("Gender Equality", "Geschlechtergleichheit"),
+    short: bi(
+      "Fair participation matters when communities plan climate and nature solutions.",
+      "Faire Beteiligung zählt, wenn Gemeinschaften Klima- und Naturlösungen planen."
+    ),
+    focus: bi(
+      "Environmental decisions are stronger when different experiences and responsibilities are visible.",
+      "Umweltentscheidungen werden stärker, wenn unterschiedliche Erfahrungen und Aufgaben sichtbar sind."
+    ),
+    question: bi(
+      "Whose perspective is often missing when solutions are planned?",
+      "Wessen Perspektive fehlt oft, wenn Lösungen geplant werden?"
+    ),
+  },
+  {
+    number: 6,
+    color: "#26bde2",
+    title: bi("Clean Water and Sanitation", "Sauberes Wasser und Sanitäreinrichtungen"),
+    short: bi(
+      "Water quality, access and storage decide what people and ecosystems can handle.",
+      "Wasserqualität, Zugang und Speicherung entscheiden, was Menschen und Ökosysteme aushalten."
+    ),
+    focus: bi(
+      "Rain gardens, wetlands and careful water use can reduce pressure during heat and heavy rain.",
+      "Regengärten, Feuchtgebiete und sorgsamer Umgang mit Wasser senken Druck bei Hitze und Starkregen."
+    ),
+    question: bi(
+      "Where should water be slowed, cleaned or stored instead of rushed away?",
+      "Wo sollte Wasser gebremst, gereinigt oder gespeichert werden, statt schnell abzufließen?"
+    ),
+  },
+  {
+    number: 7,
+    color: "#fcc30b",
+    title: bi("Affordable and Clean Energy", "Bezahlbare und saubere Energie"),
+    short: bi(
+      "Energy choices shape emissions, air quality and fairness.",
+      "Energieentscheidungen beeinflussen Emissionen, Luftqualität und Gerechtigkeit."
+    ),
+    focus: bi(
+      "Clean energy only works well when access, costs and ecosystem impacts are considered together.",
+      "Saubere Energie funktioniert gut, wenn Zugang, Kosten und Ökosystemwirkungen zusammengedacht werden."
+    ),
+    question: bi(
+      "How can energy become cleaner without leaving people behind?",
+      "Wie wird Energie sauberer, ohne Menschen zurückzulassen?"
+    ),
+  },
+  {
+    number: 8,
+    color: "#a21942",
+    title: bi("Decent Work and Economic Growth", "Menschenwürdige Arbeit und Wirtschaftswachstum"),
+    short: bi(
+      "A sustainable economy must protect people and natural systems.",
+      "Eine nachhaltige Wirtschaft muss Menschen und natürliche Systeme schützen."
+    ),
+    focus: bi(
+      "Supply chains, repair, reuse and green jobs connect daily products with environmental pressure.",
+      "Lieferketten, Reparatur, Wiederverwendung und grüne Berufe verbinden Alltagsprodukte mit Umweltdruck."
+    ),
+    question: bi(
+      "Which job or product could become cleaner and fairer at the same time?",
+      "Welcher Beruf oder welches Produkt könnte gleichzeitig sauberer und fairer werden?"
+    ),
+  },
+  {
+    number: 9,
+    color: "#fd6925",
+    title: bi("Industry, Innovation and Infrastructure", "Industrie, Innovation und Infrastruktur"),
+    short: bi(
+      "Infrastructure decides whether places can handle heat, water and resource pressure.",
+      "Infrastruktur entscheidet, ob Orte Hitze, Wasser und Ressourcendruck aushalten."
+    ),
+    focus: bi(
+      "Better buildings, data, transport and water systems can reduce risk when they are planned fairly.",
+      "Bessere Gebäude, Daten, Verkehr und Wassersysteme senken Risiken, wenn sie fair geplant sind."
+    ),
+    question: bi(
+      "Which piece of infrastructure would make your school or city more resilient?",
+      "Welche Infrastruktur würde deine Schule oder Stadt widerstandsfähiger machen?"
+    ),
+  },
+  {
+    number: 10,
+    color: "#dd1367",
+    title: bi("Reduced Inequalities", "Weniger Ungleichheiten"),
+    short: bi(
+      "Environmental damage and climate risks are not shared equally.",
+      "Umweltschäden und Klimarisiken sind nicht gleich verteilt."
+    ),
+    focus: bi(
+      "Climate justice asks who caused a risk, who is affected and who has power to help.",
+      "Klimagerechtigkeit fragt, wer Risiko verursacht, wer betroffen ist und wer helfen kann."
+    ),
+    question: bi(
+      "What would make support respectful instead of one-sided?",
+      "Was macht Unterstützung respektvoll statt einseitig?"
+    ),
+  },
+  {
+    number: 11,
+    color: "#fd9d24",
+    title: bi("Sustainable Cities and Communities", "Nachhaltige Städte und Gemeinden"),
+    short: bi(
+      "Cities can become cooler, safer and more natural when space is designed differently.",
+      "Städte werden kühler, sicherer und naturnäher, wenn Flächen anders gestaltet werden."
+    ),
+    focus: bi(
+      "Shade, open soil, trees and stored rain reduce heat and flooding at the same time.",
+      "Schatten, offener Boden, Bäume und gespeicherter Regen senken Hitze und Überflutungen zugleich."
+    ),
+    question: bi(
+      "Which sealed place near you could become greener or cooler?",
+      "Welche versiegelte Fläche in deiner Nähe könnte grüner oder kühler werden?"
+    ),
+  },
+  {
+    number: 12,
+    color: "#bf8b2e",
+    title: bi("Responsible Consumption and Production", "Nachhaltige/r Konsum und Produktion"),
+    short: bi(
+      "What we buy, use and throw away affects forests, water, climate and waste.",
+      "Was wir kaufen, nutzen und wegwerfen, beeinflusst Wälder, Wasser, Klima und Müll."
+    ),
+    focus: bi(
+      "Traceable products, reuse and less waste can reduce pressure on ecosystems far away.",
+      "Nachverfolgbare Produkte, Wiederverwendung und weniger Müll senken Druck auf entfernte Ökosysteme."
+    ),
+    question: bi(
+      "Which everyday product should be checked from origin to disposal?",
+      "Welches Alltagsprodukt sollte man von Herkunft bis Entsorgung prüfen?"
+    ),
+  },
+  {
+    number: 13,
+    color: "#3f7e44",
+    title: bi("Climate Action", "Maßnahmen zum Klimaschutz"),
+    short: bi(
+      "Climate action means reducing emissions and preparing for impacts already happening.",
+      "Klimaschutz heißt Emissionen senken und sich auf bereits spürbare Folgen vorbereiten."
+    ),
+    focus: bi(
+      "Coral bleaching, drought, heat and sea-level rise show why mitigation and adaptation belong together.",
+      "Korallenbleiche, Dürre, Hitze und Meeresspiegel zeigen, warum Minderung und Anpassung zusammengehören."
+    ),
+    question: bi(
+      "Which action reduces future risk and also helps people now?",
+      "Welche Maßnahme senkt künftige Risiken und hilft gleichzeitig heute?"
+    ),
+  },
+  {
+    number: 14,
+    color: "#0a97d9",
+    title: bi("Life Below Water", "Leben unter Wasser"),
+    short: bi(
+      "Oceans store heat and carbon, support life and protect many coasts.",
+      "Meere speichern Wärme und Kohlenstoff, tragen Leben und schützen viele Küsten."
+    ),
+    focus: bi(
+      "Reefs, seagrass and mangroves connect biodiversity, carbon storage and coastal safety.",
+      "Riffe, Seegras und Mangroven verbinden Artenvielfalt, Kohlenstoffspeicherung und Küstenschutz."
+    ),
+    question: bi(
+      "What changes when a damaged marine habitat loses its protective function?",
+      "Was verändert sich, wenn ein geschädigter Meereslebensraum seine Schutzfunktion verliert?"
+    ),
+  },
+  {
+    number: 15,
+    color: "#56c02b",
+    title: bi("Life on Land", "Leben an Land"),
+    short: bi(
+      "Forests, soils, wetlands and species networks keep ecosystems stable.",
+      "Wälder, Böden, Feuchtgebiete und Artennetze halten Ökosysteme stabil."
+    ),
+    focus: bi(
+      "Connected habitats protect biodiversity and can store carbon when they are not overused.",
+      "Verbundene Lebensräume schützen Biodiversität und speichern Kohlenstoff, wenn sie nicht übernutzt werden."
+    ),
+    question: bi(
+      "Which habitat connection would help animals, plants and climate at once?",
+      "Welche Lebensraumverbindung würde Tieren, Pflanzen und Klima zugleich helfen?"
+    ),
+  },
+  {
+    number: 16,
+    color: "#00689d",
+    title: bi("Peace, Justice and Strong Institutions", "Frieden, Gerechtigkeit und starke Institutionen"),
+    short: bi(
+      "Fair rules and trustworthy institutions make environmental protection possible.",
+      "Faire Regeln und verlässliche Institutionen machen Umweltschutz möglich."
+    ),
+    focus: bi(
+      "Access to information, participation and accountability decide whether promises become real action.",
+      "Zugang zu Informationen, Beteiligung und Verantwortung entscheiden, ob Versprechen zu Handeln werden."
+    ),
+    question: bi(
+      "What information should be public before a big environmental decision?",
+      "Welche Informationen sollten vor einer großen Umweltentscheidung öffentlich sein?"
+    ),
+  },
+  {
+    number: 17,
+    color: "#19486a",
+    title: bi("Partnerships for the Goals", "Partnerschaften zur Erreichung der Ziele"),
+    short: bi(
+      "The goals only work when knowledge, money and responsibility are shared fairly.",
+      "Die Ziele funktionieren nur, wenn Wissen, Geld und Verantwortung fair geteilt werden."
+    ),
+    focus: bi(
+      "Climate and nature solutions often need cooperation between local groups, science, politics and countries.",
+      "Klima- und Naturlösungen brauchen oft Zusammenarbeit zwischen lokalen Gruppen, Wissenschaft, Politik und Ländern."
+    ),
+    question: bi(
+      "Which partners would need to work together for your idea to become real?",
+      "Welche Partner müssten zusammenarbeiten, damit deine Idee Wirklichkeit wird?"
+    ),
+  },
+];
+
 const mapHotspots = [
   {
     id: "rhine",
@@ -724,6 +1016,24 @@ const quizQuestions = [
     explanation: bi("Sponge cities retain rainwater so it can infiltrate, evaporate or be reused instead of disappearing immediately into drains.", "Schwammstädte halten Regenwasser zurück, damit es versickern, verdunsten oder wiederverwendet werden kann."),
   },
   {
+    question: bi("Which SDG is directly about climate action?", "Welches SDG steht direkt für Klimaschutz?"),
+    options: bi(["SDG 4","SDG 13","SDG 16"], ["SDG 4","SDG 13","SDG 16"]),
+    correct: 1,
+    explanation: bi("SDG 13 is Climate Action. It connects emissions cuts with preparation for climate impacts.", "SDG 13 steht für Maßnahmen zum Klimaschutz. Es verbindet Emissionsminderung mit Vorbereitung auf Klimafolgen."),
+  },
+  {
+    question: bi("Which two SDGs focus on ecosystems in water and on land?", "Welche zwei SDGs schauen besonders auf Ökosysteme im Wasser und an Land?"),
+    options: bi(["SDG 14 and SDG 15","SDG 1 and SDG 8","SDG 5 and SDG 9"], ["SDG 14 und SDG 15","SDG 1 und SDG 8","SDG 5 und SDG 9"]),
+    correct: 0,
+    explanation: bi("SDG 14 focuses on life below water. SDG 15 focuses on life on land.", "SDG 14 behandelt Leben unter Wasser. SDG 15 behandelt Leben an Land."),
+  },
+  {
+    question: bi("Why is SDG 17 important for climate and nature protection?", "Warum ist SDG 17 für Klima- und Naturschutz wichtig?"),
+    options: bi(["Because solutions often need partnerships","Because one person can solve every goal alone","Because it replaces all other goals"], ["Weil Lösungen oft Partnerschaften brauchen","Weil eine Person alle Ziele allein lösen kann","Weil es alle anderen Ziele ersetzt"]),
+    correct: 0,
+    explanation: bi("Many environmental solutions need shared knowledge, funding, local participation and fair responsibility.", "Viele Umweltlösungen brauchen geteiltes Wissen, Finanzierung, lokale Beteiligung und faire Verantwortung."),
+  },
+  {
     question: bi("How can seagrass meadows help protect coastlines?", "Wie können Seegraswiesen Küsten schützen?"),
     options: bi(["By slowing waves and stabilizing sediment","By increasing wave height","By removing all salt from seawater"], ["Indem sie Wellen bremsen und Sediment stabilisieren","Indem sie die Wellenhöhe vergrößern","Indem sie dem Meerwasser sämtliches Salz entziehen"]),
     correct: 0,
@@ -904,6 +1214,7 @@ const content = {
       learnMenu: "Info menu",
       learnOverview: "Overview",
       learnMission: "Mission Lab",
+      learnSdg: "17 goals",
       learnTopics: "Topics",
       learnTools: "Info tools",
       learnMap: "World map",
@@ -1069,8 +1380,8 @@ const content = {
       missionPaceLabel: "Choose time",
       missionModelTitle: "Live info model",
       missionImpactMap: "Impact cockpit",
-      missionImpactScore: "mission strength",
-      missionMeters: ["Understanding", "Ecosystem effect", "Community link", "Action power"],
+      missionImpactScore: "Mission score",
+      missionMeters: ["Facts", "Nature", "Community", "Action"],
       missionModelNote:
         "This info model turns your choices into a visible overview, not into measured live data.",
       missionKitTitle: "Field kit",
@@ -1086,6 +1397,17 @@ const content = {
       missionAskAssistant: "Ask CYRI",
       missionSave: "Save mission locally",
       missionSaved: "Mission saved locally on this device.",
+      sdgEyebrow: "17 Sustainable Development Goals",
+      sdgTitle: "Click through the goals behind environmental protection.",
+      sdgIntro:
+        "The SDGs show how climate, nature, water, cities, justice and partnerships belong together.",
+      sdgAria: "Interactive overview of the 17 Sustainable Development Goals",
+      sdgWhy: "Why it matters",
+      sdgQuestion: "Question to think about",
+      sdgConnections: "Connected CYRI map models",
+      sdgNoConnection:
+        "No map model yet. This goal still helps you compare resources, risks and fairness.",
+      sdgMapButton: "Open map model",
       mapEyebrow: "Global connections",
       mapTitle: "Click through the world map and test models.",
       mapIntro:
@@ -1135,6 +1457,7 @@ const content = {
         { value: 3, title: "Quick", text: "3 questions" },
         { value: 6, title: "Focused", text: "6 questions" },
         { value: 9, title: "Deep dive", text: "9 questions" },
+        { value: 12, title: "SDG run", text: "12 questions" },
       ],
       questionProgress: "Question {current} of {total}",
       correct: "Correct.",
@@ -1407,6 +1730,7 @@ const content = {
       learnMenu: "Info-Menü",
       learnOverview: "Übersicht",
       learnMission: "Mission Lab",
+      learnSdg: "17 Ziele",
       learnTopics: "Themen",
       learnTools: "Infotools",
       learnMap: "Weltkarte",
@@ -1572,8 +1896,8 @@ const content = {
       missionPaceLabel: "Zeit wählen",
       missionModelTitle: "Live-Infomodell",
       missionImpactMap: "Impact-Cockpit",
-      missionImpactScore: "Missionsstärke",
-      missionMeters: ["Faktenlage", "Ökosystemwirkung", "Gemeinschaftsbezug", "Handlungsoptionen"],
+      missionImpactScore: "Missionswert",
+      missionMeters: ["Fakten", "Natur", "Gemeinschaft", "Aktion"],
       missionModelNote:
         "Dieses Infomodell macht deine Auswahl sichtbar, nutzt aber keine live gemessenen Daten.",
       missionKitTitle: "Forschungs-Kit",
@@ -1589,6 +1913,17 @@ const content = {
       missionAskAssistant: "CYRI fragen",
       missionSave: "Mission lokal speichern",
       missionSaved: "Mission lokal auf diesem Gerät gespeichert.",
+      sdgEyebrow: "17 Nachhaltigkeitsziele",
+      sdgTitle: "Klicke dich durch die Ziele hinter Umweltschutz.",
+      sdgIntro:
+        "Die SDGs zeigen, wie Klima, Natur, Wasser, Städte, Gerechtigkeit und Partnerschaften zusammenhängen.",
+      sdgAria: "Interaktive Übersicht der 17 Nachhaltigkeitsziele",
+      sdgWhy: "Warum es wichtig ist",
+      sdgQuestion: "Frage zum Nachdenken",
+      sdgConnections: "Verbundene CYRI-Kartenmodelle",
+      sdgNoConnection:
+        "Noch kein Kartenmodell. Dieses Ziel hilft trotzdem, Ressourcen, Risiken und Fairness zu vergleichen.",
+      sdgMapButton: "Kartenmodell öffnen",
       mapEyebrow: "Globale Zusammenhänge",
       mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
@@ -1638,6 +1973,7 @@ const content = {
         { value: 3, title: "Kurz", text: "3 Fragen" },
         { value: 6, title: "Fokussiert", text: "6 Fragen" },
         { value: 9, title: "Ausführlich", text: "9 Fragen" },
+        { value: 12, title: "SDG-Runde", text: "12 Fragen" },
       ],
       questionProgress: "Frage {current} von {total}",
       correct: "Richtig.",
@@ -1900,7 +2236,7 @@ function loadLearningProgress() {
     const saved = JSON.parse(localStorage.getItem(LEARNING_PROGRESS_KEY) || "{}");
     const validTopicIds = new Set(learningTopics.map((topic) => topic.id));
     const validArticleIds = new Set(learningTopics.map((topic) => topic.articleId));
-    const quizLength = [3, 6, 9].includes(saved.quizLength) ? saved.quizLength : 3;
+    const quizLength = [3, 6, 9, 12].includes(saved.quizLength) ? saved.quizLength : 3;
     const quizAnswers = Array.isArray(saved.quizAnswers)
       ? saved.quizAnswers.slice(0, quizLength)
       : [];
@@ -1972,6 +2308,7 @@ const state = {
   activeMissionFocus: savedMissionLab.focus,
   activeMissionRole: savedMissionLab.role,
   activeMissionPace: savedMissionLab.pace,
+  activeSdg: 13,
   activeMapHotspot: mapHotspots[0].id,
   activeMapScenario: mapHotspots[0].model.scenarios[0].id,
   pollChoice: loadPollChoice(),
@@ -2017,6 +2354,23 @@ function learningTopicFacts(topic) {
     return topic.children.facts[state.lang];
   }
   return topic.facts[state.lang];
+}
+
+function sdgNumberFromLabel(label) {
+  const match = String(label).match(/\d+/);
+  return match ? Number(match[0]) : 0;
+}
+
+function getSdgGoal(number) {
+  return sdgGoals.find((goal) => goal.number === Number(number)) || sdgGoals[12];
+}
+
+function hotspotSdgNumbers(hotspot) {
+  return hotspot.sdgs.map(sdgNumberFromLabel).filter(Boolean);
+}
+
+function connectedSdgHotspots(goal) {
+  return mapHotspots.filter((hotspot) => hotspotSdgNumbers(hotspot).includes(goal.number));
 }
 
 function escapeHtml(value) {
@@ -2617,10 +2971,10 @@ function renderMissionLab() {
     metricValues.reduce((sum, value) => sum + value, 0) / metricValues.length
   );
   const nodePositions = [
-    { x: 50, y: 13 },
-    { x: 84, y: 49 },
-    { x: 50, y: 86 },
-    { x: 16, y: 49 },
+    { x: 50, y: 16 },
+    { x: 78, y: 50 },
+    { x: 50, y: 84 },
+    { x: 22, y: 50 },
   ];
   const kitItems = [
     { label: t("learn.missionEvidence"), text: localizedValue(focus.evidence) },
@@ -2854,6 +3208,83 @@ function renderMissionLab() {
   `;
 }
 
+function renderSdgLab() {
+  const container = document.querySelector("[data-sdg-lab]");
+  if (!container) return;
+
+  const activeGoal = getSdgGoal(state.activeSdg);
+  const connectedHotspots = connectedSdgHotspots(activeGoal);
+
+  container.innerHTML = `
+    <div
+      class="sdg-grid"
+      role="list"
+      aria-label="${escapeHtml(t("learn.sdgAria"))}"
+    >
+      ${sdgGoals
+        .map((goal) => {
+          const active = goal.number === activeGoal.number;
+          return `
+            <button
+              class="sdg-card${active ? " is-active" : ""}"
+              type="button"
+              role="listitem"
+              data-sdg-goal="${goal.number}"
+              aria-pressed="${active}"
+              style="--sdg-color: ${goal.color}"
+            >
+              <span>SDG ${goal.number}</span>
+              <strong>${escapeHtml(localizedValue(goal.title))}</strong>
+              <small>${escapeHtml(localizedValue(goal.short))}</small>
+            </button>
+          `;
+        })
+        .join("")}
+    </div>
+    <article class="sdg-detail" style="--sdg-color: ${activeGoal.color}">
+      <div class="sdg-detail-heading">
+        <span>SDG ${activeGoal.number}</span>
+        <h3>${escapeHtml(localizedValue(activeGoal.title))}</h3>
+      </div>
+      <p>${escapeHtml(localizedValue(activeGoal.short))}</p>
+      <div class="sdg-info-grid">
+        <div>
+          <strong>${escapeHtml(t("learn.sdgWhy"))}</strong>
+          <p>${escapeHtml(localizedValue(activeGoal.focus))}</p>
+        </div>
+        <div>
+          <strong>${escapeHtml(t("learn.sdgQuestion"))}</strong>
+          <p>${escapeHtml(localizedValue(activeGoal.question))}</p>
+        </div>
+      </div>
+      <div class="sdg-map-links">
+        <strong>${escapeHtml(t("learn.sdgConnections"))}</strong>
+        ${
+          connectedHotspots.length
+            ? `<div>
+                ${connectedHotspots
+                  .map(
+                    (hotspot) => `
+                      <button
+                        class="sdg-hotspot-button"
+                        type="button"
+                        data-sdg-hotspot="${escapeHtml(hotspot.id)}"
+                      >
+                        <span>${escapeHtml(localizedValue(hotspot.tag))}</span>
+                        <strong>${escapeHtml(localizedValue(hotspot.title))}</strong>
+                        <small>${escapeHtml(t("learn.sdgMapButton"))}</small>
+                      </button>
+                    `
+                  )
+                  .join("")}
+              </div>`
+            : `<p>${escapeHtml(t("learn.sdgNoConnection"))}</p>`
+        }
+      </div>
+    </article>
+  `;
+}
+
 function renderLearningMap() {
   const container = document.querySelector("[data-learning-map]");
   if (!container) return;
@@ -2919,7 +3350,24 @@ function renderLearningMap() {
         </div>
       </dl>
       <div class="sdg-row">
-        ${activeHotspot.sdgs.map((sdg) => `<span>${escapeHtml(sdg)}</span>`).join("")}
+        ${activeHotspot.sdgs
+          .map((sdg) => {
+            const number = sdgNumberFromLabel(sdg);
+            const goal = getSdgGoal(number);
+            return `
+              <button
+                class="sdg-chip"
+                type="button"
+                data-sdg-goal="${number}"
+                data-sdg-jump="true"
+                style="--sdg-color: ${goal.color}"
+              >
+                <span>${escapeHtml(sdg)}</span>
+                ${escapeHtml(localizedValue(goal.title))}
+              </button>
+            `;
+          })
+          .join("")}
       </div>
       <section class="map-model">
         <div class="map-model-heading">
@@ -3517,6 +3965,7 @@ function renderDynamicContent() {
   renderMissionFocus();
   renderLearningPaths();
   renderMissionLab();
+  renderSdgLab();
   renderLearningTopics();
   renderExplainerTools();
   renderLearningMap();
@@ -3534,6 +3983,7 @@ function parseRoute() {
   const raw = window.location.hash.replace("#", "") || "home";
   const learnAnchors = new Set([
     "learn-mission",
+    "learn-sdgs",
     "learn-topics",
     "learn-tools",
     "learn-map",
@@ -3842,6 +4292,32 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const sdgGoalButton = event.target.closest("[data-sdg-goal]");
+  if (sdgGoalButton) {
+    state.activeSdg = Number(sdgGoalButton.dataset.sdgGoal) || 13;
+    renderSdgLab();
+    if (sdgGoalButton.dataset.sdgJump === "true") {
+      document.querySelector("[data-anchor='learn-sdgs']")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+    return;
+  }
+
+  const sdgHotspotButton = event.target.closest("[data-sdg-hotspot]");
+  if (sdgHotspotButton) {
+    state.activeMapHotspot = sdgHotspotButton.dataset.sdgHotspot;
+    const hotspot = mapHotspots.find((item) => item.id === state.activeMapHotspot);
+    state.activeMapScenario = hotspot?.model.scenarios[0]?.id || "";
+    renderLearningMap();
+    document.querySelector("[data-anchor='learn-map']")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    return;
+  }
+
   const mapButton = event.target.closest("[data-map-hotspot]");
   if (mapButton) {
     state.activeMapHotspot = mapButton.dataset.mapHotspot;
@@ -3921,7 +4397,7 @@ document.addEventListener("click", (event) => {
   const quizLengthButton = event.target.closest("[data-quiz-length]");
   if (quizLengthButton) {
     const quizLength = Number(quizLengthButton.dataset.quizLength);
-    if ([3, 6, 9].includes(quizLength) && quizLength !== state.quizLength) {
+    if ([3, 6, 9, 12].includes(quizLength) && quizLength !== state.quizLength) {
       state.quizLength = quizLength;
       state.quizIndex = 0;
       state.quizAnswers = [];
