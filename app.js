@@ -2609,6 +2609,7 @@ const routes = new Set([
   "home",
   "learn",
   "articles",
+  "research",
   "about",
   "publish",
   "contact",
@@ -4668,9 +4669,18 @@ function renderDynamicContent() {
 function parseRoute() {
   const raw = window.location.hash.replace("#", "") || "home";
   const learnAnchors = new Set(["learn-games"]);
+  const legacyLearnAnchors = new Set([
+    "learn-mission",
+    "learn-sdgs",
+    "learn-topics",
+    "learn-tools",
+    "learn-map",
+    "learn-quiz",
+  ]);
   if (raw === "mission") return { page: "home", anchor: "mission" };
-  if (raw === "research") return { page: "learn", anchor: "assistant" };
+  if (raw === "research") return { page: "research", anchor: null };
   if (learnAnchors.has(raw)) return { page: "learn", anchor: raw };
+  if (legacyLearnAnchors.has(raw)) return { page: "learn", anchor: "learn-games" };
   if (routes.has(raw)) return { page: raw, anchor: null };
   return { page: "home", anchor: null };
 }

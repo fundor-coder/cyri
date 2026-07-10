@@ -17,8 +17,8 @@
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260710-3" />
-    <script src="app.js?v=20260710-3" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260710-4" />
+    <script src="app.js?v=20260710-4" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -192,6 +192,55 @@
           </div>
         </section>
 
+      </section>
+
+      <section class="page" data-page="research">
+        <section class="page-hero section">
+          <div class="shell narrow reveal">
+            <p class="eyebrow" data-i18n="research.eyebrow">CYRI assistant</p>
+            <h1 data-i18n="research.title">Ask questions about CYRI environmental info.</h1>
+            <p data-i18n="research.intro">
+              Receive concise AI-assisted explanations based only on published CYRI info articles.
+            </p>
+          </div>
+        </section>
+
+        <section class="section learning-assistant-section" data-learning-assistant>
+          <div class="shell">
+            <div class="research-tool reveal">
+              <form class="research-form" data-research-form>
+                <label for="research-question" data-i18n="research.questionLabel">Your question</label>
+                <textarea
+                  id="research-question"
+                  name="question"
+                  rows="5"
+                  minlength="5"
+                  maxlength="500"
+                  required
+                  data-i18n-placeholder="research.questionPlaceholder"
+                  placeholder="What does coral bleaching have to do with climate change?"
+                ></textarea>
+                <button class="button button-primary" type="submit" data-i18n="research.submit">
+                  Ask CYRI
+                </button>
+                <p class="research-note" data-i18n="research.privacyNote">
+                  Your question is sent to the configured AI provider for processing. Do not enter
+                  personal or confidential information.
+                </p>
+                <p class="form-status" data-research-status aria-live="polite"></p>
+              </form>
+
+              <section class="research-answer" data-research-answer hidden aria-live="polite">
+                <p class="eyebrow" data-i18n="research.answerEyebrow">Answer</p>
+                <div class="research-answer-copy" data-research-answer-copy></div>
+                <div class="research-references" data-research-references hidden>
+                  <h2 data-i18n="research.referencesTitle">Based on these CYRI articles</h2>
+                  <div class="research-reference-list" data-research-reference-list></div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
       </section>
 
       <section class="page" data-page="articles">
