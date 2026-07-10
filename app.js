@@ -1000,37 +1000,37 @@ const learningGames = [
   {
     id: "sdg-sprint",
     title: bi("SDG Sprint", "SDG-Sprint"),
-    tag: bi("Match the goal", "Ziel zuordnen"),
+    tag: bi("Spot the system", "System erkennen"),
     text: bi(
-      "Read a situation and choose which sustainability goal fits best.",
-      "Lies eine Situation und wähle, welches Nachhaltigkeitsziel am besten passt."
+      "Read a real-world situation and decide which sustainability goal is the strongest link.",
+      "Lies eine reale Situation und entscheide, welches Nachhaltigkeitsziel am stärksten damit verbunden ist."
     ),
   },
   {
     id: "chain-builder",
     title: bi("Cause Chain", "Ursache-Kette"),
-    tag: bi("Build the link", "Verbindung bauen"),
+    tag: bi("Trace the damage", "Schäden verfolgen"),
     text: bi(
-      "Click the next correct step and build an environmental cause-effect chain.",
-      "Klicke den nächsten richtigen Schritt und baue eine Umwelt-Ursache-Wirkungs-Kette."
+      "Trace how one pressure turns into an environmental problem and where a solution can interrupt it.",
+      "Verfolge, wie ein Druck zu einem Umweltproblem wird und wo eine Lösung die Kette unterbrechen kann."
     ),
   },
   {
     id: "city-builder",
     title: bi("City Builder", "Stadt-Baumeister"),
-    tag: bi("Plan with a budget", "Mit Budget planen"),
+    tag: bi("Plan under pressure", "Unter Druck planen"),
     text: bi(
-      "Spend planning points and see how heat, flooding and biodiversity change.",
-      "Verteile Planungspunkte und sieh, wie sich Hitze, Überflutung und Biodiversität verändern."
+      "Use limited planning points and balance heat, flooding, biodiversity and fair access.",
+      "Nutze begrenzte Planungspunkte und balanciere Hitze, Überflutung, Biodiversität und fairen Zugang."
     ),
   },
   {
     id: "reef-rescue",
     title: bi("Reef Rescue", "Riff-Rettung"),
-    tag: bi("Choose actions", "Maßnahmen wählen"),
+    tag: bi("Set priorities", "Prioritäten setzen"),
     text: bi(
-      "Pick protection actions within a budget and improve the reef's chance of recovery.",
-      "Wähle Schutzmaßnahmen im Budget und verbessere die Erholungschance des Riffs."
+      "Choose reef protection actions within a tight budget and compare local pressure with climate risk.",
+      "Wähle Riffschutz-Maßnahmen mit knappem Budget und vergleiche lokalen Druck mit Klimarisiko."
     ),
   },
 ];
@@ -1372,9 +1372,9 @@ const content = {
             "Explore understandable articles, interactive missions and environmental info formats on climate, nature and environmental protection.",
         },
         learn: {
-          title: "Explore | CYRI",
+          title: "Learn | CYRI",
           description:
-            "Explore CYRI's environmental mission lab, interactive models, global maps and knowledge challenges.",
+            "Play interactive environmental games for 15-19-year-olds and young adults.",
         },
         articles: {
           title: "Articles | CYRI",
@@ -1419,11 +1419,11 @@ const content = {
       learn: "Learn",
       articles: "Articles",
       research: "Ask CYRI",
-      learnMenu: "Info menu",
+      learnMenu: "Learning games menu",
       learnOverview: "Overview",
       learnMission: "Mission Lab",
       learnSdg: "17 goals",
-      learnGames: "Learning games",
+      learnGames: "Interactive games",
       learnTopics: "Topics",
       learnTools: "Info tools",
       learnMap: "World map",
@@ -1538,10 +1538,10 @@ const content = {
       viewAll: "View all info articles",
     },
     learn: {
-      eyebrow: "For students",
-      title: "Environmental info you can explore.",
+      eyebrow: "Interactive games",
+      title: "Environmental games for 15-19-year-olds and young adults.",
       intro:
-        "Start with a mission, test models, compare choices and continue with source-based articles.",
+        "Play through real environmental problems, test decisions and discover what can be done against climate stress, habitat loss, flooding and unfair resource use.",
       topicsEyebrow: "Choose a topic",
       topicsTitle: "What do you want to understand?",
       topicsAria: "Environmental topics",
@@ -1617,10 +1617,10 @@ const content = {
       sdgNoConnection:
         "No map model yet. This goal still helps you compare resources, risks and fairness.",
       sdgMapButton: "Open map model",
-      gamesEyebrow: "Learning games",
-      gamesTitle: "Choose a game and test your decisions.",
+      gamesEyebrow: "Play, decide, understand",
+      gamesTitle: "Choose an environmental challenge.",
       gamesIntro:
-        "Play short environmental challenges about SDGs, cause chains, city planning and reef protection.",
+        "These interactive games show which environmental problems exist, how they connect and which actions can realistically help.",
       gameChoose: "Choose game",
       gameScore: "Score",
       gameRound: "Round {current} of {total}",
@@ -1922,9 +1922,9 @@ const content = {
             "Entdecke verständliche Artikel, interaktive Missionen und Bildungsformate zu Klima-, Natur- und Umweltschutz.",
         },
         learn: {
-          title: "Entdecken | CYRI",
+          title: "Lernen | CYRI",
           description:
-            "Entdecke CYRIs Umwelt-Mission-Lab, interaktive Modelle, globale Karten und Wissenschallenges.",
+            "Spiele interaktive Umweltspiele für 15-19-Jährige und junge Erwachsene.",
         },
         articles: {
           title: "Artikel | CYRI",
@@ -1969,11 +1969,11 @@ const content = {
       learn: "Lernen",
       articles: "Artikel",
       research: "CYRI fragen",
-      learnMenu: "Info-Menü",
+      learnMenu: "Lernspiele-Menü",
       learnOverview: "Übersicht",
       learnMission: "Mission Lab",
       learnSdg: "17 Ziele",
-      learnGames: "Lernspiele",
+      learnGames: "Interaktive Spiele",
       learnTopics: "Themen",
       learnTools: "Infotools",
       learnMap: "Weltkarte",
@@ -2088,10 +2088,10 @@ const content = {
       viewAll: "Alle Infoartikel ansehen",
     },
     learn: {
-      eyebrow: "Für Schüler:innen",
-      title: "Umweltinfos, die du selbst erkunden kannst.",
+      eyebrow: "Interaktive Spiele",
+      title: "Umweltspiele für 15-19-Jährige und junge Erwachsene.",
       intro:
-        "Starte mit einer Mission, teste Modelle, vergleiche Entscheidungen und vertiefe das Thema mit quellenbasierten Artikeln.",
+        "Spiele echte Umweltprobleme durch, teste Entscheidungen und entdecke, was gegen Klimastress, Lebensraumverlust, Überflutung und ungerechte Ressourcennutzung helfen kann.",
       topicsEyebrow: "Thema wählen",
       topicsTitle: "Was möchtest du verstehen?",
       topicsAria: "Umweltthemen",
@@ -2167,10 +2167,10 @@ const content = {
       sdgNoConnection:
         "Noch kein Kartenmodell. Dieses Ziel hilft trotzdem, Ressourcen, Risiken und Fairness zu vergleichen.",
       sdgMapButton: "Kartenmodell öffnen",
-      gamesEyebrow: "Lernspiele",
-      gamesTitle: "Wähle ein Spiel und teste deine Entscheidungen.",
+      gamesEyebrow: "Spielen, entscheiden, verstehen",
+      gamesTitle: "Wähle eine Umwelt-Challenge.",
       gamesIntro:
-        "Spiele kurze Umwelt-Challenges zu SDGs, Ursache-Ketten, Stadtplanung und Riffschutz.",
+        "Diese interaktiven Spiele zeigen, welche Umweltprobleme es gibt, wie sie zusammenhängen und welche Maßnahmen realistisch helfen können.",
       gameChoose: "Spiel wählen",
       gameScore: "Punkte",
       gameRound: "Runde {current} von {total}",
@@ -2928,7 +2928,7 @@ function renderAudienceSwitch(container, labelPath) {
 function updateAudienceGate() {
   const gate = document.querySelector("[data-audience-gate]");
   if (!gate) return;
-  const shouldOpen = state.page === "learn" && !state.audience;
+  const shouldOpen = false;
   gate.hidden = !shouldOpen;
   gate.setAttribute("aria-hidden", String(!shouldOpen));
   document.body.classList.toggle("audience-gate-open", shouldOpen);
@@ -4667,15 +4667,7 @@ function renderDynamicContent() {
 
 function parseRoute() {
   const raw = window.location.hash.replace("#", "") || "home";
-  const learnAnchors = new Set([
-    "learn-mission",
-    "learn-sdgs",
-    "learn-games",
-    "learn-topics",
-    "learn-tools",
-    "learn-map",
-    "learn-quiz",
-  ]);
+  const learnAnchors = new Set(["learn-games"]);
   if (raw === "mission") return { page: "home", anchor: "mission" };
   if (raw === "research") return { page: "learn", anchor: "assistant" };
   if (learnAnchors.has(raw)) return { page: "learn", anchor: raw };
@@ -4688,8 +4680,7 @@ function showPage(shouldScroll = true) {
     page.classList.toggle("is-active", page.dataset.page === state.page);
   });
 
-  const activeKey =
-    state.anchor === "mission" ? "mission" : state.page === "articles" ? "learn" : state.page;
+  const activeKey = state.anchor === "mission" ? "mission" : state.page;
   document.querySelectorAll("[data-nav-link]").forEach((link) => {
     link.classList.toggle("is-active", link.dataset.navLink === activeKey);
   });

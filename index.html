@@ -17,8 +17,8 @@
     <meta property="og:type" content="website" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260710-2" />
-    <script src="app.js?v=20260710-2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260710-3" />
+    <script src="app.js?v=20260710-3" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -48,17 +48,8 @@
             <a href="#mission" data-nav-link="mission" data-i18n="nav.mission">Mission</a>
             <div class="nav-menu">
               <a href="#learn" data-nav-link="learn" data-i18n="nav.learn">Learn</a>
-              <div class="nav-submenu" aria-label="Info menu" data-i18n-aria="nav.learnMenu">
-                <a href="#learn" data-i18n="nav.learnOverview">Overview</a>
-                <a href="#learn-mission" data-i18n="nav.learnMission">Mission Lab</a>
-                <a href="#learn-sdgs" data-i18n="nav.learnSdg">17 goals</a>
-                <a href="#learn-games" data-i18n="nav.learnGames">Learning games</a>
-                <a href="#learn-topics" data-i18n="nav.learnTopics">Topics</a>
-                <a href="#learn-tools" data-i18n="nav.learnTools">Info tools</a>
-                <a href="#learn-map" data-i18n="nav.learnMap">World map</a>
-                <a href="#learn-quiz" data-i18n="nav.learnQuiz">Quiz</a>
-                <a href="#research" data-i18n="nav.research">Ask CYRI</a>
-                <a href="#articles" data-i18n="nav.learningArticles">Info articles</a>
+              <div class="nav-submenu" aria-label="Learning games menu" data-i18n-aria="nav.learnMenu">
+                <a href="#learn-games" data-i18n="nav.learnGames">Interactive games</a>
               </div>
             </div>
             <a href="#about" data-nav-link="about" data-i18n="nav.about">About</a>
@@ -174,198 +165,30 @@
       </section>
 
       <section class="page" data-page="learn">
-        <section class="page-hero section">
+        <section class="page-hero section learn-games-hero">
           <div class="shell narrow reveal">
-            <p class="eyebrow" data-i18n="learn.eyebrow">For students</p>
-            <h1 data-i18n="learn.title" data-audience-copy="title">
-              Environmental knowledge that you can explore.
+            <p class="eyebrow" data-i18n="learn.eyebrow">Interactive games</p>
+            <h1 data-i18n="learn.title">
+              Environmental games for 15-19-year-olds and young adults.
             </h1>
-            <p data-i18n="learn.intro" data-audience-copy="intro">
-              Start with a question, discover the key concepts and continue with the full
-              source-based article.
+            <p data-i18n="learn.intro">
+              Play through real environmental problems, test decisions and discover what can be done
+              against climate stress, habitat loss, flooding and unfair resource use.
             </p>
-            <div
-              class="audience-switch learning-audience-switch"
-              data-learning-audience-switch
-            ></div>
-          </div>
-        </section>
-
-        <section class="section mission-lab-section" data-anchor="learn-mission">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.missionEyebrow">Mission control</p>
-              <h2 data-i18n="learn.missionTitle">Build your own environmental mission.</h2>
-              <p data-i18n="learn.missionIntro">
-                Choose a real environmental challenge, switch roles and timeframes, then get a
-                ready-to-use info mission with models, experiments and action steps.
-              </p>
-            </div>
-            <div class="mission-lab reveal" data-mission-lab aria-live="polite"></div>
-          </div>
-        </section>
-
-        <section class="section sdg-section" data-anchor="learn-sdgs">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.sdgEyebrow">17 Sustainable Development Goals</p>
-              <h2 data-i18n="learn.sdgTitle">Click through the goals behind environmental protection.</h2>
-              <p data-i18n="learn.sdgIntro">
-                The SDGs show how climate, nature, water, cities, justice and partnerships belong together.
-              </p>
-            </div>
-            <div class="sdg-lab reveal" data-sdg-lab aria-live="polite"></div>
           </div>
         </section>
 
         <section class="section game-section" data-anchor="learn-games">
           <div class="shell">
             <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.gamesEyebrow">Learning games</p>
-              <h2 data-i18n="learn.gamesTitle">Choose a game and test your decisions.</h2>
+              <p class="eyebrow" data-i18n="learn.gamesEyebrow">Play, decide, understand</p>
+              <h2 data-i18n="learn.gamesTitle">Choose an environmental challenge.</h2>
               <p data-i18n="learn.gamesIntro">
-                Play short environmental challenges about SDGs, cause chains, city planning and reef protection.
+                These interactive games show which environmental problems exist, how they connect
+                and which actions can realistically help.
               </p>
             </div>
             <div class="game-arcade reveal" data-learning-games aria-live="polite"></div>
-          </div>
-        </section>
-
-        <section class="section compact-section" data-anchor="learn-topics">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.topicsEyebrow">Choose a topic</p>
-              <h2 data-i18n="learn.topicsTitle" data-audience-copy="topicsTitle">
-                What do you want to understand?
-              </h2>
-            </div>
-            <div class="topic-explorer reveal">
-              <div
-                class="topic-selector"
-                data-learning-topics
-                role="tablist"
-                aria-label="Environmental topics"
-                data-i18n-aria="learn.topicsAria"
-              ></div>
-              <article class="topic-detail" data-learning-detail></article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section explainer-tools-section" data-anchor="learn-tools">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.toolsEyebrow">Info tools</p>
-              <h2 data-i18n="learn.toolsTitle">Understand, compare, explain.</h2>
-              <p data-i18n="learn.toolsIntro">
-                Use short info tools to turn environmental topics into simple explanations,
-                discussion questions and source-based mini formats.
-              </p>
-            </div>
-            <div class="explainer-workbench reveal" data-explainer-tools></div>
-          </div>
-        </section>
-
-        <section class="section map-lab-section" data-anchor="learn-map">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.mapEyebrow">Global connections</p>
-              <h2 data-i18n="learn.mapTitle">Click through the world map and test models.</h2>
-              <p data-i18n="learn.mapIntro">
-                Choose a place, compare model scenarios and explore how climate, water,
-                biodiversity and justice connect Germany with regions of the Global South.
-              </p>
-            </div>
-            <div class="map-lab reveal" data-learning-map></div>
-          </div>
-        </section>
-
-        <section class="section action-section">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.actionEyebrow">Take part</p>
-              <h2 data-i18n="learn.actionTitle">From knowledge to action.</h2>
-              <p data-i18n="learn.actionIntro">
-                CYRI turns environmental information into small, realistic next steps for school, youth groups and
-                social media.
-              </p>
-            </div>
-            <div class="action-builder reveal" data-action-builder></div>
-          </div>
-        </section>
-
-        <section class="section quiz-section" data-anchor="learn-quiz">
-          <div class="shell quiz-layout">
-            <div class="quiz-intro reveal">
-              <p class="eyebrow" data-i18n="learn.quizEyebrow">Knowledge check</p>
-              <h2 data-i18n="learn.quizTitle" data-audience-copy="quizTitle">
-                What stayed with you?
-              </h2>
-              <p data-i18n="learn.quizIntro" data-audience-copy="quizIntro">
-                Choose how deeply you want to test your knowledge.
-              </p>
-            </div>
-            <div class="quiz-panel reveal" data-learning-quiz aria-live="polite"></div>
-          </div>
-        </section>
-
-        <section class="section formats-section">
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="learn.formatsEyebrow">Formats</p>
-              <h2 data-i18n="learn.formatsTitle">Knowledge for different contexts.</h2>
-              <p data-i18n="learn.formatsIntro">
-                The same topic can be explored in depth, understood visually or prepared for social
-                media.
-              </p>
-            </div>
-            <div class="format-grid reveal" data-learning-formats></div>
-          </div>
-        </section>
-
-        <section class="section learning-assistant-section" data-learning-assistant>
-          <div class="shell">
-            <div class="section-heading reveal">
-              <p class="eyebrow" data-i18n="research.eyebrow">CYRI assistant</p>
-              <h2 data-i18n="research.title">Ask questions about CYRI environmental info.</h2>
-              <p data-i18n="research.intro">
-                Receive concise AI-assisted explanations based only on published CYRI info
-                articles.
-              </p>
-            </div>
-
-            <div class="research-tool reveal">
-              <form class="research-form" data-research-form>
-                <label for="research-question" data-i18n="research.questionLabel">Your question</label>
-                <textarea
-                  id="research-question"
-                  name="question"
-                  rows="5"
-                  minlength="5"
-                  maxlength="500"
-                  required
-                  data-i18n-placeholder="research.questionPlaceholder"
-                  placeholder="What does coral bleaching have to do with climate change?"
-                ></textarea>
-                <button class="button button-primary" type="submit" data-i18n="research.submit">
-                  Ask CYRI
-                </button>
-                <p class="research-note" data-i18n="research.privacyNote">
-                  Your question is sent to the configured AI provider for processing. Do not enter
-                  personal or confidential information.
-                </p>
-                <p class="form-status" data-research-status aria-live="polite"></p>
-              </form>
-
-              <section class="research-answer" data-research-answer hidden aria-live="polite">
-                <p class="eyebrow" data-i18n="research.answerEyebrow">Answer</p>
-                <div class="research-answer-copy" data-research-answer-copy></div>
-                <div class="research-references" data-research-references hidden>
-                  <h2 data-i18n="research.referencesTitle">Based on these CYRI articles</h2>
-                  <div class="research-reference-list" data-research-reference-list></div>
-                </div>
-              </section>
-            </div>
           </div>
         </section>
 
