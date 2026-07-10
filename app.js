@@ -1005,6 +1005,20 @@ const learningGames = [
       "Read a real-world situation and decide which sustainability goal is the strongest link.",
       "Lies eine reale Situation und entscheide, welches Nachhaltigkeitsziel am stärksten damit verbunden ist."
     ),
+    info: {
+      problem: bi(
+        "Environmental problems rarely stand alone: heat, water, ecosystems, justice and consumption often affect each other.",
+        "Umweltprobleme stehen selten allein: Hitze, Wasser, Ökosysteme, Gerechtigkeit und Konsum beeinflussen sich oft gegenseitig."
+      ),
+      connection: bi(
+        "The 17 goals help you see which system is touched and who is affected by a decision.",
+        "Die 17 Ziele helfen dir zu erkennen, welches System berührt wird und wer von einer Entscheidung betroffen ist."
+      ),
+      action: bi(
+        "Match the strongest goal, then ask which rule, habit or partnership would reduce the pressure.",
+        "Ordne das stärkste Ziel zu und frage dann, welche Regel, Gewohnheit oder Partnerschaft den Druck senken würde."
+      ),
+    },
   },
   {
     id: "chain-builder",
@@ -1014,6 +1028,20 @@ const learningGames = [
       "Trace how one pressure turns into an environmental problem and where a solution can interrupt it.",
       "Verfolge, wie ein Druck zu einem Umweltproblem wird und wo eine Lösung die Kette unterbrechen kann."
     ),
+    info: {
+      problem: bi(
+        "Many environmental damages start with a pressure such as sealed soil, heat, pollution, waste or emissions.",
+        "Viele Umweltschäden beginnen mit einem Druck wie versiegeltem Boden, Hitze, Verschmutzung, Müll oder Emissionen."
+      ),
+      connection: bi(
+        "A cause chain shows how a human action can change nature and then create risks for people.",
+        "Eine Ursache-Kette zeigt, wie menschliches Handeln Natur verändert und daraus Risiken für Menschen entstehen."
+      ),
+      action: bi(
+        "Find the point where the chain can be interrupted: reduce the pressure, restore habitat or protect communities.",
+        "Finde den Punkt, an dem die Kette unterbrochen werden kann: Druck senken, Lebensräume wiederherstellen oder Menschen schützen."
+      ),
+    },
   },
   {
     id: "city-builder",
@@ -1023,6 +1051,20 @@ const learningGames = [
       "Use limited planning points and balance heat, flooding, biodiversity and fair access.",
       "Nutze begrenzte Planungspunkte und balanciere Hitze, Überflutung, Biodiversität und fairen Zugang."
     ),
+    info: {
+      problem: bi(
+        "Sealed, dense city spaces can become too hot, flood faster and leave little room for animals, plants and people.",
+        "Versiegelte, dichte Stadträume können zu heiß werden, schneller überfluten und wenig Platz für Tiere, Pflanzen und Menschen lassen."
+      ),
+      connection: bi(
+        "Good adaptation links shade, open soil, stored rainwater, biodiversity and fair access instead of treating them separately.",
+        "Gute Anpassung verbindet Schatten, offenen Boden, gespeichertes Regenwasser, Biodiversität und fairen Zugang, statt alles getrennt zu betrachten."
+      ),
+      action: bi(
+        "Balance your budget so one solution does not create a new problem somewhere else.",
+        "Verteile dein Budget so, dass eine Lösung nicht an anderer Stelle ein neues Problem erzeugt."
+      ),
+    },
   },
   {
     id: "reef-rescue",
@@ -1032,6 +1074,20 @@ const learningGames = [
       "Choose reef protection actions within a tight budget and compare local pressure with climate risk.",
       "Wähle Riffschutz-Maßnahmen mit knappem Budget und vergleiche lokalen Druck mit Klimarisiko."
     ),
+    info: {
+      problem: bi(
+        "Coral reefs are stressed by marine heatwaves, dirty water, physical damage and long-term ocean warming.",
+        "Korallenriffe stehen durch marine Hitzewellen, verschmutztes Wasser, direkte Schäden und langfristige Meereserwärmung unter Druck."
+      ),
+      connection: bi(
+        "Local protection can improve recovery chances, but it cannot replace emission cuts that limit future heat stress.",
+        "Lokaler Schutz kann Erholungschancen verbessern, ersetzt aber keine Emissionssenkung gegen künftigen Hitzestress."
+      ),
+      action: bi(
+        "Combine clean water, protected zones, heat warnings, climate action and local knowledge.",
+        "Kombiniere sauberes Wasser, Schutzzonen, Hitzewarnungen, Klimaschutz und lokales Wissen."
+      ),
+    },
   },
 ];
 
@@ -1633,6 +1689,9 @@ const content = {
       gameRemaining: "{count} points left",
       gameSelected: "Selected",
       gameFullBudget: "Budget used",
+      gameInfoProblem: "Problem",
+      gameInfoConnection: "Connection",
+      gameInfoAction: "What helps",
       chainStart: "Start",
       chainNext: "Choose the next link",
       chainBuilt: "Your chain",
@@ -2183,6 +2242,9 @@ const content = {
       gameRemaining: "{count} Punkte übrig",
       gameSelected: "Ausgewählt",
       gameFullBudget: "Budget verbraucht",
+      gameInfoProblem: "Problem",
+      gameInfoConnection: "Zusammenhang",
+      gameInfoAction: "Was hilft",
       chainStart: "Start",
       chainNext: "Wähle die nächste Verbindung",
       chainBuilt: "Deine Kette",
@@ -3938,6 +4000,11 @@ function renderLearningGames() {
     "city-builder": renderCityBuilderGame,
     "reef-rescue": renderReefRescueGame,
   };
+  const gameInfoCards = [
+    ["gameInfoProblem", activeGame.info?.problem],
+    ["gameInfoConnection", activeGame.info?.connection],
+    ["gameInfoAction", activeGame.info?.action],
+  ].filter(([, text]) => text);
 
   container.innerHTML = `
     <aside class="game-menu" role="tablist" aria-label="${escapeHtml(t("learn.gameChoose"))}">
@@ -3965,6 +4032,18 @@ function renderLearningGames() {
         <span>${escapeHtml(localizedValue(activeGame.tag))}</span>
         <h3>${escapeHtml(localizedValue(activeGame.title))}</h3>
         <p>${escapeHtml(localizedValue(activeGame.text))}</p>
+      </div>
+      <div class="game-info-grid">
+        ${gameInfoCards
+          .map(
+            ([label, text]) => `
+              <article class="game-info-card">
+                <strong>${escapeHtml(t(`learn.${label}`))}</strong>
+                <p>${escapeHtml(localizedValue(text))}</p>
+              </article>
+            `
+          )
+          .join("")}
       </div>
       ${(renderers[activeGame.id] || renderSdgSprintGame)()}
     </section>
