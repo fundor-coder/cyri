@@ -2174,6 +2174,43 @@ h3 {
   color: var(--ink-soft);
 }
 
+.game-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.game-info-card {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-height: 132px;
+  border: 1px solid rgba(18, 22, 29, 0.08);
+  border-radius: var(--radius-sm);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(239, 248, 244, 0.62)),
+    rgba(255, 255, 255, 0.7);
+  padding: 15px;
+}
+
+.game-info-card strong {
+  width: fit-content;
+  border-radius: 999px;
+  background: rgba(22, 131, 95, 0.1);
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 820;
+  line-height: 1.2;
+  padding: 6px 9px;
+}
+
+.game-info-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.42;
+}
+
 .game-play-panel {
   display: grid;
   gap: 16px;
@@ -4603,6 +4640,7 @@ body[data-audience="children"] .modal-body h3 {
   .learning-path-grid,
   .format-grid,
   .mission-output-grid,
+  .game-info-grid,
   .game-choice-grid,
   .action-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -4856,6 +4894,10 @@ body[data-audience="children"] .modal-body h3 {
   .hero-actions,
   .button {
     width: 100%;
+  }
+
+  .game-info-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero-subtitle {
