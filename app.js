@@ -1416,7 +1416,7 @@ const content = {
     nav: {
       home: "Home",
       mission: "Mission",
-      learn: "Explore",
+      learn: "Learn",
       articles: "Articles",
       research: "Ask CYRI",
       learnMenu: "Info menu",
@@ -1966,7 +1966,7 @@ const content = {
     nav: {
       home: "Start",
       mission: "Mission",
-      learn: "Entdecken",
+      learn: "Lernen",
       articles: "Artikel",
       research: "CYRI fragen",
       learnMenu: "Info-Menü",
