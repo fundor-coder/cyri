@@ -3379,6 +3379,31 @@ h3 {
   font-size: 3.8rem;
 }
 
+.learn-games-hero {
+  padding-bottom: 58px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(247, 251, 250, 0.5)),
+    linear-gradient(125deg, rgba(39, 116, 216, 0.12), rgba(22, 131, 95, 0.1), rgba(246, 205, 92, 0.1));
+}
+
+.learn-games-hero .shell {
+  max-width: 920px;
+}
+
+.learn-games-hero h1 {
+  max-width: 860px;
+}
+
+.learn-games-hero p:not(.eyebrow) {
+  max-width: 760px;
+  color: var(--ink-soft);
+  font-size: 1.12rem;
+}
+
+.learn-games-hero + .game-section {
+  padding-top: 56px;
+}
+
 .filter-row {
   display: flex;
   max-width: 560px;
