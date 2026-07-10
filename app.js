@@ -1091,6 +1091,24 @@ const learningGames = [
   },
 ];
 
+const learningGameTracks = [
+  {
+    minutes: 5,
+    games: ["sdg-sprint", "chain-builder"],
+    description: bi("Quick path with two short puzzles.", "Schneller Pfad mit zwei kurzen Rätseln."),
+  },
+  {
+    minutes: 15,
+    games: ["sdg-sprint", "chain-builder", "city-builder"],
+    description: bi("Balanced path with one planning challenge.", "Ausgewogener Pfad mit einer Planungs-Challenge."),
+  },
+  {
+    minutes: 30,
+    games: ["sdg-sprint", "chain-builder", "city-builder", "reef-rescue"],
+    description: bi("Full challenge path with all four games.", "Voller Challenge-Pfad mit allen vier Spielen."),
+  },
+];
+
 const sdgSprintRounds = [
   {
     prompt: bi(
@@ -1118,14 +1136,14 @@ const sdgSprintRounds = [
   },
   {
     prompt: bi(
-      "A community facing drought gets early warning, local advice and fair support from partners.",
-      "Eine Gemeinschaft mit Dürrerisiko bekommt Frühwarnung, lokales Wissen und faire Unterstützung von Partnern."
+      "A drought-prone region builds early warning systems, heat plans and fair support before the next extreme season.",
+      "Eine dürregefährdete Region baut Frühwarnsysteme, Hitzepläne und faire Unterstützung vor der nächsten Extremsaison auf."
     ),
-    answer: 17,
-    options: [2, 10, 17],
+    answer: 13,
+    options: [13, 2, 17],
     fact: bi(
-      "SDG 17 is about partnerships. SDG 2 and SDG 10 can also be affected in drought situations.",
-      "SDG 17 steht für Partnerschaften. SDG 2 und SDG 10 können bei Dürre ebenfalls betroffen sein."
+      "SDG 13 includes climate action and adaptation. Food security and partnerships still connect to the situation.",
+      "SDG 13 umfasst Klimaschutz und Anpassung. Ernährungssicherheit und Partnerschaften hängen trotzdem damit zusammen."
     ),
   },
   {
@@ -1157,10 +1175,10 @@ const chainGameRounds = [
       { id: "sponge", text: bi("Open soil and rain gardens store water", "Offener Boden und Regengärten speichern Wasser") },
     ],
     decoys: [
-      { id: "fish", text: bi("Fish immediately return", "Fische kehren sofort zurück") },
-      { id: "ice", text: bi("Glaciers grow overnight", "Gletscher wachsen über Nacht") },
-      { id: "noise", text: bi("Noise becomes the main cause", "Lärm wird zur Hauptursache") },
-      { id: "salt", text: bi("Salt disappears from rain", "Salz verschwindet aus Regen") },
+      { id: "shade", text: bi("Shade lowers heat stress", "Schatten senkt Hitzestress") },
+      { id: "emissions", text: bi("Emissions cuts slow warming", "Emissionssenkung verlangsamt Erwärmung") },
+      { id: "clean-water", text: bi("Clean water improves reef recovery", "Sauberes Wasser verbessert Riff-Erholung") },
+      { id: "reuse", text: bi("Repair and reuse reduce waste", "Reparatur und Wiederverwendung senken Müll") },
     ],
   },
   {
@@ -1177,10 +1195,10 @@ const chainGameRounds = [
       { id: "care", text: bi("Clean water and climate action improve chances", "Sauberes Wasser und Klimaschutz verbessern Chancen") },
     ],
     decoys: [
-      { id: "asphalt", text: bi("Asphalt stores less city heat", "Asphalt speichert weniger Stadthitze") },
-      { id: "battery", text: bi("Batteries clean the reef directly", "Batterien reinigen das Riff direkt") },
-      { id: "snow", text: bi("Snow protects shallow reefs", "Schnee schützt flache Riffe") },
-      { id: "soil", text: bi("Soil seals itself", "Boden versiegelt sich selbst") },
+      { id: "soil", text: bi("Open soil stores rainwater", "Offener Boden speichert Regenwasser") },
+      { id: "routes", text: bi("Safe routes improve fair access", "Sichere Wege verbessern fairen Zugang") },
+      { id: "consumption", text: bi("Responsible consumption reduces waste", "Nachhaltiger Konsum senkt Müll") },
+      { id: "seagrass", text: bi("Seagrass slows waves near coasts", "Seegras bremst Wellen an Küsten") },
     ],
   },
 ];
@@ -1676,8 +1694,18 @@ const content = {
       gamesEyebrow: "Play, decide, understand",
       gamesTitle: "Choose an environmental challenge.",
       gamesIntro:
-        "These interactive games show which environmental problems exist, how they connect and which actions can realistically help.",
-      gameChoose: "Choose game",
+        "Choose 5, 15 or 30 minutes, then solve the environmental puzzles in order to unlock the next challenge.",
+      gameChoose: "Challenge path",
+      gameTimeLabel: "Choose time",
+      gameTimeMinutes: "{count} min",
+      gamePathProgress: "{complete} of {total} solved",
+      gameLocked: "Solve the previous puzzle first",
+      gameSolved: "Solved",
+      gameUnlockNext: "Unlock next game",
+      gameFinishPath: "Finish path",
+      gamePathComplete: "Path complete",
+      gameTryAgain: "Try again",
+      gameImprovePlan: "Improve the plan to unlock the next game.",
       gameScore: "Score",
       gameRound: "Round {current} of {total}",
       gameCorrect: "Correct choice.",
@@ -2229,8 +2257,18 @@ const content = {
       gamesEyebrow: "Spielen, entscheiden, verstehen",
       gamesTitle: "Wähle eine Umwelt-Challenge.",
       gamesIntro:
-        "Diese interaktiven Spiele zeigen, welche Umweltprobleme es gibt, wie sie zusammenhängen und welche Maßnahmen realistisch helfen können.",
-      gameChoose: "Spiel wählen",
+        "Wähle 5, 15 oder 30 Minuten und löse die Umwelt-Rätsel der Reihe nach, um die nächste Challenge freizuschalten.",
+      gameChoose: "Challenge-Pfad",
+      gameTimeLabel: "Zeit wählen",
+      gameTimeMinutes: "{count} min",
+      gamePathProgress: "{complete} von {total} gelöst",
+      gameLocked: "Löse zuerst das vorherige Rätsel",
+      gameSolved: "Gelöst",
+      gameUnlockNext: "Nächstes Spiel freischalten",
+      gameFinishPath: "Pfad abschließen",
+      gamePathComplete: "Pfad geschafft",
+      gameTryAgain: "Nochmal versuchen",
+      gameImprovePlan: "Verbessere den Plan, um das nächste Spiel freizuschalten.",
       gameScore: "Punkte",
       gameRound: "Runde {current} von {total}",
       gameCorrect: "Richtige Wahl.",
@@ -2647,6 +2685,8 @@ const state = {
   activeMissionRole: savedMissionLab.role,
   activeMissionPace: savedMissionLab.pace,
   activeSdg: 13,
+  learningGameMinutes: 5,
+  completedLearningGames: [],
   activeLearningGame: learningGames[0].id,
   sdgSprintIndex: 0,
   sdgSprintAnswers: [],
@@ -2730,6 +2770,66 @@ function activeLearningGame() {
   return learningGames.find((game) => game.id === state.activeLearningGame) || learningGames[0];
 }
 
+function activeLearningGameTrack() {
+  return (
+    learningGameTracks.find((track) => track.minutes === state.learningGameMinutes) ||
+    learningGameTracks[0]
+  );
+}
+
+function activeLearningGameIds() {
+  return activeLearningGameTrack().games;
+}
+
+function learningGameIndex(gameId) {
+  return activeLearningGameIds().indexOf(gameId);
+}
+
+function isLearningGameComplete(gameId) {
+  return state.completedLearningGames.includes(gameId);
+}
+
+function isLearningGameUnlocked(gameId) {
+  const index = learningGameIndex(gameId);
+  if (index < 0) return false;
+  return index === 0 || isLearningGameComplete(activeLearningGameIds()[index - 1]);
+}
+
+function nextUnlockedLearningGameId() {
+  return activeLearningGameIds().find((gameId) => !isLearningGameComplete(gameId));
+}
+
+function resetLearningGameRun(minutes = state.learningGameMinutes) {
+  state.learningGameMinutes = minutes;
+  state.completedLearningGames = [];
+  state.activeLearningGame = activeLearningGameIds()[0] || learningGames[0].id;
+  state.sdgSprintIndex = 0;
+  state.sdgSprintAnswers = [];
+  state.chainRound = 0;
+  state.chainPicks = [];
+  state.chainMistakes = 0;
+  state.chainFeedback = "";
+  state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
+  state.reefActions = [];
+}
+
+function completeLearningGame(gameId) {
+  if (!isLearningGameComplete(gameId)) {
+    state.completedLearningGames.push(gameId);
+  }
+
+  const nextGameId = nextUnlockedLearningGameId();
+  if (nextGameId) {
+    state.activeLearningGame = nextGameId;
+  }
+}
+
+function learningGameCompletionLabel(gameId) {
+  return learningGameIndex(gameId) === activeLearningGameIds().length - 1
+    ? t("learn.gameFinishPath")
+    : t("learn.gameUnlockNext");
+}
+
 function gameScoreValue(value) {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
@@ -2761,6 +2861,27 @@ function reefMetric(metric) {
   const base = metric === "pressure" ? 16 : 24;
   return gameScoreValue(
     base + selectedReefActions().reduce((sum, item) => sum + (item[metric] || 0), 0)
+  );
+}
+
+function cityGameSolved(metrics, average) {
+  return (
+    cityPlanTotal() >= 12 &&
+    average >= 62 &&
+    metrics.cooling >= 45 &&
+    metrics.flood >= 45 &&
+    metrics.habitat >= 45 &&
+    metrics.fairness >= 45
+  );
+}
+
+function reefGameSolved(recovery, pressure, community, average) {
+  return (
+    state.reefActions.includes("climate-cut") &&
+    average >= 68 &&
+    recovery >= 60 &&
+    pressure >= 60 &&
+    community >= 60
   );
 }
 
@@ -3692,6 +3813,8 @@ function renderSdgSprintGame() {
   const round = sdgSprintRounds[state.sdgSprintIndex] || sdgSprintRounds[0];
   const selected = state.sdgSprintAnswers[state.sdgSprintIndex];
   const answered = Number.isInteger(selected);
+  const correct = selected === round.answer;
+  const lastRound = state.sdgSprintIndex === sdgSprintRounds.length - 1;
   const score = state.sdgSprintAnswers.reduce(
     (sum, answer, index) => sum + (answer === sdgSprintRounds[index]?.answer ? 1 : 0),
     0
@@ -3735,9 +3858,9 @@ function renderSdgSprintGame() {
       </div>
       ${
         answered
-          ? `<div class="game-feedback ${selected === round.answer ? "is-correct" : "is-wrong"}">
+          ? `<div class="game-feedback ${correct ? "is-correct" : "is-wrong"}">
               <strong>${escapeHtml(
-                t(selected === round.answer ? "learn.gameCorrect" : "learn.incorrect")
+                t(correct ? "learn.gameCorrect" : "learn.incorrect")
               )}</strong>
               <p>${escapeHtml(localizedValue(round.fact))}</p>
             </div>
@@ -3745,13 +3868,19 @@ function renderSdgSprintGame() {
               <button class="button button-secondary" type="button" data-sdg-sprint-reset>
                 ${escapeHtml(t("learn.gameReset"))}
               </button>
-              <button class="button button-primary" type="button" data-sdg-sprint-next>
-                ${escapeHtml(
-                  state.sdgSprintIndex === sdgSprintRounds.length - 1
-                    ? t("learn.gameComplete")
-                    : t("learn.gameNext")
-                )}
-              </button>
+              ${
+                correct
+                  ? `<button class="button button-primary" type="button" data-sdg-sprint-next>
+                      ${escapeHtml(
+                        lastRound
+                          ? learningGameCompletionLabel("sdg-sprint")
+                          : t("learn.gameNext")
+                      )}
+                    </button>`
+                  : `<button class="button button-primary" type="button" data-sdg-sprint-retry>
+                      ${escapeHtml(t("learn.gameTryAgain"))}
+                    </button>`
+              }
             </div>`
           : ""
       }
@@ -3797,9 +3926,15 @@ function renderChainGame() {
               <button class="button button-secondary" type="button" data-chain-reset>
                 ${escapeHtml(t("learn.gameReset"))}
               </button>
-              <button class="button button-primary" type="button" data-chain-next>
-                ${escapeHtml(t("learn.gameNext"))}
-              </button>
+              ${
+                state.chainRound < chainGameRounds.length - 1
+                  ? `<button class="button button-primary" type="button" data-chain-next>
+                      ${escapeHtml(t("learn.gameNext"))}
+                    </button>`
+                  : `<button class="button button-primary" type="button" data-chain-complete>
+                      ${escapeHtml(learningGameCompletionLabel("chain-builder"))}
+                    </button>`
+              }
             </div>`
           : `<div class="game-prompt">
               <p>${escapeHtml(t("learn.chainNext"))}</p>
@@ -3869,6 +4004,7 @@ function renderCityBuilderGame() {
       : average >= 52
         ? t("learn.cityOutcomeMedium")
         : t("learn.cityOutcomeWeak");
+  const solved = cityGameSolved(metrics, average);
 
   return `
     <div class="game-play-panel">
@@ -3916,19 +4052,24 @@ function renderCityBuilderGame() {
         ${renderGameMeter(t("learn.cityHabitat"), metrics.habitat)}
         ${renderGameMeter(t("learn.cityFairness"), metrics.fairness)}
       </div>
-      <div class="game-feedback ${average >= 72 ? "is-correct" : average >= 52 ? "" : "is-wrong"}">
+      <div class="game-feedback ${solved ? "is-correct" : average >= 52 ? "" : "is-wrong"}">
         <strong>${average}%</strong>
-        <p>${escapeHtml(outcome)}</p>
+        <p>${escapeHtml(solved ? outcome : t("learn.gameImprovePlan"))}</p>
       </div>
-      <button class="button button-secondary" type="button" data-city-reset>
-        ${escapeHtml(t("learn.gameReset"))}
-      </button>
+      <div class="game-action-row">
+        <button class="button button-secondary" type="button" data-city-reset>
+          ${escapeHtml(t("learn.gameReset"))}
+        </button>
+        <button class="button button-primary" type="button" data-city-complete ${solved ? "" : "disabled"}>
+          ${escapeHtml(learningGameCompletionLabel("city-builder"))}
+        </button>
+      </div>
     </div>
   `;
 }
 
 function renderReefRescueGame() {
-  const budget = 10;
+  const budget = 12;
   const used = reefBudgetUsed();
   const remaining = budget - used;
   const recovery = reefMetric("recovery");
@@ -3941,6 +4082,7 @@ function renderReefRescueGame() {
       : average >= 52
         ? t("learn.reefOutcomeMedium")
         : t("learn.reefOutcomeWeak");
+  const solved = reefGameSolved(recovery, pressure, community, average);
 
   return `
     <div class="game-play-panel">
@@ -3978,13 +4120,18 @@ function renderReefRescueGame() {
         ${renderGameMeter(t("learn.reefPressure"), pressure)}
         ${renderGameMeter(t("learn.reefCommunity"), community)}
       </div>
-      <div class="game-feedback ${average >= 72 ? "is-correct" : average >= 52 ? "" : "is-wrong"}">
+      <div class="game-feedback ${solved ? "is-correct" : average >= 52 ? "" : "is-wrong"}">
         <strong>${average}%</strong>
-        <p>${escapeHtml(outcome)}</p>
+        <p>${escapeHtml(solved ? outcome : t("learn.gameImprovePlan"))}</p>
       </div>
-      <button class="button button-secondary" type="button" data-reef-reset>
-        ${escapeHtml(t("learn.gameReset"))}
-      </button>
+      <div class="game-action-row">
+        <button class="button button-secondary" type="button" data-reef-reset>
+          ${escapeHtml(t("learn.gameReset"))}
+        </button>
+        <button class="button button-primary" type="button" data-reef-complete ${solved ? "" : "disabled"}>
+          ${escapeHtml(learningGameCompletionLabel("reef-rescue"))}
+        </button>
+      </div>
     </div>
   `;
 }
@@ -3993,6 +4140,10 @@ function renderLearningGames() {
   const container = document.querySelector("[data-learning-games]");
   if (!container) return;
 
+  const sequenceIds = activeLearningGameIds();
+  if (!sequenceIds.includes(state.activeLearningGame) || !isLearningGameUnlocked(state.activeLearningGame)) {
+    state.activeLearningGame = nextUnlockedLearningGameId() || sequenceIds[sequenceIds.length - 1];
+  }
   const activeGame = activeLearningGame();
   const renderers = {
     "sdg-sprint": renderSdgSprintGame,
@@ -4005,21 +4156,64 @@ function renderLearningGames() {
     ["gameInfoConnection", activeGame.info?.connection],
     ["gameInfoAction", activeGame.info?.action],
   ].filter(([, text]) => text);
+  const completedCount = sequenceIds.filter((gameId) => isLearningGameComplete(gameId)).length;
+  const pathComplete = completedCount === sequenceIds.length;
 
   container.innerHTML = `
+    <section class="game-flow-panel">
+      <div>
+        <p class="eyebrow">${escapeHtml(t("learn.gameTimeLabel"))}</p>
+        <div class="game-time-row" role="group" aria-label="${escapeHtml(t("learn.gameTimeLabel"))}">
+          ${learningGameTracks
+            .map((track) => {
+              const active = track.minutes === state.learningGameMinutes;
+              return `
+                <button
+                  class="game-time-button${active ? " is-active" : ""}"
+                  type="button"
+                  data-game-duration="${track.minutes}"
+                  aria-pressed="${active}"
+                >
+                  <strong>${escapeHtml(
+                    formatLearningText(t("learn.gameTimeMinutes"), { count: track.minutes })
+                  )}</strong>
+                  <span>${escapeHtml(localizedValue(track.description))}</span>
+                </button>
+              `;
+            })
+            .join("")}
+        </div>
+      </div>
+      <div class="game-path-status ${pathComplete ? "is-complete" : ""}">
+        <strong>${escapeHtml(
+          formatLearningText(t("learn.gamePathProgress"), {
+            complete: completedCount,
+            total: sequenceIds.length,
+          })
+        )}</strong>
+        <span>${escapeHtml(pathComplete ? t("learn.gamePathComplete") : localizedValue(activeLearningGameTrack().description))}</span>
+      </div>
+    </section>
     <aside class="game-menu" role="tablist" aria-label="${escapeHtml(t("learn.gameChoose"))}">
-      ${learningGames
-        .map((game) => {
+      ${sequenceIds
+        .map((gameId, index) => {
+          const game = learningGames.find((item) => item.id === gameId) || learningGames[0];
           const active = game.id === activeGame.id;
+          const locked = !isLearningGameUnlocked(game.id);
+          const complete = isLearningGameComplete(game.id);
           return `
             <button
-              class="game-tab${active ? " is-active" : ""}"
+              class="game-tab${active ? " is-active" : ""}${locked ? " is-locked" : ""}${complete ? " is-complete" : ""}"
               type="button"
               role="tab"
               aria-selected="${active}"
+              aria-disabled="${locked}"
               data-learning-game="${escapeHtml(game.id)}"
+              ${locked ? "disabled" : ""}
             >
-              <span>${escapeHtml(localizedValue(game.tag))}</span>
+              <span>${String(index + 1).padStart(2, "0")} · ${escapeHtml(
+                complete ? t("learn.gameSolved") : locked ? t("learn.gameLocked") : localizedValue(game.tag)
+              )}</span>
               <strong>${escapeHtml(localizedValue(game.title))}</strong>
               <small>${escapeHtml(localizedValue(game.text))}</small>
             </button>
@@ -5059,8 +5253,16 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const durationButton = event.target.closest("[data-game-duration]");
+  if (durationButton) {
+    resetLearningGameRun(Number(durationButton.dataset.gameDuration) || 5);
+    renderLearningGames();
+    return;
+  }
+
   const gameButton = event.target.closest("[data-learning-game]");
   if (gameButton) {
+    if (!isLearningGameUnlocked(gameButton.dataset.learningGame)) return;
     state.activeLearningGame = gameButton.dataset.learningGame;
     renderLearningGames();
     return;
@@ -5074,12 +5276,21 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-sdg-sprint-next]")) {
+    const round = sdgSprintRounds[state.sdgSprintIndex] || sdgSprintRounds[0];
+    const selected = state.sdgSprintAnswers[state.sdgSprintIndex];
+    if (selected !== round.answer) return;
+
     if (state.sdgSprintIndex < sdgSprintRounds.length - 1) {
       state.sdgSprintIndex += 1;
     } else {
-      state.sdgSprintIndex = 0;
-      state.sdgSprintAnswers = [];
+      completeLearningGame("sdg-sprint");
     }
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-sdg-sprint-retry]")) {
+    state.sdgSprintAnswers[state.sdgSprintIndex] = undefined;
     renderLearningGames();
     return;
   }
@@ -5107,10 +5318,19 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-chain-next]")) {
-    state.chainRound = (state.chainRound + 1) % chainGameRounds.length;
+    state.chainRound = Math.min(state.chainRound + 1, chainGameRounds.length - 1);
     state.chainPicks = [];
     state.chainMistakes = 0;
     state.chainFeedback = "";
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-chain-complete]")) {
+    const round = chainGameRounds[state.chainRound] || chainGameRounds[0];
+    if (state.chainPicks.length >= round.links.length) {
+      completeLearningGame("chain-builder");
+    }
     renderLearningGames();
     return;
   }
@@ -5142,6 +5362,23 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  if (event.target.closest("[data-city-complete]")) {
+    const metrics = {
+      cooling: cityMetric("cooling"),
+      flood: cityMetric("flood"),
+      habitat: cityMetric("habitat"),
+      fairness: cityMetric("fairness"),
+    };
+    const average = Math.round(
+      (metrics.cooling + metrics.flood + metrics.habitat + metrics.fairness) / 4
+    );
+    if (cityGameSolved(metrics, average)) {
+      completeLearningGame("city-builder");
+    }
+    renderLearningGames();
+    return;
+  }
+
   const reefActionButton = event.target.closest("[data-reef-action]");
   if (reefActionButton) {
     const id = reefActionButton.dataset.reefAction;
@@ -5149,7 +5386,7 @@ document.addEventListener("click", (event) => {
     if (!action) return;
     if (state.reefActions.includes(id)) {
       state.reefActions = state.reefActions.filter((item) => item !== id);
-    } else if (reefBudgetUsed() + action.cost <= 10) {
+    } else if (reefBudgetUsed() + action.cost <= 12) {
       state.reefActions.push(id);
     }
     renderLearningGames();
@@ -5158,6 +5395,18 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-reef-reset]")) {
     state.reefActions = [];
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-reef-complete]")) {
+    const recovery = reefMetric("recovery");
+    const pressure = reefMetric("pressure");
+    const community = reefMetric("community");
+    const average = Math.round((recovery + pressure + community) / 3);
+    if (reefGameSolved(recovery, pressure, community, average)) {
+      completeLearningGame("reef-rescue");
+    }
     renderLearningGames();
     return;
   }
