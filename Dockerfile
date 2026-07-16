@@ -10,7 +10,8 @@ WORKDIR /app
 
 # The app has no runtime npm dependencies. Keep the image small and only copy
 # the files needed by the Node server and the public frontend.
-COPY --chown=node:node package.json server.js app.js index.html styles.css ./
+COPY --chown=node:node package.json server.js app.js index.html styles.css \
+  robots.txt sitemap.xml site.webmanifest ./
 COPY --chown=node:node assets ./assets
 COPY --chown=node:node content ./content
 
