@@ -1,0 +1,17 @@
+{
+  "name": "CYRI Environmental Education",
+  "short_name": "CYRI",
+  "description": "Interactive environmental education and source-based climate information for young people.",
+  "start_url": "/#home",
+  "display": "standalone",
+  "background_color": "#f7fbfa",
+  "theme_color": "#0b6b58",
+  "icons": [
+    {
+      "src": "/assets/cyri-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

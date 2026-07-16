@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
 
-// Default publish password is stored as a SHA-256 hash, not as plaintext.
-const DEFAULT_PUBLISH_PASSWORD_HASH = 'c5adc9b61a9c18a6ad1a7489725c79cfcd3ef6a5980d6eeece1065b51a546336';
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'");
+header('Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()');
+header('Referrer-Policy: no-referrer');
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+
 const SESSION_DURATION_SECONDS = 43200;
 const MAX_BODY_SIZE = 4194304;
 const MAX_UPLOAD_SIZE = 2621440;
@@ -741,7 +745,7 @@ function publish_password_hash(): string
         return hash('sha256', $password);
     }
 
-    return DEFAULT_PUBLISH_PASSWORD_HASH;
+    return '';
 }
 
 function cleanup_sessions(string $sessionsFile): array
@@ -1030,10 +1034,14 @@ if (preg_match('#^/uploads/([a-f0-9]{32}\.jpg)$#', $route, $uploadMatch) && in_a
 }
 
 if ($route === '/auth/publish' && $method === 'POST') {
+    $configuredHash = publish_password_hash();
+    if ($configuredHash === '') {
+        fail(503, 'Publishing access is not configured.');
+    }
     $body = read_request_json();
     $passwordHash = hash('sha256', (string) ($body['password'] ?? ''));
 
-    if (!hash_equals(publish_password_hash(), $passwordHash)) {
+    if (!hash_equals($configuredHash, $passwordHash)) {
         fail(401, 'Wrong password.');
     }
 
@@ -1090,6 +1098,9 @@ if ($route === '/uploads' && $method === 'POST') {
 
 if ($route === '/contact' && $method === 'POST') {
     $body = read_request_json();
+    if (clean_text($body['website'] ?? '', 200) !== '') {
+        send_json(201, ['ok' => true]);
+    }
     $message = mutate_json_file(
         $messagesFile,
         function (array $messages) use ($body): array {

@@ -9,3 +9,4 @@ data/*.json
 data/*.bak
 data/*.lock
 data/uploads/
+test-results/

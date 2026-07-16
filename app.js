@@ -19,7 +19,7 @@ const learningTopics = [
     intro: bi("Explore how marine ecosystems protect coastlines, store carbon and support biodiversity.", "Entdecke, wie Meeresökosysteme Küsten schützen, Kohlenstoff speichern und Artenvielfalt fördern."),
     question: bi("How can an underwater meadow help the climate?", "Wie kann eine Unterwasserwiese dem Klima helfen?"),
     concepts: bi(["Blue carbon","Coastal protection","Biodiversity"], ["Blue Carbon","Küstenschutz","Biodiversität"]),
-    facts: bi(["Seagrass captures carbon while growing. A large share can remain stored in the low-oxygen sediment below the meadow for long periods.","Leaves slow waves and currents. Roots and rhizomes hold sediment in place, helping coastlines resist erosion.","Seagrass meadows provide food, shelter and nursery habitat for many marine species."], ["Seegras nimmt beim Wachstum Kohlenstoff auf. Ein großer Teil kann lange im sauerstoffarmen Sediment unter der Wiese gespeichert bleiben.","Die Blätter bremsen Wellen und Strömungen. Wurzeln und Rhizome halten Sediment fest und schützen Küsten vor Erosion.","Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben."]),
+    facts: bi(["Seagrass captures carbon while growing. A large share can remain stored in the low-oxygen sediment below the meadow for long periods.","Leaves can slow waves and currents. Roots and rhizomes can hold sediment in place and help coastlines resist erosion.","Seagrass meadows provide food, shelter and nursery habitat for many marine species."], ["Seegras nimmt beim Wachstum Kohlenstoff auf. Ein großer Teil kann lange im sauerstoffarmen Sediment unter der Wiese gespeichert bleiben.","Die Blätter können Wellen und Strömungen bremsen. Wurzeln und Rhizome können Sediment festhalten und dadurch Küsten vor Erosion schützen.","Seegraswiesen bieten vielen Meeresarten Nahrung, Schutz und wichtige Kinderstuben."]),
     children: {
       intro: bi("Discover how underwater meadows help animals, store carbon and soften waves near the coast.", "Entdecke, wie Unterwasserwiesen Tieren helfen, Kohlenstoff speichern und Wellen an der Küste bremsen."),
       question: bi("What can a meadow under the sea do?", "Was kann eine Wiese unter dem Meer bewirken?"),
@@ -1089,6 +1089,29 @@ const learningGames = [
       ),
     },
   },
+  {
+    id: "climate-council",
+    title: bi("Climate Council 2035", "Klimarat 2035"),
+    tag: bi("Final mission", "Finale Mission"),
+    text: bi(
+      "Build a fair climate package that cuts emissions, protects nature and prepares communities for climate impacts.",
+      "Baue ein faires Klimapaket, das Emissionen senkt, Natur schützt und Gemeinschaften auf Klimafolgen vorbereitet."
+    ),
+    info: {
+      problem: bi(
+        "Single measures are not enough when energy, transport, food, ecosystems and social fairness influence one another.",
+        "Einzelmaßnahmen reichen nicht, wenn Energie, Verkehr, Ernährung, Ökosysteme und soziale Fairness zusammenwirken."
+      ),
+      connection: bi(
+        "A strong package combines rapid emission cuts with resilient ecosystems and support that people can access fairly.",
+        "Ein starkes Paket verbindet schnelle Emissionsminderung mit widerstandsfähigen Ökosystemen und fair zugänglicher Unterstützung."
+      ),
+      action: bi(
+        "Spend every point, keep all four indicators above the safety line and avoid solving one crisis at the expense of another.",
+        "Setze jeden Punkt ein, halte alle vier Werte über der Sicherheitslinie und löse keine Krise auf Kosten einer anderen."
+      ),
+    },
+  },
 ];
 
 const learningGameTracks = [
@@ -1099,13 +1122,13 @@ const learningGameTracks = [
   },
   {
     minutes: 15,
-    games: ["sdg-sprint", "chain-builder", "city-builder"],
-    description: bi("Balanced path with one planning challenge.", "Ausgewogener Pfad mit einer Planungs-Challenge."),
+    games: ["sdg-sprint", "chain-builder", "city-builder", "reef-rescue"],
+    description: bi("Four connected puzzles and planning challenges.", "Vier verbundene Rätsel und Planungs-Challenges."),
   },
   {
     minutes: 30,
-    games: ["sdg-sprint", "chain-builder", "city-builder", "reef-rescue"],
-    description: bi("Full challenge path with all four games.", "Voller Challenge-Pfad mit allen vier Spielen."),
+    games: ["sdg-sprint", "chain-builder", "city-builder", "reef-rescue", "climate-council"],
+    description: bi("Full mission with the Climate Council finale.", "Volle Mission mit dem Klimarat-Finale."),
   },
 ];
 
@@ -1162,17 +1185,17 @@ const sdgSprintRounds = [
 
 const chainGameRounds = [
   {
-    id: "sponge-city",
-    title: bi("Sponge city chain", "Schwammstadt-Kette"),
-    start: bi("Sealed ground", "Versiegelter Boden"),
+    id: "heavy-rain",
+    title: bi("Heavy-rain chain", "Starkregen-Kette"),
+    start: bi("Sealed surface", "Versiegelte Fläche"),
     complete: bi(
-      "Great chain: sealed ground speeds up runoff, raises flood risk and points toward sponge-city solutions.",
-      "Starke Kette: Versiegelter Boden beschleunigt Abfluss, erhöht Überflutungsrisiko und führt zu Schwammstadt-Lösungen."
+      "Correct: sealed surfaces do not create sponge cities. They are the problem: less infiltration, more surface runoff and higher local flood risk. Unsealing, planted areas, rain gardens and storage interrupt that chain.",
+      "Richtig: Versiegelte Flächen erzeugen keine Schwammstadt. Sie sind das Problem: weniger Versickerung, mehr oberflächlicher Abfluss und ein höheres lokales Überflutungsrisiko. Entsiegelung, Grünflächen, Regengärten und Speicher unterbrechen diese Kette."
     ),
     links: [
-      { id: "runoff", text: bi("Rain runs off faster", "Regen fließt schneller ab") },
-      { id: "flood", text: bi("Flood pressure rises", "Überflutungsdruck steigt") },
-      { id: "sponge", text: bi("Open soil and rain gardens store water", "Offener Boden und Regengärten speichern Wasser") },
+      { id: "infiltration", text: bi("Less rain infiltrates", "Regen versickert schlechter") },
+      { id: "runoff", text: bi("More water runs off across the surface", "Mehr Wasser fließt oberflächlich ab") },
+      { id: "flood", text: bi("Local flood risk rises", "Lokales Überflutungsrisiko steigt") },
     ],
     decoys: [
       { id: "shade", text: bi("Shade lowers heat stress", "Schatten senkt Hitzestress") },
@@ -1278,6 +1301,39 @@ const reefActionCards = [
   },
 ];
 
+const climateCouncilControls = [
+  {
+    id: "energy",
+    title: bi("Clean energy", "Saubere Energie"),
+    text: bi("Replace fossil energy and improve efficiency.", "Fossile Energie ersetzen und Effizienz steigern."),
+    effects: { climate: 10, nature: 2, justice: 4, resilience: 3 },
+  },
+  {
+    id: "mobility",
+    title: bi("Fair mobility", "Faire Mobilität"),
+    text: bi("Make public transport, walking and cycling accessible.", "ÖPNV, Fuß- und Radverkehr zugänglich machen."),
+    effects: { climate: 8, nature: 3, justice: 7, resilience: 3 },
+  },
+  {
+    id: "food",
+    title: bi("Food transition", "Ernährungswende"),
+    text: bi("Reduce waste and support climate-friendly food systems.", "Verschwendung senken und klimafreundliche Ernährungssysteme stärken."),
+    effects: { climate: 6, nature: 7, justice: 4, resilience: 4 },
+  },
+  {
+    id: "nature",
+    title: bi("Restore nature", "Natur wiederherstellen"),
+    text: bi("Protect soils, forests, wetlands and coastal habitats.", "Böden, Wälder, Moore und Küstenlebensräume schützen."),
+    effects: { climate: 5, nature: 10, justice: 3, resilience: 8 },
+  },
+  {
+    id: "fairness",
+    title: bi("Climate fairness", "Klimagerechtigkeit"),
+    text: bi("Fund participation, protection and affordable access.", "Beteiligung, Schutz und bezahlbaren Zugang finanzieren."),
+    effects: { climate: 3, nature: 3, justice: 10, resilience: 8 },
+  },
+];
+
 const quizQuestions = [
   {
     question: bi("What does coral bleaching mean?", "Was bedeutet Korallenbleiche?"),
@@ -1380,7 +1436,7 @@ const photoSources = [
   },
   {
     id: "coral",
-    src: "assets/photos/coral-reef-bleaching-hd.jpg",
+    src: "assets/photos/coral-reef-bleaching-hd.webp",
     credit: "Jay Galvin / Wikimedia Commons",
     license: "CC BY 2.0",
     sourceUrl: "https://commons.wikimedia.org/wiki/File:Coral_Reef_Bleaching.jpg",
@@ -1427,6 +1483,7 @@ const FEATURED_ARTICLE_COUNT = 2;
 const SITE_FEATURES = {
   publishActionFunding: true,
 };
+let articleModalReturnFocus = null;
 
 const content = {
   en: {
@@ -1737,6 +1794,27 @@ const content = {
       reefOutcomeStrong: "Strong rescue plan: local care and climate action work together.",
       reefOutcomeMedium: "Useful plan. Add one missing action if the budget allows it.",
       reefOutcomeWeak: "Too little protection yet. Choose actions that lower stress.",
+      gameModelNote: "Illustrative learning model: the scores show relationships, not measured forecasts or live data.",
+      decrease: "decrease points",
+      increase: "increase points",
+      finalBudget: "Council budget",
+      finalClimate: "Emission cuts",
+      finalNature: "Nature protection",
+      finalJustice: "Fairness",
+      finalResilience: "Resilience",
+      finalOutcomeStrong: "The package is balanced: every safety line is reached and the full budget is used.",
+      finalOutcomeHint: "Use all 16 points and keep climate, nature, fairness and resilience above 52%.",
+      profileTitle: "Your game progress",
+      xp: "XP",
+      gamesSolved: "games solved",
+      badges: "badges",
+      localRanking: "Best results on this device",
+      localOnly: "Progress, badges and results stay in this browser and are not published.",
+      certificateTitle: "CYRI Climate Certificate unlocked",
+      certificateText: "Enter your name to create your personal PDF certificate.",
+      certificateName: "Name on the certificate",
+      certificateNameRequired: "Please enter a name for the certificate.",
+      certificateDownload: "Create PDF certificate",
       mapEyebrow: "Global connections",
       mapTitle: "Click through the world map and test models.",
       mapIntro:
@@ -1834,6 +1912,8 @@ const content = {
       readArticle: "Read article",
       privacyNote:
         "Your question is sent to the configured AI provider for processing. Do not enter personal or confidential information.",
+      consent:
+        "I agree that my question is processed by the configured AI provider. I will not enter personal data.",
       missing: "Enter a question with at least five characters.",
       unavailable: "The CYRI assistant is not configured on the server yet.",
       rateLimited: "Too many questions were submitted. Please try again in a few minutes.",
@@ -1874,6 +1954,7 @@ const content = {
       emailPlaceholder: "your.email@example.com",
       message: "Message",
       messagePlaceholder: "Tell us what your message is about.",
+      privacyNote: "We use your details only to answer your message. Details are in the privacy notice.",
       submit: "Send Message",
       success: "Thank you. Your message has been saved and can be reviewed by the CYRI team.",
       error: "The message could not be sent. Please try again later.",
@@ -1975,7 +2056,22 @@ const content = {
         "This website sends contact messages and protected publishing requests to the CYRI backend.",
       localDataTitle: "Backend data",
       localDataText:
-        "Contact messages are stored on the server for processing. Published articles are stored in the article backend. Questions entered in the CYRI assistant are sent to the configured AI provider for processing. A complete privacy policy should be finalized before public launch.",
+        "Contact messages are stored on the server only to process the request and are normally deleted after six months unless legal obligations require longer storage.",
+      controllerTitle: "Controller and contact",
+      controllerText:
+        "CYRI, operated by Tobias Göppert and Jarne Bub, is responsible for this website. Privacy questions can be sent to climateyri@gmail.com.",
+      processingTitle: "What is processed",
+      processingText:
+        "The hosting provider may process technical log data. Contact forms process name, email address and message. The CYRI assistant sends the entered question to the configured AI provider only after consent.",
+      basisTitle: "Purposes and legal bases",
+      basisText:
+        "Technical logs are processed for secure website operation on the basis of legitimate interests under Article 6(1)(f) GDPR. Contact data is processed to answer the request under Article 6(1)(b) or (f) GDPR. AI questions are processed only with consent under Article 6(1)(a) GDPR, which can be withdrawn for the future.",
+      localStorageTitle: "Data on this device",
+      localStorageText:
+        "Language, game progress, badges and selected settings are stored locally in the browser. They are not a public profile and can be deleted through the browser settings.",
+      rightsTitle: "Your rights",
+      rightsText:
+        "You may request access, correction, deletion, restriction, portability or object to processing. You may withdraw consent at any time and lodge a complaint with a data-protection authority.",
     },
     footer: {
       statement: "Youth-led environmental education for a more sustainable future.",
@@ -2300,6 +2396,27 @@ const content = {
       reefOutcomeStrong: "Starker Rettungsplan: lokaler Schutz und Klimaschutz greifen zusammen.",
       reefOutcomeMedium: "Nützlicher Plan. Ergänze eine fehlende Maßnahme, wenn das Budget reicht.",
       reefOutcomeWeak: "Noch zu wenig Schutz. Wähle Maßnahmen, die Stress senken.",
+      gameModelNote: "Anschauliches Lernmodell: Die Werte zeigen Zusammenhänge, keine gemessenen Prognosen oder Live-Daten.",
+      decrease: "Punkte verringern",
+      increase: "Punkte erhöhen",
+      finalBudget: "Ratsbudget",
+      finalClimate: "Emissionsminderung",
+      finalNature: "Naturschutz",
+      finalJustice: "Gerechtigkeit",
+      finalResilience: "Widerstandskraft",
+      finalOutcomeStrong: "Das Paket ist ausgewogen: Alle Sicherheitslinien sind erreicht und das Budget ist vollständig eingesetzt.",
+      finalOutcomeHint: "Nutze alle 16 Punkte und halte Klima, Natur, Gerechtigkeit und Widerstandskraft über 52 Prozent.",
+      profileTitle: "Dein Spielfortschritt",
+      xp: "XP",
+      gamesSolved: "Spiele gelöst",
+      badges: "Badges",
+      localRanking: "Beste Ergebnisse auf diesem Gerät",
+      localOnly: "Fortschritt, Badges und Ergebnisse bleiben in diesem Browser und werden nicht veröffentlicht.",
+      certificateTitle: "CYRI Climate Certificate freigeschaltet",
+      certificateText: "Trage deinen Namen ein und erstelle dein persönliches PDF-Zertifikat.",
+      certificateName: "Name auf dem Zertifikat",
+      certificateNameRequired: "Bitte gib einen Namen für das Zertifikat ein.",
+      certificateDownload: "PDF-Zertifikat erstellen",
       mapEyebrow: "Globale Zusammenhänge",
       mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
@@ -2397,6 +2514,8 @@ const content = {
       readArticle: "Artikel lesen",
       privacyNote:
         "Deine Frage wird zur Verarbeitung an den eingerichteten KI-Anbieter übermittelt. Gib keine persönlichen oder vertraulichen Informationen ein.",
+      consent:
+        "Ich stimme zu, dass meine Frage vom eingerichteten KI-Anbieter verarbeitet wird. Ich gebe keine personenbezogenen Daten ein.",
       missing: "Gib eine Frage mit mindestens fünf Zeichen ein.",
       unavailable: "Der CYRI-Assistent ist auf dem Server noch nicht eingerichtet.",
       rateLimited: "Es wurden zu viele Fragen gestellt. Bitte versuche es in einigen Minuten erneut.",
@@ -2437,6 +2556,7 @@ const content = {
       emailPlaceholder: "deine.email@example.com",
       message: "Nachricht",
       messagePlaceholder: "Beschreibe, worum es in deiner Nachricht geht.",
+      privacyNote: "Wir verwenden deine Angaben nur zur Beantwortung der Nachricht. Details stehen im Datenschutzhinweis.",
       submit: "Nachricht senden",
       success: "Danke. Deine Nachricht wurde gespeichert und kann vom CYRI-Team geprüft werden.",
       error: "Die Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.",
@@ -2538,7 +2658,22 @@ const content = {
         "Diese Website sendet Kontaktanfragen und geschützte Veröffentlichungsanfragen an das CYRI-Backend.",
       localDataTitle: "Serverdaten",
       localDataText:
-        "Kontaktanfragen werden zur Bearbeitung auf dem Server gespeichert. Veröffentlichte Artikel werden im Artikelbackend gespeichert. Fragen im CYRI-Assistenten werden zur Beantwortung an den konfigurierten KI-Anbieter übermittelt. Eine vollständige Datenschutzerklärung sollte vor dem öffentlichen Launch finalisiert werden.",
+        "Kontaktanfragen werden nur zur Bearbeitung auf dem Server gespeichert und normalerweise nach sechs Monaten gelöscht, sofern keine gesetzlichen Pflichten eine längere Speicherung erfordern.",
+      controllerTitle: "Verantwortliche und Kontakt",
+      controllerText:
+        "Für diese Website ist CYRI, betrieben von Tobias Göppert und Jarne Bub, verantwortlich. Datenschutzfragen können an climateyri@gmail.com gesendet werden.",
+      processingTitle: "Welche Daten verarbeitet werden",
+      processingText:
+        "Der Hosting-Anbieter kann technische Protokolldaten verarbeiten. Das Kontaktformular verarbeitet Name, E-Mail-Adresse und Nachricht. Der CYRI-Assistent sendet die eingegebene Frage erst nach Einwilligung an den eingerichteten KI-Anbieter.",
+      basisTitle: "Zwecke und Rechtsgrundlagen",
+      basisText:
+        "Technische Protokolldaten werden für den sicheren Websitebetrieb auf Grundlage berechtigter Interessen nach Art. 6 Abs. 1 lit. f DSGVO verarbeitet. Kontaktdaten werden zur Beantwortung nach Art. 6 Abs. 1 lit. b oder f DSGVO verarbeitet. KI-Fragen werden nur mit Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO verarbeitet; die Einwilligung kann für die Zukunft widerrufen werden.",
+      localStorageTitle: "Daten auf diesem Gerät",
+      localStorageText:
+        "Sprache, Spielfortschritt, Badges und ausgewählte Einstellungen werden lokal im Browser gespeichert. Sie bilden kein öffentliches Profil und können über die Browser-Einstellungen gelöscht werden.",
+      rightsTitle: "Deine Rechte",
+      rightsText:
+        "Du kannst Auskunft, Berichtigung, Löschung, Einschränkung oder Datenübertragbarkeit verlangen und der Verarbeitung widersprechen. Eine Einwilligung kann jederzeit widerrufen und eine Datenschutzaufsichtsbehörde kontaktiert werden.",
     },
     footer: {
       statement: "Jugendgeführte Umweltbildung für eine nachhaltigere Zukunft.",
@@ -2561,6 +2696,7 @@ const LEARNING_PROGRESS_KEY = "cyri-learning-progress";
 const AUDIENCE_KEY = "cyri-learning-audience";
 const LEARNING_POLL_KEY = "cyri-learning-poll";
 const MISSION_STATE_KEY = "cyri-mission-lab";
+const GAME_PROGRESS_KEY = "cyri-game-progress-v2";
 
 function loadAudience() {
   const savedAudience = localStorage.getItem(AUDIENCE_KEY);
@@ -2587,6 +2723,32 @@ function loadMissionLabState() {
         : fallback.focus,
       role: missionRoles.some((role) => role.id === saved.role) ? saved.role : fallback.role,
       pace: missionPaces.some((pace) => pace.id === saved.pace) ? saved.pace : fallback.pace,
+    };
+  } catch {
+    return fallback;
+  }
+}
+
+function loadGameProgress() {
+  const fallback = { minutes: 5, completed: [], history: [] };
+  try {
+    const saved = JSON.parse(localStorage.getItem(GAME_PROGRESS_KEY) || "{}");
+    const validIds = new Set(learningGames.map((game) => game.id));
+    return {
+      minutes: [5, 15, 30].includes(saved.minutes) ? saved.minutes : 5,
+      completed: Array.isArray(saved.completed)
+        ? [...new Set(saved.completed.filter((id) => validIds.has(id)))]
+        : [],
+      history: Array.isArray(saved.history)
+        ? saved.history
+            .filter(
+              (entry) =>
+                [5, 15, 30].includes(entry?.minutes) &&
+                Number.isFinite(entry?.score) &&
+                typeof entry?.date === "string"
+            )
+            .slice(0, 8)
+        : [],
     };
   } catch {
     return fallback;
@@ -2655,6 +2817,7 @@ function loadLearningProgress() {
 
 const savedLearningProgress = loadLearningProgress();
 const savedMissionLab = loadMissionLabState();
+const savedGameProgress = loadGameProgress();
 
 const state = {
   lang: localStorage.getItem("cyri-language") || (navigator.language.startsWith("de") ? "de" : "en"),
@@ -2685,8 +2848,9 @@ const state = {
   activeMissionRole: savedMissionLab.role,
   activeMissionPace: savedMissionLab.pace,
   activeSdg: 13,
-  learningGameMinutes: 5,
-  completedLearningGames: [],
+  learningGameMinutes: savedGameProgress.minutes,
+  completedLearningGames: savedGameProgress.completed,
+  learningGameHistory: savedGameProgress.history,
   activeLearningGame: learningGames[0].id,
   sdgSprintIndex: 0,
   sdgSprintAnswers: [],
@@ -2701,6 +2865,13 @@ const state = {
     routes: 2,
   },
   reefActions: [],
+  climatePlan: {
+    energy: 2,
+    mobility: 2,
+    food: 2,
+    nature: 2,
+    fairness: 2,
+  },
   activeMapHotspot: mapHotspots[0].id,
   activeMapScenario: mapHotspots[0].model.scenarios[0].id,
   pollChoice: loadPollChoice(),
@@ -2799,10 +2970,20 @@ function nextUnlockedLearningGameId() {
   return activeLearningGameIds().find((gameId) => !isLearningGameComplete(gameId));
 }
 
+function saveGameProgress() {
+  localStorage.setItem(
+    GAME_PROGRESS_KEY,
+    JSON.stringify({
+      minutes: state.learningGameMinutes,
+      completed: state.completedLearningGames,
+      history: state.learningGameHistory,
+    })
+  );
+}
+
 function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.learningGameMinutes = minutes;
-  state.completedLearningGames = [];
-  state.activeLearningGame = activeLearningGameIds()[0] || learningGames[0].id;
+  state.activeLearningGame = nextUnlockedLearningGameId() || activeLearningGameIds().at(-1);
   state.sdgSprintIndex = 0;
   state.sdgSprintAnswers = [];
   state.chainRound = 0;
@@ -2811,17 +2992,89 @@ function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.chainFeedback = "";
   state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
   state.reefActions = [];
+  state.climatePlan = { energy: 2, mobility: 2, food: 2, nature: 2, fairness: 2 };
+  saveGameProgress();
 }
 
 function completeLearningGame(gameId) {
+  let newlyCompleted = false;
   if (!isLearningGameComplete(gameId)) {
     state.completedLearningGames.push(gameId);
+    newlyCompleted = true;
   }
+
+  if (newlyCompleted && activeLearningGameIds().every((id) => isLearningGameComplete(id))) {
+    const score = Math.max(100, activeLearningGameIds().length * 100 - state.chainMistakes * 5);
+    const today = new Date().toISOString().slice(0, 10);
+    state.learningGameHistory = [
+      { minutes: state.learningGameMinutes, score, date: today },
+      ...state.learningGameHistory.filter(
+        (entry) => entry.minutes !== state.learningGameMinutes || entry.date !== today
+      ),
+    ].slice(0, 8);
+  }
+  saveGameProgress();
 
   const nextGameId = nextUnlockedLearningGameId();
   if (nextGameId) {
     state.activeLearningGame = nextGameId;
   }
+}
+
+function climatePlanTotal() {
+  return climateCouncilControls.reduce(
+    (sum, item) => sum + (state.climatePlan[item.id] || 0),
+    0
+  );
+}
+
+function climateMetric(metric) {
+  return gameScoreValue(
+    12 +
+      climateCouncilControls.reduce(
+        (sum, item) => sum + (state.climatePlan[item.id] || 0) * (item.effects[metric] || 0),
+        0
+      )
+  );
+}
+
+function climateGameSolved(metrics, average) {
+  return (
+    climatePlanTotal() === 16 &&
+    average >= 66 &&
+    Object.values(metrics).every((value) => value >= 52)
+  );
+}
+
+function learningBadges() {
+  const completed = new Set(state.completedLearningGames);
+  return [
+    {
+      id: "first-step",
+      label: bi("First move", "Erster Zug"),
+      unlocked: completed.size >= 1,
+    },
+    {
+      id: "sdg-scout",
+      label: bi("SDG Scout", "SDG-Scout"),
+      unlocked: completed.has("sdg-sprint"),
+    },
+    {
+      id: "systems-thinker",
+      label: bi("Systems thinker", "Systemdenker:in"),
+      unlocked: completed.has("chain-builder"),
+    },
+    {
+      id: "resilience-planner",
+      label: bi("Resilience planner", "Resilienz-Planer:in"),
+      unlocked: completed.has("city-builder") && completed.has("reef-rescue"),
+    },
+    {
+      id: "climate-council",
+      label: bi("Climate Council", "Klimarat"),
+      unlocked: completed.has("climate-council"),
+    },
+  ];
 }
 
 function learningGameCompletionLabel(gameId) {
@@ -2832,6 +3085,14 @@ function learningGameCompletionLabel(gameId) {
 
 function gameScoreValue(value) {
   return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+function contrastText(hexColor) {
+  const color = String(hexColor).replace("#", "");
+  if (!/^[a-f0-9]{6}$/i.test(color)) return "#ffffff";
+  const [red, green, blue] = [0, 2, 4].map((index) => parseInt(color.slice(index, index + 2), 16));
+  const luminance = (red * 0.299 + green * 0.587 + blue * 0.114) / 255;
+  return luminance > 0.58 ? "#10211d" : "#ffffff";
 }
 
 function cityPlanTotal() {
@@ -3163,9 +3424,20 @@ function updateSeo() {
   const description = document.querySelector('meta[name="description"]');
   const ogTitle = document.querySelector('meta[property="og:title"]');
   const ogDescription = document.querySelector('meta[property="og:description"]');
+  const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+  const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+  let robots = document.querySelector('meta[name="robots"]');
+  if (!robots) {
+    robots = document.createElement("meta");
+    robots.name = "robots";
+    document.head.append(robots);
+  }
   if (description) description.content = seo.description;
   if (ogTitle) ogTitle.content = seo.title;
   if (ogDescription) ogDescription.content = seo.description;
+  if (twitterTitle) twitterTitle.content = seo.title;
+  if (twitterDescription) twitterDescription.content = seo.description;
+  robots.content = state.page === "publish" ? "noindex, nofollow" : "index, follow";
 }
 
 function renderMissionFocus() {
@@ -3743,7 +4015,7 @@ function renderSdgLab() {
               role="listitem"
               data-sdg-goal="${goal.number}"
               aria-pressed="${active}"
-              style="--sdg-color: ${goal.color}"
+              style="--sdg-color: ${goal.color}; --sdg-ink: ${contrastText(goal.color)}"
             >
               <span>SDG ${goal.number}</span>
               <strong>${escapeHtml(localizedValue(goal.title))}</strong>
@@ -3753,7 +4025,7 @@ function renderSdgLab() {
         })
         .join("")}
     </div>
-    <article class="sdg-detail" style="--sdg-color: ${activeGoal.color}">
+    <article class="sdg-detail" style="--sdg-color: ${activeGoal.color}; --sdg-ink: ${contrastText(activeGoal.color)}">
       <div class="sdg-detail-heading">
         <span>SDG ${activeGoal.number}</span>
         <h3>${escapeHtml(localizedValue(activeGoal.title))}</h3>
@@ -3847,7 +4119,7 @@ function renderSdgSprintGame() {
                 type="button"
                 data-sdg-sprint-option="${number}"
                 ${answered ? "disabled" : ""}
-                style="--game-color: ${goal.color}"
+                style="--game-color: ${goal.color}; --game-ink: ${contrastText(goal.color)}"
               >
                 <span>SDG ${number}</span>
                 <strong>${escapeHtml(localizedValue(goal.title))}</strong>
@@ -4031,6 +4303,7 @@ function renderCityBuilderGame() {
                     type="button"
                     data-city-control="${escapeHtml(control.id)}"
                     data-city-change="-1"
+                    aria-label="${escapeHtml(`${localizedValue(control.title)}: ${t("learn.decrease")}`)}"
                     ${value <= 0 ? "disabled" : ""}
                   >-</button>
                   <span>${value}</span>
@@ -4038,6 +4311,7 @@ function renderCityBuilderGame() {
                     type="button"
                     data-city-control="${escapeHtml(control.id)}"
                     data-city-change="1"
+                    aria-label="${escapeHtml(`${localizedValue(control.title)}: ${t("learn.increase")}`)}"
                     ${remaining <= 0 || value >= 6 ? "disabled" : ""}
                   >+</button>
                 </div>
@@ -4136,6 +4410,184 @@ function renderReefRescueGame() {
   `;
 }
 
+function renderClimateCouncilGame() {
+  const budget = 16;
+  const used = climatePlanTotal();
+  const remaining = budget - used;
+  const metrics = {
+    climate: climateMetric("climate"),
+    nature: climateMetric("nature"),
+    justice: climateMetric("justice"),
+    resilience: climateMetric("resilience"),
+  };
+  const average = Math.round(Object.values(metrics).reduce((sum, value) => sum + value, 0) / 4);
+  const solved = climateGameSolved(metrics, average);
+
+  return `
+    <div class="game-play-panel final-game-panel">
+      <div class="game-status-row">
+        <span>${escapeHtml(t("learn.finalBudget"))}: ${used}/${budget}</span>
+        <strong>${escapeHtml(
+          formatLearningText(t(remaining > 0 ? "learn.gameRemaining" : "learn.gameFullBudget"), {
+            count: remaining,
+          })
+        )}</strong>
+      </div>
+      <div class="city-control-grid climate-control-grid">
+        ${climateCouncilControls
+          .map((control) => {
+            const value = state.climatePlan[control.id] || 0;
+            const title = localizedValue(control.title);
+            return `
+              <article class="city-control-card">
+                <div>
+                  <strong>${escapeHtml(title)}</strong>
+                  <p>${escapeHtml(localizedValue(control.text))}</p>
+                </div>
+                <div class="city-stepper">
+                  <button type="button" data-climate-control="${escapeHtml(control.id)}" data-climate-change="-1"
+                    aria-label="${escapeHtml(`${title}: ${t("learn.decrease")}`)}" ${value <= 0 ? "disabled" : ""}>-</button>
+                  <span aria-live="polite">${value}</span>
+                  <button type="button" data-climate-control="${escapeHtml(control.id)}" data-climate-change="1"
+                    aria-label="${escapeHtml(`${title}: ${t("learn.increase")}`)}" ${remaining <= 0 || value >= 6 ? "disabled" : ""}>+</button>
+                </div>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+      <div class="game-meter-grid">
+        ${renderGameMeter(t("learn.finalClimate"), metrics.climate)}
+        ${renderGameMeter(t("learn.finalNature"), metrics.nature)}
+        ${renderGameMeter(t("learn.finalJustice"), metrics.justice)}
+        ${renderGameMeter(t("learn.finalResilience"), metrics.resilience)}
+      </div>
+      <div class="game-feedback ${solved ? "is-correct" : average >= 56 ? "" : "is-wrong"}" role="status">
+        <strong>${average}%</strong>
+        <p>${escapeHtml(solved ? t("learn.finalOutcomeStrong") : t("learn.finalOutcomeHint"))}</p>
+      </div>
+      <div class="game-action-row">
+        <button class="button button-secondary" type="button" data-climate-reset>${escapeHtml(t("learn.gameReset"))}</button>
+        <button class="button button-primary" type="button" data-climate-complete ${solved ? "" : "disabled"}>
+          ${escapeHtml(learningGameCompletionLabel("climate-council"))}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLearningProfile() {
+  const badges = learningBadges();
+  const unlocked = badges.filter((badge) => badge.unlocked);
+  const rankedRuns = [...state.learningGameHistory].sort(
+    (left, right) => right.score - left.score || right.minutes - left.minutes
+  );
+  const certificateUnlocked = isLearningGameComplete("climate-council");
+  return `
+    <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
+      <div class="learning-profile-stats">
+        <div><strong>${state.completedLearningGames.length * 120}</strong><span>${escapeHtml(t("learn.xp"))}</span></div>
+        <div><strong>${state.completedLearningGames.length}/${learningGames.length}</strong><span>${escapeHtml(t("learn.gamesSolved"))}</span></div>
+        <div><strong>${unlocked.length}/${badges.length}</strong><span>${escapeHtml(t("learn.badges"))}</span></div>
+      </div>
+      <div class="badge-row" aria-label="${escapeHtml(t("learn.badges"))}">
+        ${badges
+          .map(
+            (badge) => `<span class="learning-badge${badge.unlocked ? " is-unlocked" : ""}">
+              <b aria-hidden="true">${badge.unlocked ? "✓" : "○"}</b>${escapeHtml(localizedValue(badge.label))}
+            </span>`
+          )
+          .join("")}
+      </div>
+      ${
+        rankedRuns.length
+          ? `<div class="local-ranking">
+              <strong>${escapeHtml(t("learn.localRanking"))}</strong>
+              <ol>${rankedRuns
+                .slice(0, 3)
+                .map(
+                  (run) => `<li><span>${run.minutes} min</span><b>${run.score} ${escapeHtml(t("learn.xp"))}</b><small>${escapeHtml(run.date)}</small></li>`
+                )
+                .join("")}</ol>
+            </div>`
+          : ""
+      }
+      ${
+        certificateUnlocked
+          ? `<div class="certificate-panel">
+              <div><strong>${escapeHtml(t("learn.certificateTitle"))}</strong><p>${escapeHtml(t("learn.certificateText"))}</p></div>
+              <label><span>${escapeHtml(t("learn.certificateName"))}</span><input type="text" maxlength="80" data-certificate-name required /></label>
+              <button class="button button-primary" type="button" data-certificate-download>${escapeHtml(t("learn.certificateDownload"))}</button>
+            </div>`
+          : ""
+      }
+      <p class="learning-local-note">${escapeHtml(t("learn.localOnly"))}</p>
+    </section>
+  `;
+}
+
+function pdfSafeText(value) {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\x20-\x7e]/g, " ")
+    .replace(/\\/g, "\\\\")
+    .replace(/\(/g, "\\(")
+    .replace(/\)/g, "\\)")
+    .trim();
+}
+
+function downloadClimateCertificate(name) {
+  const certificateId = `CYRI-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  const recipient = pdfSafeText(name);
+  const date = pdfSafeText(new Intl.DateTimeFormat(state.lang === "de" ? "de-DE" : "en-GB").format(new Date()));
+  const certificateText = pdfSafeText(
+    state.lang === "de"
+      ? "hat die interaktiven CYRI-Umweltmissionen erfolgreich abgeschlossen."
+      : "has successfully completed the interactive CYRI environmental missions."
+  );
+  const contentStream = [
+    "0.02 0.32 0.26 rg 0 0 842 595 re f",
+    "0.94 0.98 0.96 rg 24 24 794 547 re f",
+    "0.02 0.32 0.26 RG 2 w 42 42 758 511 re S",
+    "BT /F2 18 Tf 0.02 0.32 0.26 rg 64 493 Td (CYRI) Tj ET",
+    "BT /F1 11 Tf 0.16 0.24 0.22 rg 64 470 Td (CLIMATE YOUTH RESEARCH INITIATIVE) Tj ET",
+    "BT /F2 34 Tf 0.06 0.12 0.11 rg 64 390 Td (CYRI Climate Certificate) Tj ET",
+    `BT /F2 25 Tf 0.02 0.32 0.26 rg 64 318 Td (${recipient}) Tj ET`,
+    `BT /F1 15 Tf 0.12 0.18 0.17 rg 64 278 Td (${certificateText}) Tj ET`,
+    "BT /F1 12 Tf 0.12 0.18 0.17 rg 64 236 Td (Modules: SDG Sprint | Cause Chain | City Builder | Reef Rescue | Climate Council 2035) Tj ET",
+    `BT /F1 11 Tf 0.12 0.18 0.17 rg 64 172 Td (Issued: ${date}) Tj ET`,
+    `BT /F1 11 Tf 0.12 0.18 0.17 rg 64 152 Td (Certificate ID: ${certificateId}) Tj ET`,
+    "BT /F1 9 Tf 0.22 0.28 0.26 rg 64 92 Td (Funded by DSEE with funds from BMZ - action! Aktiv fur eine globale Welt) Tj ET",
+    "BT /F1 9 Tf 0.22 0.28 0.26 rg 64 72 Td (cyri.online) Tj ET",
+  ].join("\n");
+  const objects = [
+    "1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n",
+    "2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n",
+    "3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >> endobj\n",
+    "4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj\n",
+    "5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> endobj\n",
+    `6 0 obj << /Length ${contentStream.length} >> stream\n${contentStream}\nendstream\nendobj\n`,
+  ];
+  let pdf = "%PDF-1.4\n";
+  const offsets = [0];
+  objects.forEach((object) => {
+    offsets.push(pdf.length);
+    pdf += object;
+  });
+  const xrefOffset = pdf.length;
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+  offsets.slice(1).forEach((offset) => {
+    pdf += `${String(offset).padStart(10, "0")} 00000 n \n`;
+  });
+  pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
+  link.download = `CYRI-Climate-Certificate-${certificateId}.pdf`;
+  link.click();
+  window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+
 function renderLearningGames() {
   const container = document.querySelector("[data-learning-games]");
   if (!container) return;
@@ -4150,6 +4602,7 @@ function renderLearningGames() {
     "chain-builder": renderChainGame,
     "city-builder": renderCityBuilderGame,
     "reef-rescue": renderReefRescueGame,
+    "climate-council": renderClimateCouncilGame,
   };
   const gameInfoCards = [
     ["gameInfoProblem", activeGame.info?.problem],
@@ -4194,6 +4647,7 @@ function renderLearningGames() {
         <span>${escapeHtml(pathComplete ? t("learn.gamePathComplete") : localizedValue(activeLearningGameTrack().description))}</span>
       </div>
     </section>
+    ${renderLearningProfile()}
     <aside class="game-menu" role="tablist" aria-label="${escapeHtml(t("learn.gameChoose"))}">
       ${sequenceIds
         .map((gameId, index) => {
@@ -4226,6 +4680,7 @@ function renderLearningGames() {
         <span>${escapeHtml(localizedValue(activeGame.tag))}</span>
         <h3>${escapeHtml(localizedValue(activeGame.title))}</h3>
         <p>${escapeHtml(localizedValue(activeGame.text))}</p>
+        <small>${escapeHtml(t("learn.gameModelNote"))}</small>
       </div>
       <div class="game-info-grid">
         ${gameInfoCards
@@ -4319,7 +4774,7 @@ function renderLearningMap() {
                 type="button"
                 data-sdg-goal="${number}"
                 data-sdg-jump="true"
-                style="--sdg-color: ${goal.color}"
+                style="--sdg-color: ${goal.color}; --sdg-ink: ${contrastText(goal.color)}"
               >
                 <span>${escapeHtml(sdg)}</span>
                 ${escapeHtml(localizedValue(goal.title))}
@@ -5058,6 +5513,7 @@ function buildPublishedArticle(form) {
 }
 
 function openArticle(id) {
+  articleModalReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   state.activeArticleId = id;
   markLearningArticleRead(id);
   updateArticleModal();
@@ -5074,6 +5530,8 @@ function closeArticle() {
   modal.hidden = true;
   modal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("no-scroll");
+  articleModalReturnFocus?.focus();
+  articleModalReturnFocus = null;
 }
 
 function renderArticleBody(body) {
@@ -5408,6 +5866,51 @@ document.addEventListener("click", (event) => {
       completeLearningGame("reef-rescue");
     }
     renderLearningGames();
+    return;
+  }
+
+  const climateControlButton = event.target.closest("[data-climate-control]");
+  if (climateControlButton) {
+    const id = climateControlButton.dataset.climateControl;
+    const change = Number(climateControlButton.dataset.climateChange);
+    const current = state.climatePlan[id] || 0;
+    const next = current + change;
+    if (next >= 0 && next <= 6 && (change < 0 || climatePlanTotal() < 16)) {
+      state.climatePlan[id] = next;
+      renderLearningGames();
+    }
+    return;
+  }
+
+  if (event.target.closest("[data-climate-reset]")) {
+    state.climatePlan = { energy: 2, mobility: 2, food: 2, nature: 2, fairness: 2 };
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-climate-complete]")) {
+    const metrics = {
+      climate: climateMetric("climate"),
+      nature: climateMetric("nature"),
+      justice: climateMetric("justice"),
+      resilience: climateMetric("resilience"),
+    };
+    const average = Math.round(Object.values(metrics).reduce((sum, value) => sum + value, 0) / 4);
+    if (climateGameSolved(metrics, average)) completeLearningGame("climate-council");
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-certificate-download]")) {
+    const nameInput = document.querySelector("[data-certificate-name]");
+    const name = nameInput?.value.trim() || "";
+    if (!name) {
+      nameInput?.setCustomValidity(t("learn.certificateNameRequired"));
+      nameInput?.reportValidity();
+      return;
+    }
+    nameInput.setCustomValidity("");
+    downloadClimateCertificate(name);
     return;
   }
 
@@ -5859,8 +6362,24 @@ document.querySelector("[data-publish-form]").addEventListener("submit", async (
 window.addEventListener("hashchange", () => syncRoute(true));
 
 window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !document.querySelector("[data-article-modal]").hidden) {
-    closeArticle();
+  const modal = document.querySelector("[data-article-modal]");
+  if (event.key === "Escape") {
+    if (!modal.hidden) closeArticle();
+    closeMenu();
+    return;
+  }
+  if (event.key === "Tab" && !modal.hidden) {
+    const focusable = [...modal.querySelectorAll('a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])')];
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 });
 

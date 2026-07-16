@@ -10,8 +10,6 @@ const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 const ARTICLES_FILE = path.join(DATA_DIR, "articles.json");
 const MESSAGES_FILE = path.join(DATA_DIR, "messages.json");
 const STATIC_ARTICLES_FILE = path.join(PUBLIC_ROOT, "content", "articles.json");
-const DEFAULT_PUBLISH_PASSWORD_HASH =
-  "c5adc9b61a9c18a6ad1a7489725c79cfcd3ef6a5980d6eeece1065b51a546336";
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 12;
 const MAX_JSON_BODY_SIZE = 4 * 1024 * 1024;
 const MAX_UPLOAD_SIZE = 2.5 * 1024 * 1024;
@@ -23,6 +21,10 @@ const OPENAI_RESEARCH_MODEL =
   process.env.OPENAI_RESEARCH_MODEL?.trim() || OPENAI_TRANSLATION_MODEL;
 const RESEARCH_RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RESEARCH_RATE_LIMIT_MAX = 12;
+const AUTH_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+const AUTH_RATE_LIMIT_MAX = 8;
+const CONTACT_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+const CONTACT_RATE_LIMIT_MAX = 5;
 
 const allowedCategories = new Set(["policy", "energy", "biodiversity", "cities", "marine"]);
 const allowedImages = new Set([
@@ -38,6 +40,8 @@ const allowedImages = new Set([
 const publishSessions = new Map();
 const writeQueues = new Map();
 const researchRateLimits = new Map();
+const authRateLimits = new Map();
+const contactRateLimits = new Map();
 const translationSchema = {
   type: "object",
   additionalProperties: false,
@@ -107,6 +111,9 @@ const mimeTypes = {
   ".png": "image/png",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
+  ".webmanifest": "application/manifest+json; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
   ".svg": "image/svg+xml",
   ".webp": "image/webp",
 };
@@ -130,7 +137,21 @@ function currentPublishPasswordHash() {
     return sha256(process.env.CYRI_PUBLISH_PASSWORD);
   }
 
-  return DEFAULT_PUBLISH_PASSWORD_HASH;
+  return "";
+}
+
+function securityHeaders() {
+  return {
+    "Content-Security-Policy":
+      "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self' data:; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'",
+    "Permissions-Policy": "camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    ...(process.env.NODE_ENV === "production"
+      ? { "Strict-Transport-Security": "max-age=31536000; includeSubDomains" }
+      : {}),
+  };
 }
 
 function timingSafeHexCompare(left, right) {
@@ -242,10 +263,30 @@ function serializeFileWrite(filePath, task) {
 
 function sendJson(res, statusCode, payload) {
   res.writeHead(statusCode, {
+    ...securityHeaders(),
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
   });
   res.end(JSON.stringify(payload));
+}
+
+function clientAddress(req) {
+  return (
+    String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() ||
+    req.socket.remoteAddress ||
+    "unknown"
+  );
+}
+
+function enforceRateLimit(req, store, windowMs, maximum, message) {
+  const client = clientAddress(req);
+  const now = Date.now();
+  const recent = (store.get(client) || []).filter((timestamp) => now - timestamp < windowMs);
+  if (recent.length >= maximum) {
+    throw createError(429, message);
+  }
+  recent.push(now);
+  store.set(client, recent);
 }
 
 function sendError(res, error) {
@@ -502,21 +543,13 @@ function selectResearchArticles(articles, question) {
 }
 
 function enforceResearchRateLimit(req) {
-  const forwarded = String(req.headers["x-forwarded-for"] || "")
-    .split(",")[0]
-    .trim();
-  const client = forwarded || req.socket.remoteAddress || "unknown";
-  const now = Date.now();
-  const recent = (researchRateLimits.get(client) || []).filter(
-    (timestamp) => now - timestamp < RESEARCH_RATE_LIMIT_WINDOW_MS
+  enforceRateLimit(
+    req,
+    researchRateLimits,
+    RESEARCH_RATE_LIMIT_WINDOW_MS,
+    RESEARCH_RATE_LIMIT_MAX,
+    "Too many research questions. Try again later."
   );
-
-  if (recent.length >= RESEARCH_RATE_LIMIT_MAX) {
-    throw createError(429, "Too many research questions. Try again later.");
-  }
-
-  recent.push(now);
-  researchRateLimits.set(client, recent);
 }
 
 async function answerResearchQuestion(input, req) {
@@ -824,10 +857,21 @@ async function handleApi(req, res, url) {
   }
 
   if (url.pathname === "/api/auth/publish" && req.method === "POST") {
+    const configuredHash = currentPublishPasswordHash();
+    if (!configuredHash) {
+      throw createError(503, "Publishing access is not configured.");
+    }
+    enforceRateLimit(
+      req,
+      authRateLimits,
+      AUTH_RATE_LIMIT_WINDOW_MS,
+      AUTH_RATE_LIMIT_MAX,
+      "Too many login attempts. Try again later."
+    );
     const body = await readRequestJson(req);
     const passwordHash = sha256(String(body.password || ""));
 
-    if (!timingSafeHexCompare(passwordHash, currentPublishPasswordHash())) {
+    if (!timingSafeHexCompare(passwordHash, configuredHash)) {
       throw createError(401, "Wrong password.");
     }
 
@@ -873,6 +917,17 @@ async function handleApi(req, res, url) {
 
   if (url.pathname === "/api/contact" && req.method === "POST") {
     const body = await readRequestJson(req);
+    if (cleanText(body.website, 200)) {
+      sendJson(res, 201, { ok: true });
+      return;
+    }
+    enforceRateLimit(
+      req,
+      contactRateLimits,
+      CONTACT_RATE_LIMIT_WINDOW_MS,
+      CONTACT_RATE_LIMIT_MAX,
+      "Too many contact messages. Try again later."
+    );
     const message = await serializeFileWrite(MESSAGES_FILE, async () => {
       const messages = await readJsonFile(MESSAGES_FILE, []);
       const nextMessage = normalizeMessage(body);
@@ -897,6 +952,7 @@ async function handleStatic(req, res, url) {
     try {
       const data = await fs.readFile(path.join(UPLOADS_DIR, uploadMatch[1]));
       res.writeHead(200, {
+        ...securityHeaders(),
         "Content-Type": "image/jpeg",
         "Cache-Control": "public, max-age=31536000, immutable",
         "X-Content-Type-Options": "nosniff",
@@ -913,6 +969,9 @@ async function handleStatic(req, res, url) {
     requestPath === "/index.html" ||
     requestPath === "/app.js" ||
     requestPath === "/styles.css" ||
+    requestPath === "/robots.txt" ||
+    requestPath === "/sitemap.xml" ||
+    requestPath === "/site.webmanifest" ||
     requestPath.startsWith("/assets/") ||
     requestPath.startsWith("/content/");
 
@@ -930,8 +989,13 @@ async function handleStatic(req, res, url) {
   const data = await fs.readFile(filePath);
   const contentType = mimeTypes[path.extname(filePath).toLowerCase()] || "application/octet-stream";
   res.writeHead(200, {
+    ...securityHeaders(),
     "Content-Type": contentType,
-    "Cache-Control": contentType.startsWith("text/html") ? "no-store" : "public, max-age=3600",
+    "Cache-Control": contentType.startsWith("text/html")
+      ? "no-store"
+      : url.searchParams.has("v")
+        ? "public, max-age=31536000, immutable"
+        : "public, max-age=3600",
   });
 
   if (req.method === "HEAD") {

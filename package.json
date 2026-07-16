@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "check": "node --check app.js && node --check server.js"
+    "check": "node --check app.js && node --check server.js",
+    "test:browser": "playwright test tests/browser-smoke.spec.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
   }
 }
