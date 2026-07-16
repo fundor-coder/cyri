@@ -12,6 +12,34 @@ async function setAdultMode(page, progress = null) {
   }, progress);
 }
 
+async function expectRenderedModel(page, type) {
+  const stage = page.locator(`[data-learning-3d="${type}"]`);
+  await expect(stage).toHaveAttribute("data-model-ready", "true");
+  const canvas = stage.locator("canvas");
+  await expect(canvas).toBeVisible();
+  const pixels = await canvas.evaluate((element) => {
+    const probe = document.createElement("canvas");
+    probe.width = 96;
+    probe.height = 64;
+    const context = probe.getContext("2d", { willReadFrequently: true });
+    context.drawImage(element, 0, 0, probe.width, probe.height);
+    const data = context.getImageData(0, 0, probe.width, probe.height).data;
+    let opaque = 0;
+    let darkest = 255;
+    let brightest = 0;
+    for (let index = 0; index < data.length; index += 4) {
+      if (data[index + 3] === 0) continue;
+      opaque += 1;
+      const brightness = (data[index] + data[index + 1] + data[index + 2]) / 3;
+      darkest = Math.min(darkest, brightness);
+      brightest = Math.max(brightest, brightness);
+    }
+    return { opaque, range: brightest - darkest };
+  });
+  expect(pixels.opaque).toBeGreaterThan(300);
+  expect(pixels.range).toBeGreaterThan(25);
+}
+
 test("five-minute path unlocks puzzles in sequence", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -52,6 +80,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   for (const control of ["energy", "energy", "nature", "nature", "fairness", "fairness"]) {
     await page.locator(`[data-climate-control="${control}"][data-climate-change="1"]`).click();
   }
+  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/16");
   await expect(page.locator("[data-climate-complete]")).toBeEnabled();
   await page.locator("[data-climate-complete]").click();
   await page.locator("[data-certificate-name]").fill("Alex Climate");
@@ -63,14 +92,61 @@ test("finale and certificate work on desktop", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("city target unlocks before every token is used", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await setAdultMode(page, {
+    minutes: 30,
+    completed: ["sdg-sprint", "chain-builder"],
+    history: [],
+  });
+  await page.goto("http://127.0.0.1:5173/#learn");
+  await page.locator('[data-learning-game="city-builder"]').click();
+  await expect(page.locator("[data-city-complete]")).toBeDisabled();
+  await page.locator('[data-city-control="routes"][data-city-change="1"]').click();
+  await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
+  await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
+  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/12");
+  await expect(page.locator("[data-learning-games]")).toContainText("Continue from 62%");
+  await expect(page.locator("[data-city-complete]")).toBeEnabled();
+  expect(errors).toEqual([]);
+});
+
+test("all three 3D learning models render nonblank pixels", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("http://127.0.0.1:5173/?model-pixel-check=1#learn");
+
+  for (const [game, model] of [
+    ["city-builder", "city"],
+    ["reef-rescue", "reef"],
+    ["climate-council", "climate"],
+  ]) {
+    await page.locator(`[data-learning-game="${game}"]`).click();
+    await expectRenderedModel(page, model);
+    await page.locator(`[data-learning-3d="${model}"]`).screenshot({
+      path: `/tmp/cyri-${model}-3d.png`,
+    });
+  }
+  expect(errors).toEqual([]);
+});
+
 test("learning arcade has no horizontal overflow on mobile", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("http://127.0.0.1:5173/#learn");
+  await page.goto("http://127.0.0.1:5173/?model-pixel-check=1#learn");
   await page.locator('[data-learning-game="climate-council"]').click();
   await expect(page.locator("[data-learning-games]")).toContainText("Climate Council 2035");
+  await expectRenderedModel(page, "climate");
+  await page.locator('[data-learning-3d="climate"]').screenshot({
+    path: "/tmp/cyri-climate-mobile-3d.png",
+  });
   const hasOverflow = await page.evaluate(
     () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
   );

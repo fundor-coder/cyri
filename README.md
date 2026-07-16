@@ -15,7 +15,8 @@ Student info experience:
 - Mission, quiz and discovery choices are stored locally in the visitor's browser.
 - The Mission Lab lets visitors combine an environmental challenge, perspective and time frame into a live info model, animated impact cockpit, field kit, mini experiment, discussion prompt and action plan.
 - The SDG Lab turns all 17 Sustainable Development Goals into clickable student cards with short explanations, reflection questions and links into the map models.
-- The Learning Games arcade adds four selectable mini games: SDG Sprint, Cause Chain, City Builder and Reef Rescue.
+- The Learning Games arcade adds five sequential games: SDG Sprint, Cause Chain, City Builder, Reef Rescue and Climate Council 2035.
+- City Builder, Reef Rescue and Climate Council include local Three.js models that react to decisions without loading scripts from a third-party CDN.
 - The student interface uses larger card-style controls and readable meters instead of cramped table-like rows or text-heavy circles.
 - The knowledge check offers four selectable lengths with 3, 6, 9 or 12 bilingual questions, including SDG-focused prompts.
 - The CYRI assistant is integrated into the `Explore` page instead of appearing as a separate navigation item.
@@ -73,7 +74,10 @@ Persistent storage:
 - Every JSON update keeps a complete mirrored copy in a `.bak` file.
 - If the main JSON file becomes unreadable, the backend restores it automatically from that backup.
 
-For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment instead of relying on the local default.
+For production, set `CYRI_PUBLISH_PASSWORD` or `CYRI_PUBLISH_PASSWORD_HASH` in the server environment. Publishing is disabled when neither value is configured.
+
+Third-party frontend code:
+- Three.js `0.185.1` is vendored in `assets/vendor/three` under the MIT License. The original license text is included beside the module.
 
 Photo sources:
 - `assets/photos/sponge-city-rain-garden-hd.jpg`: Jeremy Jeziorski / Oregon Convention Center via Wikimedia Commons, CC BY 2.0; resized for web delivery.

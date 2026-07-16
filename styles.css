@@ -2307,6 +2307,77 @@ h3 {
   gap: 16px;
 }
 
+.learning-model-band {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  background: #dfe8d8;
+}
+
+.learning-model-stage {
+  width: 100%;
+  height: 340px;
+  min-height: 340px;
+}
+
+.learning-model-stage[data-learning-3d="reef"] {
+  background: #c7e2e8;
+}
+
+.learning-model-stage[data-learning-3d="climate"] {
+  background: #17383f;
+}
+
+.learning-model-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.learning-model-stage canvas.is-clickable {
+  cursor: pointer;
+}
+
+.learning-model-stage canvas.is-dragging {
+  cursor: grabbing;
+}
+
+.learning-model-stage canvas:focus-visible {
+  outline: 4px solid #f2c14e;
+  outline-offset: -5px;
+}
+
+.learning-model-score {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  gap: 2px;
+  min-width: 108px;
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: var(--radius-xs);
+  background: rgba(18, 33, 31, 0.88);
+  color: #fff;
+  padding: 9px 11px;
+  pointer-events: none;
+}
+
+.learning-model-score span {
+  font-size: 0.72rem;
+  font-weight: 720;
+  line-height: 1.2;
+}
+
+.learning-model-score strong {
+  color: #fff;
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
 .game-status-row {
   display: flex;
   flex-wrap: wrap;
@@ -2419,6 +2490,76 @@ h3 {
 .game-feedback p {
   margin: 0;
   color: var(--muted);
+}
+
+.game-target-status {
+  display: grid;
+  gap: 9px;
+  border-left: 5px solid var(--blue);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 14px 16px;
+}
+
+.game-target-status.is-reached {
+  border-left-color: var(--green);
+  background: rgba(226, 243, 225, 0.82);
+}
+
+.game-target-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.game-target-heading span {
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 760;
+}
+
+.game-target-heading strong {
+  color: var(--green);
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.game-target-track {
+  position: relative;
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(18, 22, 29, 0.12);
+  border-radius: 999px;
+  background: #dce3df;
+}
+
+.game-target-track i {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transition: width 220ms ease;
+}
+
+.game-target-track b {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 3px;
+  background: var(--ink);
+  transform: translateX(-2px);
+}
+
+.game-target-status p,
+.game-target-status small {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.game-target-status small {
+  color: var(--ink);
+  font-weight: 680;
 }
 
 .game-action-row {
@@ -5529,6 +5670,22 @@ select:focus-visible {
 
   .local-ranking small {
     grid-column: 1 / -1;
+  }
+
+  .learning-model-stage {
+    height: 260px;
+    min-height: 260px;
+  }
+
+  .learning-model-score {
+    top: 8px;
+    right: 8px;
+    min-width: 96px;
+    padding: 8px 9px;
+  }
+
+  .game-target-status {
+    padding: 13px 14px;
   }
 }
 
