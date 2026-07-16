@@ -1825,10 +1825,17 @@ const content = {
       localRanking: "Best results on this device",
       localOnly: "Progress, badges and results stay in this browser and are not published.",
       certificateTitle: "CYRI Climate Certificate unlocked",
-      certificateText: "Enter your name to create your personal PDF certificate.",
+      certificateText: "Enter your name to create the one certificate for this completed run.",
       certificateName: "Name on the certificate",
       certificateNameRequired: "Please enter a name for the certificate.",
-      certificateDownload: "Create PDF certificate",
+      certificateDownload: "Create certificate once",
+      certificateOnce: "One certificate can be issued for each completed run on this device.",
+      certificateIssuedTitle: "Certificate issued",
+      certificateIssuedText: "This completed run already has its certificate. Start a new run with the reset button below to earn another one.",
+      certificateId: "Certificate ID",
+      resetProgress: "Reset all game progress",
+      resetConfirm: "Reset all game progress, badges, results and the certificate status on this device?",
+      resetNote: "Starts a new run and removes the locally stored game results on this device.",
       mapEyebrow: "Global connections",
       mapTitle: "Click through the world map and test models.",
       mapIntro:
@@ -2436,10 +2443,17 @@ const content = {
       localRanking: "Beste Ergebnisse auf diesem Gerät",
       localOnly: "Fortschritt, Badges und Ergebnisse bleiben in diesem Browser und werden nicht veröffentlicht.",
       certificateTitle: "CYRI Climate Certificate freigeschaltet",
-      certificateText: "Trage deinen Namen ein und erstelle dein persönliches PDF-Zertifikat.",
+      certificateText: "Trage deinen Namen ein und erstelle das eine Zertifikat für diesen abgeschlossenen Durchlauf.",
       certificateName: "Name auf dem Zertifikat",
       certificateNameRequired: "Bitte gib einen Namen für das Zertifikat ein.",
-      certificateDownload: "PDF-Zertifikat erstellen",
+      certificateDownload: "Zertifikat einmalig erstellen",
+      certificateOnce: "Pro abgeschlossenem Durchlauf kann auf diesem Gerät ein Zertifikat ausgestellt werden.",
+      certificateIssuedTitle: "Zertifikat ausgestellt",
+      certificateIssuedText: "Dieser abgeschlossene Durchlauf hat bereits sein Zertifikat. Mit dem Reset unten startest du einen neuen Durchlauf und kannst ein neues verdienen.",
+      certificateId: "Zertifikats-ID",
+      resetProgress: "Gesamten Spielfortschritt zurücksetzen",
+      resetConfirm: "Gesamten Spielfortschritt, Badges, Ergebnisse und Zertifikatsstatus auf diesem Gerät zurücksetzen?",
+      resetNote: "Startet einen neuen Durchlauf und löscht die lokal gespeicherten Spielergebnisse auf diesem Gerät.",
       mapEyebrow: "Globale Zusammenhänge",
       mapTitle: "Klicke dich durch die Weltkarte und teste Modelle.",
       mapIntro:
@@ -2720,6 +2734,7 @@ const AUDIENCE_KEY = "cyri-learning-audience";
 const LEARNING_POLL_KEY = "cyri-learning-poll";
 const MISSION_STATE_KEY = "cyri-mission-lab";
 const GAME_PROGRESS_KEY = "cyri-game-progress-v2";
+const CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v1";
 
 function loadAudience() {
   const savedAudience = localStorage.getItem(AUDIENCE_KEY);
@@ -2775,6 +2790,20 @@ function loadGameProgress() {
     };
   } catch {
     return fallback;
+  }
+}
+
+function loadCertificateIssuance() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(CERTIFICATE_ISSUANCE_KEY) || "null");
+    return saved &&
+      typeof saved.id === "string" &&
+      saved.id.startsWith("CYRI-") &&
+      typeof saved.issuedAt === "string"
+      ? { id: saved.id.slice(0, 48), issuedAt: saved.issuedAt }
+      : null;
+  } catch {
+    return null;
   }
 }
 
@@ -2841,6 +2870,7 @@ function loadLearningProgress() {
 const savedLearningProgress = loadLearningProgress();
 const savedMissionLab = loadMissionLabState();
 const savedGameProgress = loadGameProgress();
+const savedCertificateIssuance = loadCertificateIssuance();
 
 const state = {
   lang: localStorage.getItem("cyri-language") || (navigator.language.startsWith("de") ? "de" : "en"),
@@ -2874,6 +2904,7 @@ const state = {
   learningGameMinutes: savedGameProgress.minutes,
   completedLearningGames: savedGameProgress.completed,
   learningGameHistory: savedGameProgress.history,
+  certificateIssuance: savedCertificateIssuance,
   activeLearningGame: learningGames[0].id,
   sdgSprintIndex: 0,
   sdgSprintAnswers: [],
@@ -3002,6 +3033,24 @@ function saveGameProgress() {
       history: state.learningGameHistory,
     })
   );
+}
+
+function saveCertificateIssuance(issuance) {
+  state.certificateIssuance = issuance;
+  if (issuance) {
+    localStorage.setItem(CERTIFICATE_ISSUANCE_KEY, JSON.stringify(issuance));
+  } else {
+    localStorage.removeItem(CERTIFICATE_ISSUANCE_KEY);
+  }
+}
+
+function resetAllLearningGameProgress() {
+  state.completedLearningGames = [];
+  state.learningGameHistory = [];
+  saveCertificateIssuance(null);
+  resetLearningGameRun(state.learningGameMinutes);
+  state.activeLearningGame = activeLearningGameIds()[0];
+  saveGameProgress();
 }
 
 function resetLearningGameRun(minutes = state.learningGameMinutes) {
@@ -4584,11 +4633,27 @@ function renderLearningProfile() {
       }
       ${
         certificateUnlocked
-          ? `<div class="certificate-panel">
-              <div><strong>${escapeHtml(t("learn.certificateTitle"))}</strong><p>${escapeHtml(t("learn.certificateText"))}</p></div>
-              <label><span>${escapeHtml(t("learn.certificateName"))}</span><input type="text" maxlength="80" data-certificate-name required /></label>
-              <button class="button button-primary" type="button" data-certificate-download>${escapeHtml(t("learn.certificateDownload"))}</button>
-            </div>`
+          ? state.certificateIssuance
+            ? `<div class="certificate-panel certificate-panel-issued" data-certificate-issued>
+                <span class="certificate-issued-mark" aria-hidden="true">✓</span>
+                <div>
+                  <strong>${escapeHtml(t("learn.certificateIssuedTitle"))}</strong>
+                  <p>${escapeHtml(t("learn.certificateIssuedText"))}</p>
+                </div>
+                <dl>
+                  <dt>${escapeHtml(t("learn.certificateId"))}</dt>
+                  <dd>${escapeHtml(state.certificateIssuance.id)}</dd>
+                </dl>
+              </div>`
+            : `<div class="certificate-panel" data-certificate-form>
+                <div><strong>${escapeHtml(t("learn.certificateTitle"))}</strong><p>${escapeHtml(t("learn.certificateText"))}</p></div>
+                <label>
+                  <span>${escapeHtml(t("learn.certificateName"))}</span>
+                  <input type="text" maxlength="80" autocomplete="name" aria-describedby="certificate-once" data-certificate-name required />
+                </label>
+                <button class="button button-primary" type="button" data-certificate-download disabled>${escapeHtml(t("learn.certificateDownload"))}</button>
+                <small id="certificate-once">${escapeHtml(t("learn.certificateOnce"))}</small>
+              </div>`
           : ""
       }
       <p class="learning-local-note">${escapeHtml(t("learn.localOnly"))}</p>
@@ -4597,46 +4662,105 @@ function renderLearningProfile() {
 }
 
 function pdfSafeText(value) {
-  return String(value)
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^\x20-\x7e]/g, " ")
-    .replace(/\\/g, "\\\\")
-    .replace(/\(/g, "\\(")
-    .replace(/\)/g, "\\)")
-    .trim();
+  const replacements = {
+    "–": "-",
+    "—": "-",
+    "‘": "'",
+    "’": "'",
+    "“": '"',
+    "”": '"',
+  };
+  return Array.from(String(value).trim())
+    .map((character) => {
+      const normalized = replacements[character] || character;
+      const code = normalized.charCodeAt(0);
+      if (normalized === "\\" || normalized === "(" || normalized === ")") {
+        return `\\${normalized}`;
+      }
+      if (code >= 32 && code <= 126) return normalized;
+      if (code >= 160 && code <= 255) return `\\${code.toString(8).padStart(3, "0")}`;
+      return normalized
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\x20-\x7e]/g, " ");
+    })
+    .join("");
 }
 
 function downloadClimateCertificate(name) {
-  const certificateId = `CYRI-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  const issuedAt = new Date();
+  const certificateId = `CYRI-${issuedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
   const recipient = pdfSafeText(name);
-  const date = pdfSafeText(new Intl.DateTimeFormat(state.lang === "de" ? "de-DE" : "en-GB").format(new Date()));
+  const recipientFontSize = Math.max(15, Math.min(30, Math.floor(1050 / Math.max(name.length, 1))));
+  const date = pdfSafeText(
+    new Intl.DateTimeFormat(state.lang === "de" ? "de-DE" : "en-GB", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(issuedAt)
+  );
+  const latestRun =
+    state.learningGameHistory.find((entry) => entry.minutes === state.learningGameMinutes) ||
+    state.learningGameHistory[0];
+  const score = Math.max(100, latestRun?.score || activeLearningGameIds().length * 100);
   const certificateText = pdfSafeText(
     state.lang === "de"
-      ? "hat die interaktiven CYRI-Umweltmissionen erfolgreich abgeschlossen."
-      : "has successfully completed the interactive CYRI environmental missions."
+      ? "hat die interaktiven CYRI-Klimamissionen erfolgreich abgeschlossen."
+      : "has successfully completed the interactive CYRI climate missions."
   );
+  const issuedLabel = pdfSafeText(state.lang === "de" ? "Ausgestellt" : "Issued");
+  const missionLabel = pdfSafeText(state.lang === "de" ? "MISSION GESCHAFFT" : "MISSION COMPLETE");
+  const timeLabel = pdfSafeText(state.lang === "de" ? "MISSIONZEIT" : "MISSION TIME");
+  const scoreLabel = pdfSafeText(state.lang === "de" ? "ERREICHTE XP" : "XP EARNED");
+  const modulesLabel = pdfSafeText(state.lang === "de" ? "MISSIONEN" : "MISSIONS");
+  const fundingText = pdfSafeText(
+    "Funded by DSEE with funds from BMZ - action! Aktiv für eine globale Welt"
+  );
+  const completionValue = `${activeLearningGameIds().length} / ${activeLearningGameIds().length}`;
   const contentStream = [
-    "0.02 0.32 0.26 rg 0 0 842 595 re f",
-    "0.94 0.98 0.96 rg 24 24 794 547 re f",
-    "0.02 0.32 0.26 RG 2 w 42 42 758 511 re S",
-    "BT /F2 18 Tf 0.02 0.32 0.26 rg 64 493 Td (CYRI) Tj ET",
-    "BT /F1 11 Tf 0.16 0.24 0.22 rg 64 470 Td (CLIMATE YOUTH RESEARCH INITIATIVE) Tj ET",
-    "BT /F2 34 Tf 0.06 0.12 0.11 rg 64 390 Td (CYRI Climate Certificate) Tj ET",
-    `BT /F2 25 Tf 0.02 0.32 0.26 rg 64 318 Td (${recipient}) Tj ET`,
-    `BT /F1 15 Tf 0.12 0.18 0.17 rg 64 278 Td (${certificateText}) Tj ET`,
-    "BT /F1 12 Tf 0.12 0.18 0.17 rg 64 236 Td (Modules: SDG Sprint | Cause Chain | City Builder | Reef Rescue | Climate Council 2035) Tj ET",
-    `BT /F1 11 Tf 0.12 0.18 0.17 rg 64 172 Td (Issued: ${date}) Tj ET`,
-    `BT /F1 11 Tf 0.12 0.18 0.17 rg 64 152 Td (Certificate ID: ${certificateId}) Tj ET`,
-    "BT /F1 9 Tf 0.22 0.28 0.26 rg 64 92 Td (Funded by DSEE with funds from BMZ - action! Aktiv fur eine globale Welt) Tj ET",
-    "BT /F1 9 Tf 0.22 0.28 0.26 rg 64 72 Td (cyri.online) Tj ET",
+    "0.035 0.16 0.14 rg 0 0 842 595 re f",
+    "0.965 0.98 0.95 rg 24 24 794 547 re f",
+    "0.035 0.16 0.14 RG 1.6 w 42 42 758 511 re S",
+    "0.30 0.62 0.35 rg 42 531 150 10 re f",
+    "0.16 0.55 0.69 rg 192 531 150 10 re f",
+    "0.95 0.73 0.23 rg 342 531 150 10 re f",
+    "0.88 0.32 0.27 rg 492 531 150 10 re f",
+    "0.57 0.33 0.65 rg 642 531 150 10 re f",
+    "0.88 0.95 0.90 rg 58 452 194 30 re f",
+    `BT /F2 10 Tf 0.03 0.32 0.25 rg 72 462 Td (${missionLabel}) Tj ET`,
+    "BT /F2 22 Tf 0.03 0.32 0.25 rg 60 502 Td (CYRI) Tj ET",
+    "BT /F1 8 Tf 0.14 0.25 0.22 rg 125 506 Td (CLIMATE YOUTH RESEARCH INITIATIVE) Tj ET",
+    "BT /F2 35 Tf 0.05 0.12 0.11 rg 58 398 Td (Climate Certificate) Tj ET",
+    "BT /F1 12 Tf 0.30 0.36 0.33 rg 60 371 Td (AWARDED TO) Tj ET",
+    `BT /F2 ${recipientFontSize} Tf 0.03 0.32 0.25 rg 60 324 Td (${recipient}) Tj ET`,
+    "0.03 0.32 0.25 RG 1.2 w 60 305 m 610 305 l S",
+    `BT /F1 14 Tf 0.12 0.20 0.18 rg 60 273 Td (${certificateText}) Tj ET`,
+    "BT /F1 10 Tf 0.22 0.30 0.27 rg 60 245 Td (SDG Sprint  |  Cause Chain  |  City Builder  |  Reef Rescue  |  Climate Council 2035) Tj ET",
+    "0.91 0.95 0.91 rg 58 150 158 66 re f",
+    "0.91 0.95 0.91 rg 228 150 158 66 re f",
+    "0.91 0.95 0.91 rg 398 150 158 66 re f",
+    `BT /F2 8 Tf 0.22 0.34 0.29 rg 72 195 Td (${timeLabel}) Tj ET`,
+    `BT /F2 20 Tf 0.03 0.32 0.25 rg 72 168 Td (${state.learningGameMinutes} MIN) Tj ET`,
+    `BT /F2 8 Tf 0.22 0.34 0.29 rg 242 195 Td (${scoreLabel}) Tj ET`,
+    `BT /F2 20 Tf 0.03 0.32 0.25 rg 242 168 Td (${score} XP) Tj ET`,
+    `BT /F2 8 Tf 0.22 0.34 0.29 rg 412 195 Td (${modulesLabel}) Tj ET`,
+    `BT /F2 20 Tf 0.03 0.32 0.25 rg 412 168 Td (${completionValue}) Tj ET`,
+    "0.95 0.73 0.23 rg 676 326 m 729 357 782 326 782 265 c 782 204 729 173 676 204 c 623 173 570 204 570 265 c 570 326 623 357 676 326 c f",
+    "0.03 0.32 0.25 RG 4 w 589 265 m 589 313 628 340 676 340 c 724 340 763 313 763 265 c 763 217 724 190 676 190 c 628 190 589 217 589 265 c S",
+    "BT /F2 34 Tf 0.03 0.32 0.25 rg 645 266 Td (17) Tj ET",
+    "BT /F2 9 Tf 0.03 0.32 0.25 rg 633 244 Td (SDG GOALS) Tj ET",
+    "BT /F1 9 Tf 0.20 0.28 0.25 rg 60 117 Td (SDG focus: 6 | 11 | 12 | 13 | 14 | 15 | 17) Tj ET",
+    `BT /F1 9 Tf 0.20 0.28 0.25 rg 60 96 Td (${issuedLabel}: ${date}) Tj ET`,
+    `BT /F1 8 Tf 0.30 0.36 0.33 rg 60 76 Td (Certificate ID: ${certificateId}) Tj ET`,
+    "BT /F2 10 Tf 0.03 0.32 0.25 rg 618 117 Td (CYRI.ONLINE) Tj ET",
+    `BT /F1 7 Tf 0.30 0.36 0.33 rg 60 53 Td (${fundingText}) Tj ET`,
   ].join("\n");
   const objects = [
     "1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n",
     "2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n",
     "3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >> endobj\n",
-    "4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj\n",
-    "5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> endobj\n",
+    "4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >> endobj\n",
+    "5 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >> endobj\n",
     `6 0 obj << /Length ${contentStream.length} >> stream\n${contentStream}\nendstream\nendobj\n`,
   ];
   let pdf = "%PDF-1.4\n";
@@ -4656,6 +4780,7 @@ function downloadClimateCertificate(name) {
   link.download = `CYRI-Climate-Certificate-${certificateId}.pdf`;
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  return { id: certificateId, issuedAt: issuedAt.toISOString() };
 }
 
 let learningModelDispose = null;
@@ -4828,6 +4953,12 @@ function renderLearningGames() {
       </div>
       ${(renderers[activeGame.id] || renderSdgSprintGame)()}
     </section>
+    <div class="learning-reset-footer">
+      <p>${escapeHtml(t("learn.resetNote"))}</p>
+      <button class="button button-secondary" type="button" data-learning-games-reset>
+        ${escapeHtml(t("learn.resetProgress"))}
+      </button>
+    </div>
   `;
   syncLearning3DModel();
 }
@@ -6018,6 +6149,7 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-certificate-download]")) {
+    if (state.certificateIssuance) return;
     const nameInput = document.querySelector("[data-certificate-name]");
     const name = nameInput?.value.trim() || "";
     if (!name) {
@@ -6026,7 +6158,15 @@ document.addEventListener("click", (event) => {
       return;
     }
     nameInput.setCustomValidity("");
-    downloadClimateCertificate(name);
+    saveCertificateIssuance(downloadClimateCertificate(name));
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-learning-games-reset]")) {
+    if (!window.confirm(t("learn.resetConfirm"))) return;
+    resetAllLearningGameProgress();
+    renderLearningGames();
     return;
   }
 
@@ -6214,6 +6354,14 @@ document.addEventListener("click", (event) => {
       }
     }
   }
+});
+
+document.addEventListener("input", (event) => {
+  const nameInput = event.target.closest("[data-certificate-name]");
+  if (!nameInput) return;
+  nameInput.setCustomValidity("");
+  const downloadButton = document.querySelector("[data-certificate-download]");
+  if (downloadButton) downloadButton.disabled = nameInput.value.trim().length < 2;
 });
 
 document.querySelector("[data-menu-toggle]").addEventListener("click", () => {
