@@ -62,7 +62,8 @@ CYRI assistant:
 
 Docker / Node server:
 - Build the optimized Node image with `docker build -t cyri-website .`.
-- Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='France2026!' -e OPENAI_API_KEY='your-key' cyri-website`.
+- Run it with `docker run -d --name cyri -p 5173:5173 -v cyri-data:/app/data -e CYRI_PUBLISH_PASSWORD='use-a-long-unique-secret' -e OPENAI_API_KEY='your-key' cyri-website`.
+- Publishing stays disabled until `CYRI_PUBLISH_PASSWORD` or a SHA-256 `CYRI_PUBLISH_PASSWORD_HASH` is configured. Never commit the production secret.
 - Or use `docker compose up -d --build`; `compose.yaml` automatically mounts the named `cyri-data` volume.
 - Open `http://localhost:5173/`. Published articles, uploaded photos and contact messages are stored in the `cyri-data` volume.
 - Do not delete the `cyri-data` volume during updates. `docker compose down` keeps it; `docker compose down -v` deletes it.

@@ -15,10 +15,19 @@
       content="Interactive youth-led environmental education from Germany."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cyri.online/" />
+    <meta property="og:image" content="https://cyri.online/assets/photos/coral-reef-bleaching-hd.webp" />
+    <meta property="og:image:alt" content="A coral reef affected by bleaching" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CYRI | Youth-led environmental education" />
+    <meta name="twitter:description" content="Interactive environmental education, source-based articles and climate games for young people." />
+    <meta name="twitter:image" content="https://cyri.online/assets/photos/coral-reef-bleaching-hd.webp" />
+    <link rel="canonical" href="https://cyri.online/" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="icon" href="assets/cyri-logo.svg" type="image/svg+xml" />
-    <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.jpg" as="image" />
-    <link rel="stylesheet" href="styles.css?v=20260710-6" />
-    <script src="app.js?v=20260710-6" defer></script>
+    <link rel="preload" href="assets/photos/coral-reef-bleaching-hd.webp" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="stylesheet" href="styles.css?v=20260716-1" />
+    <script src="app.js?v=20260716-1" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="accessibility.skip">Skip to content</a>
@@ -91,7 +100,7 @@
 
             <figure class="hero-visual photo-frame reveal">
               <img
-                src="assets/photos/coral-reef-bleaching-hd.jpg"
+                src="assets/photos/coral-reef-bleaching-hd.webp"
                 alt="Bleached coral reef"
                 data-i18n-alt="hero.imageAlt"
               />
@@ -220,6 +229,12 @@
                   data-i18n-placeholder="research.questionPlaceholder"
                   placeholder="What does coral bleaching have to do with climate change?"
                 ></textarea>
+                <label class="consent-check">
+                  <input type="checkbox" name="aiConsent" required />
+                  <span data-i18n="research.consent">
+                    I agree that my question is processed by the configured AI provider. I will not enter personal data.
+                  </span>
+                </label>
                 <button class="button button-primary" type="submit" data-i18n="research.submit">
                   Ask CYRI
                 </button>
@@ -343,6 +358,13 @@
                 <span data-i18n="contact.message">Message</span>
                 <textarea name="message" rows="6" required data-i18n-placeholder="contact.messagePlaceholder"></textarea>
               </label>
+              <label class="form-honeypot" aria-hidden="true">
+                <span>Website</span>
+                <input type="text" name="website" tabindex="-1" autocomplete="off" />
+              </label>
+              <p class="form-privacy" data-i18n="contact.privacyNote">
+                We use your details only to answer your message. Details are in the privacy notice.
+              </p>
               <button class="button button-primary" type="submit" data-i18n="contact.submit">
                 Send Message
               </button>
@@ -659,9 +681,37 @@
             <article class="legal-card reveal">
               <h2 data-i18n="legal.localDataTitle">Backend data</h2>
               <p data-i18n="legal.localDataText">
-                Contact messages are stored on the server for processing. Published articles are
-                stored in the article backend. A complete privacy policy should be finalized before
-                public launch.
+                Contact messages are stored on the server only to process the request and are normally deleted after six months unless legal obligations require longer storage.
+              </p>
+            </article>
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.controllerTitle">Controller and contact</h2>
+              <p data-i18n="legal.controllerText">
+                CYRI, operated by Tobias Göppert and Jarne Bub, is responsible for this website. Privacy questions can be sent to climateyri@gmail.com.
+              </p>
+            </article>
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.processingTitle">What is processed</h2>
+              <p data-i18n="legal.processingText">
+                The hosting provider may process technical log data. Contact forms process name, email address and message. The CYRI assistant sends the entered question to the configured AI provider only after consent.
+              </p>
+            </article>
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.basisTitle">Purposes and legal bases</h2>
+              <p data-i18n="legal.basisText">
+                Technical logs support secure website operation. Contact data is used to answer the request. AI questions are processed only with consent.
+              </p>
+            </article>
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.localStorageTitle">Data on this device</h2>
+              <p data-i18n="legal.localStorageText">
+                Language, game progress, badges and selected settings are stored locally in the browser. They are not a public profile and can be deleted through the browser settings.
+              </p>
+            </article>
+            <article class="legal-card reveal">
+              <h2 data-i18n="legal.rightsTitle">Your rights</h2>
+              <p data-i18n="legal.rightsText">
+                You may request access, correction, deletion, restriction, portability or object to processing. You may withdraw consent at any time and lodge a complaint with a data-protection authority.
               </p>
             </article>
           </div>
@@ -678,9 +728,9 @@
       <div class="shell funding-inner">
         <img
           class="funding-logo"
-          src="assets/action-funding-logo-rgb.jpg"
-          width="3375"
-          height="975"
+          src="assets/action-funding-logo-rgb.webp"
+          width="1800"
+          height="520"
           loading="lazy"
           alt="Funded by the German Foundation for Civic Engagement and Volunteering with funds from the Federal Ministry for Economic Cooperation and Development"
           data-i18n-alt="funding.logoAlt"
@@ -742,7 +792,6 @@
         <nav aria-label="Legal and editor links">
           <a href="#imprint" data-i18n="footer.imprint">Imprint</a>
           <a href="#privacy" data-i18n="footer.privacy">Privacy</a>
-          <a href="#publish" data-i18n="nav.publish">Publish</a>
         </nav>
       </div>
     </footer>
