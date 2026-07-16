@@ -1107,8 +1107,8 @@ const learningGames = [
         "Ein starkes Paket verbindet schnelle Emissionsminderung mit widerstandsfähigen Ökosystemen und fair zugänglicher Unterstützung."
       ),
       action: bi(
-        "Spend every point, keep all four indicators above the safety line and avoid solving one crisis at the expense of another.",
-        "Setze jeden Punkt ein, halte alle vier Werte über der Sicherheitslinie und löse keine Krise auf Kosten einer anderen."
+        "Reach the target percentage with a balanced package. Extra tokens remain optional, so compare what each measure changes.",
+        "Erreiche die Zielprozentzahl mit einem ausgewogenen Paket. Zusätzliche Token bleiben freiwillig, damit du die Wirkung jeder Maßnahme vergleichen kannst."
       ),
     },
   },
@@ -1333,6 +1333,11 @@ const climateCouncilControls = [
     effects: { climate: 3, nature: 3, justice: 10, resilience: 8 },
   },
 ];
+
+const CITY_GAME_TARGET = 62;
+const REEF_GAME_TARGET = 68;
+const CLIMATE_GAME_TARGET = 66;
+const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-2";
 
 const quizQuestions = [
   {
@@ -1762,7 +1767,7 @@ const content = {
       gameFinishPath: "Finish path",
       gamePathComplete: "Path complete",
       gameTryAgain: "Try again",
-      gameImprovePlan: "Improve the plan to unlock the next game.",
+      gameImprovePlan: "Reach the visible target percentage to continue.",
       gameScore: "Score",
       gameRound: "Round {current} of {total}",
       gameCorrect: "Correct choice.",
@@ -1774,6 +1779,15 @@ const content = {
       gameRemaining: "{count} points left",
       gameSelected: "Selected",
       gameFullBudget: "Budget used",
+      gameTokens: "Tokens",
+      gameOptionalRemaining: "{count} optional tokens left",
+      gameTargetAt: "Continue from {count}%",
+      gameTargetReached: "Target reached. You can continue now.",
+      gameTargetRemaining: "{count} percentage points to go.",
+      gameLiveModel: "Live 3D model",
+      cityModelLabel: "Interactive 3D sponge-city model. The scene responds to shade, soil, water and route tokens.",
+      reefModelLabel: "Interactive 3D reef model. The scene responds to the selected protection actions.",
+      climateModelLabel: "Interactive 3D climate-council model. The five pillars respond to the allocated tokens.",
       gameInfoProblem: "Problem",
       gameInfoConnection: "Connection",
       gameInfoAction: "What helps",
@@ -1802,8 +1816,8 @@ const content = {
       finalNature: "Nature protection",
       finalJustice: "Fairness",
       finalResilience: "Resilience",
-      finalOutcomeStrong: "The package is balanced: every safety line is reached and the full budget is used.",
-      finalOutcomeHint: "Use all 16 points and keep climate, nature, fairness and resilience above 52%.",
+      finalOutcomeStrong: "The council package has reached the target and can move forward.",
+      finalOutcomeHint: "Reach 66% to move forward. Remaining tokens are optional.",
       profileTitle: "Your game progress",
       xp: "XP",
       gamesSolved: "games solved",
@@ -2364,7 +2378,7 @@ const content = {
       gameFinishPath: "Pfad abschließen",
       gamePathComplete: "Pfad geschafft",
       gameTryAgain: "Nochmal versuchen",
-      gameImprovePlan: "Verbessere den Plan, um das nächste Spiel freizuschalten.",
+      gameImprovePlan: "Erreiche die sichtbare Zielmarke, um weiterzugehen.",
       gameScore: "Punkte",
       gameRound: "Runde {current} von {total}",
       gameCorrect: "Richtige Wahl.",
@@ -2376,6 +2390,15 @@ const content = {
       gameRemaining: "{count} Punkte übrig",
       gameSelected: "Ausgewählt",
       gameFullBudget: "Budget verbraucht",
+      gameTokens: "Token",
+      gameOptionalRemaining: "{count} optionale Token übrig",
+      gameTargetAt: "Weiter ab {count}%",
+      gameTargetReached: "Ziel erreicht. Du kannst jetzt weitergehen.",
+      gameTargetRemaining: "Noch {count} Prozentpunkte bis zum Weitergehen.",
+      gameLiveModel: "3D-Live-Modell",
+      cityModelLabel: "Interaktives 3D-Modell einer Schwammstadt. Die Szene reagiert auf Token für Schatten, Boden, Wasser und Wege.",
+      reefModelLabel: "Interaktives 3D-Riffmodell. Die Szene reagiert auf die ausgewählten Schutzmaßnahmen.",
+      climateModelLabel: "Interaktives 3D-Modell des Klimarats. Die fünf Säulen reagieren auf die verteilten Token.",
       gameInfoProblem: "Problem",
       gameInfoConnection: "Zusammenhang",
       gameInfoAction: "Was hilft",
@@ -2404,8 +2427,8 @@ const content = {
       finalNature: "Naturschutz",
       finalJustice: "Gerechtigkeit",
       finalResilience: "Widerstandskraft",
-      finalOutcomeStrong: "Das Paket ist ausgewogen: Alle Sicherheitslinien sind erreicht und das Budget ist vollständig eingesetzt.",
-      finalOutcomeHint: "Nutze alle 16 Punkte und halte Klima, Natur, Gerechtigkeit und Widerstandskraft über 52 Prozent.",
+      finalOutcomeStrong: "Das Maßnahmenpaket hat die Zielmarke erreicht und kann umgesetzt werden.",
+      finalOutcomeHint: "Erreiche 66 Prozent, um weiterzugehen. Übrige Token sind optional.",
       profileTitle: "Dein Spielfortschritt",
       xp: "XP",
       gamesSolved: "Spiele gelöst",
@@ -2866,11 +2889,11 @@ const state = {
   },
   reefActions: [],
   climatePlan: {
-    energy: 2,
-    mobility: 2,
-    food: 2,
-    nature: 2,
-    fairness: 2,
+    energy: 1,
+    mobility: 1,
+    food: 1,
+    nature: 1,
+    fairness: 1,
   },
   activeMapHotspot: mapHotspots[0].id,
   activeMapScenario: mapHotspots[0].model.scenarios[0].id,
@@ -2992,7 +3015,7 @@ function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.chainFeedback = "";
   state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
   state.reefActions = [];
-  state.climatePlan = { energy: 2, mobility: 2, food: 2, nature: 2, fairness: 2 };
+  state.climatePlan = { energy: 1, mobility: 1, food: 1, nature: 1, fairness: 1 };
   saveGameProgress();
 }
 
@@ -3028,6 +3051,15 @@ function climatePlanTotal() {
   );
 }
 
+function changeClimatePlan(id, change) {
+  if (!climateCouncilControls.some((item) => item.id === id)) return false;
+  const current = state.climatePlan[id] || 0;
+  const next = current + change;
+  if (next < 0 || next > 6 || (change > 0 && climatePlanTotal() >= 16)) return false;
+  state.climatePlan[id] = next;
+  return true;
+}
+
 function climateMetric(metric) {
   return gameScoreValue(
     12 +
@@ -3038,12 +3070,8 @@ function climateMetric(metric) {
   );
 }
 
-function climateGameSolved(metrics, average) {
-  return (
-    climatePlanTotal() === 16 &&
-    average >= 66 &&
-    Object.values(metrics).every((value) => value >= 52)
-  );
+function climateGameSolved(_metrics, average) {
+  return average >= CLIMATE_GAME_TARGET;
 }
 
 function learningBadges() {
@@ -3099,6 +3127,15 @@ function cityPlanTotal() {
   return cityBuilderControls.reduce((sum, item) => sum + (state.cityPlan[item.id] || 0), 0);
 }
 
+function changeCityPlan(id, change) {
+  if (!cityBuilderControls.some((item) => item.id === id)) return false;
+  const current = state.cityPlan[id] || 0;
+  const next = current + change;
+  if (next < 0 || next > 6 || (change > 0 && cityPlanTotal() >= 12)) return false;
+  state.cityPlan[id] = next;
+  return true;
+}
+
 function cityMetric(metric) {
   const base = metric === "fairness" ? 18 : 14;
   return gameScoreValue(
@@ -3118,6 +3155,18 @@ function reefBudgetUsed() {
   return selectedReefActions().reduce((sum, item) => sum + item.cost, 0);
 }
 
+function toggleReefAction(id) {
+  const action = reefActionCards.find((item) => item.id === id);
+  if (!action) return false;
+  if (state.reefActions.includes(id)) {
+    state.reefActions = state.reefActions.filter((item) => item !== id);
+    return true;
+  }
+  if (reefBudgetUsed() + action.cost > 12) return false;
+  state.reefActions.push(id);
+  return true;
+}
+
 function reefMetric(metric) {
   const base = metric === "pressure" ? 16 : 24;
   return gameScoreValue(
@@ -3125,25 +3174,12 @@ function reefMetric(metric) {
   );
 }
 
-function cityGameSolved(metrics, average) {
-  return (
-    cityPlanTotal() >= 12 &&
-    average >= 62 &&
-    metrics.cooling >= 45 &&
-    metrics.flood >= 45 &&
-    metrics.habitat >= 45 &&
-    metrics.fairness >= 45
-  );
+function cityGameSolved(_metrics, average) {
+  return average >= CITY_GAME_TARGET;
 }
 
-function reefGameSolved(recovery, pressure, community, average) {
-  return (
-    state.reefActions.includes("climate-cut") &&
-    average >= 68 &&
-    recovery >= 60 &&
-    pressure >= 60 &&
-    community >= 60
-  );
+function reefGameSolved(_recovery, _pressure, _community, average) {
+  return average >= REEF_GAME_TARGET;
 }
 
 function escapeHtml(value) {
@@ -4081,6 +4117,46 @@ function renderGameMeter(label, value) {
   `;
 }
 
+function renderGameTarget(average, target, solved, outcome = "") {
+  const remaining = Math.max(0, target - average);
+  const status = solved
+    ? t("learn.gameTargetReached")
+    : formatLearningText(t("learn.gameTargetRemaining"), { count: remaining });
+  return `
+    <div class="game-target-status${solved ? " is-reached" : ""}" role="status">
+      <div class="game-target-heading">
+        <span>${escapeHtml(formatLearningText(t("learn.gameTargetAt"), { count: target }))}</span>
+        <strong>${average}%</strong>
+      </div>
+      <div
+        class="game-target-track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="${average}"
+        aria-valuetext="${escapeHtml(status)}"
+      >
+        <i style="width: ${average}%"></i>
+        <b style="left: ${target}%" aria-hidden="true"></b>
+      </div>
+      <p>${escapeHtml(status)}</p>
+      ${solved && outcome ? `<small>${escapeHtml(outcome)}</small>` : ""}
+    </div>
+  `;
+}
+
+function renderLearning3DStage(type, average) {
+  return `
+    <div class="learning-model-band">
+      <div class="learning-model-stage" data-learning-3d="${escapeHtml(type)}"></div>
+      <div class="learning-model-score" aria-hidden="true">
+        <span>${escapeHtml(t("learn.gameLiveModel"))}</span>
+        <strong>${average}%</strong>
+      </div>
+    </div>
+  `;
+}
+
 function renderSdgSprintGame() {
   const round = sdgSprintRounds[state.sdgSprintIndex] || sdgSprintRounds[0];
   const selected = state.sdgSprintAnswers[state.sdgSprintIndex];
@@ -4281,13 +4357,14 @@ function renderCityBuilderGame() {
   return `
     <div class="game-play-panel">
       <div class="game-status-row">
-        <span>${escapeHtml(t("learn.gameBudget"))}: ${used}/${budget}</span>
+        <span>${escapeHtml(t("learn.gameTokens"))}: ${used}/${budget}</span>
         <strong>${escapeHtml(
-          formatLearningText(t(remaining > 0 ? "learn.gameRemaining" : "learn.gameFullBudget"), {
+          formatLearningText(t("learn.gameOptionalRemaining"), {
             count: remaining,
           })
         )}</strong>
       </div>
+      ${renderLearning3DStage("city", average)}
       <div class="city-control-grid">
         ${cityBuilderControls
           .map((control) => {
@@ -4326,10 +4403,7 @@ function renderCityBuilderGame() {
         ${renderGameMeter(t("learn.cityHabitat"), metrics.habitat)}
         ${renderGameMeter(t("learn.cityFairness"), metrics.fairness)}
       </div>
-      <div class="game-feedback ${solved ? "is-correct" : average >= 52 ? "" : "is-wrong"}">
-        <strong>${average}%</strong>
-        <p>${escapeHtml(solved ? outcome : t("learn.gameImprovePlan"))}</p>
-      </div>
+      ${renderGameTarget(average, CITY_GAME_TARGET, solved, outcome)}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-city-reset>
           ${escapeHtml(t("learn.gameReset"))}
@@ -4368,6 +4442,7 @@ function renderReefRescueGame() {
           })
         )}</strong>
       </div>
+      ${renderLearning3DStage("reef", average)}
       <div class="reef-action-grid">
         ${reefActionCards
           .map((action) => {
@@ -4394,10 +4469,7 @@ function renderReefRescueGame() {
         ${renderGameMeter(t("learn.reefPressure"), pressure)}
         ${renderGameMeter(t("learn.reefCommunity"), community)}
       </div>
-      <div class="game-feedback ${solved ? "is-correct" : average >= 52 ? "" : "is-wrong"}">
-        <strong>${average}%</strong>
-        <p>${escapeHtml(solved ? outcome : t("learn.gameImprovePlan"))}</p>
-      </div>
+      ${renderGameTarget(average, REEF_GAME_TARGET, solved, outcome)}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-reef-reset>
           ${escapeHtml(t("learn.gameReset"))}
@@ -4426,13 +4498,14 @@ function renderClimateCouncilGame() {
   return `
     <div class="game-play-panel final-game-panel">
       <div class="game-status-row">
-        <span>${escapeHtml(t("learn.finalBudget"))}: ${used}/${budget}</span>
+        <span>${escapeHtml(t("learn.gameTokens"))}: ${used}/${budget}</span>
         <strong>${escapeHtml(
-          formatLearningText(t(remaining > 0 ? "learn.gameRemaining" : "learn.gameFullBudget"), {
+          formatLearningText(t("learn.gameOptionalRemaining"), {
             count: remaining,
           })
         )}</strong>
       </div>
+      ${renderLearning3DStage("climate", average)}
       <div class="city-control-grid climate-control-grid">
         ${climateCouncilControls
           .map((control) => {
@@ -4462,10 +4535,7 @@ function renderClimateCouncilGame() {
         ${renderGameMeter(t("learn.finalJustice"), metrics.justice)}
         ${renderGameMeter(t("learn.finalResilience"), metrics.resilience)}
       </div>
-      <div class="game-feedback ${solved ? "is-correct" : average >= 56 ? "" : "is-wrong"}" role="status">
-        <strong>${average}%</strong>
-        <p>${escapeHtml(solved ? t("learn.finalOutcomeStrong") : t("learn.finalOutcomeHint"))}</p>
-      </div>
+      ${renderGameTarget(average, CLIMATE_GAME_TARGET, solved, t("learn.finalOutcomeStrong"))}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-climate-reset>${escapeHtml(t("learn.gameReset"))}</button>
         <button class="button button-primary" type="button" data-climate-complete ${solved ? "" : "disabled"}>
@@ -4588,9 +4658,71 @@ function downloadClimateCertificate(name) {
   window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 }
 
+let learningModelDispose = null;
+let learningModelRequestId = 0;
+
+function disposeLearning3DModel() {
+  learningModelRequestId += 1;
+  learningModelDispose?.();
+  learningModelDispose = null;
+}
+
+function learning3DModelConfig(type) {
+  if (type === "city") {
+    return {
+      values: { ...state.cityPlan },
+      label: t("learn.cityModelLabel"),
+      onActivate: (id) => {
+        if (changeCityPlan(id, 1)) renderLearningGames();
+      },
+    };
+  }
+  if (type === "reef") {
+    return {
+      values: {
+        recovery: reefMetric("recovery"),
+        pressure: reefMetric("pressure"),
+        community: reefMetric("community"),
+      },
+      label: t("learn.reefModelLabel"),
+      onActivate: (id) => {
+        if (toggleReefAction(id)) renderLearningGames();
+      },
+    };
+  }
+  if (type === "climate") {
+    return {
+      values: { ...state.climatePlan },
+      label: t("learn.climateModelLabel"),
+      onActivate: (id) => {
+        if (changeClimatePlan(id, 1)) renderLearningGames();
+      },
+    };
+  }
+  return null;
+}
+
+async function syncLearning3DModel() {
+  const stage = document.querySelector("[data-learning-3d]");
+  if (!stage) return;
+  const type = stage.getAttribute("data-learning-3d");
+  const config = learning3DModelConfig(type);
+  if (!config) return;
+  const requestId = ++learningModelRequestId;
+  try {
+    const { mountLearningModel } = await import(LEARNING_3D_MODULE_URL);
+    if (requestId !== learningModelRequestId || !stage.isConnected) return;
+    learningModelDispose = mountLearningModel(stage, { type, ...config });
+  } catch (error) {
+    console.error("CYRI 3D model could not be loaded.", error);
+    stage.closest(".learning-model-band")?.setAttribute("hidden", "");
+  }
+}
+
 function renderLearningGames() {
   const container = document.querySelector("[data-learning-games]");
   if (!container) return;
+  disposeLearning3DModel();
 
   const sequenceIds = activeLearningGameIds();
   if (!sequenceIds.includes(state.activeLearningGame) || !isLearningGameUnlocked(state.activeLearningGame)) {
@@ -4697,6 +4829,7 @@ function renderLearningGames() {
       ${(renderers[activeGame.id] || renderSdgSprintGame)()}
     </section>
   `;
+  syncLearning3DModel();
 }
 
 function renderLearningMap() {
@@ -5805,12 +5938,7 @@ document.addEventListener("click", (event) => {
   if (cityControlButton) {
     const id = cityControlButton.dataset.cityControl;
     const change = Number(cityControlButton.dataset.cityChange);
-    const current = state.cityPlan[id] || 0;
-    const next = current + change;
-    if (next >= 0 && next <= 6 && (change < 0 || cityPlanTotal() < 12)) {
-      state.cityPlan[id] = next;
-      renderLearningGames();
-    }
+    if (changeCityPlan(id, change)) renderLearningGames();
     return;
   }
 
@@ -5840,14 +5968,7 @@ document.addEventListener("click", (event) => {
   const reefActionButton = event.target.closest("[data-reef-action]");
   if (reefActionButton) {
     const id = reefActionButton.dataset.reefAction;
-    const action = reefActionCards.find((item) => item.id === id);
-    if (!action) return;
-    if (state.reefActions.includes(id)) {
-      state.reefActions = state.reefActions.filter((item) => item !== id);
-    } else if (reefBudgetUsed() + action.cost <= 12) {
-      state.reefActions.push(id);
-    }
-    renderLearningGames();
+    if (toggleReefAction(id)) renderLearningGames();
     return;
   }
 
@@ -5873,17 +5994,12 @@ document.addEventListener("click", (event) => {
   if (climateControlButton) {
     const id = climateControlButton.dataset.climateControl;
     const change = Number(climateControlButton.dataset.climateChange);
-    const current = state.climatePlan[id] || 0;
-    const next = current + change;
-    if (next >= 0 && next <= 6 && (change < 0 || climatePlanTotal() < 16)) {
-      state.climatePlan[id] = next;
-      renderLearningGames();
-    }
+    if (changeClimatePlan(id, change)) renderLearningGames();
     return;
   }
 
   if (event.target.closest("[data-climate-reset]")) {
-    state.climatePlan = { energy: 2, mobility: 2, food: 2, nature: 2, fairness: 2 };
+    state.climatePlan = { energy: 1, mobility: 1, food: 1, nature: 1, fairness: 1 };
     renderLearningGames();
     return;
   }
