@@ -76,10 +76,30 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="climate-council"]').click();
   await expect(page.locator("[data-learning-games]")).toContainText("Climate Council 2035");
+  await expect(page.locator(".climate-person-symbol")).toHaveCount(5);
+  await expect(page.locator('[data-learning-3d="climate"] canvas')).toHaveAttribute(
+    "aria-label",
+    /Five people grow/
+  );
+  await expect(page.locator('[data-learning-3d="climate"]')).toHaveAttribute(
+    "data-model-values",
+    /energy:1/
+  );
 
   for (const control of ["energy", "energy", "nature", "nature", "fairness", "fairness"]) {
     await page.locator(`[data-climate-control="${control}"][data-climate-change="1"]`).click();
   }
+  await expect(page.locator('[data-learning-3d="climate"]')).toHaveAttribute(
+    "data-model-values",
+    /energy:3/
+  );
+  await expect(page.locator('[data-learning-3d="climate"]')).toHaveAttribute(
+    "data-model-ready",
+    "true"
+  );
+  await page.locator('[data-learning-3d="climate"]').screenshot({
+    path: "/tmp/cyri-climate-grown-3d.png",
+  });
   await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/16");
   await expect(page.locator("[data-climate-complete]")).toBeEnabled();
   await page.locator("[data-climate-complete]").click();

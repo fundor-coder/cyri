@@ -1333,11 +1333,12 @@ const climateCouncilControls = [
     effects: { climate: 3, nature: 3, justice: 10, resilience: 8 },
   },
 ];
+const CLIMATE_CONTROL_COLORS = ["#f2c14e", "#2a7f9e", "#e56b5d", "#8fbd68", "#c971b8"];
 
 const CITY_GAME_TARGET = 62;
 const REEF_GAME_TARGET = 68;
 const CLIMATE_GAME_TARGET = 66;
-const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-2";
+const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-3";
 
 const quizQuestions = [
   {
@@ -1787,7 +1788,7 @@ const content = {
       gameLiveModel: "Live 3D model",
       cityModelLabel: "Interactive 3D sponge-city model. The scene responds to shade, soil, water and route tokens.",
       reefModelLabel: "Interactive 3D reef model. The scene responds to the selected protection actions.",
-      climateModelLabel: "Interactive 3D climate-council model. The five pillars respond to the allocated tokens.",
+      climateModelLabel: "Interactive 3D climate council around a planetary table. Five people grow as tokens are allocated to their action areas.",
       gameInfoProblem: "Problem",
       gameInfoConnection: "Connection",
       gameInfoAction: "What helps",
@@ -2405,7 +2406,7 @@ const content = {
       gameLiveModel: "3D-Live-Modell",
       cityModelLabel: "Interaktives 3D-Modell einer Schwammstadt. Die Szene reagiert auf Token für Schatten, Boden, Wasser und Wege.",
       reefModelLabel: "Interaktives 3D-Riffmodell. Die Szene reagiert auf die ausgewählten Schutzmaßnahmen.",
-      climateModelLabel: "Interaktives 3D-Modell des Klimarats. Die fünf Säulen reagieren auf die verteilten Token.",
+      climateModelLabel: "Interaktiver 3D-Klimarat an einem Planetentisch. Fünf Menschen wachsen mit den Token in ihren Handlungsfeldern.",
       gameInfoProblem: "Problem",
       gameInfoConnection: "Zusammenhang",
       gameInfoAction: "Was hilft",
@@ -4557,14 +4558,17 @@ function renderClimateCouncilGame() {
       ${renderLearning3DStage("climate", average)}
       <div class="city-control-grid climate-control-grid">
         ${climateCouncilControls
-          .map((control) => {
+          .map((control, index) => {
             const value = state.climatePlan[control.id] || 0;
             const title = localizedValue(control.title);
             return `
-              <article class="city-control-card">
-                <div>
-                  <strong>${escapeHtml(title)}</strong>
-                  <p>${escapeHtml(localizedValue(control.text))}</p>
+              <article class="city-control-card climate-control-card" style="--control-color: ${CLIMATE_CONTROL_COLORS[index]}">
+                <div class="climate-control-copy">
+                  <span class="climate-person-symbol" aria-hidden="true"><i></i></span>
+                  <div>
+                    <strong>${escapeHtml(title)}</strong>
+                    <p>${escapeHtml(localizedValue(control.text))}</p>
+                  </div>
                 </div>
                 <div class="city-stepper">
                   <button type="button" data-climate-control="${escapeHtml(control.id)}" data-climate-change="-1"
