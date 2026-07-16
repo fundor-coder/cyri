@@ -83,12 +83,33 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/16");
   await expect(page.locator("[data-climate-complete]")).toBeEnabled();
   await page.locator("[data-climate-complete]").click();
-  await page.locator("[data-certificate-name]").fill("Alex Climate");
+  await expect(page.locator("[data-certificate-download]")).toBeDisabled();
+  await page.locator("[data-certificate-name]").fill("Alex Klimaschützer");
+  await expect(page.locator("[data-certificate-download]")).toBeEnabled();
   const downloadPromise = page.waitForEvent("download");
   await page.locator("[data-certificate-download]").click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/^CYRI-Climate-Certificate-.*\.pdf$/);
+  await download.saveAs("/tmp/cyri-climate-certificate.pdf");
+  await expect(page.locator("[data-certificate-issued]")).toBeVisible();
+  await expect(page.locator("[data-certificate-download]")).toHaveCount(0);
+  await expect(page.locator("[data-certificate-name]")).toHaveCount(0);
+  const issuance = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("cyri-certificate-issuance-v1") || "null")
+  );
+  expect(issuance?.id).toMatch(/^CYRI-/);
   await page.screenshot({ path: "/tmp/cyri-learn-desktop.png", fullPage: true });
+  const persistedPage = await page.context().newPage();
+  await persistedPage.goto("http://127.0.0.1:5173/#learn");
+  await expect(persistedPage.locator("[data-certificate-issued]")).toContainText(issuance.id);
+  await persistedPage.close();
+  page.once("dialog", (dialog) => dialog.accept());
+  await page.locator("[data-learning-games-reset]").click();
+  await expect(page.locator("[data-learning-games]")).toContainText("0/5");
+  await expect(page.locator('[data-learning-game="climate-council"]')).toBeDisabled();
+  expect(
+    await page.evaluate(() => localStorage.getItem("cyri-certificate-issuance-v1"))
+  ).toBeNull();
   expect(errors).toEqual([]);
 });
 
