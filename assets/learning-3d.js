@@ -67,47 +67,80 @@ function setShadows(object) {
   return object;
 }
 
-function createTree(scale = 1) {
+function createTree(scale = 1, seed = 0) {
   const tree = new THREE.Group();
-  const trunk = cylinder(0.1 * scale, 0.75 * scale, 0x805b3d, 12);
+  const hueJitter = ((seed * 37) % 10) / 100 - 0.05;
+  const tint = (color) => new THREE.Color(color).offsetHSL(hueJitter, 0, 0).getHex();
+  const trunk = taperedCylinder(0.06 * scale, 0.1 * scale, 0.75 * scale, 0x6f4e33, 10, {
+    roughness: 0.88,
+  });
   trunk.position.y = 0.38 * scale;
-  const crown = sphere(0.37 * scale, palette.greenLight);
+  trunk.rotation.y = seed * 0.6;
+  const rootFlare = cylinder(0.14 * scale, 0.08 * scale, 0x5f4530, 10, { roughness: 0.92 });
+  rootFlare.position.y = 0.03 * scale;
+  const crown = sphere(0.37 * scale, tint(palette.greenLight), { roughness: 0.82 });
   crown.scale.set(1.18, 1.28, 1.08);
   crown.position.y = 0.94 * scale;
-  const crownSide = sphere(0.29 * scale, palette.green);
+  const crownSide = sphere(0.29 * scale, tint(palette.green), { roughness: 0.82 });
   crownSide.position.set(0.27 * scale, 0.95 * scale, 0.04 * scale);
-  const crownTop = sphere(0.3 * scale, 0x79aa61);
+  const crownTop = sphere(0.3 * scale, tint(0x79aa61), { roughness: 0.82 });
   crownTop.position.set(-0.08 * scale, 1.22 * scale, -0.02 * scale);
-  tree.add(trunk, crown, crownSide, crownTop);
+  const crownBack = sphere(0.24 * scale, tint(0x5f9a52), { roughness: 0.82 });
+  crownBack.position.set(-0.2 * scale, 0.88 * scale, -0.22 * scale);
+  tree.add(trunk, rootFlare, crown, crownSide, crownTop, crownBack);
   return tree;
 }
 
 function createBuilding(width, height, depth, color, index) {
   const building = new THREE.Group();
-  const body = box(width, height, depth, color, { roughness: 0.78 });
+  const bodyColor = new THREE.Color(color).offsetHSL(0, 0, ((index * 13) % 7) / 90 - 0.03).getHex();
+  const body = box(width, height, depth, bodyColor, { roughness: 0.78 });
   body.position.y = height / 2;
   building.add(body);
 
-  const roof = box(width * 0.92, 0.1, depth * 0.9, index % 2 ? 0x697d79 : 0x8aa17f);
-  roof.position.y = height + 0.05;
+  const parapet = box(width * 0.94, 0.09, depth * 0.92, index % 2 ? 0x5c6f6a : 0x76886e, {
+    roughness: 0.85,
+  });
+  parapet.position.y = height + 0.02;
+  building.add(parapet);
+
+  const roof = box(width * 0.86, 0.06, depth * 0.84, index % 2 ? 0x697d79 : 0x8aa17f, {
+    roughness: 0.7,
+  });
+  roof.position.y = height + 0.09;
   building.add(roof);
 
+  if (index % 3 !== 2) {
+    const acUnit = box(0.22, 0.14, 0.18, 0xd6dad2, { roughness: 0.55, metalness: 0.2 });
+    acUnit.position.set(width * 0.22, height + 0.19, depth * 0.14);
+    building.add(acUnit);
+  }
+  if (width > 1.3) {
+    const antenna = cylinder(0.014, 0.42, 0x3a4442, 6, { roughness: 0.4, metalness: 0.4 });
+    antenna.position.set(-width * 0.28, height + 0.34, -depth * 0.18);
+    building.add(antenna);
+  }
+
   const windowMaterial = material(index % 2 ? 0xbce6e2 : 0xf3d887, {
-    roughness: 0.2,
+    roughness: 0.12,
+    metalness: 0.35,
     emissive: index % 2 ? 0x4c9290 : 0xb78b32,
     emissiveIntensity: 0.2,
   });
+  const sillMaterial = material(0xe9ebe2, { roughness: 0.6 });
   const rows = Math.max(2, Math.floor(height / 0.55));
   const columns = Math.max(2, Math.floor(width / 0.38));
   for (let row = 0; row < rows; row += 1) {
     for (let column = 0; column < columns; column += 1) {
+      const windowX =
+        columns === 1 ? 0 : -width * 0.32 + (column / (columns - 1)) * width * 0.64;
+      const windowY = 0.38 + row * ((height - 0.62) / Math.max(1, rows - 1));
       const window = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 0.025), windowMaterial);
-      window.position.set(
-        columns === 1 ? 0 : -width * 0.32 + (column / (columns - 1)) * width * 0.64,
-        0.38 + row * ((height - 0.62) / Math.max(1, rows - 1)),
-        depth / 2 + 0.016
-      );
+      window.position.set(windowX, windowY, depth / 2 + 0.016);
       building.add(window);
+      const sill = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.02, 0.045), sillMaterial);
+      sill.position.set(windowX, windowY - 0.13, depth / 2 + 0.03);
+      building.add(sill);
     }
   }
   return setShadows(building);
@@ -115,17 +148,35 @@ function createBuilding(width, height, depth, color, index) {
 
 function createFish(color, scale = 1) {
   const fish = new THREE.Group();
-  const body = sphere(0.18 * scale, color, { roughness: 0.42 });
+  const body = sphere(0.18 * scale, color, { roughness: 0.36, metalness: 0.08 });
   body.scale.set(1.55, 0.75, 0.62);
+  const belly = sphere(0.15 * scale, palette.white, { roughness: 0.4, opacity: 0.85 });
+  belly.scale.set(1.3, 0.42, 0.5);
+  belly.position.set(0.02 * scale, -0.06 * scale, 0);
   const tail = new THREE.Mesh(
     new THREE.ConeGeometry(0.16 * scale, 0.3 * scale, 3),
     material(color, { roughness: 0.5 })
   );
   tail.rotation.z = -Math.PI / 2;
   tail.position.x = -0.35 * scale;
+  const dorsalFin = new THREE.Mesh(
+    new THREE.ConeGeometry(0.09 * scale, 0.16 * scale, 3),
+    material(color, { roughness: 0.55, opacity: 0.9 })
+  );
+  dorsalFin.rotation.x = Math.PI;
+  dorsalFin.position.set(0.02 * scale, 0.13 * scale, 0);
+  const pectoralFins = [-1, 1].map((side) => {
+    const fin = new THREE.Mesh(
+      new THREE.ConeGeometry(0.055 * scale, 0.12 * scale, 3),
+      material(color, { roughness: 0.55, opacity: 0.88 })
+    );
+    fin.rotation.z = side * 0.9;
+    fin.position.set(0.08 * scale, -0.02 * scale, side * 0.1 * scale);
+    return fin;
+  });
   const eye = sphere(0.025 * scale, palette.ink, { roughness: 0.3 });
   eye.position.set(0.22 * scale, 0.06 * scale, 0.1 * scale);
-  fish.add(body, tail, eye);
+  fish.add(body, belly, tail, dorsalFin, ...pectoralFins, eye);
   return fish;
 }
 
@@ -231,6 +282,27 @@ function createCityModel(root, values) {
     root.add(sidewalk);
   });
 
+  const streetlampGroup = new THREE.Group();
+  [-4.6, -2.1, 0.4, 2.9, 4.6].forEach((x, index) => {
+    const lamp = new THREE.Group();
+    const pole = cylinder(0.028, 0.62, 0x3d4746, 8, { roughness: 0.55, metalness: 0.35 });
+    pole.position.y = 0.31;
+    const arm = box(0.22, 0.02, 0.02, 0x3d4746, { roughness: 0.55, metalness: 0.35 });
+    arm.position.set(0.1, 0.62, 0);
+    const lit = routes >= 2;
+    const bulb = sphere(0.045, lit ? palette.yellow : 0x9a9280, {
+      emissive: lit ? palette.yellow : 0x000000,
+      emissiveIntensity: lit ? 0.85 : 0,
+    });
+    bulb.position.set(0.2, 0.6, 0);
+    lamp.add(pole, arm, bulb);
+    lamp.position.set(x, 0.02, index % 2 ? -1.08 : 1.08);
+    if (index % 2) lamp.rotation.y = Math.PI;
+    streetlampGroup.add(lamp);
+  });
+  tagAction(streetlampGroup, "routes");
+  root.add(setShadows(streetlampGroup));
+
   const routeColor = routes >= 3 ? palette.yellow : 0xb7a875;
   [-0.54, 0.54].forEach((z) => {
     const lane = box(11.1, 0.035, 0.08, routeColor, {
@@ -313,8 +385,9 @@ function createCityModel(root, values) {
     [1.25, -2.25], [3.05, -2.2], [-3.4, -0.9], [3.45, 0.9],
   ];
   treePositions.slice(0, 2 + shade * 2).forEach(([x, z], index) => {
-    const tree = createTree(0.72 + (index % 3) * 0.08);
+    const tree = createTree(0.72 + (index % 3) * 0.08, index);
     tree.position.set(x, 0.1, z);
+    tree.rotation.y = (index * 0.83) % (Math.PI * 2);
     treeGroup.add(tree);
   });
   tagAction(treeGroup, "shade");
@@ -405,7 +478,7 @@ function createCityModel(root, values) {
   };
 }
 
-function createCoral(color, height = 1.5) {
+function createCoral(color, height = 1.5, branchCount = 4) {
   const coral = new THREE.Group();
   const stem = taperedCylinder(0.09, 0.18, height, color, 12, {
     emissive: color,
@@ -413,25 +486,66 @@ function createCoral(color, height = 1.5) {
   });
   stem.position.y = height / 2;
   coral.add(stem);
-  [-1, 1, -1, 1].forEach((direction, index) => {
+  const directions = Array.from({ length: Math.max(4, branchCount) }, (_, index) => (index % 2 ? 1 : -1));
+  directions.forEach((direction, index) => {
     const branchHeight = height * (0.35 + (index % 2) * 0.11);
     const branch = taperedCylinder(0.055, 0.1, branchHeight, color, 10, {
       emissive: color,
       emissiveIntensity: 0.06,
     });
     branch.rotation.z = direction * (0.48 + (index % 2) * 0.14);
-    branch.rotation.x = (index - 1.5) * 0.08;
+    branch.rotation.x = (index - directions.length / 2) * 0.08;
     branch.position.set(
       direction * (0.16 + (index % 2) * 0.06),
-      height * (0.42 + index * 0.11),
-      (index - 1.5) * 0.035
+      height * (0.42 + (index % 4) * 0.11),
+      (index - directions.length / 2) * 0.035
     );
     coral.add(branch);
+
+    if (index % 2 === 0 && index > 0) {
+      const twigHeight = branchHeight * 0.5;
+      const twig = taperedCylinder(0.03, 0.055, twigHeight, color, 8, {
+        emissive: color,
+        emissiveIntensity: 0.07,
+      });
+      twig.rotation.z = -direction * 0.6;
+      twig.position.set(
+        branch.position.x + direction * 0.1,
+        branch.position.y + branchHeight * 0.32,
+        branch.position.z
+      );
+      coral.add(twig);
+      const twigTip = sphere(0.05, color, { emissive: color, emissiveIntensity: 0.12 });
+      twigTip.position.set(twig.position.x, twig.position.y + twigHeight * 0.5, twig.position.z);
+      coral.add(twigTip);
+    }
   });
   const crown = sphere(0.12, color, { emissive: color, emissiveIntensity: 0.1 });
   crown.position.y = height;
   coral.add(crown);
   return coral;
+}
+
+function createAnemone(color, scale = 1) {
+  const anemone = new THREE.Group();
+  const base = sphere(0.09 * scale, color, { roughness: 0.55, emissive: color, emissiveIntensity: 0.08 });
+  base.scale.set(1, 0.55, 1);
+  anemone.add(base);
+  const tentacleCount = 10;
+  for (let index = 0; index < tentacleCount; index += 1) {
+    const angle = (index / tentacleCount) * Math.PI * 2;
+    const tentacle = taperedCylinder(0.014, 0.028, 0.16 * scale, color, 6, {
+      emissive: color,
+      emissiveIntensity: 0.14,
+    });
+    tentacle.position.set(Math.cos(angle) * 0.05 * scale, 0.06 * scale, Math.sin(angle) * 0.05 * scale);
+    tentacle.rotation.z = Math.cos(angle) * 0.4;
+    tentacle.rotation.x = Math.sin(angle) * 0.4;
+    tentacle.userData.phase = index * 0.6;
+    anemone.add(tentacle);
+  }
+  anemone.userData.tentacles = anemone.children.slice(1);
+  return anemone;
 }
 
 function createSeaGrass(color, scale = 1) {
@@ -482,12 +596,27 @@ function createReefModel(root, values) {
   coralPositions.forEach(([x, z, height], index) => {
     const healthyColor = new THREE.Color(index % 3 === 1 ? palette.yellow : index % 3 === 2 ? 0xd46e94 : palette.coral);
     const livingColor = bleached.clone().lerp(healthyColor, recovery / 100).getHex();
-    const coral = createCoral(livingColor, height);
+    const branchCount = 4 + Math.round(recovery / 34);
+    const coral = createCoral(livingColor, height, branchCount);
     coral.position.set(x, -0.2, z);
     tagAction(coral, actionIds[index % actionIds.length]);
     reef.add(coral);
   });
   root.add(setShadows(reef));
+
+  const anemoneGroup = new THREE.Group();
+  const anemoneSpots = [
+    [-3.0, -0.9], [1.4, -0.6], [-1.6, 1.1], [3.1, 1.0],
+  ];
+  anemoneSpots.slice(0, 1 + Math.round(recovery / 30)).forEach(([x, z], index) => {
+    const anemoneColor = index % 2 ? 0xd46e94 : palette.coral;
+    const anemone = createAnemone(anemoneColor, 1 + (index % 2) * 0.2);
+    anemone.position.set(x, -0.2, z);
+    anemone.userData.phase = index * 1.1;
+    anemoneGroup.add(anemone);
+  });
+  tagAction(anemoneGroup, "reef-zones");
+  root.add(setShadows(anemoneGroup));
 
   const grassGroup = new THREE.Group();
   [
@@ -594,6 +723,13 @@ function createReefModel(root, values) {
       reef.children.forEach((coral, index) => {
         coral.rotation.z = Math.sin(time * 0.0012 + index) * 0.025;
       });
+      anemoneGroup.children.forEach((anemone) => {
+        anemone.userData.tentacles?.forEach((tentacle, tentacleIndex) => {
+          tentacle.rotation.z =
+            Math.cos((tentacleIndex / 10) * Math.PI * 2) * 0.4 +
+            Math.sin(time * 0.0022 + anemone.userData.phase + tentacle.userData.phase) * 0.12;
+        });
+      });
       grassGroup.children.forEach((grass) => {
         grass.rotation.z = Math.sin(time * 0.001 + grass.userData.phase) * 0.045;
       });
@@ -666,6 +802,29 @@ function createClimateModel(root, values) {
     );
   });
   globeGroup.add(continents);
+
+  const iceCaps = new THREE.Group();
+  [88, -88].forEach((latitude) => {
+    const cap = createEarthPatch(1.55, latitude, 0, 1.5, 1.5, palette.white);
+    cap.material.roughness = 0.5;
+    iceCaps.add(cap);
+  });
+  globeGroup.add(iceCaps);
+
+  const cloudGroup = new THREE.Group();
+  const cloudSpots = [
+    [32, -40, 0.6, 0.32], [-18, 60, 0.5, 0.28], [10, -110, 0.7, 0.34],
+    [-40, -5, 0.45, 0.26], [55, 130, 0.55, 0.3], [-8, -160, 0.5, 0.28],
+    [25, 20, 0.4, 0.24],
+  ];
+  cloudSpots.forEach(([latitude, longitude, scaleX, scaleY]) => {
+    const cloud = createEarthPatch(1.63, latitude, longitude, scaleX, scaleY, 0xffffff);
+    cloud.material.transparent = true;
+    cloud.material.opacity = 0.55;
+    cloud.material.roughness = 0.9;
+    cloudGroup.add(cloud);
+  });
+  globeGroup.add(cloudGroup);
 
   const globeLines = new THREE.LineSegments(
     new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.585, 3)),
@@ -764,6 +923,7 @@ function createClimateModel(root, values) {
     target: [0, -0.15, 0],
     animate(time) {
       globeGroup.rotation.y = time * 0.000075;
+      cloudGroup.rotation.y = time * 0.00012;
       atmosphere.scale.setScalar(1 + Math.sin(time * 0.0015) * 0.012);
       people.children.forEach((participant) => {
         if (!participant.userData.body) return;
@@ -827,7 +987,7 @@ export function mountLearningModel(stage, config) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.08;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFShadowMap;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const canvas = renderer.domElement;
   canvas.setAttribute("data-learning-3d-canvas", config.type);
@@ -844,11 +1004,23 @@ export function mountLearningModel(stage, config) {
   const keyLight = new THREE.DirectionalLight(0xffffff, 3.2);
   keyLight.position.set(7, 11, 8);
   keyLight.castShadow = true;
-  keyLight.shadow.mapSize.set(1024, 1024);
+  keyLight.shadow.mapSize.set(2048, 2048);
+  keyLight.shadow.bias = -0.00045;
+  keyLight.shadow.normalBias = 0.02;
+  keyLight.shadow.radius = 2.4;
+  keyLight.shadow.camera.near = 2;
+  keyLight.shadow.camera.far = 32;
+  keyLight.shadow.camera.left = -12;
+  keyLight.shadow.camera.right = 12;
+  keyLight.shadow.camera.top = 12;
+  keyLight.shadow.camera.bottom = -12;
   scene.add(keyLight);
   const rimLight = new THREE.DirectionalLight(0x7ac9de, 1.15);
   rimLight.position.set(-8, 4, -6);
   scene.add(rimLight);
+  const fillLight = new THREE.DirectionalLight(0xfff2d9, 0.55);
+  fillLight.position.set(-4, 5, 9);
+  scene.add(fillLight);
 
   const model = builder(root, config.values || {});
   camera.position.set(...model.camera);

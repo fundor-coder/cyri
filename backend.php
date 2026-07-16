@@ -12,6 +12,10 @@ const MAX_BODY_SIZE = 4194304;
 const MAX_UPLOAD_SIZE = 2621440;
 const RESEARCH_RATE_LIMIT_SECONDS = 600;
 const RESEARCH_RATE_LIMIT_MAX = 12;
+const LOGIN_RATE_LIMIT_SECONDS = 900;
+const LOGIN_RATE_LIMIT_MAX = 8;
+const CONTACT_RATE_LIMIT_SECONDS = 3600;
+const CONTACT_RATE_LIMIT_MAX = 5;
 
 $configuredDataDir = getenv('CYRI_DATA_DIR');
 $dataDir = is_string($configuredDataDir) && trim($configuredDataDir) !== ''
@@ -22,6 +26,8 @@ $articlesFile = $dataDir . DIRECTORY_SEPARATOR . 'articles.json';
 $messagesFile = $dataDir . DIRECTORY_SEPARATOR . 'messages.json';
 $sessionsFile = $dataDir . DIRECTORY_SEPARATOR . 'sessions.json';
 $researchRateFile = $dataDir . DIRECTORY_SEPARATOR . 'research-rate-limits.json';
+$loginRateFile = $dataDir . DIRECTORY_SEPARATOR . 'login-rate-limits.json';
+$contactRateFile = $dataDir . DIRECTORY_SEPARATOR . 'contact-rate-limits.json';
 $staticArticlesFile = __DIR__ . DIRECTORY_SEPARATOR . 'content' . DIRECTORY_SEPARATOR . 'articles.json';
 $allowedCategories = ['policy', 'energy', 'biodiversity', 'cities', 'marine'];
 $allowedImages = [
@@ -490,16 +496,22 @@ function select_research_articles(array $articles, string $question): array
     }, array_slice($selected, 0, 3));
 }
 
-function enforce_research_rate_limit(string $rateFile): void
+function request_client_id(): string
 {
     $forwarded = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? '';
     $client = trim(explode(',', is_string($forwarded) ? $forwarded : '')[0] ?? '');
     if ($client === '') {
         $client = (string) ($_SERVER['REMOTE_ADDR'] ?? 'unknown');
     }
+    return $client;
+}
+
+function enforce_rate_limit(string $rateFile, int $maxAttempts, int $windowSeconds, string $limitMessage): void
+{
+    $client = request_client_id();
     $now = time();
 
-    mutate_json_file($rateFile, function (array $entries) use ($client, $now): array {
+    mutate_json_file($rateFile, function (array $entries) use ($client, $now, $maxAttempts, $windowSeconds, $limitMessage): array {
         $nextEntries = [];
         $clientTimestamps = [];
 
@@ -509,9 +521,9 @@ function enforce_research_rate_limit(string $rateFile): void
             }
             $timestamps = array_values(array_filter(
                 is_array($entry['timestamps'] ?? null) ? $entry['timestamps'] : [],
-                function ($timestamp) use ($now): bool {
+                function ($timestamp) use ($now, $windowSeconds): bool {
                     return is_numeric($timestamp) &&
-                        $now - (int) $timestamp < RESEARCH_RATE_LIMIT_SECONDS;
+                        $now - (int) $timestamp < $windowSeconds;
                 }
             ));
             if (count($timestamps) === 0) {
@@ -527,8 +539,8 @@ function enforce_research_rate_limit(string $rateFile): void
             }
         }
 
-        if (count($clientTimestamps) >= RESEARCH_RATE_LIMIT_MAX) {
-            fail(429, 'Too many research questions. Try again later.');
+        if (count($clientTimestamps) >= $maxAttempts) {
+            fail(429, $limitMessage);
         }
 
         $clientTimestamps[] = $now;
@@ -541,6 +553,36 @@ function enforce_research_rate_limit(string $rateFile): void
             'result' => true,
         ];
     });
+}
+
+function enforce_research_rate_limit(string $rateFile): void
+{
+    enforce_rate_limit(
+        $rateFile,
+        RESEARCH_RATE_LIMIT_MAX,
+        RESEARCH_RATE_LIMIT_SECONDS,
+        'Too many research questions. Try again later.'
+    );
+}
+
+function enforce_login_rate_limit(string $rateFile): void
+{
+    enforce_rate_limit(
+        $rateFile,
+        LOGIN_RATE_LIMIT_MAX,
+        LOGIN_RATE_LIMIT_SECONDS,
+        'Too many sign-in attempts. Try again later.'
+    );
+}
+
+function enforce_contact_rate_limit(string $rateFile): void
+{
+    enforce_rate_limit(
+        $rateFile,
+        CONTACT_RATE_LIMIT_MAX,
+        CONTACT_RATE_LIMIT_SECONDS,
+        'Too many messages sent. Try again later.'
+    );
 }
 
 function answer_research_with_openai(
@@ -1038,6 +1080,7 @@ if ($route === '/auth/publish' && $method === 'POST') {
     if ($configuredHash === '') {
         fail(503, 'Publishing access is not configured.');
     }
+    enforce_login_rate_limit($loginRateFile);
     $body = read_request_json();
     $passwordHash = hash('sha256', (string) ($body['password'] ?? ''));
 
@@ -1101,6 +1144,7 @@ if ($route === '/contact' && $method === 'POST') {
     if (clean_text($body['website'] ?? '', 200) !== '') {
         send_json(201, ['ok' => true]);
     }
+    enforce_contact_rate_limit($contactRateFile);
     $message = mutate_json_file(
         $messagesFile,
         function (array $messages) use ($body): array {
