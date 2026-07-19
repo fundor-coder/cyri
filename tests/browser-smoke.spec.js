@@ -320,3 +320,25 @@ test("learning arcade has no horizontal overflow on mobile", async ({ page }) =>
   await page.screenshot({ path: "/tmp/cyri-learn-mobile-stage.png", fullPage: false });
   expect(errors).toEqual([]);
 });
+
+test("global layout remains within the viewport on desktop, iPad, and iPhone", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  for (const [name, viewport] of Object.entries({
+    desktop: { width: 1440, height: 1000 },
+    ipad: { width: 768, height: 1024 },
+    iphone: { width: 390, height: 844 },
+  })) {
+    await page.setViewportSize(viewport);
+    await page.goto("http://127.0.0.1:5173/#home");
+    await expect(page.locator(".hero h1")).toBeVisible();
+    await expect(page.locator(".hero .photo-frame")).toBeVisible();
+    const hasOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+    );
+    expect(hasOverflow, `${name} layout should not overflow`).toBe(false);
+  }
+
+  expect(errors).toEqual([]);
+});
