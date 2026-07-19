@@ -49,17 +49,21 @@ test("five-minute path unlocks puzzles in sequence", async ({ page }) => {
   await expect(page.locator("[data-learning-games]")).toContainText("SDG Sprint");
   await expect(page.locator('[data-learning-game="chain-builder"]')).toBeDisabled();
 
-  for (const answer of [11, 14, 13, 12]) {
+  for (const answer of [11, 14, 13, 12, 2, 17]) {
     await page.locator(`[data-sdg-sprint-option="${answer}"]`).click();
     await page.locator("[data-sdg-sprint-next]").click();
   }
 
   await expect(page.locator('[data-learning-game="chain-builder"]')).toBeEnabled();
-  for (const choice of ["infiltration", "runoff", "flood"]) {
+  for (const choice of ["infiltration", "runoff", "flood", "sponge"]) {
     await page.locator(`[data-chain-choice="${choice}"]`).click();
   }
   await page.locator("[data-chain-next]").click();
-  for (const choice of ["stress", "bleach", "care"]) {
+  for (const choice of ["stress", "bleach", "starve", "care"]) {
+    await page.locator(`[data-chain-choice="${choice}"]`).click();
+  }
+  await page.locator("[data-chain-next]").click();
+  for (const choice of ["demand", "resources", "waste", "circular"]) {
     await page.locator(`[data-chain-choice="${choice}"]`).click();
   }
   await page.locator("[data-chain-complete]").click();
@@ -100,7 +104,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await page.locator('[data-learning-3d="climate"]').screenshot({
     path: "/tmp/cyri-climate-grown-3d.png",
   });
-  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/16");
+  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/14");
   await expect(page.locator("[data-climate-complete]")).toBeEnabled();
   await page.locator("[data-climate-complete]").click();
   await expect(page.locator("[data-certificate-download]")).toBeDisabled();

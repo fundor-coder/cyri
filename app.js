@@ -1139,7 +1139,7 @@ const sdgSprintRounds = [
       "Ein Schulhof bekommt Bäume, offenen Boden und Regengärten, damit Hitze und Starkregen weniger gefährlich werden."
     ),
     answer: 11,
-    options: [11, 13, 4],
+    options: [11, 13, 3, 4],
     fact: bi(
       "SDG 11 is about sustainable cities and communities. Climate action still connects through SDG 13.",
       "SDG 11 behandelt nachhaltige Städte und Gemeinden. Klimaschutz hängt über SDG 13 trotzdem damit zusammen."
@@ -1151,7 +1151,7 @@ const sdgSprintRounds = [
       "Eine Küstengruppe schützt Seegras, weil es Kohlenstoff speichert, Wellen bremst und Tieren Schutz gibt."
     ),
     answer: 14,
-    options: [6, 14, 15],
+    options: [6, 14, 15, 13],
     fact: bi(
       "SDG 14 focuses on life below water and connects marine habitats with climate protection.",
       "SDG 14 schaut auf Leben unter Wasser und verbindet Meereslebensräume mit Klimaschutz."
@@ -1163,7 +1163,7 @@ const sdgSprintRounds = [
       "Eine dürregefährdete Region baut Frühwarnsysteme, Hitzepläne und faire Unterstützung vor der nächsten Extremsaison auf."
     ),
     answer: 13,
-    options: [13, 2, 17],
+    options: [13, 2, 17, 3],
     fact: bi(
       "SDG 13 includes climate action and adaptation. Food security and partnerships still connect to the situation.",
       "SDG 13 umfasst Klimaschutz und Anpassung. Ernährungssicherheit und Partnerschaften hängen trotzdem damit zusammen."
@@ -1175,10 +1175,34 @@ const sdgSprintRounds = [
       "Eine Klasse prüft, woher ein Produkt kommt, wie viel Müll entsteht und ob Wälder geschützt werden."
     ),
     answer: 12,
-    options: [8, 12, 15],
+    options: [8, 12, 15, 9],
     fact: bi(
       "SDG 12 is about responsible consumption and production from origin to disposal.",
       "SDG 12 behandelt nachhaltigen Konsum und Produktion von Herkunft bis Entsorgung."
+    ),
+  },
+  {
+    prompt: bi(
+      "A region gives smallholder farms drought-resistant seeds and fair market access so harvests survive dry years.",
+      "Eine Region gibt kleinen Höfen dürreresistentes Saatgut und fairen Marktzugang, damit Ernten trockene Jahre überstehen."
+    ),
+    answer: 2,
+    options: [2, 13, 15, 12],
+    fact: bi(
+      "SDG 2 covers food security and resilient agriculture. The climate link runs through SDG 13, but the core goal here is secure harvests.",
+      "SDG 2 umfasst Ernährungssicherheit und widerstandsfähige Landwirtschaft. Der Klimabezug läuft über SDG 13, das Kernziel hier sind aber sichere Ernten."
+    ),
+  },
+  {
+    prompt: bi(
+      "Youth groups from several countries share flood data, warning tools and funding so all of them can prepare together.",
+      "Jugendgruppen aus mehreren Ländern teilen Flutdaten, Warnwerkzeuge und Fördermittel, damit alle sich gemeinsam vorbereiten können."
+    ),
+    answer: 17,
+    options: [17, 13, 11, 16],
+    fact: bi(
+      "SDG 17 is about partnerships. The content is climate adaptation, but what makes it work here is cooperation across borders.",
+      "SDG 17 steht für Partnerschaften. Inhaltlich geht es um Klimaanpassung, aber was es hier möglich macht, ist Zusammenarbeit über Grenzen."
     ),
   },
 ];
@@ -1196,9 +1220,11 @@ const chainGameRounds = [
       { id: "infiltration", text: bi("Less rain infiltrates", "Regen versickert schlechter") },
       { id: "runoff", text: bi("More water runs off across the surface", "Mehr Wasser fließt oberflächlich ab") },
       { id: "flood", text: bi("Local flood risk rises", "Lokales Überflutungsrisiko steigt") },
+      { id: "sponge", text: bi("Unsealing and storage interrupt the chain", "Entsiegelung und Speicher unterbrechen die Kette") },
     ],
     decoys: [
       { id: "shade", text: bi("Shade lowers heat stress", "Schatten senkt Hitzestress") },
+      { id: "pipes", text: bi("Bigger sewer pipes alone solve everything", "Größere Abwasserrohre allein lösen alles") },
       { id: "emissions", text: bi("Emissions cuts slow warming", "Emissionssenkung verlangsamt Erwärmung") },
       { id: "clean-water", text: bi("Clean water improves reef recovery", "Sauberes Wasser verbessert Riff-Erholung") },
       { id: "reuse", text: bi("Repair and reuse reduce waste", "Reparatur und Wiederverwendung senken Müll") },
@@ -1215,13 +1241,36 @@ const chainGameRounds = [
     links: [
       { id: "stress", text: bi("Corals become stressed", "Korallen geraten unter Stress") },
       { id: "bleach", text: bi("Algae loss causes bleaching", "Algenverlust löst Bleiche aus") },
+      { id: "starve", text: bi("Without their algae, corals run out of energy", "Ohne ihre Algen fehlt Korallen Energie") },
       { id: "care", text: bi("Clean water and climate action improve chances", "Sauberes Wasser und Klimaschutz verbessern Chancen") },
     ],
     decoys: [
+      { id: "warm-good", text: bi("Warmer water always speeds up coral growth", "Wärmeres Wasser beschleunigt Korallenwachstum immer") },
       { id: "soil", text: bi("Open soil stores rainwater", "Offener Boden speichert Regenwasser") },
       { id: "routes", text: bi("Safe routes improve fair access", "Sichere Wege verbessern fairen Zugang") },
       { id: "consumption", text: bi("Responsible consumption reduces waste", "Nachhaltiger Konsum senkt Müll") },
       { id: "seagrass", text: bi("Seagrass slows waves near coasts", "Seegras bremst Wellen an Küsten") },
+    ],
+  },
+  {
+    id: "consumption",
+    title: bi("Consumption chain", "Konsum-Kette"),
+    start: bi("Cheap trend purchase", "Billiger Trend-Kauf"),
+    complete: bi(
+      "Right: every purchase starts a chain. Repair, second-hand and sharing interrupt it before waste and emissions pile up - a low price alone says nothing about the real impact.",
+      "Richtig: Jeder Kauf startet eine Kette. Reparatur, Secondhand und Teilen unterbrechen sie, bevor Müll und Emissionen entstehen - ein niedriger Preis allein sagt nichts über die echten Folgen."
+    ),
+    links: [
+      { id: "demand", text: bi("High demand drives new production", "Hohe Nachfrage treibt Neuproduktion an") },
+      { id: "resources", text: bi("Production uses water, energy and land", "Produktion verbraucht Wasser, Energie und Fläche") },
+      { id: "waste", text: bi("Short use creates waste and emissions", "Kurze Nutzung erzeugt Müll und Emissionen") },
+      { id: "circular", text: bi("Repair, second-hand and sharing interrupt the chain", "Reparatur, Secondhand und Teilen unterbrechen die Kette") },
+    ],
+    decoys: [
+      { id: "price", text: bi("A low price means a low impact", "Ein niedriger Preis bedeutet geringe Folgen") },
+      { id: "recycling-only", text: bi("Recycling alone makes any amount harmless", "Recycling allein macht jede Menge unschädlich") },
+      { id: "label", text: bi("A green label alone proves sustainability", "Ein grünes Label allein beweist Nachhaltigkeit") },
+      { id: "shade-street", text: bi("Shade trees cool shopping streets", "Schattenbäume kühlen Einkaufsstraßen") },
     ],
   },
 ];
@@ -1336,8 +1385,43 @@ const climateCouncilControls = [
 const CLIMATE_CONTROL_COLORS = ["#f2c14e", "#2a7f9e", "#e56b5d", "#8fbd68", "#c971b8"];
 
 const CITY_GAME_TARGET = 62;
-const REEF_GAME_TARGET = 68;
+const CITY_METRIC_FLOOR = 45;
+const REEF_GAME_TARGET = 64;
+const REEF_METRIC_FLOOR = 50;
+const REEF_BUDGET = 9;
 const CLIMATE_GAME_TARGET = 66;
+const CLIMATE_METRIC_FLOOR = 60;
+const CLIMATE_BUDGET = 14;
+
+const reefSynergies = [
+  {
+    pair: ["clean-water", "reef-zones"],
+    metric: "recovery",
+    bonus: 8,
+    text: bi(
+      "Clean water + protection zones: +8 recovery",
+      "Sauberes Wasser + Schutzzonen: +8 Erholung"
+    ),
+  },
+  {
+    pair: ["heat-alert", "local-guides"],
+    metric: "community",
+    bonus: 8,
+    text: bi(
+      "Heat alert + local guides: +8 community support",
+      "Hitze-Alarm + lokale Guides: +8 Unterstützung"
+    ),
+  },
+  {
+    pair: ["climate-cut", "heat-alert"],
+    metric: "pressure",
+    bonus: 8,
+    text: bi(
+      "Emission cuts + heat alert: +8 pressure reduction",
+      "Emissionen senken + Hitze-Alarm: +8 Drucksenkung"
+    ),
+  },
+];
 const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-3";
 
 const quizQuestions = [
@@ -1796,6 +1880,9 @@ const content = {
       chainNext: "Choose the next link",
       chainBuilt: "Your chain",
       chainMistakes: "{count} misses",
+      chainBroken: "The chain broke after three misses. It restarts from the beginning - think before you pick.",
+      gameRuleFloor: "Extra rule: no value below {count}%",
+      reefSynergyTitle: "Combination effects",
       cityCooling: "Cooling",
       cityFlood: "Flood safety",
       cityHabitat: "Biodiversity",
@@ -2414,6 +2501,9 @@ const content = {
       chainNext: "Wähle die nächste Verbindung",
       chainBuilt: "Deine Kette",
       chainMistakes: "{count} Fehlversuche",
+      chainBroken: "Die Kette ist nach drei Fehlversuchen gerissen. Sie startet von vorn - überlege vor dem Klicken.",
+      gameRuleFloor: "Zusatzregel: kein Wert unter {count}%",
+      reefSynergyTitle: "Kombinationseffekte",
       cityCooling: "Kühlung",
       cityFlood: "Überflutungsschutz",
       cityHabitat: "Biodiversität",
@@ -2912,6 +3002,7 @@ const state = {
   chainRound: 0,
   chainPicks: [],
   chainMistakes: 0,
+  chainRoundMisses: 0,
   chainFeedback: "",
   cityPlan: {
     shade: 2,
@@ -3062,6 +3153,7 @@ function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.chainRound = 0;
   state.chainPicks = [];
   state.chainMistakes = 0;
+  state.chainRoundMisses = 0;
   state.chainFeedback = "";
   state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
   state.reefActions = [];
@@ -3105,7 +3197,7 @@ function changeClimatePlan(id, change) {
   if (!climateCouncilControls.some((item) => item.id === id)) return false;
   const current = state.climatePlan[id] || 0;
   const next = current + change;
-  if (next < 0 || next > 6 || (change > 0 && climatePlanTotal() >= 16)) return false;
+  if (next < 0 || next > 6 || (change > 0 && climatePlanTotal() >= CLIMATE_BUDGET)) return false;
   state.climatePlan[id] = next;
   return true;
 }
@@ -3120,8 +3212,11 @@ function climateMetric(metric) {
   );
 }
 
-function climateGameSolved(_metrics, average) {
-  return average >= CLIMATE_GAME_TARGET;
+function climateGameSolved(metrics, average) {
+  return (
+    average >= CLIMATE_GAME_TARGET &&
+    Object.values(metrics).every((value) => value >= CLIMATE_METRIC_FLOOR)
+  );
 }
 
 function learningBadges() {
@@ -3212,24 +3307,40 @@ function toggleReefAction(id) {
     state.reefActions = state.reefActions.filter((item) => item !== id);
     return true;
   }
-  if (reefBudgetUsed() + action.cost > 12) return false;
+  if (reefBudgetUsed() + action.cost > REEF_BUDGET) return false;
   state.reefActions.push(id);
   return true;
 }
 
+function activeReefSynergies() {
+  const selected = new Set(state.reefActions);
+  return reefSynergies.filter((synergy) => synergy.pair.every((id) => selected.has(id)));
+}
+
 function reefMetric(metric) {
   const base = metric === "pressure" ? 16 : 24;
+  const synergyBonus = activeReefSynergies()
+    .filter((synergy) => synergy.metric === metric)
+    .reduce((sum, synergy) => sum + synergy.bonus, 0);
   return gameScoreValue(
-    base + selectedReefActions().reduce((sum, item) => sum + (item[metric] || 0), 0)
+    base +
+      synergyBonus +
+      selectedReefActions().reduce((sum, item) => sum + (item[metric] || 0), 0)
   );
 }
 
-function cityGameSolved(_metrics, average) {
-  return average >= CITY_GAME_TARGET;
+function cityGameSolved(metrics, average) {
+  return (
+    average >= CITY_GAME_TARGET &&
+    Object.values(metrics).every((value) => value >= CITY_METRIC_FLOOR)
+  );
 }
 
-function reefGameSolved(_recovery, _pressure, _community, average) {
-  return average >= REEF_GAME_TARGET;
+function reefGameSolved(recovery, pressure, community, average) {
+  return (
+    average >= REEF_GAME_TARGET &&
+    [recovery, pressure, community].every((value) => value >= REEF_METRIC_FLOOR)
+  );
 }
 
 function escapeHtml(value) {
@@ -4167,7 +4278,7 @@ function renderGameMeter(label, value) {
   `;
 }
 
-function renderGameTarget(average, target, solved, outcome = "") {
+function renderGameTarget(average, target, solved, outcome = "", rules = []) {
   const remaining = Math.max(0, target - average);
   const status = solved
     ? t("learn.gameTargetReached")
@@ -4190,6 +4301,15 @@ function renderGameTarget(average, target, solved, outcome = "") {
         <b style="left: ${target}%" aria-hidden="true"></b>
       </div>
       <p>${escapeHtml(status)}</p>
+      ${rules
+        .map(
+          (rule) => `
+            <p class="game-rule ${rule.met ? "is-met" : "is-open"}">
+              <b aria-hidden="true">${rule.met ? "✓" : "!"}</b> ${escapeHtml(rule.text)}
+            </p>
+          `
+        )
+        .join("")}
       ${solved && outcome ? `<small>${escapeHtml(outcome)}</small>` : ""}
     </div>
   `;
@@ -4237,7 +4357,7 @@ function renderSdgSprintGame() {
           .map((number) => {
             const goal = getSdgGoal(number);
             let className = "game-choice";
-            if (answered && number === round.answer) className += " is-correct";
+            if (answered && correct && number === round.answer) className += " is-correct";
             if (answered && number === selected && number !== round.answer) className += " is-wrong";
             return `
               <button
@@ -4260,7 +4380,7 @@ function renderSdgSprintGame() {
               <strong>${escapeHtml(
                 t(correct ? "learn.gameCorrect" : "learn.incorrect")
               )}</strong>
-              <p>${escapeHtml(localizedValue(round.fact))}</p>
+              ${correct ? `<p>${escapeHtml(localizedValue(round.fact))}</p>` : ""}
             </div>
             <div class="game-action-row">
               <button class="button button-secondary" type="button" data-sdg-sprint-reset>
@@ -4290,14 +4410,15 @@ function renderChainGame() {
   const round = chainGameRounds[state.chainRound] || chainGameRounds[0];
   const nextLink = round.links[state.chainPicks.length];
   const complete = state.chainPicks.length >= round.links.length;
-  const usedIds = new Set(state.chainPicks);
-  const decoys = round.decoys.filter((item) => !usedIds.has(item.id));
-  const choiceSeed = [decoys[0], nextLink, decoys[1]].filter(Boolean);
-  const choices = complete
-    ? []
-    : state.chainPicks.length % 2 === 0
-      ? choiceSeed
-      : [nextLink, decoys[0], decoys[1]].filter(Boolean);
+  let choices = [];
+  if (!complete) {
+    const rotation = state.chainPicks.length + state.chainRound;
+    const decoys = round.decoys
+      .map((_, index, all) => all[(index + rotation) % all.length])
+      .slice(0, 3);
+    choices = [...decoys];
+    choices.splice((rotation * 3 + 1) % (decoys.length + 1), 0, nextLink);
+  }
 
   return `
     <div class="game-play-panel">
@@ -4362,6 +4483,11 @@ function renderChainGame() {
                           : "learn.gameIncorrect"
                       )
                     )}</strong>
+                    ${
+                      state.chainFeedback === "broken"
+                        ? `<p>${escapeHtml(t("learn.chainBroken"))}</p>`
+                        : ""
+                    }
                   </div>`
                 : ""
             }`
@@ -4453,7 +4579,12 @@ function renderCityBuilderGame() {
         ${renderGameMeter(t("learn.cityHabitat"), metrics.habitat)}
         ${renderGameMeter(t("learn.cityFairness"), metrics.fairness)}
       </div>
-      ${renderGameTarget(average, CITY_GAME_TARGET, solved, outcome)}
+      ${renderGameTarget(average, CITY_GAME_TARGET, solved, outcome, [
+        {
+          text: formatLearningText(t("learn.gameRuleFloor"), { count: CITY_METRIC_FLOOR }),
+          met: Object.values(metrics).every((value) => value >= CITY_METRIC_FLOOR),
+        },
+      ])}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-city-reset>
           ${escapeHtml(t("learn.gameReset"))}
@@ -4467,7 +4598,7 @@ function renderCityBuilderGame() {
 }
 
 function renderReefRescueGame() {
-  const budget = 12;
+  const budget = REEF_BUDGET;
   const used = reefBudgetUsed();
   const remaining = budget - used;
   const recovery = reefMetric("recovery");
@@ -4514,12 +4645,28 @@ function renderReefRescueGame() {
           })
           .join("")}
       </div>
+      <div class="reef-synergy-panel">
+        <strong>${escapeHtml(t("learn.reefSynergyTitle"))}</strong>
+        ${reefSynergies
+          .map((synergy) => {
+            const active = synergy.pair.every((id) => state.reefActions.includes(id));
+            return `<p class="game-rule ${active ? "is-met" : "is-open"}">
+              <b aria-hidden="true">${active ? "✓" : "+"}</b> ${escapeHtml(localizedValue(synergy.text))}
+            </p>`;
+          })
+          .join("")}
+      </div>
       <div class="game-meter-grid">
         ${renderGameMeter(t("learn.reefRecovery"), recovery)}
         ${renderGameMeter(t("learn.reefPressure"), pressure)}
         ${renderGameMeter(t("learn.reefCommunity"), community)}
       </div>
-      ${renderGameTarget(average, REEF_GAME_TARGET, solved, outcome)}
+      ${renderGameTarget(average, REEF_GAME_TARGET, solved, outcome, [
+        {
+          text: formatLearningText(t("learn.gameRuleFloor"), { count: REEF_METRIC_FLOOR }),
+          met: [recovery, pressure, community].every((value) => value >= REEF_METRIC_FLOOR),
+        },
+      ])}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-reef-reset>
           ${escapeHtml(t("learn.gameReset"))}
@@ -4533,7 +4680,7 @@ function renderReefRescueGame() {
 }
 
 function renderClimateCouncilGame() {
-  const budget = 16;
+  const budget = CLIMATE_BUDGET;
   const used = climatePlanTotal();
   const remaining = budget - used;
   const metrics = {
@@ -4588,7 +4735,12 @@ function renderClimateCouncilGame() {
         ${renderGameMeter(t("learn.finalJustice"), metrics.justice)}
         ${renderGameMeter(t("learn.finalResilience"), metrics.resilience)}
       </div>
-      ${renderGameTarget(average, CLIMATE_GAME_TARGET, solved, t("learn.finalOutcomeStrong"))}
+      ${renderGameTarget(average, CLIMATE_GAME_TARGET, solved, t("learn.finalOutcomeStrong"), [
+        {
+          text: formatLearningText(t("learn.gameRuleFloor"), { count: CLIMATE_METRIC_FLOOR }),
+          met: Object.values(metrics).every((value) => value >= CLIMATE_METRIC_FLOOR),
+        },
+      ])}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-climate-reset>${escapeHtml(t("learn.gameReset"))}</button>
         <button class="button button-primary" type="button" data-climate-complete ${solved ? "" : "disabled"}>
@@ -6037,7 +6189,14 @@ document.addEventListener("click", (event) => {
       state.chainFeedback = "correct";
     } else {
       state.chainMistakes += 1;
-      state.chainFeedback = "wrong";
+      state.chainRoundMisses += 1;
+      if (state.chainRoundMisses >= 3) {
+        state.chainPicks = [];
+        state.chainRoundMisses = 0;
+        state.chainFeedback = "broken";
+      } else {
+        state.chainFeedback = "wrong";
+      }
     }
     renderLearningGames();
     return;
@@ -6047,6 +6206,7 @@ document.addEventListener("click", (event) => {
     state.chainRound = Math.min(state.chainRound + 1, chainGameRounds.length - 1);
     state.chainPicks = [];
     state.chainMistakes = 0;
+    state.chainRoundMisses = 0;
     state.chainFeedback = "";
     renderLearningGames();
     return;
@@ -6064,6 +6224,7 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("[data-chain-reset]")) {
     state.chainPicks = [];
     state.chainMistakes = 0;
+    state.chainRoundMisses = 0;
     state.chainFeedback = "";
     renderLearningGames();
     return;
