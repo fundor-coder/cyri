@@ -119,9 +119,9 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await expect(page.locator("[data-certificate-download]")).toHaveCount(0);
   await expect(page.locator("[data-certificate-name]")).toHaveCount(0);
   const issuance = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("cyri-certificate-issuance-v1") || "null")
+    JSON.parse(localStorage.getItem("cyri-certificate-issuance-v2") || "null")?.gold
   );
-  expect(issuance?.id).toMatch(/^CYRI-/);
+  expect(issuance?.id).toMatch(/^CYRI-GOLD-/);
   await page.screenshot({ path: "/tmp/cyri-learn-desktop.png", fullPage: true });
   const persistedPage = await page.context().newPage();
   await persistedPage.goto("http://127.0.0.1:5173/#learn");
@@ -132,7 +132,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await expect(page.locator("[data-learning-games]")).toContainText("0/5");
   await expect(page.locator('[data-learning-game="climate-council"]')).toBeDisabled();
   expect(
-    await page.evaluate(() => localStorage.getItem("cyri-certificate-issuance-v1"))
+    await page.evaluate(() => localStorage.getItem("cyri-certificate-issuance-v2"))
   ).toBeNull();
   expect(errors).toEqual([]);
 });
