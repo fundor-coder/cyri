@@ -1107,8 +1107,8 @@ const learningGames = [
         "Ein starkes Paket verbindet schnelle Emissionsminderung mit widerstandsfähigen Ökosystemen und fair zugänglicher Unterstützung."
       ),
       action: bi(
-        "Reach the target percentage with a balanced package. Extra tokens remain optional, so compare what each measure changes.",
-        "Erreiche die Zielprozentzahl mit einem ausgewogenen Paket. Zusätzliche Token bleiben freiwillig, damit du die Wirkung jeder Maßnahme vergleichen kannst."
+        "Build a tightly balanced package, test it and use the qualitative feedback to uncover the hidden mission threshold.",
+        "Baue ein sehr genau ausbalanciertes Paket, prüfe es und erschließe die verdeckte Missionsgrenze aus dem qualitativen Feedback."
       ),
     },
   },
@@ -1132,6 +1132,17 @@ const learningGameTracks = [
   },
 ];
 
+const certificateTiers = {
+  5: { id: "bronze", label: bi("Bronze", "Bronze"), rgb: "0.72 0.45 0.20", chip: "0.95 0.88 0.80" },
+  15: { id: "silver", label: bi("Silver", "Silber"), rgb: "0.44 0.48 0.52", chip: "0.91 0.93 0.95" },
+  30: { id: "gold", label: bi("Gold", "Gold"), rgb: "0.80 0.60 0.12", chip: "0.97 0.92 0.78" },
+};
+const certificateTierOrder = ["bronze", "silver", "gold"];
+
+function certificateTierForMinutes(minutes) {
+  return certificateTiers[minutes] || certificateTiers[30];
+}
+
 const sdgSprintRounds = [
   {
     prompt: bi(
@@ -1139,7 +1150,7 @@ const sdgSprintRounds = [
       "Ein Schulhof bekommt Bäume, offenen Boden und Regengärten, damit Hitze und Starkregen weniger gefährlich werden."
     ),
     answer: 11,
-    options: [11, 13, 4],
+    options: [11, 13, 3, 4],
     fact: bi(
       "SDG 11 is about sustainable cities and communities. Climate action still connects through SDG 13.",
       "SDG 11 behandelt nachhaltige Städte und Gemeinden. Klimaschutz hängt über SDG 13 trotzdem damit zusammen."
@@ -1151,7 +1162,7 @@ const sdgSprintRounds = [
       "Eine Küstengruppe schützt Seegras, weil es Kohlenstoff speichert, Wellen bremst und Tieren Schutz gibt."
     ),
     answer: 14,
-    options: [6, 14, 15],
+    options: [6, 14, 15, 13],
     fact: bi(
       "SDG 14 focuses on life below water and connects marine habitats with climate protection.",
       "SDG 14 schaut auf Leben unter Wasser und verbindet Meereslebensräume mit Klimaschutz."
@@ -1163,7 +1174,7 @@ const sdgSprintRounds = [
       "Eine dürregefährdete Region baut Frühwarnsysteme, Hitzepläne und faire Unterstützung vor der nächsten Extremsaison auf."
     ),
     answer: 13,
-    options: [13, 2, 17],
+    options: [13, 2, 17, 3],
     fact: bi(
       "SDG 13 includes climate action and adaptation. Food security and partnerships still connect to the situation.",
       "SDG 13 umfasst Klimaschutz und Anpassung. Ernährungssicherheit und Partnerschaften hängen trotzdem damit zusammen."
@@ -1175,10 +1186,34 @@ const sdgSprintRounds = [
       "Eine Klasse prüft, woher ein Produkt kommt, wie viel Müll entsteht und ob Wälder geschützt werden."
     ),
     answer: 12,
-    options: [8, 12, 15],
+    options: [8, 12, 15, 9],
     fact: bi(
       "SDG 12 is about responsible consumption and production from origin to disposal.",
       "SDG 12 behandelt nachhaltigen Konsum und Produktion von Herkunft bis Entsorgung."
+    ),
+  },
+  {
+    prompt: bi(
+      "A region gives smallholder farms drought-resistant seeds and fair market access so harvests survive dry years.",
+      "Eine Region gibt kleinen Höfen dürreresistentes Saatgut und fairen Marktzugang, damit Ernten trockene Jahre überstehen."
+    ),
+    answer: 2,
+    options: [2, 13, 15, 12],
+    fact: bi(
+      "SDG 2 covers food security and resilient agriculture. The climate link runs through SDG 13, but the core goal here is secure harvests.",
+      "SDG 2 umfasst Ernährungssicherheit und widerstandsfähige Landwirtschaft. Der Klimabezug läuft über SDG 13, das Kernziel hier sind aber sichere Ernten."
+    ),
+  },
+  {
+    prompt: bi(
+      "Youth groups from several countries share flood data, warning tools and funding so all of them can prepare together.",
+      "Jugendgruppen aus mehreren Ländern teilen Flutdaten, Warnwerkzeuge und Fördermittel, damit alle sich gemeinsam vorbereiten können."
+    ),
+    answer: 17,
+    options: [17, 13, 11, 16],
+    fact: bi(
+      "SDG 17 is about partnerships. The content is climate adaptation, but what makes it work here is cooperation across borders.",
+      "SDG 17 steht für Partnerschaften. Inhaltlich geht es um Klimaanpassung, aber was es hier möglich macht, ist Zusammenarbeit über Grenzen."
     ),
   },
 ];
@@ -1196,9 +1231,11 @@ const chainGameRounds = [
       { id: "infiltration", text: bi("Less rain infiltrates", "Regen versickert schlechter") },
       { id: "runoff", text: bi("More water runs off across the surface", "Mehr Wasser fließt oberflächlich ab") },
       { id: "flood", text: bi("Local flood risk rises", "Lokales Überflutungsrisiko steigt") },
+      { id: "sponge", text: bi("Unsealing and storage interrupt the chain", "Entsiegelung und Speicher unterbrechen die Kette") },
     ],
     decoys: [
       { id: "shade", text: bi("Shade lowers heat stress", "Schatten senkt Hitzestress") },
+      { id: "pipes", text: bi("Bigger sewer pipes alone solve everything", "Größere Abwasserrohre allein lösen alles") },
       { id: "emissions", text: bi("Emissions cuts slow warming", "Emissionssenkung verlangsamt Erwärmung") },
       { id: "clean-water", text: bi("Clean water improves reef recovery", "Sauberes Wasser verbessert Riff-Erholung") },
       { id: "reuse", text: bi("Repair and reuse reduce waste", "Reparatur und Wiederverwendung senken Müll") },
@@ -1215,13 +1252,36 @@ const chainGameRounds = [
     links: [
       { id: "stress", text: bi("Corals become stressed", "Korallen geraten unter Stress") },
       { id: "bleach", text: bi("Algae loss causes bleaching", "Algenverlust löst Bleiche aus") },
+      { id: "starve", text: bi("Without their algae, corals run out of energy", "Ohne ihre Algen fehlt Korallen Energie") },
       { id: "care", text: bi("Clean water and climate action improve chances", "Sauberes Wasser und Klimaschutz verbessern Chancen") },
     ],
     decoys: [
+      { id: "warm-good", text: bi("Warmer water always speeds up coral growth", "Wärmeres Wasser beschleunigt Korallenwachstum immer") },
       { id: "soil", text: bi("Open soil stores rainwater", "Offener Boden speichert Regenwasser") },
       { id: "routes", text: bi("Safe routes improve fair access", "Sichere Wege verbessern fairen Zugang") },
       { id: "consumption", text: bi("Responsible consumption reduces waste", "Nachhaltiger Konsum senkt Müll") },
       { id: "seagrass", text: bi("Seagrass slows waves near coasts", "Seegras bremst Wellen an Küsten") },
+    ],
+  },
+  {
+    id: "consumption",
+    title: bi("Consumption chain", "Konsum-Kette"),
+    start: bi("Cheap trend purchase", "Billiger Trend-Kauf"),
+    complete: bi(
+      "Right: every purchase starts a chain. Repair, second-hand and sharing interrupt it before waste and emissions pile up - a low price alone says nothing about the real impact.",
+      "Richtig: Jeder Kauf startet eine Kette. Reparatur, Secondhand und Teilen unterbrechen sie, bevor Müll und Emissionen entstehen - ein niedriger Preis allein sagt nichts über die echten Folgen."
+    ),
+    links: [
+      { id: "demand", text: bi("High demand drives new production", "Hohe Nachfrage treibt Neuproduktion an") },
+      { id: "resources", text: bi("Production uses water, energy and land", "Produktion verbraucht Wasser, Energie und Fläche") },
+      { id: "waste", text: bi("Short use creates waste and emissions", "Kurze Nutzung erzeugt Müll und Emissionen") },
+      { id: "circular", text: bi("Repair, second-hand and sharing interrupt the chain", "Reparatur, Secondhand und Teilen unterbrechen die Kette") },
+    ],
+    decoys: [
+      { id: "price", text: bi("A low price means a low impact", "Ein niedriger Preis bedeutet geringe Folgen") },
+      { id: "recycling-only", text: bi("Recycling alone makes any amount harmless", "Recycling allein macht jede Menge unschädlich") },
+      { id: "label", text: bi("A green label alone proves sustainability", "Ein grünes Label allein beweist Nachhaltigkeit") },
+      { id: "shade-street", text: bi("Shade trees cool shopping streets", "Schattenbäume kühlen Einkaufsstraßen") },
     ],
   },
 ];
@@ -1335,10 +1395,46 @@ const climateCouncilControls = [
 ];
 const CLIMATE_CONTROL_COLORS = ["#f2c14e", "#2a7f9e", "#e56b5d", "#8fbd68", "#c971b8"];
 
-const CITY_GAME_TARGET = 62;
-const REEF_GAME_TARGET = 68;
-const CLIMATE_GAME_TARGET = 66;
-const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-3";
+const CITY_GAME_TARGET = 69;
+const CITY_METRIC_FLOOR = 60;
+const CITY_BUDGET = 12;
+const REEF_GAME_TARGET = 65;
+const REEF_METRIC_FLOOR = 58;
+const REEF_BUDGET = 9;
+const CLIMATE_GAME_TARGET = 94;
+const CLIMATE_METRIC_FLOOR = 90;
+const CLIMATE_BUDGET = 14;
+
+const reefSynergies = [
+  {
+    pair: ["clean-water", "reef-zones"],
+    metric: "recovery",
+    bonus: 8,
+    text: bi(
+      "Clean water + protection zones: +8 recovery",
+      "Sauberes Wasser + Schutzzonen: +8 Erholung"
+    ),
+  },
+  {
+    pair: ["heat-alert", "local-guides"],
+    metric: "community",
+    bonus: 8,
+    text: bi(
+      "Heat alert + local guides: +8 community support",
+      "Hitze-Alarm + lokale Guides: +8 Unterstützung"
+    ),
+  },
+  {
+    pair: ["climate-cut", "heat-alert"],
+    metric: "pressure",
+    bonus: 8,
+    text: bi(
+      "Emission cuts + heat alert: +8 pressure reduction",
+      "Emissionen senken + Hitze-Alarm: +8 Drucksenkung"
+    ),
+  },
+];
+const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260719-4";
 
 const quizQuestions = [
   {
@@ -1785,6 +1881,17 @@ const content = {
       gameTargetAt: "Continue from {count}%",
       gameTargetReached: "Target reached. You can continue now.",
       gameTargetRemaining: "{count} percentage points to go.",
+      gameHiddenGoal: "Hidden mission threshold",
+      gameHiddenGoalIntro: "The exact solution stays hidden. Build a plan, test it and use the clue to improve your next attempt.",
+      gameAttempts: "Checks: {count}",
+      gameTestPlan: "Test plan",
+      gameUseFullBudget: "The plan is not ambitious enough yet. Use the remaining {count} points.",
+      gameKeepEveryCategory: "One field was reduced to zero. A robust package must keep every field active.",
+      gameFindSynergy: "The individual actions are useful, but the decisive hidden synergy is still missing.",
+      gameWeakestArea: "Almost there. Your weakest area is “{area}”. Rebalance the plan and test it again.",
+      gameNeedsBalance: "The package is close, but its overall balance is not strong enough yet.",
+      gameCongratulations: "Congratulations!",
+      gameCongratulationsText: "You experimented successfully and cracked the mission.",
       gameLiveModel: "Live 3D model",
       cityModelLabel: "Interactive 3D sponge-city model. The scene responds to shade, soil, water and route tokens.",
       reefModelLabel: "Interactive 3D reef model. The scene responds to the selected protection actions.",
@@ -1796,6 +1903,9 @@ const content = {
       chainNext: "Choose the next link",
       chainBuilt: "Your chain",
       chainMistakes: "{count} misses",
+      chainBroken: "The chain broke after three misses. It restarts from the beginning - think before you pick.",
+      gameRuleFloor: "Extra rule: no value below {count}%",
+      reefSynergyTitle: "Combination effects",
       cityCooling: "Cooling",
       cityFlood: "Flood safety",
       cityHabitat: "Biodiversity",
@@ -1826,13 +1936,20 @@ const content = {
       localRanking: "Best results on this device",
       localOnly: "Progress, badges and results stay in this browser and are not published.",
       certificateTitle: "CYRI Climate Certificate unlocked",
-      certificateText: "Enter your name to create the one certificate for this completed run.",
+      certificateTierTitle: "CYRI {tier} Certificate unlocked",
+      certificateTierIssuedTitle: "{tier} Certificate issued",
+      certificateIssuedList: "Issued certificates",
+      certificateCollection: "Three certificate levels",
+      certificateLocked: "Not earned yet",
+      certificateEarned: "Earned",
+      certificateCreated: "Created",
+      certificateText: "Enter your name to create the certificate for this completed path.",
       certificateName: "Name on the certificate",
       certificateNameRequired: "Please enter a name for the certificate.",
       certificateDownload: "Create certificate once",
-      certificateOnce: "One certificate can be issued for each completed run on this device.",
+      certificateOnce: "Each tier (Bronze 5 min, Silver 15 min, Gold 30 min) can issue one certificate on this device.",
       certificateIssuedTitle: "Certificate issued",
-      certificateIssuedText: "This completed run already has its certificate. Start a new run with the reset button below to earn another one.",
+      certificateIssuedText: "This tier already has its certificate. Complete a longer path to earn the next tier.",
       certificateId: "Certificate ID",
       resetProgress: "Reset all game progress",
       resetConfirm: "Reset all game progress, badges, results and the certificate status on this device?",
@@ -2403,6 +2520,17 @@ const content = {
       gameTargetAt: "Weiter ab {count}%",
       gameTargetReached: "Ziel erreicht. Du kannst jetzt weitergehen.",
       gameTargetRemaining: "Noch {count} Prozentpunkte bis zum Weitergehen.",
+      gameHiddenGoal: "Verdeckte Missionsgrenze",
+      gameHiddenGoalIntro: "Die exakte Lösung bleibt verborgen. Baue einen Plan, prüfe ihn und nutze den Hinweis für deinen nächsten Versuch.",
+      gameAttempts: "Prüfversuche: {count}",
+      gameTestPlan: "Plan prüfen",
+      gameUseFullBudget: "Der Plan ist noch nicht ambitioniert genug. Nutze die übrigen {count} Punkte.",
+      gameKeepEveryCategory: "Ein Bereich wurde auf null gesetzt. Ein robustes Paket muss jeden Bereich einbeziehen.",
+      gameFindSynergy: "Die Einzelmaßnahmen helfen, aber die entscheidende versteckte Synergie fehlt noch.",
+      gameWeakestArea: "Fast geschafft. Dein schwächster Bereich ist „{area}“. Verteile neu und prüfe erneut.",
+      gameNeedsBalance: "Das Paket ist nah dran, aber insgesamt noch nicht ausgewogen genug.",
+      gameCongratulations: "Herzlichen Glückwunsch!",
+      gameCongratulationsText: "Du hast erfolgreich ausprobiert und die Mission geknackt.",
       gameLiveModel: "3D-Live-Modell",
       cityModelLabel: "Interaktives 3D-Modell einer Schwammstadt. Die Szene reagiert auf Token für Schatten, Boden, Wasser und Wege.",
       reefModelLabel: "Interaktives 3D-Riffmodell. Die Szene reagiert auf die ausgewählten Schutzmaßnahmen.",
@@ -2414,6 +2542,9 @@ const content = {
       chainNext: "Wähle die nächste Verbindung",
       chainBuilt: "Deine Kette",
       chainMistakes: "{count} Fehlversuche",
+      chainBroken: "Die Kette ist nach drei Fehlversuchen gerissen. Sie startet von vorn - überlege vor dem Klicken.",
+      gameRuleFloor: "Zusatzregel: kein Wert unter {count}%",
+      reefSynergyTitle: "Kombinationseffekte",
       cityCooling: "Kühlung",
       cityFlood: "Überflutungsschutz",
       cityHabitat: "Biodiversität",
@@ -2444,13 +2575,20 @@ const content = {
       localRanking: "Beste Ergebnisse auf diesem Gerät",
       localOnly: "Fortschritt, Badges und Ergebnisse bleiben in diesem Browser und werden nicht veröffentlicht.",
       certificateTitle: "CYRI Climate Certificate freigeschaltet",
-      certificateText: "Trage deinen Namen ein und erstelle das eine Zertifikat für diesen abgeschlossenen Durchlauf.",
+      certificateTierTitle: "CYRI {tier}-Zertifikat freigeschaltet",
+      certificateTierIssuedTitle: "{tier}-Zertifikat ausgestellt",
+      certificateIssuedList: "Ausgestellte Zertifikate",
+      certificateCollection: "Drei Zertifikatsstufen",
+      certificateLocked: "Noch nicht verdient",
+      certificateEarned: "Verdient",
+      certificateCreated: "Erstellt",
+      certificateText: "Trage deinen Namen ein und erstelle das Zertifikat für diesen abgeschlossenen Pfad.",
       certificateName: "Name auf dem Zertifikat",
       certificateNameRequired: "Bitte gib einen Namen für das Zertifikat ein.",
       certificateDownload: "Zertifikat einmalig erstellen",
-      certificateOnce: "Pro abgeschlossenem Durchlauf kann auf diesem Gerät ein Zertifikat ausgestellt werden.",
+      certificateOnce: "Pro Stufe (Bronze 5 min, Silber 15 min, Gold 30 min) kann auf diesem Gerät ein Zertifikat ausgestellt werden.",
       certificateIssuedTitle: "Zertifikat ausgestellt",
-      certificateIssuedText: "Dieser abgeschlossene Durchlauf hat bereits sein Zertifikat. Mit dem Reset unten startest du einen neuen Durchlauf und kannst ein neues verdienen.",
+      certificateIssuedText: "Diese Stufe hat ihr Zertifikat bereits. Schließe einen längeren Pfad ab, um die nächste Stufe zu verdienen.",
       certificateId: "Zertifikats-ID",
       resetProgress: "Gesamten Spielfortschritt zurücksetzen",
       resetConfirm: "Gesamten Spielfortschritt, Badges, Ergebnisse und Zertifikatsstatus auf diesem Gerät zurücksetzen?",
@@ -2735,7 +2873,8 @@ const AUDIENCE_KEY = "cyri-learning-audience";
 const LEARNING_POLL_KEY = "cyri-learning-poll";
 const MISSION_STATE_KEY = "cyri-mission-lab";
 const GAME_PROGRESS_KEY = "cyri-game-progress-v2";
-const CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v1";
+const CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v2";
+const LEGACY_CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v1";
 
 function loadAudience() {
   const savedAudience = localStorage.getItem(AUDIENCE_KEY);
@@ -2794,17 +2933,34 @@ function loadGameProgress() {
   }
 }
 
+function sanitizeCertificateEntry(entry) {
+  return entry &&
+    typeof entry.id === "string" &&
+    entry.id.startsWith("CYRI-") &&
+    typeof entry.issuedAt === "string"
+    ? { id: entry.id.slice(0, 48), issuedAt: entry.issuedAt }
+    : null;
+}
+
 function loadCertificateIssuance() {
   try {
     const saved = JSON.parse(localStorage.getItem(CERTIFICATE_ISSUANCE_KEY) || "null");
-    return saved &&
-      typeof saved.id === "string" &&
-      saved.id.startsWith("CYRI-") &&
-      typeof saved.issuedAt === "string"
-      ? { id: saved.id.slice(0, 48), issuedAt: saved.issuedAt }
-      : null;
+    if (saved && typeof saved === "object" && !saved.id) {
+      const issuance = {};
+      certificateTierOrder.forEach((tierId) => {
+        const entry = sanitizeCertificateEntry(saved[tierId]);
+        if (entry) issuance[tierId] = entry;
+      });
+      return issuance;
+    }
+    // Migrate the old single-certificate format: it required the full
+    // 30-minute path, so it maps to the gold tier.
+    const legacy = sanitizeCertificateEntry(
+      JSON.parse(localStorage.getItem(LEGACY_CERTIFICATE_ISSUANCE_KEY) || "null")
+    );
+    return legacy ? { gold: legacy } : {};
   } catch {
-    return null;
+    return {};
   }
 }
 
@@ -2906,18 +3062,30 @@ const state = {
   completedLearningGames: savedGameProgress.completed,
   learningGameHistory: savedGameProgress.history,
   certificateIssuance: savedCertificateIssuance,
+  learningGameCelebration: null,
   activeLearningGame: learningGames[0].id,
   sdgSprintIndex: 0,
   sdgSprintAnswers: [],
   chainRound: 0,
   chainPicks: [],
   chainMistakes: 0,
+  chainRoundMisses: 0,
   chainFeedback: "",
   cityPlan: {
     shade: 2,
     soil: 2,
     water: 2,
     routes: 2,
+  },
+  puzzleAttempts: {
+    city: 0,
+    reef: 0,
+    climate: 0,
+  },
+  puzzleFeedback: {
+    city: null,
+    reef: null,
+    climate: null,
   },
   reefActions: [],
   climatePlan: {
@@ -3036,13 +3204,15 @@ function saveGameProgress() {
   );
 }
 
-function saveCertificateIssuance(issuance) {
-  state.certificateIssuance = issuance;
-  if (issuance) {
-    localStorage.setItem(CERTIFICATE_ISSUANCE_KEY, JSON.stringify(issuance));
-  } else {
+function saveCertificateIssuance(tierId, issuance) {
+  if (!tierId) {
+    state.certificateIssuance = {};
     localStorage.removeItem(CERTIFICATE_ISSUANCE_KEY);
+    localStorage.removeItem(LEGACY_CERTIFICATE_ISSUANCE_KEY);
+    return;
   }
+  state.certificateIssuance = { ...state.certificateIssuance, [tierId]: issuance };
+  localStorage.setItem(CERTIFICATE_ISSUANCE_KEY, JSON.stringify(state.certificateIssuance));
 }
 
 function resetAllLearningGameProgress() {
@@ -3062,8 +3232,12 @@ function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.chainRound = 0;
   state.chainPicks = [];
   state.chainMistakes = 0;
+  state.chainRoundMisses = 0;
   state.chainFeedback = "";
   state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
+  state.puzzleAttempts = { city: 0, reef: 0, climate: 0 };
+  state.puzzleFeedback = { city: null, reef: null, climate: null };
+  state.learningGameCelebration = null;
   state.reefActions = [];
   state.climatePlan = { energy: 1, mobility: 1, food: 1, nature: 1, fairness: 1 };
   saveGameProgress();
@@ -3074,10 +3248,21 @@ function completeLearningGame(gameId) {
   if (!isLearningGameComplete(gameId)) {
     state.completedLearningGames.push(gameId);
     newlyCompleted = true;
+    state.learningGameCelebration = {
+      gameId,
+      id: `${gameId}-${Date.now()}`,
+    };
   }
 
   if (newlyCompleted && activeLearningGameIds().every((id) => isLearningGameComplete(id))) {
-    const score = Math.max(100, activeLearningGameIds().length * 100 - state.chainMistakes * 5);
+    const failedPuzzleAttempts = Object.values(state.puzzleAttempts).reduce(
+      (sum, attempts) => sum + Math.max(0, attempts - 1),
+      0
+    );
+    const score = Math.max(
+      100,
+      activeLearningGameIds().length * 100 - state.chainMistakes * 5 - failedPuzzleAttempts * 10
+    );
     const today = new Date().toISOString().slice(0, 10);
     state.learningGameHistory = [
       { minutes: state.learningGameMinutes, score, date: today },
@@ -3105,7 +3290,7 @@ function changeClimatePlan(id, change) {
   if (!climateCouncilControls.some((item) => item.id === id)) return false;
   const current = state.climatePlan[id] || 0;
   const next = current + change;
-  if (next < 0 || next > 6 || (change > 0 && climatePlanTotal() >= 16)) return false;
+  if (next < 0 || next > 6 || (change > 0 && climatePlanTotal() >= CLIMATE_BUDGET)) return false;
   state.climatePlan[id] = next;
   return true;
 }
@@ -3120,8 +3305,13 @@ function climateMetric(metric) {
   );
 }
 
-function climateGameSolved(_metrics, average) {
-  return average >= CLIMATE_GAME_TARGET;
+function climateGameSolved(metrics, average) {
+  return (
+    average >= CLIMATE_GAME_TARGET &&
+    Object.values(metrics).every((value) => value >= CLIMATE_METRIC_FLOOR) &&
+    Object.values(state.climatePlan).every((value) => value >= 1) &&
+    climatePlanTotal() === CLIMATE_BUDGET
+  );
 }
 
 function learningBadges() {
@@ -3181,7 +3371,7 @@ function changeCityPlan(id, change) {
   if (!cityBuilderControls.some((item) => item.id === id)) return false;
   const current = state.cityPlan[id] || 0;
   const next = current + change;
-  if (next < 0 || next > 6 || (change > 0 && cityPlanTotal() >= 12)) return false;
+  if (next < 0 || next > 6 || (change > 0 && cityPlanTotal() >= CITY_BUDGET)) return false;
   state.cityPlan[id] = next;
   return true;
 }
@@ -3212,24 +3402,105 @@ function toggleReefAction(id) {
     state.reefActions = state.reefActions.filter((item) => item !== id);
     return true;
   }
-  if (reefBudgetUsed() + action.cost > 12) return false;
+  if (reefBudgetUsed() + action.cost > REEF_BUDGET) return false;
   state.reefActions.push(id);
   return true;
 }
 
+function activeReefSynergies() {
+  const selected = new Set(state.reefActions);
+  return reefSynergies.filter((synergy) => synergy.pair.every((id) => selected.has(id)));
+}
+
 function reefMetric(metric) {
   const base = metric === "pressure" ? 16 : 24;
+  const synergyBonus = activeReefSynergies()
+    .filter((synergy) => synergy.metric === metric)
+    .reduce((sum, synergy) => sum + synergy.bonus, 0);
   return gameScoreValue(
-    base + selectedReefActions().reduce((sum, item) => sum + (item[metric] || 0), 0)
+    base +
+      synergyBonus +
+      selectedReefActions().reduce((sum, item) => sum + (item[metric] || 0), 0)
   );
 }
 
-function cityGameSolved(_metrics, average) {
-  return average >= CITY_GAME_TARGET;
+function cityGameSolved(metrics, average) {
+  return (
+    average >= CITY_GAME_TARGET &&
+    Object.values(metrics).every((value) => value >= CITY_METRIC_FLOOR) &&
+    cityPlanTotal() === CITY_BUDGET
+  );
 }
 
-function reefGameSolved(_recovery, _pressure, _community, average) {
-  return average >= REEF_GAME_TARGET;
+function reefGameSolved(recovery, pressure, community, average) {
+  return (
+    average >= REEF_GAME_TARGET &&
+    [recovery, pressure, community].every((value) => value >= REEF_METRIC_FLOOR) &&
+    activeReefSynergies().length >= 1
+  );
+}
+
+function weakestMetricId(metrics) {
+  return Object.entries(metrics).reduce(
+    (weakest, entry) => (entry[1] < weakest[1] ? entry : weakest),
+    Object.entries(metrics)[0]
+  )[0];
+}
+
+function puzzleFeedbackText(feedback, metricLabels) {
+  if (!feedback) return t("learn.gameHiddenGoalIntro");
+  if (feedback.reason === "budget") {
+    return formatLearningText(t("learn.gameUseFullBudget"), { count: feedback.remaining });
+  }
+  if (feedback.reason === "category") return t("learn.gameKeepEveryCategory");
+  if (feedback.reason === "synergy") return t("learn.gameFindSynergy");
+  if (feedback.reason === "weak") {
+    return formatLearningText(t("learn.gameWeakestArea"), {
+      area: metricLabels[feedback.metric] || feedback.metric,
+    });
+  }
+  return t("learn.gameNeedsBalance");
+}
+
+function renderPuzzleGate(game, metricLabels) {
+  const attempts = state.puzzleAttempts[game] || 0;
+  const feedback = state.puzzleFeedback[game];
+  const gameIds = {
+    city: "city-builder",
+    reef: "reef-rescue",
+    climate: "climate-council",
+  };
+  const complete = isLearningGameComplete(gameIds[game]);
+  if (complete) {
+    return `
+      <div class="puzzle-gate is-solved" role="status">
+        <div>
+          <span aria-hidden="true">✓</span>
+          <div>
+            <strong>${escapeHtml(t("learn.gameCongratulations"))}</strong>
+            <p>${escapeHtml(t("learn.gameCongratulationsText"))}</p>
+          </div>
+        </div>
+        <small>${escapeHtml(
+          formatLearningText(t("learn.gameAttempts"), { count: attempts })
+        )}</small>
+      </div>
+    `;
+  }
+  return `
+    <div class="puzzle-gate${feedback ? " has-result" : ""}" role="status">
+      <div>
+        <span aria-hidden="true">?</span>
+        <div>
+          <strong>${escapeHtml(t("learn.gameHiddenGoal"))}</strong>
+          <p>${escapeHtml(puzzleFeedbackText(feedback, metricLabels))}</p>
+        </div>
+      </div>
+      <small>${escapeHtml(
+        formatLearningText(t("learn.gameAttempts"), { count: attempts })
+      )}</small>
+    </div>
+  `;
 }
 
 function escapeHtml(value) {
@@ -4167,7 +4438,7 @@ function renderGameMeter(label, value) {
   `;
 }
 
-function renderGameTarget(average, target, solved, outcome = "") {
+function renderGameTarget(average, target, solved, outcome = "", rules = []) {
   const remaining = Math.max(0, target - average);
   const status = solved
     ? t("learn.gameTargetReached")
@@ -4190,6 +4461,15 @@ function renderGameTarget(average, target, solved, outcome = "") {
         <b style="left: ${target}%" aria-hidden="true"></b>
       </div>
       <p>${escapeHtml(status)}</p>
+      ${rules
+        .map(
+          (rule) => `
+            <p class="game-rule ${rule.met ? "is-met" : "is-open"}">
+              <b aria-hidden="true">${rule.met ? "✓" : "!"}</b> ${escapeHtml(rule.text)}
+            </p>
+          `
+        )
+        .join("")}
       ${solved && outcome ? `<small>${escapeHtml(outcome)}</small>` : ""}
     </div>
   `;
@@ -4237,7 +4517,7 @@ function renderSdgSprintGame() {
           .map((number) => {
             const goal = getSdgGoal(number);
             let className = "game-choice";
-            if (answered && number === round.answer) className += " is-correct";
+            if (answered && correct && number === round.answer) className += " is-correct";
             if (answered && number === selected && number !== round.answer) className += " is-wrong";
             return `
               <button
@@ -4260,7 +4540,7 @@ function renderSdgSprintGame() {
               <strong>${escapeHtml(
                 t(correct ? "learn.gameCorrect" : "learn.incorrect")
               )}</strong>
-              <p>${escapeHtml(localizedValue(round.fact))}</p>
+              ${correct ? `<p>${escapeHtml(localizedValue(round.fact))}</p>` : ""}
             </div>
             <div class="game-action-row">
               <button class="button button-secondary" type="button" data-sdg-sprint-reset>
@@ -4290,14 +4570,15 @@ function renderChainGame() {
   const round = chainGameRounds[state.chainRound] || chainGameRounds[0];
   const nextLink = round.links[state.chainPicks.length];
   const complete = state.chainPicks.length >= round.links.length;
-  const usedIds = new Set(state.chainPicks);
-  const decoys = round.decoys.filter((item) => !usedIds.has(item.id));
-  const choiceSeed = [decoys[0], nextLink, decoys[1]].filter(Boolean);
-  const choices = complete
-    ? []
-    : state.chainPicks.length % 2 === 0
-      ? choiceSeed
-      : [nextLink, decoys[0], decoys[1]].filter(Boolean);
+  let choices = [];
+  if (!complete) {
+    const rotation = state.chainPicks.length + state.chainRound;
+    const decoys = round.decoys
+      .map((_, index, all) => all[(index + rotation) % all.length])
+      .slice(0, 3);
+    choices = [...decoys];
+    choices.splice((rotation * 3 + 1) % (decoys.length + 1), 0, nextLink);
+  }
 
   return `
     <div class="game-play-panel">
@@ -4362,6 +4643,11 @@ function renderChainGame() {
                           : "learn.gameIncorrect"
                       )
                     )}</strong>
+                    ${
+                      state.chainFeedback === "broken"
+                        ? `<p>${escapeHtml(t("learn.chainBroken"))}</p>`
+                        : ""
+                    }
                   </div>`
                 : ""
             }`
@@ -4384,7 +4670,7 @@ function renderChainGame() {
 }
 
 function renderCityBuilderGame() {
-  const budget = 12;
+  const budget = CITY_BUDGET;
   const used = cityPlanTotal();
   const remaining = budget - used;
   const metrics = {
@@ -4453,13 +4739,22 @@ function renderCityBuilderGame() {
         ${renderGameMeter(t("learn.cityHabitat"), metrics.habitat)}
         ${renderGameMeter(t("learn.cityFairness"), metrics.fairness)}
       </div>
-      ${renderGameTarget(average, CITY_GAME_TARGET, solved, outcome)}
+      ${renderPuzzleGate("city", {
+        cooling: t("learn.cityCooling"),
+        flood: t("learn.cityFlood"),
+        habitat: t("learn.cityHabitat"),
+        fairness: t("learn.cityFairness"),
+      })}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-city-reset>
           ${escapeHtml(t("learn.gameReset"))}
         </button>
-        <button class="button button-primary" type="button" data-city-complete ${solved ? "" : "disabled"}>
-          ${escapeHtml(learningGameCompletionLabel("city-builder"))}
+        <button class="button button-primary" type="button" data-city-complete ${
+          isLearningGameComplete("city-builder") ? "disabled" : ""
+        }>
+          ${escapeHtml(
+            t(isLearningGameComplete("city-builder") ? "learn.gameComplete" : "learn.gameTestPlan")
+          )}
         </button>
       </div>
     </div>
@@ -4467,7 +4762,7 @@ function renderCityBuilderGame() {
 }
 
 function renderReefRescueGame() {
-  const budget = 12;
+  const budget = REEF_BUDGET;
   const used = reefBudgetUsed();
   const remaining = budget - used;
   const recovery = reefMetric("recovery");
@@ -4514,18 +4809,39 @@ function renderReefRescueGame() {
           })
           .join("")}
       </div>
+      <div class="reef-synergy-panel">
+        <strong>${escapeHtml(t("learn.reefSynergyTitle"))}</strong>
+        ${reefSynergies
+          .map((synergy) => {
+            const active = synergy.pair.every((id) => state.reefActions.includes(id));
+            return `<p class="game-rule ${active ? "is-met" : "is-open"}">
+              <b aria-hidden="true">${active ? "✓" : "?"}</b> ${escapeHtml(
+                active ? localizedValue(synergy.text) : t("learn.gameHiddenGoal")
+              )}
+            </p>`;
+          })
+          .join("")}
+      </div>
       <div class="game-meter-grid">
         ${renderGameMeter(t("learn.reefRecovery"), recovery)}
         ${renderGameMeter(t("learn.reefPressure"), pressure)}
         ${renderGameMeter(t("learn.reefCommunity"), community)}
       </div>
-      ${renderGameTarget(average, REEF_GAME_TARGET, solved, outcome)}
+      ${renderPuzzleGate("reef", {
+        recovery: t("learn.reefRecovery"),
+        pressure: t("learn.reefPressure"),
+        community: t("learn.reefCommunity"),
+      })}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-reef-reset>
           ${escapeHtml(t("learn.gameReset"))}
         </button>
-        <button class="button button-primary" type="button" data-reef-complete ${solved ? "" : "disabled"}>
-          ${escapeHtml(learningGameCompletionLabel("reef-rescue"))}
+        <button class="button button-primary" type="button" data-reef-complete ${
+          isLearningGameComplete("reef-rescue") ? "disabled" : ""
+        }>
+          ${escapeHtml(
+            t(isLearningGameComplete("reef-rescue") ? "learn.gameComplete" : "learn.gameTestPlan")
+          )}
         </button>
       </div>
     </div>
@@ -4533,7 +4849,7 @@ function renderReefRescueGame() {
 }
 
 function renderClimateCouncilGame() {
-  const budget = 16;
+  const budget = CLIMATE_BUDGET;
   const used = climatePlanTotal();
   const remaining = budget - used;
   const metrics = {
@@ -4588,11 +4904,20 @@ function renderClimateCouncilGame() {
         ${renderGameMeter(t("learn.finalJustice"), metrics.justice)}
         ${renderGameMeter(t("learn.finalResilience"), metrics.resilience)}
       </div>
-      ${renderGameTarget(average, CLIMATE_GAME_TARGET, solved, t("learn.finalOutcomeStrong"))}
+      ${renderPuzzleGate("climate", {
+        climate: t("learn.finalClimate"),
+        nature: t("learn.finalNature"),
+        justice: t("learn.finalJustice"),
+        resilience: t("learn.finalResilience"),
+      })}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-climate-reset>${escapeHtml(t("learn.gameReset"))}</button>
-        <button class="button button-primary" type="button" data-climate-complete ${solved ? "" : "disabled"}>
-          ${escapeHtml(learningGameCompletionLabel("climate-council"))}
+        <button class="button button-primary" type="button" data-climate-complete ${
+          isLearningGameComplete("climate-council") ? "disabled" : ""
+        }>
+          ${escapeHtml(
+            t(isLearningGameComplete("climate-council") ? "learn.gameComplete" : "learn.gameTestPlan")
+          )}
         </button>
       </div>
     </div>
@@ -4605,7 +4930,19 @@ function renderLearningProfile() {
   const rankedRuns = [...state.learningGameHistory].sort(
     (left, right) => right.score - left.score || right.minutes - left.minutes
   );
-  const certificateUnlocked = isLearningGameComplete("climate-council");
+  const activeTrack = activeLearningGameTrack();
+  const activeTier = certificateTierForMinutes(activeTrack.minutes);
+  const certificateUnlocked = activeTrack.games.every((gameId) => isLearningGameComplete(gameId));
+  const tierIssuance = state.certificateIssuance?.[activeTier.id];
+  const issuedTiers = Object.entries(certificateTiers)
+    .map(([minutes, tier]) => ({ minutes, tier, entry: state.certificateIssuance?.[tier.id] }))
+    .filter((item) => item.entry);
+  const certificateCollection = Object.entries(certificateTiers).map(([minutes, tier]) => {
+    const track = learningGameTracks.find((item) => item.minutes === Number(minutes));
+    const earned = track?.games.every((gameId) => isLearningGameComplete(gameId));
+    const issued = state.certificateIssuance?.[tier.id];
+    return { minutes, tier, earned, issued };
+  });
   return `
     <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
       <div class="learning-profile-stats">
@@ -4619,6 +4956,34 @@ function renderLearningProfile() {
             (badge) => `<span class="learning-badge${badge.unlocked ? " is-unlocked" : ""}">
               <b aria-hidden="true">${badge.unlocked ? "✓" : "○"}</b>${escapeHtml(localizedValue(badge.label))}
             </span>`
+          )
+          .join("")}
+      </div>
+      <div class="certificate-showcase" aria-label="${escapeHtml(t("learn.certificateCollection"))}">
+        ${certificateCollection
+          .map(
+            ({ minutes, tier, earned, issued }) => `
+              <article class="certificate-preview certificate-tier-${escapeHtml(tier.id)}${
+                earned ? " is-earned" : ""
+              }${issued ? " is-issued" : ""}">
+                <span class="certificate-preview-medal" aria-hidden="true">${escapeHtml(
+                  tier.id === "bronze" ? "B" : tier.id === "silver" ? "S" : "G"
+                )}</span>
+                <div>
+                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(tier.label))}</span>
+                  <strong>${escapeHtml(minutes)} min</strong>
+                  <small>${escapeHtml(
+                    t(
+                      issued
+                        ? "learn.certificateCreated"
+                        : earned
+                          ? "learn.certificateEarned"
+                          : "learn.certificateLocked"
+                    )
+                  )}</small>
+                </div>
+              </article>
+            `
           )
           .join("")}
       </div>
@@ -4637,20 +5002,32 @@ function renderLearningProfile() {
       }
       ${
         certificateUnlocked
-          ? state.certificateIssuance
-            ? `<div class="certificate-panel certificate-panel-issued" data-certificate-issued>
+          ? tierIssuance
+            ? `<div class="certificate-panel certificate-panel-issued certificate-tier-${escapeHtml(activeTier.id)}" data-certificate-issued>
                 <span class="certificate-issued-mark" aria-hidden="true">✓</span>
                 <div>
-                  <strong>${escapeHtml(t("learn.certificateIssuedTitle"))}</strong>
+                  <strong>${escapeHtml(
+                    formatLearningText(t("learn.certificateTierIssuedTitle"), {
+                      tier: localizedValue(activeTier.label),
+                    })
+                  )}</strong>
                   <p>${escapeHtml(t("learn.certificateIssuedText"))}</p>
                 </div>
                 <dl>
                   <dt>${escapeHtml(t("learn.certificateId"))}</dt>
-                  <dd>${escapeHtml(state.certificateIssuance.id)}</dd>
+                  <dd>${escapeHtml(tierIssuance.id)}</dd>
                 </dl>
               </div>`
-            : `<div class="certificate-panel" data-certificate-form>
-                <div><strong>${escapeHtml(t("learn.certificateTitle"))}</strong><p>${escapeHtml(t("learn.certificateText"))}</p></div>
+            : `<div class="certificate-panel certificate-tier-${escapeHtml(activeTier.id)}" data-certificate-form>
+                <div>
+                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(activeTier.label))}</span>
+                  <strong>${escapeHtml(
+                    formatLearningText(t("learn.certificateTierTitle"), {
+                      tier: localizedValue(activeTier.label),
+                    })
+                  )}</strong>
+                  <p>${escapeHtml(t("learn.certificateText"))}</p>
+                </div>
                 <label>
                   <span>${escapeHtml(t("learn.certificateName"))}</span>
                   <input type="text" maxlength="80" autocomplete="name" aria-describedby="certificate-once" data-certificate-name required />
@@ -4660,8 +5037,50 @@ function renderLearningProfile() {
               </div>`
           : ""
       }
+      ${
+        issuedTiers.length
+          ? `<div class="certificate-tier-list">
+              <strong>${escapeHtml(t("learn.certificateIssuedList"))}</strong>
+              ${issuedTiers
+                .map(
+                  (item) => `<p class="certificate-tier-row certificate-tier-${escapeHtml(item.tier.id)}">
+                    <span class="certificate-tier-chip">${escapeHtml(localizedValue(item.tier.label))}</span>
+                    <span>${escapeHtml(item.minutes)} min</span>
+                    <small>${escapeHtml(item.entry.id)}</small>
+                  </p>`
+                )
+                .join("")}
+            </div>`
+          : ""
+      }
       <p class="learning-local-note">${escapeHtml(t("learn.localOnly"))}</p>
     </section>
+  `;
+}
+
+function renderGameCelebration() {
+  const celebration = state.learningGameCelebration;
+  if (!celebration) return "";
+  const game = learningGames.find((item) => item.id === celebration.gameId);
+  return `
+    <div
+      class="game-celebration"
+      role="status"
+      aria-live="assertive"
+      data-game-celebration="${escapeHtml(celebration.id)}"
+    >
+      <div class="game-celebration-card">
+        <div class="game-celebration-burst" aria-hidden="true">
+          ${Array.from({ length: 16 }, (_, index) => `<i style="--particle: ${index}"></i>`).join("")}
+          <b>✓</b>
+        </div>
+        <div>
+          <strong>${escapeHtml(t("learn.gameCongratulations"))}</strong>
+          <span>${escapeHtml(localizedValue(game?.title || bi("Mission", "Mission")))}</span>
+          <p>${escapeHtml(t("learn.gameCongratulationsText"))}</p>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -4691,9 +5110,10 @@ function pdfSafeText(value) {
     .join("");
 }
 
-function downloadClimateCertificate(name) {
+function downloadClimateCertificate(name, tier) {
   const issuedAt = new Date();
-  const certificateId = `CYRI-${issuedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  const tierName = pdfSafeText(localizedValue(tier.label).toUpperCase());
+  const certificateId = `CYRI-${tier.id.toUpperCase()}-${issuedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
   const recipient = pdfSafeText(name);
   const recipientFontSize = Math.max(15, Math.min(30, Math.floor(1050 / Math.max(name.length, 1))));
   const date = pdfSafeText(
@@ -4709,8 +5129,8 @@ function downloadClimateCertificate(name) {
   const score = Math.max(100, latestRun?.score || activeLearningGameIds().length * 100);
   const certificateText = pdfSafeText(
     state.lang === "de"
-      ? "hat die interaktiven CYRI-Klimamissionen erfolgreich abgeschlossen."
-      : "has successfully completed the interactive CYRI climate missions."
+      ? `hat die CYRI-Klimamissionen der ${state.learningGameMinutes}-Minuten-Stufe erfolgreich abgeschlossen.`
+      : `has successfully completed the CYRI climate missions of the ${state.learningGameMinutes}-minute path.`
   );
   const issuedLabel = pdfSafeText(state.lang === "de" ? "Ausgestellt" : "Issued");
   const missionLabel = pdfSafeText(state.lang === "de" ? "MISSION GESCHAFFT" : "MISSION COMPLETE");
@@ -4721,6 +5141,11 @@ function downloadClimateCertificate(name) {
     "Funded by DSEE with funds from BMZ - action! Aktiv für eine globale Welt"
   );
   const completionValue = `${activeLearningGameIds().length} / ${activeLearningGameIds().length}`;
+  const missionNames = pdfSafeText(
+    activeLearningGameIds()
+      .map((id) => localizedValue(learningGames.find((game) => game.id === id)?.title || id))
+      .join("  |  ")
+  );
   const contentStream = [
     "0.035 0.16 0.14 rg 0 0 842 595 re f",
     "0.965 0.98 0.95 rg 24 24 794 547 re f",
@@ -4732,14 +5157,17 @@ function downloadClimateCertificate(name) {
     "0.57 0.33 0.65 rg 642 531 150 10 re f",
     "0.88 0.95 0.90 rg 58 452 194 30 re f",
     `BT /F2 10 Tf 0.03 0.32 0.25 rg 72 462 Td (${missionLabel}) Tj ET`,
+    `${tier.chip} rg 262 452 118 30 re f`,
+    `${tier.rgb} RG 1.2 w 262 452 118 30 re S`,
+    `BT /F2 10 Tf ${tier.rgb} rg 278 462 Td (${tierName}) Tj ET`,
     "BT /F2 22 Tf 0.03 0.32 0.25 rg 60 502 Td (CYRI) Tj ET",
     "BT /F1 8 Tf 0.14 0.25 0.22 rg 125 506 Td (CLIMATE YOUTH RESEARCH INITIATIVE) Tj ET",
     "BT /F2 35 Tf 0.05 0.12 0.11 rg 58 398 Td (Climate Certificate) Tj ET",
     "BT /F1 12 Tf 0.30 0.36 0.33 rg 60 371 Td (AWARDED TO) Tj ET",
     `BT /F2 ${recipientFontSize} Tf 0.03 0.32 0.25 rg 60 324 Td (${recipient}) Tj ET`,
     "0.03 0.32 0.25 RG 1.2 w 60 305 m 610 305 l S",
-    `BT /F1 14 Tf 0.12 0.20 0.18 rg 60 273 Td (${certificateText}) Tj ET`,
-    "BT /F1 10 Tf 0.22 0.30 0.27 rg 60 245 Td (SDG Sprint  |  Cause Chain  |  City Builder  |  Reef Rescue  |  Climate Council 2035) Tj ET",
+    `BT /F1 12 Tf 0.12 0.20 0.18 rg 60 273 Td (${certificateText}) Tj ET`,
+    `BT /F1 10 Tf 0.22 0.30 0.27 rg 60 245 Td (${missionNames}) Tj ET`,
     "0.91 0.95 0.91 rg 58 150 158 66 re f",
     "0.91 0.95 0.91 rg 228 150 158 66 re f",
     "0.91 0.95 0.91 rg 398 150 158 66 re f",
@@ -4749,7 +5177,7 @@ function downloadClimateCertificate(name) {
     `BT /F2 20 Tf 0.03 0.32 0.25 rg 242 168 Td (${score} XP) Tj ET`,
     `BT /F2 8 Tf 0.22 0.34 0.29 rg 412 195 Td (${modulesLabel}) Tj ET`,
     `BT /F2 20 Tf 0.03 0.32 0.25 rg 412 168 Td (${completionValue}) Tj ET`,
-    "0.95 0.73 0.23 rg 676 326 m 729 357 782 326 782 265 c 782 204 729 173 676 204 c 623 173 570 204 570 265 c 570 326 623 357 676 326 c f",
+    `${tier.rgb} rg 676 326 m 729 357 782 326 782 265 c 782 204 729 173 676 204 c 623 173 570 204 570 265 c 570 326 623 357 676 326 c f`,
     "0.03 0.32 0.25 RG 4 w 589 265 m 589 313 628 340 676 340 c 724 340 763 313 763 265 c 763 217 724 190 676 190 c 628 190 589 217 589 265 c S",
     "BT /F2 34 Tf 0.03 0.32 0.25 rg 645 266 Td (17) Tj ET",
     "BT /F2 9 Tf 0.03 0.32 0.25 rg 633 244 Td (SDG GOALS) Tj ET",
@@ -4781,7 +5209,7 @@ function downloadClimateCertificate(name) {
   pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
-  link.download = `CYRI-Climate-Certificate-${certificateId}.pdf`;
+  link.download = `CYRI-Climate-Certificate-${certificateId.slice(5)}.pdf`;
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   return { id: certificateId, issuedAt: issuedAt.toISOString() };
@@ -4789,6 +5217,8 @@ function downloadClimateCertificate(name) {
 
 let learningModelDispose = null;
 let learningModelRequestId = 0;
+let learningCelebrationTimer = null;
+let learningCelebrationTimerId = null;
 
 function disposeLearning3DModel() {
   learningModelRequestId += 1;
@@ -4874,6 +5304,7 @@ function renderLearningGames() {
   const pathComplete = completedCount === sequenceIds.length;
 
   container.innerHTML = `
+    ${renderGameCelebration()}
     <section class="game-flow-panel">
       <div>
         <p class="eyebrow">${escapeHtml(t("learn.gameTimeLabel"))}</p>
@@ -4964,6 +5395,20 @@ function renderLearningGames() {
       </button>
     </div>
   `;
+  if (state.learningGameCelebration) {
+    const celebrationId = state.learningGameCelebration.id;
+    if (learningCelebrationTimerId !== celebrationId) {
+      window.clearTimeout(learningCelebrationTimer);
+      learningCelebrationTimerId = celebrationId;
+      learningCelebrationTimer = window.setTimeout(() => {
+        if (state.learningGameCelebration?.id === celebrationId) {
+          state.learningGameCelebration = null;
+        }
+        learningCelebrationTimerId = null;
+        document.querySelector(`[data-game-celebration="${CSS.escape(celebrationId)}"]`)?.remove();
+      }, 3200);
+    }
+  }
   syncLearning3DModel();
 }
 
@@ -6037,7 +6482,14 @@ document.addEventListener("click", (event) => {
       state.chainFeedback = "correct";
     } else {
       state.chainMistakes += 1;
-      state.chainFeedback = "wrong";
+      state.chainRoundMisses += 1;
+      if (state.chainRoundMisses >= 3) {
+        state.chainPicks = [];
+        state.chainRoundMisses = 0;
+        state.chainFeedback = "broken";
+      } else {
+        state.chainFeedback = "wrong";
+      }
     }
     renderLearningGames();
     return;
@@ -6047,6 +6499,7 @@ document.addEventListener("click", (event) => {
     state.chainRound = Math.min(state.chainRound + 1, chainGameRounds.length - 1);
     state.chainPicks = [];
     state.chainMistakes = 0;
+    state.chainRoundMisses = 0;
     state.chainFeedback = "";
     renderLearningGames();
     return;
@@ -6064,6 +6517,7 @@ document.addEventListener("click", (event) => {
   if (event.target.closest("[data-chain-reset]")) {
     state.chainPicks = [];
     state.chainMistakes = 0;
+    state.chainRoundMisses = 0;
     state.chainFeedback = "";
     renderLearningGames();
     return;
@@ -6079,6 +6533,7 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-city-reset]")) {
     state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
+    state.puzzleFeedback.city = null;
     renderLearningGames();
     return;
   }
@@ -6093,8 +6548,21 @@ document.addEventListener("click", (event) => {
     const average = Math.round(
       (metrics.cooling + metrics.flood + metrics.habitat + metrics.fairness) / 4
     );
+    state.puzzleAttempts.city += 1;
     if (cityGameSolved(metrics, average)) {
       completeLearningGame("city-builder");
+    } else if (cityPlanTotal() < CITY_BUDGET) {
+      state.puzzleFeedback.city = {
+        reason: "budget",
+        remaining: CITY_BUDGET - cityPlanTotal(),
+      };
+    } else {
+      state.puzzleFeedback.city = {
+        reason: Object.values(metrics).some((value) => value < CITY_METRIC_FLOOR)
+          ? "weak"
+          : "balance",
+        metric: weakestMetricId(metrics),
+      };
     }
     renderLearningGames();
     return;
@@ -6109,6 +6577,7 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-reef-reset]")) {
     state.reefActions = [];
+    state.puzzleFeedback.reef = null;
     renderLearningGames();
     return;
   }
@@ -6118,8 +6587,19 @@ document.addEventListener("click", (event) => {
     const pressure = reefMetric("pressure");
     const community = reefMetric("community");
     const average = Math.round((recovery + pressure + community) / 3);
+    const metrics = { recovery, pressure, community };
+    state.puzzleAttempts.reef += 1;
     if (reefGameSolved(recovery, pressure, community, average)) {
       completeLearningGame("reef-rescue");
+    } else if (activeReefSynergies().length === 0) {
+      state.puzzleFeedback.reef = { reason: "synergy" };
+    } else {
+      state.puzzleFeedback.reef = {
+        reason: Object.values(metrics).some((value) => value < REEF_METRIC_FLOOR)
+          ? "weak"
+          : "balance",
+        metric: weakestMetricId(metrics),
+      };
     }
     renderLearningGames();
     return;
@@ -6135,6 +6615,7 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-climate-reset]")) {
     state.climatePlan = { energy: 1, mobility: 1, food: 1, nature: 1, fairness: 1 };
+    state.puzzleFeedback.climate = null;
     renderLearningGames();
     return;
   }
@@ -6147,13 +6628,31 @@ document.addEventListener("click", (event) => {
       resilience: climateMetric("resilience"),
     };
     const average = Math.round(Object.values(metrics).reduce((sum, value) => sum + value, 0) / 4);
-    if (climateGameSolved(metrics, average)) completeLearningGame("climate-council");
+    state.puzzleAttempts.climate += 1;
+    if (climateGameSolved(metrics, average)) {
+      completeLearningGame("climate-council");
+    } else if (climatePlanTotal() < CLIMATE_BUDGET) {
+      state.puzzleFeedback.climate = {
+        reason: "budget",
+        remaining: CLIMATE_BUDGET - climatePlanTotal(),
+      };
+    } else if (Object.values(state.climatePlan).some((value) => value < 1)) {
+      state.puzzleFeedback.climate = { reason: "category" };
+    } else {
+      state.puzzleFeedback.climate = {
+        reason: Object.values(metrics).some((value) => value < CLIMATE_METRIC_FLOOR)
+          ? "weak"
+          : "balance",
+        metric: weakestMetricId(metrics),
+      };
+    }
     renderLearningGames();
     return;
   }
 
   if (event.target.closest("[data-certificate-download]")) {
-    if (state.certificateIssuance) return;
+    const tier = certificateTierForMinutes(activeLearningGameTrack().minutes);
+    if (state.certificateIssuance?.[tier.id]) return;
     const nameInput = document.querySelector("[data-certificate-name]");
     const name = nameInput?.value.trim() || "";
     if (!name) {
@@ -6162,7 +6661,7 @@ document.addEventListener("click", (event) => {
       return;
     }
     nameInput.setCustomValidity("");
-    saveCertificateIssuance(downloadClimateCertificate(name));
+    saveCertificateIssuance(tier.id, downloadClimateCertificate(name, tier));
     renderLearningGames();
     return;
   }

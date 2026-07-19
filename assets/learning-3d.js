@@ -15,6 +15,32 @@ const palette = {
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
+// Identical primitive dimensions are requested dozens of times per scene
+// (windows, tokens, tentacles), so geometries are shared via this cache and
+// must not be disposed with an individual scene.
+const geometryCache = new Map();
+
+function cachedGeometry(key, create) {
+  let geometry = geometryCache.get(key);
+  if (!geometry) {
+    geometry = create();
+    geometry.userData.shared = true;
+    geometryCache.set(key, geometry);
+  }
+  return geometry;
+}
+
+const boxGeometry = (width, height, depth) =>
+  cachedGeometry(`box:${width}:${height}:${depth}`, () => new THREE.BoxGeometry(width, height, depth));
+const cylinderGeometry = (radiusTop, radiusBottom, height, radialSegments) =>
+  cachedGeometry(`cyl:${radiusTop}:${radiusBottom}:${height}:${radialSegments}`, () =>
+    new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments));
+const sphereGeometry = (radius) =>
+  cachedGeometry(`sph:${radius}`, () => new THREE.SphereGeometry(radius, 24, 18));
+const coneGeometry = (radius, height, radialSegments) =>
+  cachedGeometry(`cone:${radius}:${height}:${radialSegments}`, () =>
+    new THREE.ConeGeometry(radius, height, radialSegments));
+
 function material(color, options = {}) {
   return new THREE.MeshStandardMaterial({
     color,
@@ -28,25 +54,26 @@ function material(color, options = {}) {
 }
 
 function box(width, height, depth, color, options) {
-  return new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material(color, options));
+  return new THREE.Mesh(boxGeometry(width, height, depth), material(color, options));
 }
 
 function cylinder(radius, height, color, radialSegments = 20, options) {
-  return new THREE.Mesh(
-    new THREE.CylinderGeometry(radius, radius, height, radialSegments),
-    material(color, options)
-  );
+  return new THREE.Mesh(cylinderGeometry(radius, radius, height, radialSegments), material(color, options));
 }
 
 function taperedCylinder(radiusTop, radiusBottom, height, color, radialSegments = 20, options) {
   return new THREE.Mesh(
-    new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments),
+    cylinderGeometry(radiusTop, radiusBottom, height, radialSegments),
     material(color, options)
   );
 }
 
 function sphere(radius, color, options) {
-  return new THREE.Mesh(new THREE.SphereGeometry(radius, 24, 18), material(color, options));
+  return new THREE.Mesh(sphereGeometry(radius), material(color, options));
+}
+
+function cone(radius, height, color, radialSegments = 3, options) {
+  return new THREE.Mesh(coneGeometry(radius, height, radialSegments), material(color, options));
 }
 
 function tagAction(object, actionId) {
@@ -91,6 +118,44 @@ function createTree(scale = 1, seed = 0) {
   return tree;
 }
 
+function createCloud(scale = 1) {
+  const cloud = new THREE.Group();
+  [
+    [0, 0, 0, 0.34],
+    [0.32, 0.07, 0.05, 0.26],
+    [-0.31, 0.05, -0.04, 0.24],
+    [0.04, 0.14, -0.08, 0.22],
+  ].forEach(([x, y, z, radius]) => {
+    const puff = sphere(radius * scale, 0xffffff, { roughness: 1, opacity: 0.85 });
+    puff.position.set(x * scale, y * scale, z * scale);
+    cloud.add(puff);
+  });
+  return cloud;
+}
+
+function createCar(color) {
+  const car = new THREE.Group();
+  const body = box(0.52, 0.15, 0.26, color, { roughness: 0.32, metalness: 0.4 });
+  body.position.y = 0.16;
+  const cabin = box(0.27, 0.12, 0.23, 0xd9f0ee, { roughness: 0.14, metalness: 0.3 });
+  cabin.position.set(-0.03, 0.29, 0);
+  car.add(body, cabin);
+  [-0.16, 0.16].forEach((x) => {
+    [-0.12, 0.12].forEach((z) => {
+      const wheel = cylinder(0.055, 0.045, palette.ink, 12);
+      wheel.rotation.x = Math.PI / 2;
+      wheel.position.set(x, 0.075, z);
+      car.add(wheel);
+    });
+  });
+  [-0.09, 0.09].forEach((z) => {
+    const headlight = sphere(0.028, 0xfff3c2, { emissive: 0xffe9a3, emissiveIntensity: 0.9 });
+    headlight.position.set(0.27, 0.16, z);
+    car.add(headlight);
+  });
+  return car;
+}
+
 function createBuilding(width, height, depth, color, index) {
   const building = new THREE.Group();
   const bodyColor = new THREE.Color(color).offsetHSL(0, 0, ((index * 13) % 7) / 90 - 0.03).getHex();
@@ -129,20 +194,37 @@ function createBuilding(width, height, depth, color, index) {
   });
   const sillMaterial = material(0xe9ebe2, { roughness: 0.6 });
   const rows = Math.max(2, Math.floor(height / 0.55));
-  const columns = Math.max(2, Math.floor(width / 0.38));
-  for (let row = 0; row < rows; row += 1) {
-    for (let column = 0; column < columns; column += 1) {
-      const windowX =
-        columns === 1 ? 0 : -width * 0.32 + (column / (columns - 1)) * width * 0.64;
-      const windowY = 0.38 + row * ((height - 0.62) / Math.max(1, rows - 1));
-      const window = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.22, 0.025), windowMaterial);
-      window.position.set(windowX, windowY, depth / 2 + 0.016);
-      building.add(window);
-      const sill = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.02, 0.045), sillMaterial);
-      sill.position.set(windowX, windowY - 0.13, depth / 2 + 0.03);
-      building.add(sill);
+  // Windows go on all four facades so buildings look real from every angle.
+  const facades = [
+    { axis: "z", direction: 1 },
+    { axis: "z", direction: -1 },
+    { axis: "x", direction: 1 },
+    { axis: "x", direction: -1 },
+  ];
+  facades.forEach(({ axis, direction }) => {
+    const faceWidth = axis === "z" ? width : depth;
+    const faceDepth = axis === "z" ? depth : width;
+    const columns = Math.max(2, Math.floor(faceWidth / 0.38));
+    for (let row = 0; row < rows; row += 1) {
+      for (let column = 0; column < columns; column += 1) {
+        const offset =
+          columns === 1 ? 0 : -faceWidth * 0.32 + (column / (columns - 1)) * faceWidth * 0.64;
+        const windowY = 0.38 + row * ((height - 0.62) / Math.max(1, rows - 1));
+        const window = new THREE.Mesh(boxGeometry(0.18, 0.22, 0.025), windowMaterial);
+        const sill = new THREE.Mesh(boxGeometry(0.22, 0.02, 0.045), sillMaterial);
+        if (axis === "z") {
+          window.position.set(offset, windowY, direction * (faceDepth / 2 + 0.016));
+          sill.position.set(offset, windowY - 0.13, direction * (faceDepth / 2 + 0.03));
+        } else {
+          window.rotation.y = Math.PI / 2;
+          sill.rotation.y = Math.PI / 2;
+          window.position.set(direction * (faceDepth / 2 + 0.016), windowY, offset);
+          sill.position.set(direction * (faceDepth / 2 + 0.03), windowY - 0.13, offset);
+        }
+        building.add(window, sill);
+      }
     }
-  }
+  });
   return setShadows(building);
 }
 
@@ -153,23 +235,14 @@ function createFish(color, scale = 1) {
   const belly = sphere(0.15 * scale, palette.white, { roughness: 0.4, opacity: 0.85 });
   belly.scale.set(1.3, 0.42, 0.5);
   belly.position.set(0.02 * scale, -0.06 * scale, 0);
-  const tail = new THREE.Mesh(
-    new THREE.ConeGeometry(0.16 * scale, 0.3 * scale, 3),
-    material(color, { roughness: 0.5 })
-  );
+  const tail = cone(0.16 * scale, 0.3 * scale, color, 3, { roughness: 0.5 });
   tail.rotation.z = -Math.PI / 2;
   tail.position.x = -0.35 * scale;
-  const dorsalFin = new THREE.Mesh(
-    new THREE.ConeGeometry(0.09 * scale, 0.16 * scale, 3),
-    material(color, { roughness: 0.55, opacity: 0.9 })
-  );
+  const dorsalFin = cone(0.09 * scale, 0.16 * scale, color, 3, { roughness: 0.55, opacity: 0.9 });
   dorsalFin.rotation.x = Math.PI;
   dorsalFin.position.set(0.02 * scale, 0.13 * scale, 0);
   const pectoralFins = [-1, 1].map((side) => {
-    const fin = new THREE.Mesh(
-      new THREE.ConeGeometry(0.055 * scale, 0.12 * scale, 3),
-      material(color, { roughness: 0.55, opacity: 0.88 })
-    );
+    const fin = cone(0.055 * scale, 0.12 * scale, color, 3, { roughness: 0.55, opacity: 0.88 });
     fin.rotation.z = side * 0.9;
     fin.position.set(0.08 * scale, -0.02 * scale, side * 0.1 * scale);
     return fin;
@@ -177,7 +250,70 @@ function createFish(color, scale = 1) {
   const eye = sphere(0.025 * scale, palette.ink, { roughness: 0.3 });
   eye.position.set(0.22 * scale, 0.06 * scale, 0.1 * scale);
   fish.add(body, belly, tail, dorsalFin, ...pectoralFins, eye);
+  fish.userData.tail = tail;
+  fish.userData.fins = pectoralFins;
   return fish;
+}
+
+function createTurtle(scale = 1) {
+  const turtle = new THREE.Group();
+  const body = sphere(0.34 * scale, 0x7a9b62, { roughness: 0.7 });
+  body.scale.set(1.35, 0.5, 1.05);
+  const shell = sphere(0.32 * scale, 0x55764a, { roughness: 0.82 });
+  shell.scale.set(1.2, 0.62, 0.95);
+  shell.position.y = 0.09 * scale;
+  const shellRim = sphere(0.34 * scale, 0x8fae6b, { roughness: 0.85 });
+  shellRim.scale.set(1.28, 0.28, 1.02);
+  shellRim.position.y = 0.02 * scale;
+  const head = sphere(0.13 * scale, 0x86a86e, { roughness: 0.7 });
+  head.scale.set(1.25, 0.9, 0.9);
+  head.position.set(0.52 * scale, 0.02 * scale, 0);
+  const eyes = [-1, 1].map((side) => {
+    const eye = sphere(0.025 * scale, palette.ink, { roughness: 0.3 });
+    eye.position.set(0.62 * scale, 0.06 * scale, side * 0.07 * scale);
+    return eye;
+  });
+  turtle.add(body, shell, shellRim, head, ...eyes);
+  const flippers = [];
+  [
+    [0.3, 0.28, 0.65],
+    [0.3, -0.28, -0.65],
+    [-0.32, 0.24, 2.3],
+    [-0.32, -0.24, -2.3],
+  ].forEach(([x, z, angle]) => {
+    const flipper = cone(0.09 * scale, 0.3 * scale, 0x86a86e, 4, { roughness: 0.72 });
+    flipper.scale.set(1, 1, 0.4);
+    flipper.rotation.z = angle;
+    flipper.position.set(x * scale, -0.02 * scale, z * scale);
+    flipper.userData.baseRotZ = angle;
+    flippers.push(flipper);
+    turtle.add(flipper);
+  });
+  turtle.userData.flippers = flippers;
+  return turtle;
+}
+
+function createSatellite() {
+  const satellite = new THREE.Group();
+  const bodyBox = box(0.16, 0.16, 0.26, 0xd8dde2, { roughness: 0.3, metalness: 0.6 });
+  const dish = sphere(0.07, 0xf0f2f4, { roughness: 0.25, metalness: 0.5 });
+  dish.scale.set(1, 0.5, 1);
+  dish.position.y = 0.12;
+  const beacon = sphere(0.03, palette.coral, { emissive: palette.coral, emissiveIntensity: 1 });
+  beacon.position.set(0, 0.05, 0.16);
+  satellite.add(bodyBox, dish, beacon);
+  [-1, 1].forEach((side) => {
+    const panel = box(0.44, 0.015, 0.18, 0x2a5f9e, {
+      roughness: 0.25,
+      metalness: 0.55,
+      emissive: 0x1d4b80,
+      emissiveIntensity: 0.35,
+    });
+    panel.position.x = side * 0.32;
+    satellite.add(panel);
+  });
+  satellite.userData.beacon = beacon;
+  return satellite;
 }
 
 function createPerson(color, value, index) {
@@ -261,8 +397,8 @@ function createCityModel(root, values) {
   root.add(cityDeck);
 
   const roadMaterial = material(0x4e5b5c, { roughness: 0.9 });
-  const roadA = new THREE.Mesh(new THREE.BoxGeometry(11.3, 0.08, 1.45), roadMaterial);
-  const roadB = new THREE.Mesh(new THREE.BoxGeometry(1.45, 0.08, 7.2), roadMaterial);
+  const roadA = new THREE.Mesh(boxGeometry(11.3, 0.08, 1.45), roadMaterial);
+  const roadB = new THREE.Mesh(boxGeometry(1.45, 0.08, 7.2), roadMaterial.clone());
   roadA.position.y = roadB.position.y = -0.03;
   tagAction(roadA, "routes");
   tagAction(roadB, "routes");
@@ -270,13 +406,13 @@ function createCityModel(root, values) {
 
   const sidewalkMaterial = material(0xc7cec8, { roughness: 0.94 });
   [-0.93, 0.93].forEach((z) => {
-    const sidewalk = new THREE.Mesh(new THREE.BoxGeometry(11.2, 0.1, 0.34), sidewalkMaterial);
+    const sidewalk = new THREE.Mesh(boxGeometry(11.2, 0.1, 0.34), sidewalkMaterial.clone());
     sidewalk.position.set(0, 0.04, z);
     tagAction(sidewalk, "routes");
     root.add(sidewalk);
   });
   [-0.93, 0.93].forEach((x) => {
-    const sidewalk = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.1, 7.05), sidewalkMaterial);
+    const sidewalk = new THREE.Mesh(boxGeometry(0.34, 0.1, 7.05), sidewalkMaterial.clone());
     sidewalk.position.set(x, 0.04, 0);
     tagAction(sidewalk, "routes");
     root.add(sidewalk);
@@ -356,9 +492,11 @@ function createCityModel(root, values) {
   const soilGroup = new THREE.Group();
   const soilColor = soil >= 3 ? 0x6d9e5a : 0x88785e;
   const soilPlots = [
-    [-2.8, 2.25, 2.2, 1.35],
-    [0, 2.3, 2.35, 1.4],
-    [0, -2.35, 2.25, 1.3],
+    // Large north-west park plus two compact rain gardens. Every footprint
+    // stays beyond the road and sidewalk envelopes (|x| and |z| > 1.10).
+    [-2.35, 2.3, 1.75, 1.45],
+    [-1.38, -1.42, 0.44, 0.48],
+    [1.38, -1.42, 0.44, 0.48],
   ];
   soilPlots.slice(0, Math.max(1, Math.ceil(soil / 2))).forEach(([x, z, width, depth]) => {
     const plot = box(width, 0.12, depth, soilColor);
@@ -379,37 +517,58 @@ function createCityModel(root, values) {
   root.add(soilGroup);
 
   const treeGroup = new THREE.Group();
+  // Positions keep trees inside the green strips: clear of roads (|z| <= 0.73),
+  // sidewalks (|x| or |z| around 0.76-1.10), building footprints and the pond.
   const treePositions = [
-    [-2.9, 2.3], [-1.9, 2.25], [-0.55, 2.3], [0.5, 2.25],
-    [1.8, 2.25], [2.7, 2.2], [-1.2, -2.2], [0.2, -2.25],
-    [1.25, -2.25], [3.05, -2.2], [-3.4, -0.9], [3.45, 0.9],
+    [-2.9, 2.3], [-2.15, 2.25], [-1.42, 2.05], [1.32, 1.34],
+    [-1.34, -1.36], [1.34, -1.36], [-3.3, -1.38], [3.45, -1.38],
+    [-5.05, 1.38], [5.05, 1.38], [-5.05, -1.38], [5.05, -1.38],
+    [1.28, 3.22], [-2.75, 3.24],
   ];
   treePositions.slice(0, 2 + shade * 2).forEach(([x, z], index) => {
     const tree = createTree(0.72 + (index % 3) * 0.08, index);
     tree.position.set(x, 0.1, z);
     tree.rotation.y = (index * 0.83) % (Math.PI * 2);
+    tree.userData.phase = index * 0.9;
+    tree.userData.isTree = true;
     treeGroup.add(tree);
+    const treePit = cylinder(0.17, 0.035, 0x66513a, 14, { roughness: 0.95 });
+    treePit.position.set(x, 0.1, z);
+    treeGroup.add(treePit);
   });
   tagAction(treeGroup, "shade");
   root.add(setShadows(treeGroup));
 
   const waterGroup = new THREE.Group();
-  const pond = cylinder(0.72 + water * 0.08, 0.11, palette.blueLight, 32, {
+  // Pond, channel and tanks stay inside the north-east green area,
+  // clear of roads, sidewalks and tree positions.
+  const pond = cylinder(0.6 + water * 0.05, 0.11, palette.blueLight, 32, {
     roughness: 0.2,
     opacity: 0.9,
   });
-  pond.position.set(2.15, 0.05, 2.25);
+  pond.position.set(2.1, 0.05, 2.35);
   waterGroup.add(pond);
-  const rainChannel = box(2.35, 0.055, 0.24, palette.blueLight, {
+  const pondRim = cylinder(0.66 + water * 0.05, 0.05, 0xb9c4b0, 32, { roughness: 0.9 });
+  pondRim.position.set(2.1, 0.02, 2.35);
+  waterGroup.add(pondRim);
+  const rainChannel = box(1.9, 0.055, 0.24, palette.blueLight, {
     roughness: 0.2,
     opacity: 0.84,
   });
-  rainChannel.position.set(3.2, 0.075, 1.42);
-  rainChannel.rotation.y = -0.38;
+  rainChannel.position.set(2.15, 0.075, 1.36);
   waterGroup.add(rainChannel);
+  const tankPositions = [
+    [-3.25, -3.28],
+    [-1.4, -3.28],
+    [1.4, -3.28],
+    [3.48, -3.28],
+    [-3.2, 3.28],
+    [4.95, 3.24],
+  ];
   for (let index = 0; index < Math.max(1, water); index += 1) {
     const tank = cylinder(0.2, 0.42 + index * 0.025, palette.blue, 18, { metalness: 0.16 });
-    tank.position.set(1.15 + (index % 3) * 0.48, 0.22, 3.05 - Math.floor(index / 3) * 0.5);
+    const [x, z] = tankPositions[index];
+    tank.position.set(x, 0.22, z);
     waterGroup.add(tank);
   }
   tagAction(waterGroup, "water");
@@ -435,6 +594,26 @@ function createCityModel(root, values) {
   bus.position.set(-4.2, 0.02, 0.34);
   tagAction(bus, "routes");
   root.add(setShadows(bus));
+
+  const car = createCar(palette.coral);
+  car.rotation.y = -Math.PI / 2;
+  car.position.set(0.33, 0.02, -4.2);
+  tagAction(car, "routes");
+  root.add(setShadows(car));
+
+  const cloudGroup = new THREE.Group();
+  [
+    [-3.6, 5.3, -1.4, 1.15],
+    [0.8, 5.9, 0.6, 1.4],
+    [3.9, 5.5, -0.5, 1],
+  ].forEach(([x, y, z, scale], index) => {
+    const cloud = createCloud(scale);
+    cloud.position.set(x, y, z);
+    cloud.userData.baseX = x;
+    cloud.userData.speed = 0.00018 + index * 0.00006;
+    cloudGroup.add(cloud);
+  });
+  root.add(cloudGroup);
 
   const rainCount = 68;
   const rainPositions = new Float32Array(rainCount * 6);
@@ -474,6 +653,13 @@ function createCityModel(root, values) {
       rain.geometry.attributes.position.needsUpdate = true;
       pond.position.y = 0.05 + Math.sin(time * 0.0018) * 0.02;
       bus.position.x = -5.1 + ((time * (0.00034 + routes * 0.000025)) % 10.2);
+      car.position.z = -4.3 + ((time * (0.00042 + routes * 0.00003)) % 8.6);
+      treeGroup.children.filter((child) => child.userData.isTree).forEach((tree) => {
+        tree.rotation.z = Math.sin(time * 0.0011 + tree.userData.phase) * 0.022;
+      });
+      cloudGroup.children.forEach((cloud) => {
+        cloud.position.x = ((cloud.userData.baseX + time * cloud.userData.speed + 8) % 16) - 8;
+      });
     },
   };
 }
@@ -644,6 +830,10 @@ function createReefModel(root, values) {
   tagAction(fishSchool, "local-guides");
   root.add(fishSchool);
 
+  const turtle = createTurtle(1.05);
+  turtle.userData.radius = 3.15;
+  root.add(setShadows(turtle));
+
   const protectionRing = new THREE.Mesh(
     new THREE.TorusGeometry(4.75, 0.075 + community * 0.00065, 12, 80),
     material(palette.yellow, {
@@ -717,6 +907,44 @@ function createReefModel(root, values) {
   caustic.position.y = -0.17;
   root.add(caustic);
 
+  const lightShafts = new THREE.Group();
+  [
+    [-1.6, 0.4, 0.9],
+    [0.9, -0.6, 1.15],
+    [2.8, 0.9, 0.8],
+  ].forEach(([x, z, width], index) => {
+    const shaft = new THREE.Mesh(
+      cylinderGeometry(0.28 * width, 1.05 * width, 5.2, 12),
+      new THREE.MeshBasicMaterial({
+        color: 0xdffcf4,
+        transparent: true,
+        opacity: 0.06,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        side: THREE.DoubleSide,
+      })
+    );
+    shaft.position.set(x, 2.15, z);
+    shaft.rotation.z = 0.1 + index * 0.03;
+    shaft.userData.baseOpacity = 0.05 + index * 0.014;
+    lightShafts.add(shaft);
+  });
+  root.add(lightShafts);
+
+  const waterSurface = new THREE.Mesh(
+    cachedGeometry("circle:6.4:48", () => new THREE.CircleGeometry(6.4, 48)),
+    new THREE.MeshBasicMaterial({
+      color: 0xc4f0ef,
+      transparent: true,
+      opacity: 0.13,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    })
+  );
+  waterSurface.rotation.x = -Math.PI / 2;
+  waterSurface.position.y = 4.55;
+  root.add(waterSurface);
+
   return {
     camera: [8.5, 5.4, 10.5],
     animate(time) {
@@ -741,6 +969,19 @@ function createReefModel(root, values) {
           Math.sin(angle) * fish.userData.radius * 0.62
         );
         fish.rotation.y = -angle;
+        fish.rotation.z = Math.sin(time * 0.0035 + fish.userData.phase) * 0.07;
+        fish.userData.tail.rotation.y = Math.sin(time * 0.012 + fish.userData.phase) * 0.38;
+      });
+      const turtleAngle = -time * 0.00013;
+      turtle.position.set(
+        Math.cos(turtleAngle) * turtle.userData.radius,
+        2.55 + Math.sin(time * 0.0009) * 0.18,
+        Math.sin(turtleAngle) * turtle.userData.radius * 0.66
+      );
+      turtle.rotation.y = -turtleAngle + Math.PI;
+      turtle.rotation.z = Math.sin(time * 0.0011) * 0.06;
+      turtle.userData.flippers.forEach((flipper, index) => {
+        flipper.rotation.z = flipper.userData.baseRotZ + Math.sin(time * 0.004 + index * 1.4) * 0.28;
       });
       const bubbleValues = bubbles.geometry.attributes.position.array;
       for (let index = 0; index < bubbleCount; index += 1) {
@@ -753,6 +994,12 @@ function createReefModel(root, values) {
       alertRing.scale.setScalar(0.92 + Math.sin(time * 0.0032) * 0.13);
       debris.rotation.y = time * 0.00006;
       caustic.rotation.z = time * 0.000055;
+      lightShafts.children.forEach((shaft, index) => {
+        shaft.material.opacity =
+          shaft.userData.baseOpacity * (0.72 + Math.sin(time * 0.0009 + index * 2.1) * 0.28);
+        shaft.rotation.y = time * 0.00005 * (index + 1);
+      });
+      waterSurface.material.opacity = 0.11 + Math.sin(time * 0.0008) * 0.025;
     },
   };
 }
@@ -774,8 +1021,13 @@ function createClimateModel(root, values) {
   table.add(tableTop, tableEdge, tableFoot);
   root.add(setShadows(table));
 
+  // The tilt wrapper keeps the day/night spin on a realistically tilted axis.
+  const globeTilt = new THREE.Group();
+  globeTilt.position.y = 0.83;
+  globeTilt.rotation.z = 0.22;
   const globeGroup = new THREE.Group();
-  globeGroup.position.y = 0.83;
+  globeTilt.add(globeGroup);
+  root.add(globeTilt);
   const globe = sphere(1.55, 0x2385a5, {
     roughness: 0.5,
     metalness: 0.04,
@@ -839,7 +1091,21 @@ function createClimateModel(root, values) {
   });
   atmosphere.material.side = THREE.BackSide;
   globeGroup.add(atmosphere);
-  root.add(globeGroup);
+
+  const satelliteOrbit = new THREE.Group();
+  satelliteOrbit.position.y = 0.83;
+  satelliteOrbit.rotation.x = 0.42;
+  const satellite = createSatellite();
+  satellite.position.set(2.55, 0, 0);
+  satelliteOrbit.add(satellite);
+  root.add(satelliteOrbit);
+
+  const moonOrbit = new THREE.Group();
+  moonOrbit.position.y = 2.4;
+  const moon = sphere(0.26, 0xd8d8cc, { roughness: 0.95 });
+  moon.position.set(5.3, 0, 0);
+  moonOrbit.add(moon);
+  root.add(moonOrbit);
 
   const people = new THREE.Group();
   const tokenGroups = [];
@@ -911,12 +1177,13 @@ function createClimateModel(root, values) {
   }
   const starsGeometry = new THREE.BufferGeometry();
   starsGeometry.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
-  root.add(
-    new THREE.Points(
-      starsGeometry,
-      new THREE.PointsMaterial({ color: 0xffffff, size: 0.075, transparent: true, opacity: 0.6 })
-    )
-  );
+  const starsMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.075,
+    transparent: true,
+    opacity: 0.6,
+  });
+  root.add(new THREE.Points(starsGeometry, starsMaterial));
 
   return {
     camera: [10.8, 6.6, 12.8],
@@ -925,6 +1192,11 @@ function createClimateModel(root, values) {
       globeGroup.rotation.y = time * 0.000075;
       cloudGroup.rotation.y = time * 0.00012;
       atmosphere.scale.setScalar(1 + Math.sin(time * 0.0015) * 0.012);
+      satelliteOrbit.rotation.y = time * 0.00034;
+      satellite.rotation.y = time * 0.0012;
+      satellite.userData.beacon.material.emissiveIntensity = 0.6 + Math.sin(time * 0.006) * 0.4;
+      moonOrbit.rotation.y = time * 0.00006;
+      starsMaterial.opacity = 0.5 + Math.sin(time * 0.0012) * 0.18;
       people.children.forEach((participant) => {
         if (!participant.userData.body) return;
         participant.userData.body.rotation.z = Math.sin(time * 0.0013 + participant.userData.phase) * 0.018;
@@ -958,11 +1230,15 @@ function actionFromObject(object) {
 
 function disposeScene(scene) {
   scene.traverse((object) => {
-    object.geometry?.dispose?.();
+    if (object.geometry && !object.geometry.userData?.shared) object.geometry.dispose?.();
     const materials = Array.isArray(object.material) ? object.material : [object.material];
     materials.filter(Boolean).forEach((item) => item.dispose?.());
   });
 }
+
+// The learning UI unmounts and remounts a model on every interaction, so the
+// user's camera view survives remounts through this per-type memory.
+const viewMemory = new Map();
 
 export function mountLearningModel(stage, config) {
   const builder = modelBuilders[config.type];
@@ -971,7 +1247,9 @@ export function mountLearningModel(stage, config) {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const scene = new THREE.Scene();
   const root = new THREE.Group();
-  root.rotation.y = -0.48;
+  const savedView = viewMemory.get(config.type);
+  root.rotation.y = savedView?.rotY ?? -0.48;
+  root.rotation.x = savedView?.rotX ?? 0;
   scene.add(root);
 
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
@@ -1023,17 +1301,70 @@ export function mountLearningModel(stage, config) {
   scene.add(fillLight);
 
   const model = builder(root, config.values || {});
-  camera.position.set(...model.camera);
-  camera.lookAt(...(model.target || [0, 0.35, 0]));
+  const baseCamera = new THREE.Vector3(...model.camera);
+  const cameraTarget = new THREE.Vector3(...(model.target || [0, 0.35, 0]));
+  let zoom = savedView?.zoom ?? 1;
+
+  function applyCamera() {
+    camera.position.copy(baseCamera).multiplyScalar(zoom);
+    camera.lookAt(cameraTarget);
+  }
+  applyCamera();
+
+  const actionMeshes = new Map();
+  root.traverse((child) => {
+    if (child.isMesh && child.userData.actionId && child.material?.emissive) {
+      child.userData.baseEmissiveHex = child.material.emissive.getHex();
+      child.userData.baseEmissiveIntensity = child.material.emissiveIntensity;
+      const list = actionMeshes.get(child.userData.actionId) || [];
+      list.push(child);
+      actionMeshes.set(child.userData.actionId, list);
+    }
+  });
 
   let frame = 0;
+  let running = false;
   let disposed = false;
   let dragging = false;
   let moved = false;
   let pointerX = 0;
   let pointerY = 0;
+  let spinVelocity = 0;
+  let tiltVelocity = 0;
+  let lastInteraction = performance.now();
+  let hoveredAction = "";
+  let flashUntil = 0;
+  let stageInView = true;
+  const activePointers = new Map();
+  let pinchDistance = 0;
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
+
+  const isVisible = () => stageInView && !document.hidden;
+
+  function persistView() {
+    viewMemory.set(config.type, { rotY: root.rotation.y, rotX: root.rotation.x, zoom });
+  }
+
+  function applyHighlight(actionId, boost) {
+    (actionMeshes.get(actionId) || []).forEach((mesh) => {
+      if (boost > 0 && mesh.userData.baseEmissiveHex === 0) {
+        mesh.material.emissive.set(mesh.material.color);
+      } else if (boost === 0) {
+        mesh.material.emissive.setHex(mesh.userData.baseEmissiveHex);
+      }
+      mesh.material.emissiveIntensity = mesh.userData.baseEmissiveIntensity + boost;
+    });
+  }
+
+  function setHovered(actionId) {
+    if (hoveredAction === actionId) return;
+    if (hoveredAction) applyHighlight(hoveredAction, 0);
+    hoveredAction = actionId;
+    if (hoveredAction) applyHighlight(hoveredAction, 0.3);
+    canvas.classList.toggle("is-clickable", Boolean(hoveredAction));
+    if (reducedMotion) renderer.render(scene, camera);
+  }
 
   function resize() {
     if (disposed) return;
@@ -1045,11 +1376,46 @@ export function mountLearningModel(stage, config) {
     renderer.render(scene, camera);
   }
 
-  function render(time = 0) {
-    if (disposed) return;
+  function renderFrame(time) {
+    if (!dragging) {
+      if (Math.abs(spinVelocity) > 0.00008) {
+        root.rotation.y += spinVelocity;
+        spinVelocity *= 0.93;
+      }
+      if (Math.abs(tiltVelocity) > 0.00008) {
+        root.rotation.x = clamp(root.rotation.x + tiltVelocity, -0.32, 0.38);
+        tiltVelocity *= 0.9;
+      }
+      if (!hoveredAction && time - lastInteraction > 5000) {
+        root.rotation.y += 0.00055;
+      }
+    }
+    if (flashUntil) {
+      const remaining = flashUntil - time;
+      if (remaining <= 0) {
+        flashUntil = 0;
+        if (hoveredAction) applyHighlight(hoveredAction, 0.3);
+      } else if (hoveredAction) {
+        applyHighlight(hoveredAction, 0.3 + (remaining / 450) * 0.55);
+      }
+    }
     model.animate?.(time);
     renderer.render(scene, camera);
-    if (!reducedMotion) frame = window.requestAnimationFrame(render);
+  }
+
+  function loop(time) {
+    if (disposed || reducedMotion || !isVisible()) {
+      running = false;
+      return;
+    }
+    renderFrame(time);
+    frame = window.requestAnimationFrame(loop);
+  }
+
+  function startLoop() {
+    if (running || disposed || reducedMotion || !isVisible()) return;
+    running = true;
+    frame = window.requestAnimationFrame(loop);
   }
 
   function pickAction(event) {
@@ -1061,9 +1427,23 @@ export function mountLearningModel(stage, config) {
     return hit ? actionFromObject(hit.object) : "";
   }
 
+  function pinchSpread() {
+    const [first, second] = [...activePointers.values()];
+    return Math.hypot(second.x - first.x, second.y - first.y);
+  }
+
   function onPointerDown(event) {
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    lastInteraction = performance.now();
+    if (activePointers.size === 2) {
+      dragging = false;
+      pinchDistance = pinchSpread();
+      return;
+    }
     dragging = true;
     moved = false;
+    spinVelocity = 0;
+    tiltVelocity = 0;
     pointerX = event.clientX;
     pointerY = event.clientY;
     canvas.setPointerCapture?.(event.pointerId);
@@ -1071,61 +1451,128 @@ export function mountLearningModel(stage, config) {
   }
 
   function onPointerMove(event) {
+    if (activePointers.has(event.pointerId)) {
+      activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    }
+    if (activePointers.size === 2 && pinchDistance) {
+      const spread = pinchSpread();
+      if (spread > 0) {
+        zoom = clamp(zoom * (pinchDistance / spread), 0.55, 1.7);
+        pinchDistance = spread;
+        applyCamera();
+        moved = true;
+        if (reducedMotion) renderer.render(scene, camera);
+      }
+      return;
+    }
     if (!dragging) {
-      canvas.classList.toggle("is-clickable", Boolean(pickAction(event)));
+      setHovered(pickAction(event));
       return;
     }
     const deltaX = event.clientX - pointerX;
     const deltaY = event.clientY - pointerY;
     if (Math.abs(deltaX) + Math.abs(deltaY) > 3) moved = true;
-    root.rotation.y += deltaX * 0.007;
-    root.rotation.x = clamp(root.rotation.x + deltaY * 0.004, -0.32, 0.38);
+    spinVelocity = deltaX * 0.007;
+    tiltVelocity = deltaY * 0.004;
+    root.rotation.y += spinVelocity;
+    root.rotation.x = clamp(root.rotation.x + tiltVelocity, -0.32, 0.38);
     pointerX = event.clientX;
     pointerY = event.clientY;
+    lastInteraction = performance.now();
     if (reducedMotion) renderer.render(scene, camera);
   }
 
   function onPointerUp(event) {
+    activePointers.delete(event.pointerId);
+    if (activePointers.size < 2) pinchDistance = 0;
+    const wasDragging = dragging;
     dragging = false;
     canvas.classList.remove("is-dragging");
     canvas.releasePointerCapture?.(event.pointerId);
-    if (!moved) {
+    lastInteraction = performance.now();
+    persistView();
+    if (wasDragging && !moved) {
       const actionId = pickAction(event);
-      if (actionId) config.onActivate?.(actionId);
+      if (actionId) {
+        flashUntil = performance.now() + 450;
+        config.onActivate?.(actionId);
+      }
     }
+  }
+
+  function onWheel(event) {
+    event.preventDefault();
+    zoom = clamp(zoom * (1 + event.deltaY * 0.0011), 0.55, 1.7);
+    applyCamera();
+    lastInteraction = performance.now();
+    persistView();
+    if (reducedMotion) renderer.render(scene, camera);
+  }
+
+  function onDoubleClick() {
+    root.rotation.y = -0.48;
+    root.rotation.x = 0;
+    zoom = 1;
+    spinVelocity = 0;
+    tiltVelocity = 0;
+    applyCamera();
+    persistView();
+    if (reducedMotion) renderer.render(scene, camera);
   }
 
   function onKeyDown(event) {
     const turns = { ArrowLeft: 0.12, ArrowRight: -0.12 };
     const tilts = { ArrowUp: 0.08, ArrowDown: -0.08 };
+    const zooms = { "+": 0.92, "-": 1.09, "=": 0.92 };
     if (turns[event.key]) root.rotation.y += turns[event.key];
     else if (tilts[event.key]) root.rotation.x = clamp(root.rotation.x + tilts[event.key], -0.32, 0.38);
-    else return;
+    else if (zooms[event.key]) {
+      zoom = clamp(zoom * zooms[event.key], 0.55, 1.7);
+      applyCamera();
+    } else return;
     event.preventDefault();
+    lastInteraction = performance.now();
+    persistView();
     renderer.render(scene, camera);
+  }
+
+  function onVisibilityChange() {
+    if (isVisible()) startLoop();
   }
 
   canvas.addEventListener("pointerdown", onPointerDown);
   canvas.addEventListener("pointermove", onPointerMove);
   canvas.addEventListener("pointerup", onPointerUp);
   canvas.addEventListener("pointercancel", onPointerUp);
+  canvas.addEventListener("pointerleave", () => setHovered(""));
+  canvas.addEventListener("wheel", onWheel, { passive: false });
+  canvas.addEventListener("dblclick", onDoubleClick);
   canvas.addEventListener("keydown", onKeyDown);
+  document.addEventListener("visibilitychange", onVisibilityChange);
+
+  const intersectionObserver =
+    "IntersectionObserver" in window
+      ? new IntersectionObserver((entries) => {
+          stageInView = entries[0]?.isIntersecting ?? true;
+          if (stageInView) startLoop();
+        })
+      : null;
+  intersectionObserver?.observe(stage);
 
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(stage);
   resize();
-  render(performance.now());
+  renderFrame(performance.now());
+  startLoop();
   stage.dataset.modelReady = "true";
 
   return () => {
     disposed = true;
+    persistView();
     window.cancelAnimationFrame(frame);
     resizeObserver.disconnect();
-    canvas.removeEventListener("pointerdown", onPointerDown);
-    canvas.removeEventListener("pointermove", onPointerMove);
-    canvas.removeEventListener("pointerup", onPointerUp);
-    canvas.removeEventListener("pointercancel", onPointerUp);
-    canvas.removeEventListener("keydown", onKeyDown);
+    intersectionObserver?.disconnect();
+    document.removeEventListener("visibilitychange", onVisibilityChange);
     disposeScene(scene);
     renderer.dispose();
     canvas.remove();
