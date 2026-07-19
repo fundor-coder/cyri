@@ -1450,6 +1450,96 @@ const reefSynergies = [
     ),
   },
 ];
+
+const learningGameTips = {
+  "sdg-sprint": {
+    title: bi("Strategy tip", "Strategie-Tipp"),
+    initial: bi(
+      "Choose the goal that describes the main change in the situation, not simply a related topic. Ask what is being protected, improved or made fair.",
+      "Wähle das Ziel, das die zentrale Veränderung beschreibt – nicht nur ein verwandtes Thema. Frage dich: Was wird geschützt, verbessert oder gerechter gemacht?"
+    ),
+    retry: bi(
+      "Read the situation once more and separate the cause from the intended result. The strongest goal usually names that result.",
+      "Lies die Situation noch einmal und trenne Ursache und gewünschtes Ergebnis. Das stärkste Ziel benennt meist dieses Ergebnis."
+    ),
+  },
+  "chain-builder": {
+    title: bi("Strategy tip", "Strategie-Tipp"),
+    initial: bi(
+      "Build the chain one consequence at a time: each card must happen after the card to its left. A solution belongs at the end, not at the beginning.",
+      "Baue die Kette Folge für Folge: Jede Karte muss nach der Karte links von ihr passieren. Eine Lösung gehört ans Ende, nicht an den Anfang."
+    ),
+    progress: bi(
+      "Use the last revealed card as your clue. Ask which immediate consequence follows next before looking for the final solution.",
+      "Nutze die zuletzt aufgedeckte Karte als Hinweis. Frage zuerst, welche direkte Folge als Nächstes kommt, bevor du nach der Endlösung suchst."
+    ),
+    retry: bi(
+      "A tempting answer can be true in general but still be in the wrong place in the chain. Check whether it follows directly from the previous card.",
+      "Eine verlockende Antwort kann allgemein richtig sein und trotzdem an der falschen Stelle stehen. Prüfe, ob sie direkt aus der vorherigen Karte folgt."
+    ),
+  },
+  "city-builder": {
+    title: bi("Planning tip", "Planungs-Tipp"),
+    initial: bi(
+      "Spend the whole budget, but watch all four meters. Give every city goal a role, then move one point at a time and observe the trade-off.",
+      "Nutze das ganze Budget, aber beobachte alle vier Anzeigen. Gib jedem Stadtziel eine Rolle und verschiebe dann immer nur einen Punkt, um den Zielkonflikt zu sehen."
+    ),
+    budget: bi(
+      "Your next test needs the full budget. Do not spend the remaining points all in one place: the meters reveal which risk would be left behind.",
+      "Für den nächsten Test brauchst du das volle Budget. Setze die übrigen Punkte nicht alle an einer Stelle ein: Die Anzeigen zeigen dir, welches Risiko sonst zurückbleibt."
+    ),
+    weak: bi(
+      "The weakest meter is your compass: “{area}”. Re-read the short descriptions, adjust one point at a time and keep every other meter safely above the floor.",
+      "Die schwächste Anzeige ist dein Kompass: „{area}“. Lies die Kurzbeschreibungen erneut, verschiebe immer nur einen Punkt und halte alle anderen Werte sicher über der Mindestgrenze."
+    ),
+    balance: bi(
+      "The average is close, but one trade-off is still too sharp. Swap a single point between two controls, then compare all four meters again.",
+      "Der Durchschnitt ist nah dran, aber ein Zielkonflikt ist noch zu stark. Tausche einen einzelnen Punkt zwischen zwei Maßnahmen und vergleiche danach wieder alle vier Anzeigen."
+    ),
+  },
+  "reef-rescue": {
+    title: bi("Planning tip", "Planungs-Tipp"),
+    initial: bi(
+      "Compare each action's cost with all three meters. A strong rescue plan helps corals now, reduces pressure and involves people who care for the reef.",
+      "Vergleiche die Kosten jeder Maßnahme mit allen drei Anzeigen. Ein starker Rettungsplan hilft Korallen jetzt, senkt Druck und bezieht Menschen ein, die das Riff schützen."
+    ),
+    synergy: bi(
+      "The decisive effect comes from a pair, not a single card. Test two actions that work at different moments: prevention, early response or long-term protection.",
+      "Der entscheidende Effekt entsteht durch ein Paar, nicht durch eine einzelne Karte. Teste zwei Maßnahmen, die zu unterschiedlichen Zeitpunkten wirken: Vorsorge, frühe Reaktion oder langfristiger Schutz."
+    ),
+    weak: bi(
+      "Use the weakest meter as the next clue: “{area}”. Keep one useful pair active while trading out an action that contributes less to that goal.",
+      "Nutze die schwächste Anzeige als nächsten Hinweis: „{area}“. Lass ein hilfreiches Paar aktiv und tausche eine Maßnahme aus, die weniger zu diesem Ziel beiträgt."
+    ),
+    balance: bi(
+      "The plan is close. Compare the three meters before adding anything: the best next move improves the lowest value without losing the combination effect.",
+      "Der Plan ist nah dran. Vergleiche die drei Anzeigen, bevor du etwas ergänzt: Der beste nächste Schritt verbessert den niedrigsten Wert, ohne den Kombinationseffekt zu verlieren."
+    ),
+  },
+  "climate-council": {
+    title: bi("Council tip", "Klimarat-Tipp"),
+    initial: bi(
+      "Start with at least one token in every field. Then let the lowest of the four meters decide your next move; a high total alone is not enough.",
+      "Starte mit mindestens einem Token in jedem Bereich. Danach bestimmt die niedrigste der vier Anzeigen deinen nächsten Schritt; ein hoher Gesamtwert allein reicht nicht."
+    ),
+    budget: bi(
+      "Use the remaining tokens to strengthen the weakest outcome, but keep every field represented. The final package rewards balance more than a single peak.",
+      "Nutze die übrigen Token, um das schwächste Ergebnis zu stärken, aber halte jeden Bereich vertreten. Das finale Paket belohnt Balance stärker als einen einzelnen Spitzenwert."
+    ),
+    category: bi(
+      "One field is empty. Restore it first, then compare the four meters again; every field is needed for a fair climate package.",
+      "Ein Bereich ist leer. Fülle ihn zuerst wieder und vergleiche dann erneut die vier Anzeigen; jeder Bereich wird für ein faires Klimapaket gebraucht."
+    ),
+    weak: bi(
+      "Your next clue is “{area}”. Read which action texts mention that outcome and move only one token before testing again.",
+      "Dein nächster Hinweis lautet „{area}“. Lies nach, welche Maßnahmen dieses Ziel nennen, und verschiebe vor dem nächsten Test nur einen Token."
+    ),
+    balance: bi(
+      "The package is nearly there, so avoid a full reset. Rebalance one token from the strongest area toward the weakest and test again.",
+      "Das Paket ist fast geschafft – setze es nicht komplett zurück. Verschiebe einen Token vom stärksten zum schwächsten Bereich und prüfe erneut."
+    ),
+  },
+};
 const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260719-4";
 
 const quizQuestions = [
@@ -3497,6 +3587,57 @@ function puzzleFeedbackText(feedback, metricLabels) {
   return t("learn.gameNeedsBalance");
 }
 
+function gameTipText(game, metricLabels = {}) {
+  const tips = learningGameTips[game];
+  if (!tips) return null;
+
+  if (game === "sdg-sprint") {
+    const selected = state.sdgSprintAnswers[state.sdgSprintIndex];
+    const round = sdgSprintRounds[state.sdgSprintIndex];
+    return localizedValue(selected !== undefined && selected !== round?.answer ? tips.retry : tips.initial);
+  }
+
+  if (game === "chain-builder") {
+    if (state.chainFeedback === "wrong" || state.chainFeedback === "broken") {
+      return localizedValue(tips.retry);
+    }
+    return localizedValue(state.chainPicks.length ? tips.progress : tips.initial);
+  }
+
+  const feedback = state.puzzleFeedback[game === "city-builder" ? "city" : game === "reef-rescue" ? "reef" : "climate"];
+  if (!feedback) return localizedValue(tips.initial);
+  if (feedback.reason === "budget") {
+    return localizedValue(tips.budget);
+  }
+  if (feedback.reason === "category") {
+    return localizedValue(tips.category);
+  }
+  if (feedback.reason === "synergy") {
+    return localizedValue(tips.synergy);
+  }
+  if (feedback.reason === "weak") {
+    return formatLearningText(localizedValue(tips.weak), {
+      area: metricLabels[feedback.metric] || feedback.metric,
+    });
+  }
+  return localizedValue(tips.balance);
+}
+
+function renderGameTip(game, metricLabels) {
+  const tips = learningGameTips[game];
+  const text = gameTipText(game, metricLabels);
+  if (!tips || !text) return "";
+  return `
+    <aside class="game-tip" data-game-tip data-game-tip-for="${escapeHtml(game)}">
+      <div>
+        <span aria-hidden="true">✦</span>
+        <strong>${escapeHtml(localizedValue(tips.title))}</strong>
+      </div>
+      <p>${escapeHtml(text)}</p>
+    </aside>
+  `;
+}
+
 function renderPuzzleGate(game, metricLabels) {
   const attempts = state.puzzleAttempts[game] || 0;
   const feedback = state.puzzleFeedback[game];
@@ -4544,6 +4685,7 @@ function renderSdgSprintGame() {
         )}</span>
         <strong>${escapeHtml(t("learn.gameScore"))}: ${score}/${sdgSprintRounds.length}</strong>
       </div>
+      ${renderGameTip("sdg-sprint")}
       <div class="game-prompt">
         <p>${escapeHtml(localizedValue(round.prompt))}</p>
       </div>
@@ -4623,6 +4765,7 @@ function renderChainGame() {
           formatLearningText(t("learn.chainMistakes"), { count: state.chainMistakes })
         )}</strong>
       </div>
+      ${renderGameTip("chain-builder")}
       <div class="chain-board">
         <div class="chain-step is-start">
           <span>${escapeHtml(t("learn.chainStart"))}</span>
@@ -4735,6 +4878,12 @@ function renderCityBuilderGame() {
           })
         )}</strong>
       </div>
+      ${renderGameTip("city-builder", {
+        cooling: t("learn.cityCooling"),
+        flood: t("learn.cityFlood"),
+        habitat: t("learn.cityHabitat"),
+        fairness: t("learn.cityFairness"),
+      })}
       ${renderLearning3DStage("city", average)}
       <div class="city-control-grid">
         ${cityBuilderControls
@@ -4822,6 +4971,11 @@ function renderReefRescueGame() {
           })
         )}</strong>
       </div>
+      ${renderGameTip("reef-rescue", {
+        recovery: t("learn.reefRecovery"),
+        pressure: t("learn.reefPressure"),
+        community: t("learn.reefCommunity"),
+      })}
       ${renderLearning3DStage("reef", average)}
       <div class="reef-action-grid">
         ${reefActionCards
@@ -4906,6 +5060,12 @@ function renderClimateCouncilGame() {
           })
         )}</strong>
       </div>
+      ${renderGameTip("climate-council", {
+        climate: t("learn.finalClimate"),
+        nature: t("learn.finalNature"),
+        justice: t("learn.finalJustice"),
+        resilience: t("learn.finalResilience"),
+      })}
       ${renderLearning3DStage("climate", average)}
       <div class="city-control-grid climate-control-grid">
         ${climateCouncilControls
