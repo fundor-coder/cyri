@@ -275,6 +275,29 @@ test("all three 3D learning models render nonblank pixels", async ({ page }) => 
   expect(errors).toEqual([]);
 });
 
+test("learning arcade stays clear and within the viewport on iPad", async ({ page }) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto("http://127.0.0.1:5173/?model-pixel-check=1#learn");
+
+  const tabRows = await page.locator(".game-menu .game-tab").evaluateAll((tabs) =>
+    tabs.map((tab) => Math.round(tab.getBoundingClientRect().top))
+  );
+  expect(Math.abs(tabRows[0] - tabRows[1])).toBeLessThanOrEqual(1);
+  expect(tabRows[2]).toBeGreaterThan(tabRows[0]);
+  await page.locator('[data-learning-game="climate-council"]').click();
+  await expectRenderedModel(page, "climate");
+  const hasOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1
+  );
+  expect(hasOverflow).toBe(false);
+  await page.screenshot({ path: "/tmp/cyri-learn-ipad.png", fullPage: true });
+  expect(errors).toEqual([]);
+});
+
 test("learning arcade has no horizontal overflow on mobile", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
