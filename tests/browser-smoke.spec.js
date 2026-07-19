@@ -186,10 +186,16 @@ test("city mission hides its threshold and requires experimentation", async ({ p
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="city-builder"]').click();
   await expect(page.locator("[data-city-complete]")).toBeEnabled();
+  await expect(page.locator('[data-game-tip-for="city-builder"]')).toContainText(
+    "Spend the whole budget"
+  );
   await expect(page.locator("[data-learning-games]")).toContainText("Hidden mission threshold");
   await expect(page.locator("[data-learning-games]")).not.toContainText("Continue from");
   await page.locator("[data-city-complete]").click();
   await expect(page.locator(".puzzle-gate")).toContainText("remaining 4 points");
+  await expect(page.locator('[data-game-tip-for="city-builder"]')).toContainText(
+    "next test needs the full budget"
+  );
 
   await page.locator('[data-city-control="shade"][data-city-change="-1"]').click();
   for (let index = 0; index < 3; index += 1) {
@@ -220,6 +226,9 @@ test("reef rescue needs the hidden action synergy", async ({ page }) => {
   await page.locator('[data-reef-action="local-guides"]').click();
   await page.locator("[data-reef-complete]").click();
   await expect(page.locator(".puzzle-gate")).toContainText("hidden synergy");
+  await expect(page.locator('[data-game-tip-for="reef-rescue"]')).toContainText(
+    "decisive effect comes from a pair"
+  );
 
   await page.locator('[data-reef-action="clean-water"]').click();
   await page.locator('[data-reef-action="heat-alert"]').click();
@@ -240,6 +249,9 @@ test("German success animation congratulates the player", async ({ page }) => {
   );
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="city-builder"]').click();
+  await expect(page.locator('[data-game-tip-for="city-builder"]')).toContainText(
+    "Nutze das ganze Budget"
+  );
 
   await page.locator('[data-city-control="shade"][data-city-change="-1"]').click();
   for (let index = 0; index < 3; index += 1) {
