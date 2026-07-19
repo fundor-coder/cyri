@@ -2,14 +2,14 @@ const { test, expect } = require("@playwright/test");
 
 const completedBeforeFinale = ["sdg-sprint", "chain-builder", "city-builder", "reef-rescue"];
 
-async function setAdultMode(page, progress = null) {
-  await page.addInitScript((savedProgress) => {
+async function setAdultMode(page, progress = null, language = "en") {
+  await page.addInitScript(({ savedProgress, language }) => {
     localStorage.setItem("cyri-learning-audience", "adults");
-    localStorage.setItem("cyri-language", "en");
+    localStorage.setItem("cyri-language", language);
     if (savedProgress) {
       localStorage.setItem("cyri-game-progress-v2", JSON.stringify(savedProgress));
     }
-  }, progress);
+  }, { savedProgress: progress, language });
 }
 
 async function expectRenderedModel(page, type) {
@@ -90,12 +90,22 @@ test("finale and certificate work on desktop", async ({ page }) => {
     /energy:1/
   );
 
-  for (const control of ["energy", "energy", "nature", "nature", "fairness", "fairness"]) {
+  for (const control of [
+    "mobility",
+    "mobility",
+    "mobility",
+    "nature",
+    "nature",
+    "nature",
+    "nature",
+    "fairness",
+    "fairness",
+  ]) {
     await page.locator(`[data-climate-control="${control}"][data-climate-change="1"]`).click();
   }
   await expect(page.locator('[data-learning-3d="climate"]')).toHaveAttribute(
     "data-model-values",
-    /energy:3/
+    /mobility:4/
   );
   await expect(page.locator('[data-learning-3d="climate"]')).toHaveAttribute(
     "data-model-ready",
@@ -104,9 +114,11 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await page.locator('[data-learning-3d="climate"]').screenshot({
     path: "/tmp/cyri-climate-grown-3d.png",
   });
-  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/14");
-  await expect(page.locator("[data-climate-complete]")).toBeEnabled();
+  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 14/14");
+  await expect(page.locator("[data-learning-games]")).not.toContainText("Continue from");
   await page.locator("[data-climate-complete]").click();
+  await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
+  await expect(page.locator(".certificate-preview")).toHaveCount(3);
   await expect(page.locator("[data-certificate-download]")).toBeDisabled();
   await page.locator("[data-certificate-name]").fill("Alex Klimaschützer");
   await expect(page.locator("[data-certificate-download]")).toBeEnabled();
@@ -137,7 +149,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("city target unlocks before every token is used", async ({ page }) => {
+test("city mission hides its threshold and requires experimentation", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await setAdultMode(page, {
@@ -147,14 +159,72 @@ test("city target unlocks before every token is used", async ({ page }) => {
   });
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="city-builder"]').click();
-  await expect(page.locator("[data-city-complete]")).toBeDisabled();
-  await page.locator('[data-city-control="routes"][data-city-change="1"]').click();
-  await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
-  await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
-  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 11/12");
-  await expect(page.locator("[data-learning-games]")).toContainText("Continue from 62%");
   await expect(page.locator("[data-city-complete]")).toBeEnabled();
+  await expect(page.locator("[data-learning-games]")).toContainText("Hidden mission threshold");
+  await expect(page.locator("[data-learning-games]")).not.toContainText("Continue from");
+  await page.locator("[data-city-complete]").click();
+  await expect(page.locator(".puzzle-gate")).toContainText("remaining 4 points");
+
+  await page.locator('[data-city-control="shade"][data-city-change="-1"]').click();
+  for (let index = 0; index < 3; index += 1) {
+    await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
+  }
+  await page.locator('[data-city-control="water"][data-city-change="-1"]').click();
+  for (let index = 0; index < 3; index += 1) {
+    await page.locator('[data-city-control="routes"][data-city-change="1"]').click();
+  }
+  await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 12/12");
+  await page.locator("[data-city-complete]").click();
+  await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
+  await expect(page.locator('[data-learning-game="reef-rescue"]')).toBeEnabled();
   expect(errors).toEqual([]);
+});
+
+test("reef rescue needs the hidden action synergy", async ({ page }) => {
+  await setAdultMode(page, {
+    minutes: 30,
+    completed: ["sdg-sprint", "chain-builder", "city-builder"],
+    history: [],
+  });
+  await page.goto("http://127.0.0.1:5173/#learn");
+  await page.locator('[data-learning-game="reef-rescue"]').click();
+
+  await page.locator('[data-reef-action="clean-water"]').click();
+  await page.locator('[data-reef-action="climate-cut"]').click();
+  await page.locator('[data-reef-action="local-guides"]').click();
+  await page.locator("[data-reef-complete]").click();
+  await expect(page.locator(".puzzle-gate")).toContainText("hidden synergy");
+
+  await page.locator('[data-reef-action="clean-water"]').click();
+  await page.locator('[data-reef-action="heat-alert"]').click();
+  await page.locator("[data-reef-complete]").click();
+  await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
+  await expect(page.locator('[data-learning-game="climate-council"]')).toBeEnabled();
+});
+
+test("German success animation congratulates the player", async ({ page }) => {
+  await setAdultMode(
+    page,
+    {
+      minutes: 30,
+      completed: ["sdg-sprint", "chain-builder"],
+      history: [],
+    },
+    "de"
+  );
+  await page.goto("http://127.0.0.1:5173/#learn");
+  await page.locator('[data-learning-game="city-builder"]').click();
+
+  await page.locator('[data-city-control="shade"][data-city-change="-1"]').click();
+  for (let index = 0; index < 3; index += 1) {
+    await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
+  }
+  await page.locator('[data-city-control="water"][data-city-change="-1"]').click();
+  for (let index = 0; index < 3; index += 1) {
+    await page.locator('[data-city-control="routes"][data-city-change="1"]').click();
+  }
+  await page.locator("[data-city-complete]").click();
+  await expect(page.locator("[data-game-celebration]")).toContainText("Herzlichen Glückwunsch!");
 });
 
 test("all three 3D learning models render nonblank pixels", async ({ page }) => {

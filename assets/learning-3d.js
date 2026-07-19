@@ -194,20 +194,37 @@ function createBuilding(width, height, depth, color, index) {
   });
   const sillMaterial = material(0xe9ebe2, { roughness: 0.6 });
   const rows = Math.max(2, Math.floor(height / 0.55));
-  const columns = Math.max(2, Math.floor(width / 0.38));
-  for (let row = 0; row < rows; row += 1) {
-    for (let column = 0; column < columns; column += 1) {
-      const windowX =
-        columns === 1 ? 0 : -width * 0.32 + (column / (columns - 1)) * width * 0.64;
-      const windowY = 0.38 + row * ((height - 0.62) / Math.max(1, rows - 1));
-      const window = new THREE.Mesh(boxGeometry(0.18, 0.22, 0.025), windowMaterial);
-      window.position.set(windowX, windowY, depth / 2 + 0.016);
-      building.add(window);
-      const sill = new THREE.Mesh(boxGeometry(0.22, 0.02, 0.045), sillMaterial);
-      sill.position.set(windowX, windowY - 0.13, depth / 2 + 0.03);
-      building.add(sill);
+  // Windows go on all four facades so buildings look real from every angle.
+  const facades = [
+    { axis: "z", direction: 1 },
+    { axis: "z", direction: -1 },
+    { axis: "x", direction: 1 },
+    { axis: "x", direction: -1 },
+  ];
+  facades.forEach(({ axis, direction }) => {
+    const faceWidth = axis === "z" ? width : depth;
+    const faceDepth = axis === "z" ? depth : width;
+    const columns = Math.max(2, Math.floor(faceWidth / 0.38));
+    for (let row = 0; row < rows; row += 1) {
+      for (let column = 0; column < columns; column += 1) {
+        const offset =
+          columns === 1 ? 0 : -faceWidth * 0.32 + (column / (columns - 1)) * faceWidth * 0.64;
+        const windowY = 0.38 + row * ((height - 0.62) / Math.max(1, rows - 1));
+        const window = new THREE.Mesh(boxGeometry(0.18, 0.22, 0.025), windowMaterial);
+        const sill = new THREE.Mesh(boxGeometry(0.22, 0.02, 0.045), sillMaterial);
+        if (axis === "z") {
+          window.position.set(offset, windowY, direction * (faceDepth / 2 + 0.016));
+          sill.position.set(offset, windowY - 0.13, direction * (faceDepth / 2 + 0.03));
+        } else {
+          window.rotation.y = Math.PI / 2;
+          sill.rotation.y = Math.PI / 2;
+          window.position.set(direction * (faceDepth / 2 + 0.016), windowY, offset);
+          sill.position.set(direction * (faceDepth / 2 + 0.03), windowY - 0.13, offset);
+        }
+        building.add(window, sill);
+      }
     }
-  }
+  });
   return setShadows(building);
 }
 
@@ -475,9 +492,11 @@ function createCityModel(root, values) {
   const soilGroup = new THREE.Group();
   const soilColor = soil >= 3 ? 0x6d9e5a : 0x88785e;
   const soilPlots = [
-    [-2.8, 2.25, 2.2, 1.35],
-    [0, 2.3, 2.35, 1.4],
-    [0, -2.35, 2.25, 1.3],
+    // Large north-west park plus two compact rain gardens. Every footprint
+    // stays beyond the road and sidewalk envelopes (|x| and |z| > 1.10).
+    [-2.35, 2.3, 1.75, 1.45],
+    [-1.38, -1.42, 0.44, 0.48],
+    [1.38, -1.42, 0.44, 0.48],
   ];
   soilPlots.slice(0, Math.max(1, Math.ceil(soil / 2))).forEach(([x, z, width, depth]) => {
     const plot = box(width, 0.12, depth, soilColor);
@@ -498,38 +517,58 @@ function createCityModel(root, values) {
   root.add(soilGroup);
 
   const treeGroup = new THREE.Group();
+  // Positions keep trees inside the green strips: clear of roads (|z| <= 0.73),
+  // sidewalks (|x| or |z| around 0.76-1.10), building footprints and the pond.
   const treePositions = [
-    [-2.9, 2.3], [-1.9, 2.25], [-0.55, 2.3], [0.5, 2.25],
-    [1.8, 2.25], [2.7, 2.2], [-1.2, -2.2], [0.2, -2.25],
-    [1.25, -2.25], [3.05, -2.2], [-3.4, -0.9], [3.45, 0.9],
+    [-2.9, 2.3], [-2.15, 2.25], [-1.42, 2.05], [1.32, 1.34],
+    [-1.34, -1.36], [1.34, -1.36], [-3.3, -1.38], [3.45, -1.38],
+    [-5.05, 1.38], [5.05, 1.38], [-5.05, -1.38], [5.05, -1.38],
+    [1.28, 3.22], [-2.75, 3.24],
   ];
   treePositions.slice(0, 2 + shade * 2).forEach(([x, z], index) => {
     const tree = createTree(0.72 + (index % 3) * 0.08, index);
     tree.position.set(x, 0.1, z);
     tree.rotation.y = (index * 0.83) % (Math.PI * 2);
     tree.userData.phase = index * 0.9;
+    tree.userData.isTree = true;
     treeGroup.add(tree);
+    const treePit = cylinder(0.17, 0.035, 0x66513a, 14, { roughness: 0.95 });
+    treePit.position.set(x, 0.1, z);
+    treeGroup.add(treePit);
   });
   tagAction(treeGroup, "shade");
   root.add(setShadows(treeGroup));
 
   const waterGroup = new THREE.Group();
-  const pond = cylinder(0.72 + water * 0.08, 0.11, palette.blueLight, 32, {
+  // Pond, channel and tanks stay inside the north-east green area,
+  // clear of roads, sidewalks and tree positions.
+  const pond = cylinder(0.6 + water * 0.05, 0.11, palette.blueLight, 32, {
     roughness: 0.2,
     opacity: 0.9,
   });
-  pond.position.set(2.15, 0.05, 2.25);
+  pond.position.set(2.1, 0.05, 2.35);
   waterGroup.add(pond);
-  const rainChannel = box(2.35, 0.055, 0.24, palette.blueLight, {
+  const pondRim = cylinder(0.66 + water * 0.05, 0.05, 0xb9c4b0, 32, { roughness: 0.9 });
+  pondRim.position.set(2.1, 0.02, 2.35);
+  waterGroup.add(pondRim);
+  const rainChannel = box(1.9, 0.055, 0.24, palette.blueLight, {
     roughness: 0.2,
     opacity: 0.84,
   });
-  rainChannel.position.set(3.2, 0.075, 1.42);
-  rainChannel.rotation.y = -0.38;
+  rainChannel.position.set(2.15, 0.075, 1.36);
   waterGroup.add(rainChannel);
+  const tankPositions = [
+    [-3.25, -3.28],
+    [-1.4, -3.28],
+    [1.4, -3.28],
+    [3.48, -3.28],
+    [-3.2, 3.28],
+    [4.95, 3.24],
+  ];
   for (let index = 0; index < Math.max(1, water); index += 1) {
     const tank = cylinder(0.2, 0.42 + index * 0.025, palette.blue, 18, { metalness: 0.16 });
-    tank.position.set(1.15 + (index % 3) * 0.48, 0.22, 3.05 - Math.floor(index / 3) * 0.5);
+    const [x, z] = tankPositions[index];
+    tank.position.set(x, 0.22, z);
     waterGroup.add(tank);
   }
   tagAction(waterGroup, "water");
@@ -615,7 +654,7 @@ function createCityModel(root, values) {
       pond.position.y = 0.05 + Math.sin(time * 0.0018) * 0.02;
       bus.position.x = -5.1 + ((time * (0.00034 + routes * 0.000025)) % 10.2);
       car.position.z = -4.3 + ((time * (0.00042 + routes * 0.00003)) % 8.6);
-      treeGroup.children.forEach((tree) => {
+      treeGroup.children.filter((child) => child.userData.isTree).forEach((tree) => {
         tree.rotation.z = Math.sin(time * 0.0011 + tree.userData.phase) * 0.022;
       });
       cloudGroup.children.forEach((cloud) => {

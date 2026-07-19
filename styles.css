@@ -2565,6 +2565,83 @@ h3 {
   font-weight: 680;
 }
 
+.puzzle-gate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px dashed rgba(39, 116, 216, 0.34);
+  border-left: 5px solid var(--blue);
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(39, 116, 216, 0.025) 0,
+      rgba(39, 116, 216, 0.025) 8px,
+      transparent 8px,
+      transparent 16px
+    ),
+    rgba(255, 255, 255, 0.76);
+  padding: 15px 16px;
+}
+
+.puzzle-gate.has-result {
+  border-style: solid;
+  border-left-color: #b97622;
+  background: #fff8e8;
+}
+
+.puzzle-gate.is-solved {
+  border-style: solid;
+  border-color: rgba(22, 131, 95, 0.3);
+  border-left-color: var(--green);
+  background: #e8f5ed;
+}
+
+.puzzle-gate.is-solved > div > span {
+  background: var(--green);
+}
+
+.puzzle-gate > div {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 11px;
+  align-items: start;
+  flex: 1 1 420px;
+}
+
+.puzzle-gate > div > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 850;
+}
+
+.puzzle-gate strong {
+  color: var(--ink);
+}
+
+.puzzle-gate p {
+  margin: 3px 0 0;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.puzzle-gate small {
+  border-radius: 999px;
+  background: rgba(18, 22, 29, 0.08);
+  color: var(--ink);
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
 .game-rule {
   display: flex;
   align-items: baseline;
@@ -5671,6 +5748,185 @@ body[data-audience="children"] .modal-body h3 {
   padding: 13px 16px;
 }
 
+.certificate-showcase {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.certificate-preview {
+  --tier-color: #6c757a;
+  --tier-bg: #edf0f1;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 92px;
+  border: 1px solid color-mix(in srgb, var(--tier-color) 24%, transparent);
+  border-top: 4px solid var(--tier-color);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(145deg, #fff, var(--tier-bg));
+  padding: 13px;
+  opacity: 0.65;
+}
+
+.certificate-preview.is-earned {
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--tier-color) 14%, transparent);
+  opacity: 1;
+}
+
+.certificate-preview.is-issued {
+  outline: 2px solid color-mix(in srgb, var(--tier-color) 38%, transparent);
+  outline-offset: -2px;
+}
+
+.certificate-preview-medal {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 3px double rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: var(--tier-color);
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--tier-color) 28%, transparent);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.certificate-preview > div {
+  display: grid;
+  gap: 3px;
+}
+
+.certificate-preview .certificate-tier-chip {
+  width: fit-content;
+  margin: 0;
+  padding: 2px 8px;
+}
+
+.certificate-preview strong {
+  color: var(--ink);
+}
+
+.certificate-preview small {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.game-celebration {
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(13, 34, 29, 0.38);
+  padding: 18px;
+  pointer-events: none;
+  animation: celebration-backdrop 3.2s ease both;
+}
+
+.game-celebration-card {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  width: min(520px, 100%);
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(242, 193, 78, 0.24), transparent 34%),
+    #fff;
+  box-shadow: 0 28px 70px rgba(10, 32, 25, 0.28);
+  padding: 24px;
+  animation: celebration-card 3.2s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+
+.game-celebration-card > div:last-child {
+  display: grid;
+  gap: 4px;
+}
+
+.game-celebration-card strong {
+  color: var(--green);
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  line-height: 1.1;
+}
+
+.game-celebration-card span {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.game-celebration-card p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.game-celebration-burst {
+  position: relative;
+  display: grid;
+  width: 92px;
+  height: 92px;
+  place-items: center;
+}
+
+.game-celebration-burst b {
+  z-index: 2;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 10px 28px rgba(22, 131, 95, 0.28);
+  color: #fff;
+  font-size: 2rem;
+  animation: celebration-check 800ms cubic-bezier(0.2, 1.4, 0.4, 1) 180ms both;
+}
+
+.game-celebration-burst i {
+  --angle: calc(var(--particle) * 22.5deg);
+  position: absolute;
+  top: 43px;
+  left: 43px;
+  width: 7px;
+  height: 14px;
+  border-radius: 4px;
+  background: hsl(calc(var(--particle) * 31deg) 72% 52%);
+  transform: rotate(var(--angle)) translateY(-10px);
+  animation: celebration-particle 900ms ease-out calc(var(--particle) * 18ms) both;
+}
+
+@keyframes celebration-backdrop {
+  0%, 100% { opacity: 0; }
+  10%, 82% { opacity: 1; }
+}
+
+@keyframes celebration-card {
+  0% { opacity: 0; transform: translateY(18px) scale(0.92); }
+  12%, 82% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-8px) scale(0.98); }
+}
+
+@keyframes celebration-check {
+  from { opacity: 0; transform: scale(0.4) rotate(-18deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes celebration-particle {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-8px) scale(0.3);
+  }
+  28% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-48px) scale(1);
+  }
+}
+
 .certificate-tier-list strong {
   font-size: 0.9rem;
   color: var(--ink);
@@ -5924,6 +6180,10 @@ select:focus-visible {
   .certificate-panel-issued dl {
     grid-column: 1 / -1;
   }
+
+  .certificate-showcase {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 620px) {
@@ -5962,6 +6222,12 @@ select:focus-visible {
 
   .learning-reset-footer .button {
     width: 100%;
+  }
+
+  .game-celebration-card {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
   }
 }
 

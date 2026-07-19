@@ -1107,8 +1107,8 @@ const learningGames = [
         "Ein starkes Paket verbindet schnelle Emissionsminderung mit widerstandsfähigen Ökosystemen und fair zugänglicher Unterstützung."
       ),
       action: bi(
-        "Reach the target percentage with a balanced package. Extra tokens remain optional, so compare what each measure changes.",
-        "Erreiche die Zielprozentzahl mit einem ausgewogenen Paket. Zusätzliche Token bleiben freiwillig, damit du die Wirkung jeder Maßnahme vergleichen kannst."
+        "Build a tightly balanced package, test it and use the qualitative feedback to uncover the hidden mission threshold.",
+        "Baue ein sehr genau ausbalanciertes Paket, prüfe es und erschließe die verdeckte Missionsgrenze aus dem qualitativen Feedback."
       ),
     },
   },
@@ -1395,13 +1395,14 @@ const climateCouncilControls = [
 ];
 const CLIMATE_CONTROL_COLORS = ["#f2c14e", "#2a7f9e", "#e56b5d", "#8fbd68", "#c971b8"];
 
-const CITY_GAME_TARGET = 62;
-const CITY_METRIC_FLOOR = 45;
-const REEF_GAME_TARGET = 64;
-const REEF_METRIC_FLOOR = 50;
+const CITY_GAME_TARGET = 69;
+const CITY_METRIC_FLOOR = 60;
+const CITY_BUDGET = 12;
+const REEF_GAME_TARGET = 65;
+const REEF_METRIC_FLOOR = 58;
 const REEF_BUDGET = 9;
-const CLIMATE_GAME_TARGET = 66;
-const CLIMATE_METRIC_FLOOR = 60;
+const CLIMATE_GAME_TARGET = 94;
+const CLIMATE_METRIC_FLOOR = 90;
 const CLIMATE_BUDGET = 14;
 
 const reefSynergies = [
@@ -1433,7 +1434,7 @@ const reefSynergies = [
     ),
   },
 ];
-const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260719-3";
+const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260719-4";
 
 const quizQuestions = [
   {
@@ -1880,6 +1881,17 @@ const content = {
       gameTargetAt: "Continue from {count}%",
       gameTargetReached: "Target reached. You can continue now.",
       gameTargetRemaining: "{count} percentage points to go.",
+      gameHiddenGoal: "Hidden mission threshold",
+      gameHiddenGoalIntro: "The exact solution stays hidden. Build a plan, test it and use the clue to improve your next attempt.",
+      gameAttempts: "Checks: {count}",
+      gameTestPlan: "Test plan",
+      gameUseFullBudget: "The plan is not ambitious enough yet. Use the remaining {count} points.",
+      gameKeepEveryCategory: "One field was reduced to zero. A robust package must keep every field active.",
+      gameFindSynergy: "The individual actions are useful, but the decisive hidden synergy is still missing.",
+      gameWeakestArea: "Almost there. Your weakest area is “{area}”. Rebalance the plan and test it again.",
+      gameNeedsBalance: "The package is close, but its overall balance is not strong enough yet.",
+      gameCongratulations: "Congratulations!",
+      gameCongratulationsText: "You experimented successfully and cracked the mission.",
       gameLiveModel: "Live 3D model",
       cityModelLabel: "Interactive 3D sponge-city model. The scene responds to shade, soil, water and route tokens.",
       reefModelLabel: "Interactive 3D reef model. The scene responds to the selected protection actions.",
@@ -1927,6 +1939,10 @@ const content = {
       certificateTierTitle: "CYRI {tier} Certificate unlocked",
       certificateTierIssuedTitle: "{tier} Certificate issued",
       certificateIssuedList: "Issued certificates",
+      certificateCollection: "Three certificate levels",
+      certificateLocked: "Not earned yet",
+      certificateEarned: "Earned",
+      certificateCreated: "Created",
       certificateText: "Enter your name to create the certificate for this completed path.",
       certificateName: "Name on the certificate",
       certificateNameRequired: "Please enter a name for the certificate.",
@@ -2504,6 +2520,17 @@ const content = {
       gameTargetAt: "Weiter ab {count}%",
       gameTargetReached: "Ziel erreicht. Du kannst jetzt weitergehen.",
       gameTargetRemaining: "Noch {count} Prozentpunkte bis zum Weitergehen.",
+      gameHiddenGoal: "Verdeckte Missionsgrenze",
+      gameHiddenGoalIntro: "Die exakte Lösung bleibt verborgen. Baue einen Plan, prüfe ihn und nutze den Hinweis für deinen nächsten Versuch.",
+      gameAttempts: "Prüfversuche: {count}",
+      gameTestPlan: "Plan prüfen",
+      gameUseFullBudget: "Der Plan ist noch nicht ambitioniert genug. Nutze die übrigen {count} Punkte.",
+      gameKeepEveryCategory: "Ein Bereich wurde auf null gesetzt. Ein robustes Paket muss jeden Bereich einbeziehen.",
+      gameFindSynergy: "Die Einzelmaßnahmen helfen, aber die entscheidende versteckte Synergie fehlt noch.",
+      gameWeakestArea: "Fast geschafft. Dein schwächster Bereich ist „{area}“. Verteile neu und prüfe erneut.",
+      gameNeedsBalance: "Das Paket ist nah dran, aber insgesamt noch nicht ausgewogen genug.",
+      gameCongratulations: "Herzlichen Glückwunsch!",
+      gameCongratulationsText: "Du hast erfolgreich ausprobiert und die Mission geknackt.",
       gameLiveModel: "3D-Live-Modell",
       cityModelLabel: "Interaktives 3D-Modell einer Schwammstadt. Die Szene reagiert auf Token für Schatten, Boden, Wasser und Wege.",
       reefModelLabel: "Interaktives 3D-Riffmodell. Die Szene reagiert auf die ausgewählten Schutzmaßnahmen.",
@@ -2551,6 +2578,10 @@ const content = {
       certificateTierTitle: "CYRI {tier}-Zertifikat freigeschaltet",
       certificateTierIssuedTitle: "{tier}-Zertifikat ausgestellt",
       certificateIssuedList: "Ausgestellte Zertifikate",
+      certificateCollection: "Drei Zertifikatsstufen",
+      certificateLocked: "Noch nicht verdient",
+      certificateEarned: "Verdient",
+      certificateCreated: "Erstellt",
       certificateText: "Trage deinen Namen ein und erstelle das Zertifikat für diesen abgeschlossenen Pfad.",
       certificateName: "Name auf dem Zertifikat",
       certificateNameRequired: "Bitte gib einen Namen für das Zertifikat ein.",
@@ -3031,6 +3062,7 @@ const state = {
   completedLearningGames: savedGameProgress.completed,
   learningGameHistory: savedGameProgress.history,
   certificateIssuance: savedCertificateIssuance,
+  learningGameCelebration: null,
   activeLearningGame: learningGames[0].id,
   sdgSprintIndex: 0,
   sdgSprintAnswers: [],
@@ -3044,6 +3076,16 @@ const state = {
     soil: 2,
     water: 2,
     routes: 2,
+  },
+  puzzleAttempts: {
+    city: 0,
+    reef: 0,
+    climate: 0,
+  },
+  puzzleFeedback: {
+    city: null,
+    reef: null,
+    climate: null,
   },
   reefActions: [],
   climatePlan: {
@@ -3193,6 +3235,9 @@ function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.chainRoundMisses = 0;
   state.chainFeedback = "";
   state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
+  state.puzzleAttempts = { city: 0, reef: 0, climate: 0 };
+  state.puzzleFeedback = { city: null, reef: null, climate: null };
+  state.learningGameCelebration = null;
   state.reefActions = [];
   state.climatePlan = { energy: 1, mobility: 1, food: 1, nature: 1, fairness: 1 };
   saveGameProgress();
@@ -3203,10 +3248,21 @@ function completeLearningGame(gameId) {
   if (!isLearningGameComplete(gameId)) {
     state.completedLearningGames.push(gameId);
     newlyCompleted = true;
+    state.learningGameCelebration = {
+      gameId,
+      id: `${gameId}-${Date.now()}`,
+    };
   }
 
   if (newlyCompleted && activeLearningGameIds().every((id) => isLearningGameComplete(id))) {
-    const score = Math.max(100, activeLearningGameIds().length * 100 - state.chainMistakes * 5);
+    const failedPuzzleAttempts = Object.values(state.puzzleAttempts).reduce(
+      (sum, attempts) => sum + Math.max(0, attempts - 1),
+      0
+    );
+    const score = Math.max(
+      100,
+      activeLearningGameIds().length * 100 - state.chainMistakes * 5 - failedPuzzleAttempts * 10
+    );
     const today = new Date().toISOString().slice(0, 10);
     state.learningGameHistory = [
       { minutes: state.learningGameMinutes, score, date: today },
@@ -3252,7 +3308,9 @@ function climateMetric(metric) {
 function climateGameSolved(metrics, average) {
   return (
     average >= CLIMATE_GAME_TARGET &&
-    Object.values(metrics).every((value) => value >= CLIMATE_METRIC_FLOOR)
+    Object.values(metrics).every((value) => value >= CLIMATE_METRIC_FLOOR) &&
+    Object.values(state.climatePlan).every((value) => value >= 1) &&
+    climatePlanTotal() === CLIMATE_BUDGET
   );
 }
 
@@ -3313,7 +3371,7 @@ function changeCityPlan(id, change) {
   if (!cityBuilderControls.some((item) => item.id === id)) return false;
   const current = state.cityPlan[id] || 0;
   const next = current + change;
-  if (next < 0 || next > 6 || (change > 0 && cityPlanTotal() >= 12)) return false;
+  if (next < 0 || next > 6 || (change > 0 && cityPlanTotal() >= CITY_BUDGET)) return false;
   state.cityPlan[id] = next;
   return true;
 }
@@ -3369,15 +3427,80 @@ function reefMetric(metric) {
 function cityGameSolved(metrics, average) {
   return (
     average >= CITY_GAME_TARGET &&
-    Object.values(metrics).every((value) => value >= CITY_METRIC_FLOOR)
+    Object.values(metrics).every((value) => value >= CITY_METRIC_FLOOR) &&
+    cityPlanTotal() === CITY_BUDGET
   );
 }
 
 function reefGameSolved(recovery, pressure, community, average) {
   return (
     average >= REEF_GAME_TARGET &&
-    [recovery, pressure, community].every((value) => value >= REEF_METRIC_FLOOR)
+    [recovery, pressure, community].every((value) => value >= REEF_METRIC_FLOOR) &&
+    activeReefSynergies().length >= 1
   );
+}
+
+function weakestMetricId(metrics) {
+  return Object.entries(metrics).reduce(
+    (weakest, entry) => (entry[1] < weakest[1] ? entry : weakest),
+    Object.entries(metrics)[0]
+  )[0];
+}
+
+function puzzleFeedbackText(feedback, metricLabels) {
+  if (!feedback) return t("learn.gameHiddenGoalIntro");
+  if (feedback.reason === "budget") {
+    return formatLearningText(t("learn.gameUseFullBudget"), { count: feedback.remaining });
+  }
+  if (feedback.reason === "category") return t("learn.gameKeepEveryCategory");
+  if (feedback.reason === "synergy") return t("learn.gameFindSynergy");
+  if (feedback.reason === "weak") {
+    return formatLearningText(t("learn.gameWeakestArea"), {
+      area: metricLabels[feedback.metric] || feedback.metric,
+    });
+  }
+  return t("learn.gameNeedsBalance");
+}
+
+function renderPuzzleGate(game, metricLabels) {
+  const attempts = state.puzzleAttempts[game] || 0;
+  const feedback = state.puzzleFeedback[game];
+  const gameIds = {
+    city: "city-builder",
+    reef: "reef-rescue",
+    climate: "climate-council",
+  };
+  const complete = isLearningGameComplete(gameIds[game]);
+  if (complete) {
+    return `
+      <div class="puzzle-gate is-solved" role="status">
+        <div>
+          <span aria-hidden="true">✓</span>
+          <div>
+            <strong>${escapeHtml(t("learn.gameCongratulations"))}</strong>
+            <p>${escapeHtml(t("learn.gameCongratulationsText"))}</p>
+          </div>
+        </div>
+        <small>${escapeHtml(
+          formatLearningText(t("learn.gameAttempts"), { count: attempts })
+        )}</small>
+      </div>
+    `;
+  }
+  return `
+    <div class="puzzle-gate${feedback ? " has-result" : ""}" role="status">
+      <div>
+        <span aria-hidden="true">?</span>
+        <div>
+          <strong>${escapeHtml(t("learn.gameHiddenGoal"))}</strong>
+          <p>${escapeHtml(puzzleFeedbackText(feedback, metricLabels))}</p>
+        </div>
+      </div>
+      <small>${escapeHtml(
+        formatLearningText(t("learn.gameAttempts"), { count: attempts })
+      )}</small>
+    </div>
+  `;
 }
 
 function escapeHtml(value) {
@@ -4547,7 +4670,7 @@ function renderChainGame() {
 }
 
 function renderCityBuilderGame() {
-  const budget = 12;
+  const budget = CITY_BUDGET;
   const used = cityPlanTotal();
   const remaining = budget - used;
   const metrics = {
@@ -4616,18 +4739,22 @@ function renderCityBuilderGame() {
         ${renderGameMeter(t("learn.cityHabitat"), metrics.habitat)}
         ${renderGameMeter(t("learn.cityFairness"), metrics.fairness)}
       </div>
-      ${renderGameTarget(average, CITY_GAME_TARGET, solved, outcome, [
-        {
-          text: formatLearningText(t("learn.gameRuleFloor"), { count: CITY_METRIC_FLOOR }),
-          met: Object.values(metrics).every((value) => value >= CITY_METRIC_FLOOR),
-        },
-      ])}
+      ${renderPuzzleGate("city", {
+        cooling: t("learn.cityCooling"),
+        flood: t("learn.cityFlood"),
+        habitat: t("learn.cityHabitat"),
+        fairness: t("learn.cityFairness"),
+      })}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-city-reset>
           ${escapeHtml(t("learn.gameReset"))}
         </button>
-        <button class="button button-primary" type="button" data-city-complete ${solved ? "" : "disabled"}>
-          ${escapeHtml(learningGameCompletionLabel("city-builder"))}
+        <button class="button button-primary" type="button" data-city-complete ${
+          isLearningGameComplete("city-builder") ? "disabled" : ""
+        }>
+          ${escapeHtml(
+            t(isLearningGameComplete("city-builder") ? "learn.gameComplete" : "learn.gameTestPlan")
+          )}
         </button>
       </div>
     </div>
@@ -4688,7 +4815,9 @@ function renderReefRescueGame() {
           .map((synergy) => {
             const active = synergy.pair.every((id) => state.reefActions.includes(id));
             return `<p class="game-rule ${active ? "is-met" : "is-open"}">
-              <b aria-hidden="true">${active ? "✓" : "+"}</b> ${escapeHtml(localizedValue(synergy.text))}
+              <b aria-hidden="true">${active ? "✓" : "?"}</b> ${escapeHtml(
+                active ? localizedValue(synergy.text) : t("learn.gameHiddenGoal")
+              )}
             </p>`;
           })
           .join("")}
@@ -4698,18 +4827,21 @@ function renderReefRescueGame() {
         ${renderGameMeter(t("learn.reefPressure"), pressure)}
         ${renderGameMeter(t("learn.reefCommunity"), community)}
       </div>
-      ${renderGameTarget(average, REEF_GAME_TARGET, solved, outcome, [
-        {
-          text: formatLearningText(t("learn.gameRuleFloor"), { count: REEF_METRIC_FLOOR }),
-          met: [recovery, pressure, community].every((value) => value >= REEF_METRIC_FLOOR),
-        },
-      ])}
+      ${renderPuzzleGate("reef", {
+        recovery: t("learn.reefRecovery"),
+        pressure: t("learn.reefPressure"),
+        community: t("learn.reefCommunity"),
+      })}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-reef-reset>
           ${escapeHtml(t("learn.gameReset"))}
         </button>
-        <button class="button button-primary" type="button" data-reef-complete ${solved ? "" : "disabled"}>
-          ${escapeHtml(learningGameCompletionLabel("reef-rescue"))}
+        <button class="button button-primary" type="button" data-reef-complete ${
+          isLearningGameComplete("reef-rescue") ? "disabled" : ""
+        }>
+          ${escapeHtml(
+            t(isLearningGameComplete("reef-rescue") ? "learn.gameComplete" : "learn.gameTestPlan")
+          )}
         </button>
       </div>
     </div>
@@ -4772,16 +4904,20 @@ function renderClimateCouncilGame() {
         ${renderGameMeter(t("learn.finalJustice"), metrics.justice)}
         ${renderGameMeter(t("learn.finalResilience"), metrics.resilience)}
       </div>
-      ${renderGameTarget(average, CLIMATE_GAME_TARGET, solved, t("learn.finalOutcomeStrong"), [
-        {
-          text: formatLearningText(t("learn.gameRuleFloor"), { count: CLIMATE_METRIC_FLOOR }),
-          met: Object.values(metrics).every((value) => value >= CLIMATE_METRIC_FLOOR),
-        },
-      ])}
+      ${renderPuzzleGate("climate", {
+        climate: t("learn.finalClimate"),
+        nature: t("learn.finalNature"),
+        justice: t("learn.finalJustice"),
+        resilience: t("learn.finalResilience"),
+      })}
       <div class="game-action-row">
         <button class="button button-secondary" type="button" data-climate-reset>${escapeHtml(t("learn.gameReset"))}</button>
-        <button class="button button-primary" type="button" data-climate-complete ${solved ? "" : "disabled"}>
-          ${escapeHtml(learningGameCompletionLabel("climate-council"))}
+        <button class="button button-primary" type="button" data-climate-complete ${
+          isLearningGameComplete("climate-council") ? "disabled" : ""
+        }>
+          ${escapeHtml(
+            t(isLearningGameComplete("climate-council") ? "learn.gameComplete" : "learn.gameTestPlan")
+          )}
         </button>
       </div>
     </div>
@@ -4801,6 +4937,12 @@ function renderLearningProfile() {
   const issuedTiers = Object.entries(certificateTiers)
     .map(([minutes, tier]) => ({ minutes, tier, entry: state.certificateIssuance?.[tier.id] }))
     .filter((item) => item.entry);
+  const certificateCollection = Object.entries(certificateTiers).map(([minutes, tier]) => {
+    const track = learningGameTracks.find((item) => item.minutes === Number(minutes));
+    const earned = track?.games.every((gameId) => isLearningGameComplete(gameId));
+    const issued = state.certificateIssuance?.[tier.id];
+    return { minutes, tier, earned, issued };
+  });
   return `
     <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
       <div class="learning-profile-stats">
@@ -4814,6 +4956,34 @@ function renderLearningProfile() {
             (badge) => `<span class="learning-badge${badge.unlocked ? " is-unlocked" : ""}">
               <b aria-hidden="true">${badge.unlocked ? "✓" : "○"}</b>${escapeHtml(localizedValue(badge.label))}
             </span>`
+          )
+          .join("")}
+      </div>
+      <div class="certificate-showcase" aria-label="${escapeHtml(t("learn.certificateCollection"))}">
+        ${certificateCollection
+          .map(
+            ({ minutes, tier, earned, issued }) => `
+              <article class="certificate-preview certificate-tier-${escapeHtml(tier.id)}${
+                earned ? " is-earned" : ""
+              }${issued ? " is-issued" : ""}">
+                <span class="certificate-preview-medal" aria-hidden="true">${escapeHtml(
+                  tier.id === "bronze" ? "B" : tier.id === "silver" ? "S" : "G"
+                )}</span>
+                <div>
+                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(tier.label))}</span>
+                  <strong>${escapeHtml(minutes)} min</strong>
+                  <small>${escapeHtml(
+                    t(
+                      issued
+                        ? "learn.certificateCreated"
+                        : earned
+                          ? "learn.certificateEarned"
+                          : "learn.certificateLocked"
+                    )
+                  )}</small>
+                </div>
+              </article>
+            `
           )
           .join("")}
       </div>
@@ -4885,6 +5055,32 @@ function renderLearningProfile() {
       }
       <p class="learning-local-note">${escapeHtml(t("learn.localOnly"))}</p>
     </section>
+  `;
+}
+
+function renderGameCelebration() {
+  const celebration = state.learningGameCelebration;
+  if (!celebration) return "";
+  const game = learningGames.find((item) => item.id === celebration.gameId);
+  return `
+    <div
+      class="game-celebration"
+      role="status"
+      aria-live="assertive"
+      data-game-celebration="${escapeHtml(celebration.id)}"
+    >
+      <div class="game-celebration-card">
+        <div class="game-celebration-burst" aria-hidden="true">
+          ${Array.from({ length: 16 }, (_, index) => `<i style="--particle: ${index}"></i>`).join("")}
+          <b>✓</b>
+        </div>
+        <div>
+          <strong>${escapeHtml(t("learn.gameCongratulations"))}</strong>
+          <span>${escapeHtml(localizedValue(game?.title || bi("Mission", "Mission")))}</span>
+          <p>${escapeHtml(t("learn.gameCongratulationsText"))}</p>
+        </div>
+      </div>
+    </div>
   `;
 }
 
@@ -5021,6 +5217,8 @@ function downloadClimateCertificate(name, tier) {
 
 let learningModelDispose = null;
 let learningModelRequestId = 0;
+let learningCelebrationTimer = null;
+let learningCelebrationTimerId = null;
 
 function disposeLearning3DModel() {
   learningModelRequestId += 1;
@@ -5106,6 +5304,7 @@ function renderLearningGames() {
   const pathComplete = completedCount === sequenceIds.length;
 
   container.innerHTML = `
+    ${renderGameCelebration()}
     <section class="game-flow-panel">
       <div>
         <p class="eyebrow">${escapeHtml(t("learn.gameTimeLabel"))}</p>
@@ -5196,6 +5395,20 @@ function renderLearningGames() {
       </button>
     </div>
   `;
+  if (state.learningGameCelebration) {
+    const celebrationId = state.learningGameCelebration.id;
+    if (learningCelebrationTimerId !== celebrationId) {
+      window.clearTimeout(learningCelebrationTimer);
+      learningCelebrationTimerId = celebrationId;
+      learningCelebrationTimer = window.setTimeout(() => {
+        if (state.learningGameCelebration?.id === celebrationId) {
+          state.learningGameCelebration = null;
+        }
+        learningCelebrationTimerId = null;
+        document.querySelector(`[data-game-celebration="${CSS.escape(celebrationId)}"]`)?.remove();
+      }, 3200);
+    }
+  }
   syncLearning3DModel();
 }
 
@@ -6320,6 +6533,7 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-city-reset]")) {
     state.cityPlan = { shade: 2, soil: 2, water: 2, routes: 2 };
+    state.puzzleFeedback.city = null;
     renderLearningGames();
     return;
   }
@@ -6334,8 +6548,21 @@ document.addEventListener("click", (event) => {
     const average = Math.round(
       (metrics.cooling + metrics.flood + metrics.habitat + metrics.fairness) / 4
     );
+    state.puzzleAttempts.city += 1;
     if (cityGameSolved(metrics, average)) {
       completeLearningGame("city-builder");
+    } else if (cityPlanTotal() < CITY_BUDGET) {
+      state.puzzleFeedback.city = {
+        reason: "budget",
+        remaining: CITY_BUDGET - cityPlanTotal(),
+      };
+    } else {
+      state.puzzleFeedback.city = {
+        reason: Object.values(metrics).some((value) => value < CITY_METRIC_FLOOR)
+          ? "weak"
+          : "balance",
+        metric: weakestMetricId(metrics),
+      };
     }
     renderLearningGames();
     return;
@@ -6350,6 +6577,7 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-reef-reset]")) {
     state.reefActions = [];
+    state.puzzleFeedback.reef = null;
     renderLearningGames();
     return;
   }
@@ -6359,8 +6587,19 @@ document.addEventListener("click", (event) => {
     const pressure = reefMetric("pressure");
     const community = reefMetric("community");
     const average = Math.round((recovery + pressure + community) / 3);
+    const metrics = { recovery, pressure, community };
+    state.puzzleAttempts.reef += 1;
     if (reefGameSolved(recovery, pressure, community, average)) {
       completeLearningGame("reef-rescue");
+    } else if (activeReefSynergies().length === 0) {
+      state.puzzleFeedback.reef = { reason: "synergy" };
+    } else {
+      state.puzzleFeedback.reef = {
+        reason: Object.values(metrics).some((value) => value < REEF_METRIC_FLOOR)
+          ? "weak"
+          : "balance",
+        metric: weakestMetricId(metrics),
+      };
     }
     renderLearningGames();
     return;
@@ -6376,6 +6615,7 @@ document.addEventListener("click", (event) => {
 
   if (event.target.closest("[data-climate-reset]")) {
     state.climatePlan = { energy: 1, mobility: 1, food: 1, nature: 1, fairness: 1 };
+    state.puzzleFeedback.climate = null;
     renderLearningGames();
     return;
   }
@@ -6388,7 +6628,24 @@ document.addEventListener("click", (event) => {
       resilience: climateMetric("resilience"),
     };
     const average = Math.round(Object.values(metrics).reduce((sum, value) => sum + value, 0) / 4);
-    if (climateGameSolved(metrics, average)) completeLearningGame("climate-council");
+    state.puzzleAttempts.climate += 1;
+    if (climateGameSolved(metrics, average)) {
+      completeLearningGame("climate-council");
+    } else if (climatePlanTotal() < CLIMATE_BUDGET) {
+      state.puzzleFeedback.climate = {
+        reason: "budget",
+        remaining: CLIMATE_BUDGET - climatePlanTotal(),
+      };
+    } else if (Object.values(state.climatePlan).some((value) => value < 1)) {
+      state.puzzleFeedback.climate = { reason: "category" };
+    } else {
+      state.puzzleFeedback.climate = {
+        reason: Object.values(metrics).some((value) => value < CLIMATE_METRIC_FLOOR)
+          ? "weak"
+          : "balance",
+        metric: weakestMetricId(metrics),
+      };
+    }
     renderLearningGames();
     return;
   }
