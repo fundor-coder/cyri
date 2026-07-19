@@ -1,4 +1,5 @@
 .DS_Store
+.claude/
 node_modules/
 .env
 .env.*
@@ -10,3 +11,7 @@ data/*.bak
 data/*.lock
 data/uploads/
 test-results/
+
+# Private documents - never publish (public repo)
+Antrag/
+Drei passgenaue*.pdf
