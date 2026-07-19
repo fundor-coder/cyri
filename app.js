@@ -5122,21 +5122,12 @@ function renderClimateCouncilGame() {
 function renderLearningProfile() {
   const badges = learningBadges();
   const unlocked = badges.filter((badge) => badge.unlocked);
-  const rankedRuns = [...state.learningGameHistory].sort(
-    (left, right) => right.score - left.score || right.minutes - left.minutes
-  );
   const activeTier = selectedCertificateTier();
-  const activeTrack = certificateTrackForTier(activeTier);
   const certificateUnlocked = isCertificateTierEarned(activeTier);
   const tierIssuance = state.certificateIssuance?.[activeTier.id];
   const issuedTiers = Object.entries(certificateTiers)
     .map(([minutes, tier]) => ({ minutes, tier, entry: state.certificateIssuance?.[tier.id] }))
     .filter((item) => item.entry);
-  const certificateCollection = Object.entries(certificateTiers).map(([minutes, tier]) => {
-    const earned = isCertificateTierEarned(tier);
-    const issued = state.certificateIssuance?.[tier.id];
-    return { minutes, tier, earned, issued, selected: tier.id === activeTier.id };
-  });
   return `
     <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
       <div class="learning-profile-stats">
@@ -5153,57 +5144,6 @@ function renderLearningProfile() {
           )
           .join("")}
       </div>
-      <div class="certificate-showcase" aria-label="${escapeHtml(t("learn.certificateCollection"))}">
-        ${certificateCollection
-          .map(
-            ({ minutes, tier, earned, issued, selected }) => {
-              const className = `certificate-preview certificate-tier-${escapeHtml(tier.id)}${
-                earned ? " is-earned" : ""
-              }${issued ? " is-issued" : ""}${selected ? " is-selected" : ""}`;
-              const content = `
-                <span class="certificate-preview-medal" aria-hidden="true">${escapeHtml(
-                  tier.id === "bronze" ? "B" : tier.id === "silver" ? "S" : "G"
-                )}</span>
-                <div>
-                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(tier.label))}</span>
-                  <strong>${escapeHtml(minutes)} min</strong>
-                  <small>${escapeHtml(
-                    t(
-                      issued
-                        ? "learn.certificateCreated"
-                        : earned
-                          ? "learn.certificateEarned"
-                          : "learn.certificateLocked"
-                    )
-                  )}</small>
-                </div>
-              `;
-              return earned
-                ? `<button
-                    class="${className}"
-                    type="button"
-                    data-certificate-tier-select="${escapeHtml(tier.id)}"
-                    aria-pressed="${selected}"
-                    aria-label="${escapeHtml(`${localizedValue(tier.label)} ${minutes} min`)}"
-                  >${content}</button>`
-                : `<article class="${className}">${content}</article>`;
-            }
-          )
-          .join("")}
-      </div>
-      ${
-        rankedRuns.length
-          ? `<div class="local-ranking">
-              <strong>${escapeHtml(t("learn.localRanking"))}</strong>
-              <ol>${rankedRuns
-                .slice(0, 3)
-                .map(
-                  (run) => `<li><span>${run.minutes} min</span><b>${run.score} ${escapeHtml(t("learn.xp"))}</b><small>${escapeHtml(run.date)}</small></li>`
-                )
-                .join("")}</ol>
-            </div>`
-          : ""
-      }
       ${
         certificateUnlocked
           ? tierIssuance
@@ -5257,7 +5197,6 @@ function renderLearningProfile() {
             </div>`
           : ""
       }
-      <p class="learning-local-note">${escapeHtml(t("learn.localOnly"))}</p>
     </section>
   `;
 }
