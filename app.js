@@ -1433,7 +1433,7 @@ const reefSynergies = [
     ),
   },
 ];
-const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-3";
+const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260719-3";
 
 const quizQuestions = [
   {
