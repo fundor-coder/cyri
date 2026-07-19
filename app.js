@@ -1338,7 +1338,7 @@ const CLIMATE_CONTROL_COLORS = ["#f2c14e", "#2a7f9e", "#e56b5d", "#8fbd68", "#c9
 const CITY_GAME_TARGET = 62;
 const REEF_GAME_TARGET = 68;
 const CLIMATE_GAME_TARGET = 66;
-const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260716-3";
+const LEARNING_3D_MODULE_URL = "./assets/learning-3d.js?v=20260718-1";
 
 const quizQuestions = [
   {
