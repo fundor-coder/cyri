@@ -119,11 +119,14 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await page.locator("[data-climate-complete]").click();
   await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
   await expect(page.locator(".certificate-preview")).toHaveCount(3);
-  await expect(page.locator("[data-certificate-download]")).toBeDisabled();
-  await page.locator("[data-certificate-name]").fill("Alex Klimaschützer");
-  await expect(page.locator("[data-certificate-download]")).toBeEnabled();
+  await expect(page.locator("[data-celebration-certificate-download]")).toBeDisabled();
+  await page.locator("[data-game-celebration]").screenshot({
+    path: "/tmp/cyri-certificate-celebration.png",
+  });
+  await page.locator("[data-celebration-certificate-name]").fill("Alex Klimaschützer");
+  await expect(page.locator("[data-celebration-certificate-download]")).toBeEnabled();
   const downloadPromise = page.waitForEvent("download");
-  await page.locator("[data-certificate-download]").click();
+  await page.locator("[data-celebration-certificate-download]").click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/^CYRI-Climate-Certificate-.*\.pdf$/);
   await download.saveAs("/tmp/cyri-climate-certificate.pdf");
