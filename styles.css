@@ -5821,6 +5821,26 @@ body[data-audience="children"] .modal-body h3 {
   opacity: 0.65;
 }
 
+button.certificate-preview {
+  width: 100%;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+button.certificate-preview.is-earned:hover,
+button.certificate-preview.is-selected {
+  border-color: color-mix(in srgb, var(--tier-color) 58%, transparent);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--tier-color) 20%, transparent);
+  transform: translateY(-1px);
+}
+
+.certificate-preview.is-selected {
+  outline: 3px solid color-mix(in srgb, var(--tier-color) 35%, transparent);
+  outline-offset: -3px;
+}
+
 .certificate-preview.is-earned {
   box-shadow: 0 10px 24px color-mix(in srgb, var(--tier-color) 14%, transparent);
   opacity: 1;

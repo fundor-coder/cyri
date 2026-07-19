@@ -72,6 +72,29 @@ test("five-minute path unlocks puzzles in sequence", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("an earned bronze certificate stays available after changing the time path", async ({ page }) => {
+  await setAdultMode(page, {
+    minutes: 30,
+    completed: ["sdg-sprint", "chain-builder"],
+    history: [{ minutes: 5, score: 200, date: "2026-07-19" }],
+  });
+  await page.goto("http://127.0.0.1:5173/#learn");
+
+  const bronzeTier = page.locator('[data-certificate-tier-select="bronze"]');
+  await expect(bronzeTier).toBeVisible();
+  await bronzeTier.click();
+  await expect(page.locator("[data-certificate-form]")).toContainText("Bronze");
+  await page.locator("[data-certificate-name]").fill("Alex Bronze");
+  const downloadPromise = page.waitForEvent("download");
+  await page.locator("[data-certificate-download]").click();
+  await downloadPromise;
+  await expect(page.locator("[data-certificate-issued]")).toContainText("Bronze");
+  const issuance = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("cyri-certificate-issuance-v2") || "null")?.bronze
+  );
+  expect(issuance?.id).toMatch(/^CYRI-BRONZE-/);
+});
+
 test("finale and certificate work on desktop", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));

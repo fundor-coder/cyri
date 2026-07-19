@@ -1143,6 +1143,22 @@ function certificateTierForMinutes(minutes) {
   return certificateTiers[minutes] || certificateTiers[30];
 }
 
+function certificateMinutesForTier(tierId) {
+  return Number(
+    Object.entries(certificateTiers).find(([, tier]) => tier.id === tierId)?.[0] || 30
+  );
+}
+
+function certificateTrackForTier(tier) {
+  return learningGameTracks.find((track) => track.minutes === certificateMinutesForTier(tier.id));
+}
+
+function isCertificateTierEarned(tier) {
+  return Boolean(
+    certificateTrackForTier(tier)?.games.every((gameId) => isLearningGameComplete(gameId))
+  );
+}
+
 const sdgSprintRounds = [
   {
     prompt: bi(
@@ -3066,6 +3082,7 @@ const state = {
   completedLearningGames: savedGameProgress.completed,
   learningGameHistory: savedGameProgress.history,
   certificateIssuance: savedCertificateIssuance,
+  selectedCertificateTier: null,
   learningGameCelebration: null,
   activeLearningGame: learningGames[0].id,
   sdgSprintIndex: 0,
@@ -3222,6 +3239,7 @@ function saveCertificateIssuance(tierId, issuance) {
 function resetAllLearningGameProgress() {
   state.completedLearningGames = [];
   state.learningGameHistory = [];
+  state.selectedCertificateTier = null;
   saveCertificateIssuance(null);
   resetLearningGameRun(state.learningGameMinutes);
   state.activeLearningGame = activeLearningGameIds()[0];
@@ -3230,6 +3248,7 @@ function resetAllLearningGameProgress() {
 
 function resetLearningGameRun(minutes = state.learningGameMinutes) {
   state.learningGameMinutes = minutes;
+  state.selectedCertificateTier = certificateTierForMinutes(minutes).id;
   state.activeLearningGame = nextUnlockedLearningGameId() || activeLearningGameIds().at(-1);
   state.sdgSprintIndex = 0;
   state.sdgSprintAnswers = [];
@@ -3281,6 +3300,18 @@ function completeLearningGame(gameId) {
   if (nextGameId) {
     state.activeLearningGame = nextGameId;
   }
+}
+
+function selectedCertificateTier() {
+  const selected = Object.values(certificateTiers).find(
+    (tier) => tier.id === state.selectedCertificateTier
+  );
+  if (selected && isCertificateTierEarned(selected)) return selected;
+
+  const active = certificateTierForMinutes(state.learningGameMinutes);
+  if (isCertificateTierEarned(active)) return active;
+
+  return Object.values(certificateTiers).find((tier) => isCertificateTierEarned(tier)) || active;
 }
 
 function climatePlanTotal() {
@@ -4934,18 +4965,17 @@ function renderLearningProfile() {
   const rankedRuns = [...state.learningGameHistory].sort(
     (left, right) => right.score - left.score || right.minutes - left.minutes
   );
-  const activeTrack = activeLearningGameTrack();
-  const activeTier = certificateTierForMinutes(activeTrack.minutes);
-  const certificateUnlocked = activeTrack.games.every((gameId) => isLearningGameComplete(gameId));
+  const activeTier = selectedCertificateTier();
+  const activeTrack = certificateTrackForTier(activeTier);
+  const certificateUnlocked = isCertificateTierEarned(activeTier);
   const tierIssuance = state.certificateIssuance?.[activeTier.id];
   const issuedTiers = Object.entries(certificateTiers)
     .map(([minutes, tier]) => ({ minutes, tier, entry: state.certificateIssuance?.[tier.id] }))
     .filter((item) => item.entry);
   const certificateCollection = Object.entries(certificateTiers).map(([minutes, tier]) => {
-    const track = learningGameTracks.find((item) => item.minutes === Number(minutes));
-    const earned = track?.games.every((gameId) => isLearningGameComplete(gameId));
+    const earned = isCertificateTierEarned(tier);
     const issued = state.certificateIssuance?.[tier.id];
-    return { minutes, tier, earned, issued };
+    return { minutes, tier, earned, issued, selected: tier.id === activeTier.id };
   });
   return `
     <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
@@ -4966,10 +4996,11 @@ function renderLearningProfile() {
       <div class="certificate-showcase" aria-label="${escapeHtml(t("learn.certificateCollection"))}">
         ${certificateCollection
           .map(
-            ({ minutes, tier, earned, issued }) => `
-              <article class="certificate-preview certificate-tier-${escapeHtml(tier.id)}${
+            ({ minutes, tier, earned, issued, selected }) => {
+              const className = `certificate-preview certificate-tier-${escapeHtml(tier.id)}${
                 earned ? " is-earned" : ""
-              }${issued ? " is-issued" : ""}">
+              }${issued ? " is-issued" : ""}${selected ? " is-selected" : ""}`;
+              const content = `
                 <span class="certificate-preview-medal" aria-hidden="true">${escapeHtml(
                   tier.id === "bronze" ? "B" : tier.id === "silver" ? "S" : "G"
                 )}</span>
@@ -4986,8 +5017,17 @@ function renderLearningProfile() {
                     )
                   )}</small>
                 </div>
-              </article>
-            `
+              `;
+              return earned
+                ? `<button
+                    class="${className}"
+                    type="button"
+                    data-certificate-tier-select="${escapeHtml(tier.id)}"
+                    aria-pressed="${selected}"
+                    aria-label="${escapeHtml(`${localizedValue(tier.label)} ${minutes} min`)}"
+                  >${content}</button>`
+                : `<article class="${className}">${content}</article>`;
+            }
           )
           .join("")}
       </div>
@@ -5036,7 +5076,7 @@ function renderLearningProfile() {
                   <span>${escapeHtml(t("learn.certificateName"))}</span>
                   <input type="text" maxlength="80" autocomplete="name" aria-describedby="certificate-once" data-certificate-name required />
                 </label>
-                <button class="button button-primary" type="button" data-certificate-download disabled>${escapeHtml(t("learn.certificateDownload"))}</button>
+                <button class="button button-primary" type="button" data-certificate-download data-certificate-tier="${escapeHtml(activeTier.id)}" disabled>${escapeHtml(t("learn.certificateDownload"))}</button>
                 <small id="certificate-once">${escapeHtml(t("learn.certificateOnce"))}</small>
               </div>`
           : ""
@@ -5111,7 +5151,9 @@ function renderGameCelebration() {
                       required
                     />
                   </label>
-                  <button class="button button-primary" type="button" data-celebration-certificate-download disabled>
+                  <button class="button button-primary" type="button" data-celebration-certificate-download data-certificate-tier="${escapeHtml(
+                    tier.id
+                  )}" disabled>
                     ${escapeHtml(t("learn.certificateDownload"))}
                   </button>
                   <small>${escapeHtml(t("learn.certificateOnce"))}</small>
@@ -5172,7 +5214,7 @@ function pdfSafeText(value) {
     .join("");
 }
 
-function downloadClimateCertificate(name, tier) {
+function downloadClimateCertificate(name, tier, minutes = certificateMinutesForTier(tier.id)) {
   const issuedAt = new Date();
   const tierName = pdfSafeText(localizedValue(tier.label).toUpperCase());
   const certificateId = `CYRI-${tier.id.toUpperCase()}-${issuedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
@@ -5185,14 +5227,15 @@ function downloadClimateCertificate(name, tier) {
       year: "numeric",
     }).format(issuedAt)
   );
+  const track = learningGameTracks.find((item) => item.minutes === minutes) || learningGameTracks[0];
   const latestRun =
-    state.learningGameHistory.find((entry) => entry.minutes === state.learningGameMinutes) ||
+    state.learningGameHistory.find((entry) => entry.minutes === minutes) ||
     state.learningGameHistory[0];
-  const score = Math.max(100, latestRun?.score || activeLearningGameIds().length * 100);
+  const score = Math.max(100, latestRun?.score || track.games.length * 100);
   const certificateText = pdfSafeText(
     state.lang === "de"
-      ? `hat die CYRI-Klimamissionen der ${state.learningGameMinutes}-Minuten-Stufe erfolgreich abgeschlossen.`
-      : `has successfully completed the CYRI climate missions of the ${state.learningGameMinutes}-minute path.`
+      ? `hat die CYRI-Klimamissionen der ${minutes}-Minuten-Stufe erfolgreich abgeschlossen.`
+      : `has successfully completed the CYRI climate missions of the ${minutes}-minute path.`
   );
   const issuedLabel = pdfSafeText(state.lang === "de" ? "Ausgestellt" : "Issued");
   const missionLabel = pdfSafeText(state.lang === "de" ? "MISSION GESCHAFFT" : "MISSION COMPLETE");
@@ -5202,9 +5245,9 @@ function downloadClimateCertificate(name, tier) {
   const fundingText = pdfSafeText(
     "Funded by DSEE with funds from BMZ - action! Aktiv für eine globale Welt"
   );
-  const completionValue = `${activeLearningGameIds().length} / ${activeLearningGameIds().length}`;
+  const completionValue = `${track.games.length} / ${track.games.length}`;
   const missionNames = pdfSafeText(
-    activeLearningGameIds()
+    track.games
       .map((id) => localizedValue(learningGames.find((game) => game.id === id)?.title || id))
       .join("  |  ")
   );
@@ -5234,7 +5277,7 @@ function downloadClimateCertificate(name, tier) {
     "0.91 0.95 0.91 rg 228 150 158 66 re f",
     "0.91 0.95 0.91 rg 398 150 158 66 re f",
     `BT /F2 8 Tf 0.22 0.34 0.29 rg 72 195 Td (${timeLabel}) Tj ET`,
-    `BT /F2 20 Tf 0.03 0.32 0.25 rg 72 168 Td (${state.learningGameMinutes} MIN) Tj ET`,
+    `BT /F2 20 Tf 0.03 0.32 0.25 rg 72 168 Td (${minutes} MIN) Tj ET`,
     `BT /F2 8 Tf 0.22 0.34 0.29 rg 242 195 Td (${scoreLabel}) Tj ET`,
     `BT /F2 20 Tf 0.03 0.32 0.25 rg 242 168 Td (${score} XP) Tj ET`,
     `BT /F2 8 Tf 0.22 0.34 0.29 rg 412 195 Td (${modulesLabel}) Tj ET`,
@@ -6499,6 +6542,18 @@ document.addEventListener("click", (event) => {
     return;
   }
 
+  const certificateTierButton = event.target.closest("[data-certificate-tier-select]");
+  if (certificateTierButton) {
+    const tier = Object.values(certificateTiers).find(
+      (item) => item.id === certificateTierButton.dataset.certificateTierSelect
+    );
+    if (tier && isCertificateTierEarned(tier)) {
+      state.selectedCertificateTier = tier.id;
+      renderLearningGames();
+    }
+    return;
+  }
+
   const gameButton = event.target.closest("[data-learning-game]");
   if (gameButton) {
     if (!isLearningGameUnlocked(gameButton.dataset.learningGame)) return;
@@ -6722,8 +6777,10 @@ document.addEventListener("click", (event) => {
     "[data-certificate-download], [data-celebration-certificate-download]"
   );
   if (certificateDownloadButton) {
-    const tier = certificateTierForMinutes(activeLearningGameTrack().minutes);
-    if (state.certificateIssuance?.[tier.id]) return;
+    const tier = Object.values(certificateTiers).find(
+      (item) => item.id === certificateDownloadButton.dataset.certificateTier
+    );
+    if (!tier || !isCertificateTierEarned(tier) || state.certificateIssuance?.[tier.id]) return;
     const certificateForm = certificateDownloadButton.closest(
       "[data-certificate-form], [data-celebration-certificate-form]"
     );
@@ -6737,7 +6794,10 @@ document.addEventListener("click", (event) => {
       return;
     }
     nameInput.setCustomValidity("");
-    saveCertificateIssuance(tier.id, downloadClimateCertificate(name, tier));
+    saveCertificateIssuance(
+      tier.id,
+      downloadClimateCertificate(name, tier, certificateMinutesForTier(tier.id))
+    );
     state.learningGameCelebration = null;
     renderLearningGames();
     return;
