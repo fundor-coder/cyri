@@ -80,9 +80,6 @@ test("an earned bronze certificate stays available after changing the time path"
   });
   await page.goto("http://127.0.0.1:5173/#learn");
 
-  const bronzeTier = page.locator('[data-certificate-tier-select="bronze"]');
-  await expect(bronzeTier).toBeVisible();
-  await bronzeTier.click();
   await expect(page.locator("[data-certificate-form]")).toContainText("Bronze");
   await page.locator("[data-certificate-name]").fill("Alex Bronze");
   const downloadPromise = page.waitForEvent("download");
@@ -141,7 +138,8 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await expect(page.locator("[data-learning-games]")).not.toContainText("Continue from");
   await page.locator("[data-climate-complete]").click();
   await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
-  await expect(page.locator(".certificate-preview")).toHaveCount(3);
+  await expect(page.locator(".certificate-preview")).toHaveCount(0);
+  await expect(page.locator(".local-ranking")).toHaveCount(0);
   await expect(page.locator("[data-celebration-certificate-download]")).toBeDisabled();
   await page.locator("[data-game-celebration]").screenshot({
     path: "/tmp/cyri-certificate-celebration.png",
