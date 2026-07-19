@@ -1892,6 +1892,8 @@ const content = {
       gameNeedsBalance: "The package is close, but its overall balance is not strong enough yet.",
       gameCongratulations: "Congratulations!",
       gameCongratulationsText: "You experimented successfully and cracked the mission.",
+      gameMissionBrief: "Mission brief",
+      gameClose: "Continue",
       gameLiveModel: "Live 3D model",
       cityModelLabel: "Interactive 3D sponge-city model. The scene responds to shade, soil, water and route tokens.",
       reefModelLabel: "Interactive 3D reef model. The scene responds to the selected protection actions.",
@@ -2531,6 +2533,8 @@ const content = {
       gameNeedsBalance: "Das Paket ist nah dran, aber insgesamt noch nicht ausgewogen genug.",
       gameCongratulations: "Herzlichen Glückwunsch!",
       gameCongratulationsText: "Du hast erfolgreich ausprobiert und die Mission geknackt.",
+      gameMissionBrief: "Missionswissen",
+      gameClose: "Weiter",
       gameLiveModel: "3D-Live-Modell",
       cityModelLabel: "Interaktives 3D-Modell einer Schwammstadt. Die Szene reagiert auf Token für Schatten, Boden, Wasser und Wege.",
       reefModelLabel: "Interaktives 3D-Riffmodell. Die Szene reagiert auf die ausgewählten Schutzmaßnahmen.",
@@ -5062,26 +5066,84 @@ function renderGameCelebration() {
   const celebration = state.learningGameCelebration;
   if (!celebration) return "";
   const game = learningGames.find((item) => item.id === celebration.gameId);
+  const tier = celebrationCertificateTier();
   return `
     <div
       class="game-celebration"
-      role="status"
+      role="dialog"
+      aria-modal="true"
       aria-live="assertive"
       data-game-celebration="${escapeHtml(celebration.id)}"
     >
       <div class="game-celebration-card">
+        <button
+          class="game-celebration-dismiss"
+          type="button"
+          data-celebration-dismiss
+          aria-label="${escapeHtml(t("learn.gameClose"))}"
+        >×</button>
         <div class="game-celebration-burst" aria-hidden="true">
           ${Array.from({ length: 16 }, (_, index) => `<i style="--particle: ${index}"></i>`).join("")}
           <b>✓</b>
         </div>
-        <div>
+        <div class="game-celebration-content">
           <strong>${escapeHtml(t("learn.gameCongratulations"))}</strong>
           <span>${escapeHtml(localizedValue(game?.title || bi("Mission", "Mission")))}</span>
           <p>${escapeHtml(t("learn.gameCongratulationsText"))}</p>
+          ${
+            tier
+              ? `<div class="celebration-certificate-form certificate-tier-${escapeHtml(
+                  tier.id
+                )}" data-celebration-certificate-form>
+                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(tier.label))}</span>
+                  <strong>${escapeHtml(
+                    formatLearningText(t("learn.certificateTierTitle"), {
+                      tier: localizedValue(tier.label),
+                    })
+                  )}</strong>
+                  <label>
+                    <span>${escapeHtml(t("learn.certificateName"))}</span>
+                    <input
+                      type="text"
+                      maxlength="80"
+                      autocomplete="name"
+                      data-celebration-certificate-name
+                      required
+                    />
+                  </label>
+                  <button class="button button-primary" type="button" data-celebration-certificate-download disabled>
+                    ${escapeHtml(t("learn.certificateDownload"))}
+                  </button>
+                  <small>${escapeHtml(t("learn.certificateOnce"))}</small>
+                </div>`
+              : `<button class="button button-primary game-celebration-continue" type="button" data-celebration-dismiss>
+                  ${escapeHtml(t("learn.gameClose"))}
+                </button>`
+          }
         </div>
       </div>
     </div>
   `;
+}
+
+function renderGameCelebrationOverlay() {
+  const existingRoot = document.querySelector("[data-game-celebration-root]");
+  if (!state.learningGameCelebration) {
+    existingRoot?.remove();
+    return;
+  }
+  const root = existingRoot || document.createElement("div");
+  root.dataset.gameCelebrationRoot = "";
+  root.innerHTML = renderGameCelebration();
+  if (!existingRoot) document.body.append(root);
+}
+
+function celebrationCertificateTier() {
+  if (!state.learningGameCelebration) return null;
+  const activeTrack = activeLearningGameTrack();
+  const pathComplete = activeTrack.games.every((gameId) => isLearningGameComplete(gameId));
+  const tier = certificateTierForMinutes(activeTrack.minutes);
+  return pathComplete && !state.certificateIssuance?.[tier.id] ? tier : null;
 }
 
 function pdfSafeText(value) {
@@ -5304,7 +5366,6 @@ function renderLearningGames() {
   const pathComplete = completedCount === sequenceIds.length;
 
   container.innerHTML = `
-    ${renderGameCelebration()}
     <section class="game-flow-panel">
       <div>
         <p class="eyebrow">${escapeHtml(t("learn.gameTimeLabel"))}</p>
@@ -5339,7 +5400,6 @@ function renderLearningGames() {
         <span>${escapeHtml(pathComplete ? t("learn.gamePathComplete") : localizedValue(activeLearningGameTrack().description))}</span>
       </div>
     </section>
-    ${renderLearningProfile()}
     <aside class="game-menu" role="tablist" aria-label="${escapeHtml(t("learn.gameChoose"))}">
       ${sequenceIds
         .map((gameId, index) => {
@@ -5372,22 +5432,26 @@ function renderLearningGames() {
         <span>${escapeHtml(localizedValue(activeGame.tag))}</span>
         <h3>${escapeHtml(localizedValue(activeGame.title))}</h3>
         <p>${escapeHtml(localizedValue(activeGame.text))}</p>
+      </div>
+      <details class="game-context">
+        <summary>${escapeHtml(t("learn.gameMissionBrief"))}</summary>
+        <div class="game-info-grid">
+          ${gameInfoCards
+            .map(
+              ([label, text]) => `
+                <article class="game-info-card">
+                  <strong>${escapeHtml(t(`learn.${label}`))}</strong>
+                  <p>${escapeHtml(localizedValue(text))}</p>
+                </article>
+              `
+            )
+            .join("")}
+        </div>
         <small>${escapeHtml(t("learn.gameModelNote"))}</small>
-      </div>
-      <div class="game-info-grid">
-        ${gameInfoCards
-          .map(
-            ([label, text]) => `
-              <article class="game-info-card">
-                <strong>${escapeHtml(t(`learn.${label}`))}</strong>
-                <p>${escapeHtml(localizedValue(text))}</p>
-              </article>
-            `
-          )
-          .join("")}
-      </div>
+      </details>
       ${(renderers[activeGame.id] || renderSdgSprintGame)()}
     </section>
+    ${renderLearningProfile()}
     <div class="learning-reset-footer">
       <p>${escapeHtml(t("learn.resetNote"))}</p>
       <button class="button button-secondary" type="button" data-learning-games-reset>
@@ -5395,7 +5459,8 @@ function renderLearningGames() {
       </button>
     </div>
   `;
-  if (state.learningGameCelebration) {
+  renderGameCelebrationOverlay();
+  if (state.learningGameCelebration && !celebrationCertificateTier()) {
     const celebrationId = state.learningGameCelebration.id;
     if (learningCelebrationTimerId !== celebrationId) {
       window.clearTimeout(learningCelebrationTimer);
@@ -5405,9 +5470,12 @@ function renderLearningGames() {
           state.learningGameCelebration = null;
         }
         learningCelebrationTimerId = null;
-        document.querySelector(`[data-game-celebration="${CSS.escape(celebrationId)}"]`)?.remove();
+        document.querySelector("[data-game-celebration-root]")?.remove();
       }, 3200);
     }
+  } else if (celebrationCertificateTier()) {
+    window.clearTimeout(learningCelebrationTimer);
+    learningCelebrationTimerId = null;
   }
   syncLearning3DModel();
 }
@@ -6650,10 +6718,18 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  if (event.target.closest("[data-certificate-download]")) {
+  const certificateDownloadButton = event.target.closest(
+    "[data-certificate-download], [data-celebration-certificate-download]"
+  );
+  if (certificateDownloadButton) {
     const tier = certificateTierForMinutes(activeLearningGameTrack().minutes);
     if (state.certificateIssuance?.[tier.id]) return;
-    const nameInput = document.querySelector("[data-certificate-name]");
+    const certificateForm = certificateDownloadButton.closest(
+      "[data-certificate-form], [data-celebration-certificate-form]"
+    );
+    const nameInput = certificateForm?.querySelector(
+      "[data-certificate-name], [data-celebration-certificate-name]"
+    );
     const name = nameInput?.value.trim() || "";
     if (!name) {
       nameInput?.setCustomValidity(t("learn.certificateNameRequired"));
@@ -6662,6 +6738,15 @@ document.addEventListener("click", (event) => {
     }
     nameInput.setCustomValidity("");
     saveCertificateIssuance(tier.id, downloadClimateCertificate(name, tier));
+    state.learningGameCelebration = null;
+    renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-celebration-dismiss]")) {
+    state.learningGameCelebration = null;
+    window.clearTimeout(learningCelebrationTimer);
+    learningCelebrationTimerId = null;
     renderLearningGames();
     return;
   }
@@ -6860,10 +6945,17 @@ document.addEventListener("click", (event) => {
 });
 
 document.addEventListener("input", (event) => {
-  const nameInput = event.target.closest("[data-certificate-name]");
+  const nameInput = event.target.closest(
+    "[data-certificate-name], [data-celebration-certificate-name]"
+  );
   if (!nameInput) return;
   nameInput.setCustomValidity("");
-  const downloadButton = document.querySelector("[data-certificate-download]");
+  const certificateForm = nameInput.closest(
+    "[data-certificate-form], [data-celebration-certificate-form]"
+  );
+  const downloadButton = certificateForm?.querySelector(
+    "[data-certificate-download], [data-celebration-certificate-download]"
+  );
   if (downloadButton) downloadButton.disabled = nameInput.value.trim().length < 2;
 });
 

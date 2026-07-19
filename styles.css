@@ -2263,6 +2263,57 @@ h3 {
   color: var(--ink-soft);
 }
 
+.game-context {
+  border: 1px solid rgba(18, 22, 29, 0.1);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.58);
+  overflow: hidden;
+}
+
+.game-context summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 820;
+  list-style: none;
+  padding: 13px 15px;
+}
+
+.game-context summary::-webkit-details-marker {
+  display: none;
+}
+
+.game-context summary::after {
+  color: var(--ink);
+  content: "+";
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.game-context[open] summary {
+  border-bottom: 1px solid rgba(18, 22, 29, 0.1);
+}
+
+.game-context[open] summary::after {
+  content: "−";
+}
+
+.game-context .game-info-grid {
+  padding: 12px;
+}
+
+.game-context > small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  padding: 0 14px 14px;
+}
+
 .game-info-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -5822,16 +5873,18 @@ body[data-audience="children"] .modal-body h3 {
   place-items: center;
   background: rgba(13, 34, 29, 0.38);
   padding: 18px;
-  pointer-events: none;
-  animation: celebration-backdrop 3.2s ease both;
+  animation: celebration-backdrop 240ms ease-out both;
 }
 
 .game-celebration-card {
+  position: relative;
   display: grid;
   grid-template-columns: 96px minmax(0, 1fr);
   gap: 18px;
   align-items: center;
-  width: min(520px, 100%);
+  width: min(620px, 100%);
+  max-height: calc(100dvh - 36px);
+  overflow: auto;
   border: 1px solid rgba(255, 255, 255, 0.68);
   border-radius: var(--radius-md);
   background:
@@ -5839,12 +5892,33 @@ body[data-audience="children"] .modal-body h3 {
     #fff;
   box-shadow: 0 28px 70px rgba(10, 32, 25, 0.28);
   padding: 24px;
-  animation: celebration-card 3.2s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+  animation: celebration-card 440ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
 }
 
-.game-celebration-card > div:last-child {
+.game-celebration-content {
   display: grid;
   gap: 4px;
+}
+
+.game-celebration-dismiss {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(18, 22, 29, 0.08);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.game-celebration-dismiss:hover {
+  background: rgba(18, 22, 29, 0.14);
 }
 
 .game-celebration-card strong {
@@ -5862,6 +5936,74 @@ body[data-audience="children"] .modal-body h3 {
   margin: 3px 0 0;
   color: var(--muted);
   line-height: 1.4;
+}
+
+.celebration-certificate-form {
+  --tier-color: var(--green);
+  --tier-bg: #e8f5ed;
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(18, 22, 29, 0.1);
+  padding-top: 14px;
+}
+
+.celebration-certificate-form.certificate-tier-bronze {
+  --tier-color: #a05a24;
+  --tier-bg: #f7e5d4;
+}
+
+.celebration-certificate-form.certificate-tier-silver {
+  --tier-color: #5d6b76;
+  --tier-bg: #e9edf1;
+}
+
+.celebration-certificate-form.certificate-tier-gold {
+  --tier-color: #a87c14;
+  --tier-bg: #f9ecc4;
+}
+
+.celebration-certificate-form .certificate-tier-chip {
+  width: fit-content;
+  margin: 0;
+}
+
+.celebration-certificate-form > strong {
+  color: var(--ink);
+  font-size: 1rem;
+}
+
+.celebration-certificate-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  font-weight: 720;
+}
+
+.celebration-certificate-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid color-mix(in srgb, var(--tier-color) 35%, rgba(18, 22, 29, 0.2));
+  border-radius: var(--radius-xs);
+  background: #fff;
+  color: var(--ink);
+  padding: 9px 11px;
+}
+
+.celebration-certificate-form .button {
+  justify-self: start;
+}
+
+.celebration-certificate-form small {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.game-celebration-continue {
+  justify-self: start;
+  margin-top: 12px;
 }
 
 .game-celebration-burst {
@@ -5900,14 +6042,13 @@ body[data-audience="children"] .modal-body h3 {
 }
 
 @keyframes celebration-backdrop {
-  0%, 100% { opacity: 0; }
-  10%, 82% { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes celebration-card {
-  0% { opacity: 0; transform: translateY(18px) scale(0.92); }
-  12%, 82% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  from { opacity: 0; transform: translateY(18px) scale(0.92); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes celebration-check {
@@ -6228,6 +6369,18 @@ select:focus-visible {
     grid-template-columns: 1fr;
     justify-items: center;
     text-align: center;
+    padding: 22px 18px 18px;
+  }
+
+  .game-celebration-content,
+  .celebration-certificate-form {
+    width: 100%;
+  }
+
+  .celebration-certificate-form .button,
+  .game-celebration-continue {
+    justify-self: stretch;
+    width: 100%;
   }
 }
 
