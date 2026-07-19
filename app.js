@@ -1132,6 +1132,17 @@ const learningGameTracks = [
   },
 ];
 
+const certificateTiers = {
+  5: { id: "bronze", label: bi("Bronze", "Bronze"), rgb: "0.72 0.45 0.20", chip: "0.95 0.88 0.80" },
+  15: { id: "silver", label: bi("Silver", "Silber"), rgb: "0.44 0.48 0.52", chip: "0.91 0.93 0.95" },
+  30: { id: "gold", label: bi("Gold", "Gold"), rgb: "0.80 0.60 0.12", chip: "0.97 0.92 0.78" },
+};
+const certificateTierOrder = ["bronze", "silver", "gold"];
+
+function certificateTierForMinutes(minutes) {
+  return certificateTiers[minutes] || certificateTiers[30];
+}
+
 const sdgSprintRounds = [
   {
     prompt: bi(
@@ -1913,13 +1924,16 @@ const content = {
       localRanking: "Best results on this device",
       localOnly: "Progress, badges and results stay in this browser and are not published.",
       certificateTitle: "CYRI Climate Certificate unlocked",
-      certificateText: "Enter your name to create the one certificate for this completed run.",
+      certificateTierTitle: "CYRI {tier} Certificate unlocked",
+      certificateTierIssuedTitle: "{tier} Certificate issued",
+      certificateIssuedList: "Issued certificates",
+      certificateText: "Enter your name to create the certificate for this completed path.",
       certificateName: "Name on the certificate",
       certificateNameRequired: "Please enter a name for the certificate.",
       certificateDownload: "Create certificate once",
-      certificateOnce: "One certificate can be issued for each completed run on this device.",
+      certificateOnce: "Each tier (Bronze 5 min, Silver 15 min, Gold 30 min) can issue one certificate on this device.",
       certificateIssuedTitle: "Certificate issued",
-      certificateIssuedText: "This completed run already has its certificate. Start a new run with the reset button below to earn another one.",
+      certificateIssuedText: "This tier already has its certificate. Complete a longer path to earn the next tier.",
       certificateId: "Certificate ID",
       resetProgress: "Reset all game progress",
       resetConfirm: "Reset all game progress, badges, results and the certificate status on this device?",
@@ -2534,13 +2548,16 @@ const content = {
       localRanking: "Beste Ergebnisse auf diesem Gerät",
       localOnly: "Fortschritt, Badges und Ergebnisse bleiben in diesem Browser und werden nicht veröffentlicht.",
       certificateTitle: "CYRI Climate Certificate freigeschaltet",
-      certificateText: "Trage deinen Namen ein und erstelle das eine Zertifikat für diesen abgeschlossenen Durchlauf.",
+      certificateTierTitle: "CYRI {tier}-Zertifikat freigeschaltet",
+      certificateTierIssuedTitle: "{tier}-Zertifikat ausgestellt",
+      certificateIssuedList: "Ausgestellte Zertifikate",
+      certificateText: "Trage deinen Namen ein und erstelle das Zertifikat für diesen abgeschlossenen Pfad.",
       certificateName: "Name auf dem Zertifikat",
       certificateNameRequired: "Bitte gib einen Namen für das Zertifikat ein.",
       certificateDownload: "Zertifikat einmalig erstellen",
-      certificateOnce: "Pro abgeschlossenem Durchlauf kann auf diesem Gerät ein Zertifikat ausgestellt werden.",
+      certificateOnce: "Pro Stufe (Bronze 5 min, Silber 15 min, Gold 30 min) kann auf diesem Gerät ein Zertifikat ausgestellt werden.",
       certificateIssuedTitle: "Zertifikat ausgestellt",
-      certificateIssuedText: "Dieser abgeschlossene Durchlauf hat bereits sein Zertifikat. Mit dem Reset unten startest du einen neuen Durchlauf und kannst ein neues verdienen.",
+      certificateIssuedText: "Diese Stufe hat ihr Zertifikat bereits. Schließe einen längeren Pfad ab, um die nächste Stufe zu verdienen.",
       certificateId: "Zertifikats-ID",
       resetProgress: "Gesamten Spielfortschritt zurücksetzen",
       resetConfirm: "Gesamten Spielfortschritt, Badges, Ergebnisse und Zertifikatsstatus auf diesem Gerät zurücksetzen?",
@@ -2825,7 +2842,8 @@ const AUDIENCE_KEY = "cyri-learning-audience";
 const LEARNING_POLL_KEY = "cyri-learning-poll";
 const MISSION_STATE_KEY = "cyri-mission-lab";
 const GAME_PROGRESS_KEY = "cyri-game-progress-v2";
-const CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v1";
+const CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v2";
+const LEGACY_CERTIFICATE_ISSUANCE_KEY = "cyri-certificate-issuance-v1";
 
 function loadAudience() {
   const savedAudience = localStorage.getItem(AUDIENCE_KEY);
@@ -2884,17 +2902,34 @@ function loadGameProgress() {
   }
 }
 
+function sanitizeCertificateEntry(entry) {
+  return entry &&
+    typeof entry.id === "string" &&
+    entry.id.startsWith("CYRI-") &&
+    typeof entry.issuedAt === "string"
+    ? { id: entry.id.slice(0, 48), issuedAt: entry.issuedAt }
+    : null;
+}
+
 function loadCertificateIssuance() {
   try {
     const saved = JSON.parse(localStorage.getItem(CERTIFICATE_ISSUANCE_KEY) || "null");
-    return saved &&
-      typeof saved.id === "string" &&
-      saved.id.startsWith("CYRI-") &&
-      typeof saved.issuedAt === "string"
-      ? { id: saved.id.slice(0, 48), issuedAt: saved.issuedAt }
-      : null;
+    if (saved && typeof saved === "object" && !saved.id) {
+      const issuance = {};
+      certificateTierOrder.forEach((tierId) => {
+        const entry = sanitizeCertificateEntry(saved[tierId]);
+        if (entry) issuance[tierId] = entry;
+      });
+      return issuance;
+    }
+    // Migrate the old single-certificate format: it required the full
+    // 30-minute path, so it maps to the gold tier.
+    const legacy = sanitizeCertificateEntry(
+      JSON.parse(localStorage.getItem(LEGACY_CERTIFICATE_ISSUANCE_KEY) || "null")
+    );
+    return legacy ? { gold: legacy } : {};
   } catch {
-    return null;
+    return {};
   }
 }
 
@@ -3127,13 +3162,15 @@ function saveGameProgress() {
   );
 }
 
-function saveCertificateIssuance(issuance) {
-  state.certificateIssuance = issuance;
-  if (issuance) {
-    localStorage.setItem(CERTIFICATE_ISSUANCE_KEY, JSON.stringify(issuance));
-  } else {
+function saveCertificateIssuance(tierId, issuance) {
+  if (!tierId) {
+    state.certificateIssuance = {};
     localStorage.removeItem(CERTIFICATE_ISSUANCE_KEY);
+    localStorage.removeItem(LEGACY_CERTIFICATE_ISSUANCE_KEY);
+    return;
   }
+  state.certificateIssuance = { ...state.certificateIssuance, [tierId]: issuance };
+  localStorage.setItem(CERTIFICATE_ISSUANCE_KEY, JSON.stringify(state.certificateIssuance));
 }
 
 function resetAllLearningGameProgress() {
@@ -4757,7 +4794,13 @@ function renderLearningProfile() {
   const rankedRuns = [...state.learningGameHistory].sort(
     (left, right) => right.score - left.score || right.minutes - left.minutes
   );
-  const certificateUnlocked = isLearningGameComplete("climate-council");
+  const activeTrack = activeLearningGameTrack();
+  const activeTier = certificateTierForMinutes(activeTrack.minutes);
+  const certificateUnlocked = activeTrack.games.every((gameId) => isLearningGameComplete(gameId));
+  const tierIssuance = state.certificateIssuance?.[activeTier.id];
+  const issuedTiers = Object.entries(certificateTiers)
+    .map(([minutes, tier]) => ({ minutes, tier, entry: state.certificateIssuance?.[tier.id] }))
+    .filter((item) => item.entry);
   return `
     <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
       <div class="learning-profile-stats">
@@ -4789,20 +4832,32 @@ function renderLearningProfile() {
       }
       ${
         certificateUnlocked
-          ? state.certificateIssuance
-            ? `<div class="certificate-panel certificate-panel-issued" data-certificate-issued>
+          ? tierIssuance
+            ? `<div class="certificate-panel certificate-panel-issued certificate-tier-${escapeHtml(activeTier.id)}" data-certificate-issued>
                 <span class="certificate-issued-mark" aria-hidden="true">✓</span>
                 <div>
-                  <strong>${escapeHtml(t("learn.certificateIssuedTitle"))}</strong>
+                  <strong>${escapeHtml(
+                    formatLearningText(t("learn.certificateTierIssuedTitle"), {
+                      tier: localizedValue(activeTier.label),
+                    })
+                  )}</strong>
                   <p>${escapeHtml(t("learn.certificateIssuedText"))}</p>
                 </div>
                 <dl>
                   <dt>${escapeHtml(t("learn.certificateId"))}</dt>
-                  <dd>${escapeHtml(state.certificateIssuance.id)}</dd>
+                  <dd>${escapeHtml(tierIssuance.id)}</dd>
                 </dl>
               </div>`
-            : `<div class="certificate-panel" data-certificate-form>
-                <div><strong>${escapeHtml(t("learn.certificateTitle"))}</strong><p>${escapeHtml(t("learn.certificateText"))}</p></div>
+            : `<div class="certificate-panel certificate-tier-${escapeHtml(activeTier.id)}" data-certificate-form>
+                <div>
+                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(activeTier.label))}</span>
+                  <strong>${escapeHtml(
+                    formatLearningText(t("learn.certificateTierTitle"), {
+                      tier: localizedValue(activeTier.label),
+                    })
+                  )}</strong>
+                  <p>${escapeHtml(t("learn.certificateText"))}</p>
+                </div>
                 <label>
                   <span>${escapeHtml(t("learn.certificateName"))}</span>
                   <input type="text" maxlength="80" autocomplete="name" aria-describedby="certificate-once" data-certificate-name required />
@@ -4810,6 +4865,22 @@ function renderLearningProfile() {
                 <button class="button button-primary" type="button" data-certificate-download disabled>${escapeHtml(t("learn.certificateDownload"))}</button>
                 <small id="certificate-once">${escapeHtml(t("learn.certificateOnce"))}</small>
               </div>`
+          : ""
+      }
+      ${
+        issuedTiers.length
+          ? `<div class="certificate-tier-list">
+              <strong>${escapeHtml(t("learn.certificateIssuedList"))}</strong>
+              ${issuedTiers
+                .map(
+                  (item) => `<p class="certificate-tier-row certificate-tier-${escapeHtml(item.tier.id)}">
+                    <span class="certificate-tier-chip">${escapeHtml(localizedValue(item.tier.label))}</span>
+                    <span>${escapeHtml(item.minutes)} min</span>
+                    <small>${escapeHtml(item.entry.id)}</small>
+                  </p>`
+                )
+                .join("")}
+            </div>`
           : ""
       }
       <p class="learning-local-note">${escapeHtml(t("learn.localOnly"))}</p>
@@ -4843,9 +4914,10 @@ function pdfSafeText(value) {
     .join("");
 }
 
-function downloadClimateCertificate(name) {
+function downloadClimateCertificate(name, tier) {
   const issuedAt = new Date();
-  const certificateId = `CYRI-${issuedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+  const tierName = pdfSafeText(localizedValue(tier.label).toUpperCase());
+  const certificateId = `CYRI-${tier.id.toUpperCase()}-${issuedAt.toISOString().slice(0, 10).replace(/-/g, "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
   const recipient = pdfSafeText(name);
   const recipientFontSize = Math.max(15, Math.min(30, Math.floor(1050 / Math.max(name.length, 1))));
   const date = pdfSafeText(
@@ -4861,8 +4933,8 @@ function downloadClimateCertificate(name) {
   const score = Math.max(100, latestRun?.score || activeLearningGameIds().length * 100);
   const certificateText = pdfSafeText(
     state.lang === "de"
-      ? "hat die interaktiven CYRI-Klimamissionen erfolgreich abgeschlossen."
-      : "has successfully completed the interactive CYRI climate missions."
+      ? `hat die CYRI-Klimamissionen der ${state.learningGameMinutes}-Minuten-Stufe erfolgreich abgeschlossen.`
+      : `has successfully completed the CYRI climate missions of the ${state.learningGameMinutes}-minute path.`
   );
   const issuedLabel = pdfSafeText(state.lang === "de" ? "Ausgestellt" : "Issued");
   const missionLabel = pdfSafeText(state.lang === "de" ? "MISSION GESCHAFFT" : "MISSION COMPLETE");
@@ -4873,6 +4945,11 @@ function downloadClimateCertificate(name) {
     "Funded by DSEE with funds from BMZ - action! Aktiv für eine globale Welt"
   );
   const completionValue = `${activeLearningGameIds().length} / ${activeLearningGameIds().length}`;
+  const missionNames = pdfSafeText(
+    activeLearningGameIds()
+      .map((id) => localizedValue(learningGames.find((game) => game.id === id)?.title || id))
+      .join("  |  ")
+  );
   const contentStream = [
     "0.035 0.16 0.14 rg 0 0 842 595 re f",
     "0.965 0.98 0.95 rg 24 24 794 547 re f",
@@ -4884,14 +4961,17 @@ function downloadClimateCertificate(name) {
     "0.57 0.33 0.65 rg 642 531 150 10 re f",
     "0.88 0.95 0.90 rg 58 452 194 30 re f",
     `BT /F2 10 Tf 0.03 0.32 0.25 rg 72 462 Td (${missionLabel}) Tj ET`,
+    `${tier.chip} rg 262 452 118 30 re f`,
+    `${tier.rgb} RG 1.2 w 262 452 118 30 re S`,
+    `BT /F2 10 Tf ${tier.rgb} rg 278 462 Td (${tierName}) Tj ET`,
     "BT /F2 22 Tf 0.03 0.32 0.25 rg 60 502 Td (CYRI) Tj ET",
     "BT /F1 8 Tf 0.14 0.25 0.22 rg 125 506 Td (CLIMATE YOUTH RESEARCH INITIATIVE) Tj ET",
     "BT /F2 35 Tf 0.05 0.12 0.11 rg 58 398 Td (Climate Certificate) Tj ET",
     "BT /F1 12 Tf 0.30 0.36 0.33 rg 60 371 Td (AWARDED TO) Tj ET",
     `BT /F2 ${recipientFontSize} Tf 0.03 0.32 0.25 rg 60 324 Td (${recipient}) Tj ET`,
     "0.03 0.32 0.25 RG 1.2 w 60 305 m 610 305 l S",
-    `BT /F1 14 Tf 0.12 0.20 0.18 rg 60 273 Td (${certificateText}) Tj ET`,
-    "BT /F1 10 Tf 0.22 0.30 0.27 rg 60 245 Td (SDG Sprint  |  Cause Chain  |  City Builder  |  Reef Rescue  |  Climate Council 2035) Tj ET",
+    `BT /F1 12 Tf 0.12 0.20 0.18 rg 60 273 Td (${certificateText}) Tj ET`,
+    `BT /F1 10 Tf 0.22 0.30 0.27 rg 60 245 Td (${missionNames}) Tj ET`,
     "0.91 0.95 0.91 rg 58 150 158 66 re f",
     "0.91 0.95 0.91 rg 228 150 158 66 re f",
     "0.91 0.95 0.91 rg 398 150 158 66 re f",
@@ -4901,7 +4981,7 @@ function downloadClimateCertificate(name) {
     `BT /F2 20 Tf 0.03 0.32 0.25 rg 242 168 Td (${score} XP) Tj ET`,
     `BT /F2 8 Tf 0.22 0.34 0.29 rg 412 195 Td (${modulesLabel}) Tj ET`,
     `BT /F2 20 Tf 0.03 0.32 0.25 rg 412 168 Td (${completionValue}) Tj ET`,
-    "0.95 0.73 0.23 rg 676 326 m 729 357 782 326 782 265 c 782 204 729 173 676 204 c 623 173 570 204 570 265 c 570 326 623 357 676 326 c f",
+    `${tier.rgb} rg 676 326 m 729 357 782 326 782 265 c 782 204 729 173 676 204 c 623 173 570 204 570 265 c 570 326 623 357 676 326 c f`,
     "0.03 0.32 0.25 RG 4 w 589 265 m 589 313 628 340 676 340 c 724 340 763 313 763 265 c 763 217 724 190 676 190 c 628 190 589 217 589 265 c S",
     "BT /F2 34 Tf 0.03 0.32 0.25 rg 645 266 Td (17) Tj ET",
     "BT /F2 9 Tf 0.03 0.32 0.25 rg 633 244 Td (SDG GOALS) Tj ET",
@@ -4933,7 +5013,7 @@ function downloadClimateCertificate(name) {
   pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
   const link = document.createElement("a");
   link.href = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
-  link.download = `CYRI-Climate-Certificate-${certificateId}.pdf`;
+  link.download = `CYRI-Climate-Certificate-${certificateId.slice(5)}.pdf`;
   link.click();
   window.setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   return { id: certificateId, issuedAt: issuedAt.toISOString() };
@@ -6314,7 +6394,8 @@ document.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-certificate-download]")) {
-    if (state.certificateIssuance) return;
+    const tier = certificateTierForMinutes(activeLearningGameTrack().minutes);
+    if (state.certificateIssuance?.[tier.id]) return;
     const nameInput = document.querySelector("[data-certificate-name]");
     const name = nameInput?.value.trim() || "";
     if (!name) {
@@ -6323,7 +6404,7 @@ document.addEventListener("click", (event) => {
       return;
     }
     nameInput.setCustomValidity("");
-    saveCertificateIssuance(downloadClimateCertificate(name));
+    saveCertificateIssuance(tier.id, downloadClimateCertificate(name, tier));
     renderLearningGames();
     return;
   }
