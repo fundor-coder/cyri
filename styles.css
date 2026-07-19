@@ -2565,6 +2565,57 @@ h3 {
   font-weight: 680;
 }
 
+.game-rule {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 640;
+}
+
+.game-rule b {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.game-rule.is-met {
+  color: var(--green);
+}
+
+.game-rule.is-met b {
+  background: rgba(103, 156, 92, 0.18);
+  color: var(--green);
+}
+
+.game-rule.is-open {
+  color: var(--muted);
+}
+
+.game-rule.is-open b {
+  background: rgba(18, 22, 29, 0.08);
+  color: var(--ink);
+}
+
+.reef-synergy-panel {
+  display: grid;
+  gap: 7px;
+  border-left: 5px solid var(--yellow, #f2c14e);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 12px 16px;
+}
+
+.reef-synergy-panel strong {
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
 .game-action-row {
   display: flex;
   flex-wrap: wrap;
