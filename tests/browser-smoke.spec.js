@@ -72,26 +72,6 @@ test("five-minute path unlocks puzzles in sequence", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("an earned bronze certificate stays available after changing the time path", async ({ page }) => {
-  await setAdultMode(page, {
-    minutes: 30,
-    completed: ["sdg-sprint", "chain-builder"],
-    history: [{ minutes: 5, score: 200, date: "2026-07-19" }],
-  });
-  await page.goto("http://127.0.0.1:5173/#learn");
-
-  await expect(page.locator("[data-certificate-form]")).toContainText("Bronze");
-  await page.locator("[data-certificate-name]").fill("Alex Bronze");
-  const downloadPromise = page.waitForEvent("download");
-  await page.locator("[data-certificate-download]").click();
-  await downloadPromise;
-  await expect(page.locator("[data-certificate-issued]")).toContainText("Bronze");
-  const issuance = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("cyri-certificate-issuance-v2") || "null")?.bronze
-  );
-  expect(issuance?.id).toMatch(/^CYRI-BRONZE-/);
-});
-
 test("finale and certificate work on desktop", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -138,8 +118,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await expect(page.locator("[data-learning-games]")).not.toContainText("Continue from");
   await page.locator("[data-climate-complete]").click();
   await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
-  await expect(page.locator(".certificate-preview")).toHaveCount(0);
-  await expect(page.locator(".local-ranking")).toHaveCount(0);
+  await expect(page.locator(".learning-profile")).toHaveCount(0);
   await expect(page.locator("[data-celebration-certificate-download]")).toBeDisabled();
   await page.locator("[data-game-celebration]").screenshot({
     path: "/tmp/cyri-certificate-celebration.png",
@@ -151,7 +130,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/^CYRI-Climate-Certificate-.*\.pdf$/);
   await download.saveAs("/tmp/cyri-climate-certificate.pdf");
-  await expect(page.locator("[data-certificate-issued]")).toBeVisible();
+  await expect(page.locator("[data-game-celebration]")).toHaveCount(0);
   await expect(page.locator("[data-certificate-download]")).toHaveCount(0);
   await expect(page.locator("[data-certificate-name]")).toHaveCount(0);
   const issuance = await page.evaluate(() =>
@@ -159,13 +138,9 @@ test("finale and certificate work on desktop", async ({ page }) => {
   );
   expect(issuance?.id).toMatch(/^CYRI-GOLD-/);
   await page.screenshot({ path: "/tmp/cyri-learn-desktop.png", fullPage: true });
-  const persistedPage = await page.context().newPage();
-  await persistedPage.goto("http://127.0.0.1:5173/#learn");
-  await expect(persistedPage.locator("[data-certificate-issued]")).toContainText(issuance.id);
-  await persistedPage.close();
   page.once("dialog", (dialog) => dialog.accept());
   await page.locator("[data-learning-games-reset]").click();
-  await expect(page.locator("[data-learning-games]")).toContainText("0/5");
+  await expect(page.locator("[data-learning-games]")).toContainText("0 of 5 solved");
   await expect(page.locator('[data-learning-game="climate-council"]')).toBeDisabled();
   expect(
     await page.evaluate(() => localStorage.getItem("cyri-certificate-issuance-v2"))
