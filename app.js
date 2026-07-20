@@ -5593,7 +5593,6 @@ function renderLearningGames() {
       </details>
       ${(renderers[activeGame.id] || renderSdgSprintGame)()}
     </section>
-    ${renderLearningProfile()}
     <div class="learning-reset-footer">
       <p>${escapeHtml(t("learn.resetNote"))}</p>
       <button class="button button-secondary" type="button" data-learning-games-reset>
