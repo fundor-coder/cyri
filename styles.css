@@ -5821,6 +5821,87 @@ body[data-audience="children"] .modal-body h3 {
   line-height: 1.45;
 }
 
+.completion-certificate {
+  grid-column: 1 / -1;
+  position: relative;
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--tier-color, var(--green)) 32%, transparent);
+  border-radius: var(--game-radius-xl);
+  background:
+    radial-gradient(circle at 8% 12%, color-mix(in srgb, var(--tier-color, var(--green)) 20%, transparent), transparent 28%),
+    linear-gradient(145deg, #ffffff, var(--tier-bg, #e8f5ed));
+  box-shadow: 0 24px 58px color-mix(in srgb, var(--tier-color, var(--green)) 16%, transparent);
+  padding: 24px;
+  animation: certificate-bottom-enter 620ms cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+
+.completion-certificate::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 5px;
+  background: linear-gradient(90deg, transparent, var(--tier-color, var(--green)), transparent);
+  content: "";
+}
+
+.completion-certificate-heading {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.completion-certificate-heading > div:last-child {
+  display: grid;
+  gap: 4px;
+}
+
+.completion-certificate-heading strong {
+  color: var(--ink);
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
+  line-height: 1.1;
+}
+
+.completion-certificate-heading p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.completion-certificate-medal {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 4px double rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  background: var(--tier-color, var(--green));
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--tier-color, var(--green)) 28%, transparent);
+  color: #ffffff;
+  font-size: 1.45rem;
+  font-weight: 900;
+  animation: celebration-check 800ms cubic-bezier(0.2, 1.4, 0.4, 1) 180ms both;
+}
+
+.completion-certificate .certificate-panel {
+  border: 1px solid color-mix(in srgb, var(--tier-color) 24%, transparent);
+  border-left: 5px solid var(--tier-color);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+@keyframes certificate-bottom-enter {
+  from {
+    transform: translateY(24px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
 .learning-profile {
   grid-column: 1 / -1;
   display: grid;
@@ -6561,6 +6642,20 @@ select:focus-visible {
 
   .learning-reset-footer .button {
     width: 100%;
+  }
+
+  .completion-certificate {
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .completion-certificate-heading {
+    align-items: flex-start;
+  }
+
+  .completion-certificate-medal {
+    width: 48px;
+    height: 48px;
   }
 
   .game-celebration-card {

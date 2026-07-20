@@ -1455,42 +1455,42 @@ const learningGameTips = {
   "sdg-sprint": {
     title: bi("Strategy tip", "Strategie-Tipp"),
     initial: bi(
-      "Choose the goal that describes the main change in the situation, not simply a related topic. Ask what is being protected, improved or made fair.",
-      "Wähle das Ziel, das die zentrale Veränderung beschreibt – nicht nur ein verwandtes Thema. Frage dich: Was wird geschützt, verbessert oder gerechter gemacht?"
+      "1. Name the main change. 2. Ask who or what benefits. 3. Choose the goal that describes this result—not merely a related topic.",
+      "1. Benenne die zentrale Veränderung. 2. Frage, wer oder was davon profitiert. 3. Wähle das Ziel, das dieses Ergebnis beschreibt – nicht nur ein verwandtes Thema."
     ),
     retry: bi(
-      "Read the situation once more and separate the cause from the intended result. The strongest goal usually names that result.",
-      "Lies die Situation noch einmal und trenne Ursache und gewünschtes Ergebnis. Das stärkste Ziel benennt meist dieses Ergebnis."
+      "Try this: underline the action, then the intended result. Ignore side effects for one moment—the strongest goal usually names the intended result.",
+      "Probiere das: Markiere zuerst die Maßnahme, dann das gewünschte Ergebnis. Blende Nebenwirkungen kurz aus – das stärkste Ziel benennt meist das Ergebnis."
     ),
   },
   "chain-builder": {
     title: bi("Strategy tip", "Strategie-Tipp"),
     initial: bi(
-      "Build the chain one consequence at a time: each card must happen after the card to its left. A solution belongs at the end, not at the beginning.",
-      "Baue die Kette Folge für Folge: Jede Karte muss nach der Karte links von ihr passieren. Eine Lösung gehört ans Ende, nicht an den Anfang."
+      "1. Read the starting event. 2. Find its immediate consequence. 3. Continue one link at a time; the solution belongs at the end.",
+      "1. Lies das Startereignis. 2. Finde die direkte Folge. 3. Gehe Verbindung für Verbindung weiter; die Lösung gehört ans Ende."
     ),
     progress: bi(
-      "Use the last revealed card as your clue. Ask which immediate consequence follows next before looking for the final solution.",
-      "Nutze die zuletzt aufgedeckte Karte als Hinweis. Frage zuerst, welche direkte Folge als Nächstes kommt, bevor du nach der Endlösung suchst."
+      "Look only at the last revealed card. Complete the sentence “Because this happens, next …” and choose the option that fits directly.",
+      "Betrachte nur die zuletzt aufgedeckte Karte. Ergänze den Satz „Weil das passiert, folgt als Nächstes …“ und wähle die direkt passende Option."
     ),
     retry: bi(
-      "A tempting answer can be true in general but still be in the wrong place in the chain. Check whether it follows directly from the previous card.",
-      "Eine verlockende Antwort kann allgemein richtig sein und trotzdem an der falschen Stelle stehen. Prüfe, ob sie direkt aus der vorherigen Karte folgt."
+      "The choice may be true but too early or too late. Compare just two cards: does your choice follow directly from the card on its left?",
+      "Die Wahl kann richtig, aber zu früh oder zu spät sein. Vergleiche nur zwei Karten: Folgt deine Wahl direkt aus der Karte links daneben?"
     ),
   },
   "city-builder": {
     title: bi("Planning tip", "Planungs-Tipp"),
     initial: bi(
-      "Spend the whole budget, but watch all four meters. Give every city goal a role, then move one point at a time and observe the trade-off.",
-      "Nutze das ganze Budget, aber beobachte alle vier Anzeigen. Gib jedem Stadtziel eine Rolle und verschiebe dann immer nur einen Punkt, um den Zielkonflikt zu sehen."
+      "1. Spend the whole budget. 2. Watch all four meters. 3. Move only one point before each test so you can see which trade-off it creates.",
+      "1. Nutze das ganze Budget. 2. Beobachte alle vier Anzeigen. 3. Verschiebe vor jedem Test nur einen Punkt, damit du den entstehenden Zielkonflikt erkennst."
     ),
     budget: bi(
-      "Your next test needs the full budget. Do not spend the remaining points all in one place: the meters reveal which risk would be left behind.",
-      "Für den nächsten Test brauchst du das volle Budget. Setze die übrigen Punkte nicht alle an einer Stelle ein: Die Anzeigen zeigen dir, welches Risiko sonst zurückbleibt."
+      "Your next test needs the full budget. Add one remaining point, check which meter rises, then place the next point where the lowest meter benefits.",
+      "Für den nächsten Test brauchst du das volle Budget. Setze einen übrigen Punkt, prüfe welche Anzeige steigt, und setze den nächsten dort ein, wo der niedrigste Wert profitiert."
     ),
     weak: bi(
-      "The weakest meter is your compass: “{area}”. Re-read the short descriptions, adjust one point at a time and keep every other meter safely above the floor.",
-      "Die schwächste Anzeige ist dein Kompass: „{area}“. Lies die Kurzbeschreibungen erneut, verschiebe immer nur einen Punkt und halte alle anderen Werte sicher über der Mindestgrenze."
+      "Focus on “{area}”. Find the control whose description supports it, move one point there, and confirm that no other meter drops too far.",
+      "Konzentriere dich auf „{area}“. Finde die Maßnahme, deren Beschreibung dazu passt, verschiebe einen Punkt dorthin und prüfe, dass keine andere Anzeige zu weit fällt."
     ),
     balance: bi(
       "The average is close, but one trade-off is still too sharp. Swap a single point between two controls, then compare all four meters again.",
@@ -1500,12 +1500,12 @@ const learningGameTips = {
   "reef-rescue": {
     title: bi("Planning tip", "Planungs-Tipp"),
     initial: bi(
-      "Compare each action's cost with all three meters. A strong rescue plan helps corals now, reduces pressure and involves people who care for the reef.",
-      "Vergleiche die Kosten jeder Maßnahme mit allen drei Anzeigen. Ein starker Rettungsplan hilft Korallen jetzt, senkt Druck und bezieht Menschen ein, die das Riff schützen."
+      "1. Cover coral recovery, pressure and community. 2. Compare each action with its cost. 3. Reserve enough budget to test a useful pair.",
+      "1. Decke Erholung, Drucksenkung und Beteiligung ab. 2. Vergleiche jede Maßnahme mit ihren Kosten. 3. Halte genug Budget für ein sinnvolles Maßnahmenpaar frei."
     ),
     synergy: bi(
-      "The decisive effect comes from a pair, not a single card. Test two actions that work at different moments: prevention, early response or long-term protection.",
-      "Der entscheidende Effekt entsteht durch ein Paar, nicht durch eine einzelne Karte. Teste zwei Maßnahmen, die zu unterschiedlichen Zeitpunkten wirken: Vorsorge, frühe Reaktion oder langfristiger Schutz."
+      "The decisive effect comes from a pair. Combine two actions that clearly support each other—for example protection plus prevention, or warning plus local response.",
+      "Der entscheidende Effekt entsteht durch ein Paar. Verbinde zwei Maßnahmen, die sich klar ergänzen – etwa Schutz plus Vorsorge oder Warnung plus lokale Reaktion."
     ),
     weak: bi(
       "Use the weakest meter as the next clue: “{area}”. Keep one useful pair active while trading out an action that contributes less to that goal.",
@@ -1519,8 +1519,8 @@ const learningGameTips = {
   "climate-council": {
     title: bi("Council tip", "Klimarat-Tipp"),
     initial: bi(
-      "Start with at least one token in every field. Then let the lowest of the four meters decide your next move; a high total alone is not enough.",
-      "Starte mit mindestens einem Token in jedem Bereich. Danach bestimmt die niedrigste der vier Anzeigen deinen nächsten Schritt; ein hoher Gesamtwert allein reicht nicht."
+      "1. Keep every field active. 2. Find the lowest of the four meters. 3. Add one token to an action that names this outcome, then test again.",
+      "1. Halte jeden Bereich aktiv. 2. Finde die niedrigste der vier Anzeigen. 3. Gib einer passenden Maßnahme genau einen Token und prüfe erneut."
     ),
     budget: bi(
       "Use the remaining tokens to strengthen the weakest outcome, but keep every field represented. The final package rewards balance more than a single peak.",
@@ -2052,6 +2052,8 @@ const content = {
       certificateEarned: "Earned",
       certificateCreated: "Created",
       certificateText: "Enter your name to create the certificate for this completed path.",
+      certificateBottomText: "Your completion certificate is ready below the games.",
+      certificateGoTo: "Enter name for certificate",
       certificateName: "Name on the certificate",
       certificateNameRequired: "Please enter a name for the certificate.",
       certificateDownload: "Create certificate once",
@@ -2693,6 +2695,8 @@ const content = {
       certificateEarned: "Verdient",
       certificateCreated: "Erstellt",
       certificateText: "Trage deinen Namen ein und erstelle das Zertifikat für diesen abgeschlossenen Pfad.",
+      certificateBottomText: "Dein Abschlusszertifikat ist unter den Spielen bereit.",
+      certificateGoTo: "Namen für Zertifikat eintragen",
       certificateName: "Name auf dem Zertifikat",
       certificateNameRequired: "Bitte gib einen Namen für das Zertifikat ein.",
       certificateDownload: "Zertifikat einmalig erstellen",
@@ -5119,83 +5123,67 @@ function renderClimateCouncilGame() {
   `;
 }
 
-function renderLearningProfile() {
-  const badges = learningBadges();
-  const unlocked = badges.filter((badge) => badge.unlocked);
+function renderCompletionCertificate() {
   const activeTier = selectedCertificateTier();
   const certificateUnlocked = isCertificateTierEarned(activeTier);
   const tierIssuance = state.certificateIssuance?.[activeTier.id];
-  const issuedTiers = Object.entries(certificateTiers)
-    .map(([minutes, tier]) => ({ minutes, tier, entry: state.certificateIssuance?.[tier.id] }))
-    .filter((item) => item.entry);
+  if (!certificateUnlocked) return "";
+
   return `
-    <section class="learning-profile" aria-label="${escapeHtml(t("learn.profileTitle"))}">
-      <div class="learning-profile-stats">
-        <div><strong>${state.completedLearningGames.length * 120}</strong><span>${escapeHtml(t("learn.xp"))}</span></div>
-        <div><strong>${state.completedLearningGames.length}/${learningGames.length}</strong><span>${escapeHtml(t("learn.gamesSolved"))}</span></div>
-        <div><strong>${unlocked.length}/${badges.length}</strong><span>${escapeHtml(t("learn.badges"))}</span></div>
-      </div>
-      <div class="badge-row" aria-label="${escapeHtml(t("learn.badges"))}">
-        ${badges
-          .map(
-            (badge) => `<span class="learning-badge${badge.unlocked ? " is-unlocked" : ""}">
-              <b aria-hidden="true">${badge.unlocked ? "✓" : "○"}</b>${escapeHtml(localizedValue(badge.label))}
-            </span>`
-          )
-          .join("")}
+    <section class="completion-certificate certificate-tier-${escapeHtml(
+      activeTier.id
+    )}" data-completion-certificate aria-label="${escapeHtml(
+      formatLearningText(t("learn.certificateTierTitle"), {
+        tier: localizedValue(activeTier.label),
+      })
+    )}">
+      <div class="completion-certificate-heading">
+        <div class="completion-certificate-medal" aria-hidden="true">✓</div>
+        <div>
+          <span class="certificate-tier-chip">${escapeHtml(localizedValue(activeTier.label))}</span>
+          <strong>${escapeHtml(t("learn.gameCongratulations"))}</strong>
+          <p>${escapeHtml(t("learn.certificateBottomText"))}</p>
+        </div>
       </div>
       ${
-        certificateUnlocked
-          ? tierIssuance
-            ? `<div class="certificate-panel certificate-panel-issued certificate-tier-${escapeHtml(activeTier.id)}" data-certificate-issued>
-                <span class="certificate-issued-mark" aria-hidden="true">✓</span>
-                <div>
-                  <strong>${escapeHtml(
-                    formatLearningText(t("learn.certificateTierIssuedTitle"), {
-                      tier: localizedValue(activeTier.label),
-                    })
-                  )}</strong>
-                  <p>${escapeHtml(t("learn.certificateIssuedText"))}</p>
-                </div>
-                <dl>
-                  <dt>${escapeHtml(t("learn.certificateId"))}</dt>
-                  <dd>${escapeHtml(tierIssuance.id)}</dd>
-                </dl>
-              </div>`
-            : `<div class="certificate-panel certificate-tier-${escapeHtml(activeTier.id)}" data-certificate-form>
-                <div>
-                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(activeTier.label))}</span>
-                  <strong>${escapeHtml(
-                    formatLearningText(t("learn.certificateTierTitle"), {
-                      tier: localizedValue(activeTier.label),
-                    })
-                  )}</strong>
-                  <p>${escapeHtml(t("learn.certificateText"))}</p>
-                </div>
-                <label>
-                  <span>${escapeHtml(t("learn.certificateName"))}</span>
-                  <input type="text" maxlength="80" autocomplete="name" aria-describedby="certificate-once" data-certificate-name required />
-                </label>
-                <button class="button button-primary" type="button" data-certificate-download data-certificate-tier="${escapeHtml(activeTier.id)}" disabled>${escapeHtml(t("learn.certificateDownload"))}</button>
-                <small id="certificate-once">${escapeHtml(t("learn.certificateOnce"))}</small>
-              </div>`
-          : ""
-      }
-      ${
-        issuedTiers.length
-          ? `<div class="certificate-tier-list">
-              <strong>${escapeHtml(t("learn.certificateIssuedList"))}</strong>
-              ${issuedTiers
-                .map(
-                  (item) => `<p class="certificate-tier-row certificate-tier-${escapeHtml(item.tier.id)}">
-                    <span class="certificate-tier-chip">${escapeHtml(localizedValue(item.tier.label))}</span>
-                    <span>${escapeHtml(item.minutes)} min</span>
-                    <small>${escapeHtml(item.entry.id)}</small>
-                  </p>`
-                )
-                .join("")}
+        tierIssuance
+          ? `<div class="certificate-panel certificate-panel-issued certificate-tier-${escapeHtml(
+              activeTier.id
+            )}" data-certificate-issued>
+              <span class="certificate-issued-mark" aria-hidden="true">✓</span>
+              <div>
+                <strong>${escapeHtml(
+                  formatLearningText(t("learn.certificateTierIssuedTitle"), {
+                    tier: localizedValue(activeTier.label),
+                  })
+                )}</strong>
+                <p>${escapeHtml(t("learn.certificateIssuedText"))}</p>
+              </div>
+              <dl>
+                <dt>${escapeHtml(t("learn.certificateId"))}</dt>
+                <dd>${escapeHtml(tierIssuance.id)}</dd>
+              </dl>
             </div>`
-          : ""
+          : `<div class="certificate-panel certificate-tier-${escapeHtml(
+              activeTier.id
+            )}" data-certificate-form>
+              <div>
+                <strong>${escapeHtml(
+                  formatLearningText(t("learn.certificateTierTitle"), {
+                    tier: localizedValue(activeTier.label),
+                  })
+                )}</strong>
+                <p>${escapeHtml(t("learn.certificateText"))}</p>
+              </div>
+              <label>
+                <span>${escapeHtml(t("learn.certificateName"))}</span>
+                <input type="text" maxlength="80" autocomplete="name" aria-describedby="certificate-once" data-certificate-name required />
+              </label>
+              <button class="button button-primary" type="button" data-certificate-download data-certificate-tier="${escapeHtml(
+                activeTier.id
+              )}" disabled>${escapeHtml(t("learn.certificateDownload"))}</button>
+              <small id="certificate-once">${escapeHtml(t("learn.certificateOnce"))}</small>
+            </div>`
       }
     </section>
   `;
@@ -5231,32 +5219,9 @@ function renderGameCelebration() {
           <p>${escapeHtml(t("learn.gameCongratulationsText"))}</p>
           ${
             tier
-              ? `<div class="celebration-certificate-form certificate-tier-${escapeHtml(
-                  tier.id
-                )}" data-celebration-certificate-form>
-                  <span class="certificate-tier-chip">${escapeHtml(localizedValue(tier.label))}</span>
-                  <strong>${escapeHtml(
-                    formatLearningText(t("learn.certificateTierTitle"), {
-                      tier: localizedValue(tier.label),
-                    })
-                  )}</strong>
-                  <label>
-                    <span>${escapeHtml(t("learn.certificateName"))}</span>
-                    <input
-                      type="text"
-                      maxlength="80"
-                      autocomplete="name"
-                      data-celebration-certificate-name
-                      required
-                    />
-                  </label>
-                  <button class="button button-primary" type="button" data-celebration-certificate-download data-certificate-tier="${escapeHtml(
-                    tier.id
-                  )}" disabled>
-                    ${escapeHtml(t("learn.certificateDownload"))}
-                  </button>
-                  <small>${escapeHtml(t("learn.certificateOnce"))}</small>
-                </div>`
+              ? `<button class="button button-primary game-celebration-continue" type="button" data-celebration-certificate-jump>
+                  ${escapeHtml(t("learn.certificateGoTo"))}
+                </button>`
               : `<button class="button button-primary game-celebration-continue" type="button" data-celebration-dismiss>
                   ${escapeHtml(t("learn.gameClose"))}
                 </button>`
@@ -5599,6 +5564,7 @@ function renderLearningGames() {
         ${escapeHtml(t("learn.resetProgress"))}
       </button>
     </div>
+    ${renderCompletionCertificate()}
   `;
   renderGameCelebrationOverlay();
   if (state.learningGameCelebration && !celebrationCertificateTier()) {
@@ -6898,6 +6864,19 @@ document.addEventListener("click", (event) => {
     );
     state.learningGameCelebration = null;
     renderLearningGames();
+    return;
+  }
+
+  if (event.target.closest("[data-celebration-certificate-jump]")) {
+    state.learningGameCelebration = null;
+    window.clearTimeout(learningCelebrationTimer);
+    learningCelebrationTimerId = null;
+    renderLearningGames();
+    window.requestAnimationFrame(() => {
+      const certificate = document.querySelector("[data-completion-certificate]");
+      certificate?.scrollIntoView({ behavior: "smooth", block: "center" });
+      window.setTimeout(() => certificate?.querySelector("[data-certificate-name]")?.focus(), 420);
+    });
     return;
   }
 
