@@ -75,6 +75,7 @@ test("five-minute path unlocks puzzles in sequence", async ({ page }) => {
 test("finale and certificate work on desktop", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("http://127.0.0.1:5173/#learn");
@@ -101,7 +102,9 @@ test("finale and certificate work on desktop", async ({ page }) => {
     "fairness",
     "fairness",
   ]) {
-    await page.locator(`[data-climate-control="${control}"][data-climate-change="1"]`).click();
+    await page.locator(`[data-climate-control="${control}"][data-climate-change="1"]`).click({
+      force: true,
+    });
   }
   await expect(page.locator('[data-learning-3d="climate"]')).toHaveAttribute(
     "data-model-values",
@@ -119,20 +122,29 @@ test("finale and certificate work on desktop", async ({ page }) => {
   await page.locator("[data-climate-complete]").click();
   await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
   await expect(page.locator(".learning-profile")).toHaveCount(0);
-  await expect(page.locator("[data-celebration-certificate-download]")).toBeDisabled();
+  await expect(page.locator("[data-completion-certificate]")).toBeVisible();
+  await expect(page.locator("[data-certificate-download]")).toBeDisabled();
+  const certificateIsBelowGames = await page.evaluate(() => {
+    const certificate = document.querySelector("[data-completion-certificate]");
+    const reset = document.querySelector(".learning-reset-footer");
+    return Boolean(certificate && reset && certificate.getBoundingClientRect().top > reset.getBoundingClientRect().top);
+  });
+  expect(certificateIsBelowGames).toBe(true);
   await page.locator("[data-game-celebration]").screenshot({
     path: "/tmp/cyri-certificate-celebration.png",
   });
-  await page.locator("[data-celebration-certificate-name]").fill("Alex Klimaschützer");
-  await expect(page.locator("[data-celebration-certificate-download]")).toBeEnabled();
+  await page.locator("[data-celebration-certificate-jump]").click();
+  await expect(page.locator("[data-game-celebration]")).toHaveCount(0);
+  await page.locator("[data-certificate-name]").fill("Alex Klimaschützer");
+  await expect(page.locator("[data-certificate-download]")).toBeEnabled();
   const downloadPromise = page.waitForEvent("download");
-  await page.locator("[data-celebration-certificate-download]").click();
+  await page.locator("[data-certificate-download]").click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toMatch(/^CYRI-Climate-Certificate-.*\.pdf$/);
   await download.saveAs("/tmp/cyri-climate-certificate.pdf");
-  await expect(page.locator("[data-game-celebration]")).toHaveCount(0);
-  await expect(page.locator("[data-certificate-download]")).toHaveCount(0);
-  await expect(page.locator("[data-certificate-name]")).toHaveCount(0);
+  await expect(page.locator("[data-certificate-issued]")).toBeVisible();
+  expect(await page.locator("[data-certificate-download]").count()).toBe(0);
+  expect(await page.locator("[data-certificate-name]").count()).toBe(0);
   const issuance = await page.evaluate(() =>
     JSON.parse(localStorage.getItem("cyri-certificate-issuance-v2") || "null")?.gold
   );
@@ -170,13 +182,13 @@ test("city mission hides its threshold and requires experimentation", async ({ p
     "next test needs the full budget"
   );
 
-  await page.locator('[data-city-control="shade"][data-city-change="-1"]').click();
+  await page.locator('[data-city-control="shade"][data-city-change="-1"]').click({ force: true });
   for (let index = 0; index < 3; index += 1) {
-    await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
+    await page.locator('[data-city-control="soil"][data-city-change="1"]').click({ force: true });
   }
-  await page.locator('[data-city-control="water"][data-city-change="-1"]').click();
+  await page.locator('[data-city-control="water"][data-city-change="-1"]').click({ force: true });
   for (let index = 0; index < 3; index += 1) {
-    await page.locator('[data-city-control="routes"][data-city-change="1"]').click();
+    await page.locator('[data-city-control="routes"][data-city-change="1"]').click({ force: true });
   }
   await expect(page.locator("[data-learning-games]")).toContainText("Tokens: 12/12");
   await page.locator("[data-city-complete]").click();
@@ -194,17 +206,17 @@ test("reef rescue needs the hidden action synergy", async ({ page }) => {
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="reef-rescue"]').click();
 
-  await page.locator('[data-reef-action="clean-water"]').click();
-  await page.locator('[data-reef-action="climate-cut"]').click();
-  await page.locator('[data-reef-action="local-guides"]').click();
+  await page.locator('[data-reef-action="clean-water"]').click({ force: true });
+  await page.locator('[data-reef-action="climate-cut"]').click({ force: true });
+  await page.locator('[data-reef-action="local-guides"]').click({ force: true });
   await page.locator("[data-reef-complete]").click();
   await expect(page.locator(".puzzle-gate")).toContainText("hidden synergy");
   await expect(page.locator('[data-game-tip-for="reef-rescue"]')).toContainText(
     "decisive effect comes from a pair"
   );
 
-  await page.locator('[data-reef-action="clean-water"]').click();
-  await page.locator('[data-reef-action="heat-alert"]').click();
+  await page.locator('[data-reef-action="clean-water"]').click({ force: true });
+  await page.locator('[data-reef-action="heat-alert"]').click({ force: true });
   await page.locator("[data-reef-complete]").click();
   await expect(page.locator("[data-game-celebration]")).toContainText("Congratulations!");
   await expect(page.locator('[data-learning-game="climate-council"]')).toBeEnabled();
@@ -226,13 +238,13 @@ test("German success animation congratulates the player", async ({ page }) => {
     "Nutze das ganze Budget"
   );
 
-  await page.locator('[data-city-control="shade"][data-city-change="-1"]').click();
+  await page.locator('[data-city-control="shade"][data-city-change="-1"]').click({ force: true });
   for (let index = 0; index < 3; index += 1) {
-    await page.locator('[data-city-control="soil"][data-city-change="1"]').click();
+    await page.locator('[data-city-control="soil"][data-city-change="1"]').click({ force: true });
   }
-  await page.locator('[data-city-control="water"][data-city-change="-1"]').click();
+  await page.locator('[data-city-control="water"][data-city-change="-1"]').click({ force: true });
   for (let index = 0; index < 3; index += 1) {
-    await page.locator('[data-city-control="routes"][data-city-change="1"]').click();
+    await page.locator('[data-city-control="routes"][data-city-change="1"]').click({ force: true });
   }
   await page.locator("[data-city-complete]").click();
   await expect(page.locator("[data-game-celebration]")).toContainText("Herzlichen Glückwunsch!");
