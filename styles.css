@@ -3850,24 +3850,39 @@ h3 {
 }
 
 .learn-games-hero {
-  padding-bottom: 58px;
+  display: grid;
+  min-height: clamp(300px, 42vw, 520px);
+  place-items: center;
+  overflow: hidden;
+  padding-top: clamp(80px, 10vw, 122px);
+  padding-bottom: clamp(70px, 9vw, 112px);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(247, 251, 250, 0.5)),
     linear-gradient(125deg, rgba(39, 116, 216, 0.12), rgba(22, 131, 95, 0.1), rgba(246, 205, 92, 0.1));
 }
 
 .learn-games-hero .shell {
-  max-width: 920px;
+  width: min(100% - 32px, 1120px);
 }
 
-.learn-games-hero h1 {
-  max-width: 860px;
-}
-
-.learn-games-hero p:not(.eyebrow) {
-  max-width: 760px;
-  color: var(--ink-soft);
-  font-size: 1.12rem;
+.learn-games-hero .learn-balloon-title {
+  max-width: none;
+  margin: 0;
+  color: #2db981;
+  filter: drop-shadow(0 0.09em 0.09em rgba(12, 68, 51, 0.2));
+  font-family: "Arial Rounded MT Bold", "SF Pro Rounded", "Trebuchet MS", sans-serif;
+  font-size: clamp(4rem, 14.5vw, 10.5rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.86;
+  text-align: center;
+  text-shadow:
+    0 0.018em 0 rgba(164, 242, 207, 0.9),
+    0 0.065em 0 #08704f,
+    0 0.12em 0.13em rgba(11, 73, 53, 0.22);
+  text-transform: uppercase;
+  -webkit-text-fill-color: #2db981;
+  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) #08704f;
 }
 
 .learn-games-hero + .game-section {

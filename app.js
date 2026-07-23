@@ -1875,10 +1875,6 @@ const content = {
       viewAll: "View all info articles",
     },
     learn: {
-      eyebrow: "Interactive games",
-      title: "Environmental games for 15-19-year-olds and young adults.",
-      intro:
-        "Play through real environmental problems, test decisions and discover what can be done against climate stress, habitat loss, flooding and unfair resource use.",
       topicsEyebrow: "Choose a topic",
       topicsTitle: "What do you want to understand?",
       topicsAria: "Environmental topics",
@@ -2514,10 +2510,6 @@ const content = {
       viewAll: "Alle Infoartikel ansehen",
     },
     learn: {
-      eyebrow: "Interaktive Spiele",
-      title: "Umweltspiele für 15-19-Jährige und junge Erwachsene.",
-      intro:
-        "Spiele echte Umweltprobleme durch, teste Entscheidungen und entdecke, was gegen Klimastress, Lebensraumverlust, Überflutung und ungerechte Ressourcennutzung helfen kann.",
       topicsEyebrow: "Thema wählen",
       topicsTitle: "Was möchtest du verstehen?",
       topicsAria: "Umweltthemen",
