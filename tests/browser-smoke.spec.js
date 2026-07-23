@@ -76,7 +76,7 @@ test("finale and certificate work on desktop", async ({ page }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
+  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale });
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="climate-council"]').click();
@@ -166,7 +166,6 @@ test("city mission hides its threshold and requires experimentation", async ({ p
   await setAdultMode(page, {
     minutes: 30,
     completed: ["sdg-sprint", "chain-builder"],
-    history: [],
   });
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="city-builder"]').click();
@@ -201,7 +200,6 @@ test("reef rescue needs the hidden action synergy", async ({ page }) => {
   await setAdultMode(page, {
     minutes: 30,
     completed: ["sdg-sprint", "chain-builder", "city-builder"],
-    history: [],
   });
   await page.goto("http://127.0.0.1:5173/#learn");
   await page.locator('[data-learning-game="reef-rescue"]').click();
@@ -228,7 +226,6 @@ test("German success animation congratulates the player", async ({ page }) => {
     {
       minutes: 30,
       completed: ["sdg-sprint", "chain-builder"],
-      history: [],
     },
     "de"
   );
@@ -254,7 +251,7 @@ test("all three 3D learning models render nonblank pixels", async ({ page }) => 
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
+  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale });
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("http://127.0.0.1:5173/?model-pixel-check=1#learn");
 
@@ -276,7 +273,7 @@ test("learning arcade stays clear and within the viewport on iPad", async ({ pag
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
+  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale });
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto("http://127.0.0.1:5173/?model-pixel-check=1#learn");
 
@@ -299,7 +296,7 @@ test("learning arcade has no horizontal overflow on mobile", async ({ page }) =>
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale, history: [] });
+  await setAdultMode(page, { minutes: 30, completed: completedBeforeFinale });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("http://127.0.0.1:5173/?model-pixel-check=1#learn");
   await page.locator('[data-learning-game="climate-council"]').click();

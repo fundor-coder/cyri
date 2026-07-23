@@ -1758,11 +1758,9 @@ const content = {
       learn: "Learn",
       articles: "Articles",
       research: "Ask CYRI",
-      learnMenu: "Learning games menu",
       learnOverview: "Overview",
       learnMission: "Mission Lab",
       learnSdg: "17 goals",
-      learnGames: "Interactive games",
       learnTopics: "Topics",
       learnTools: "Info tools",
       learnMap: "World map",
@@ -2038,10 +2036,8 @@ const content = {
       finalOutcomeStrong: "The council package has reached the target and can move forward.",
       finalOutcomeHint: "Reach 66% to move forward. Remaining tokens are optional.",
       profileTitle: "Your game progress",
-      xp: "XP",
       gamesSolved: "games solved",
       badges: "badges",
-      localRanking: "Best results on this device",
       localOnly: "Progress, badges and results stay in this browser and are not published.",
       certificateTitle: "CYRI Climate Certificate unlocked",
       certificateTierTitle: "CYRI {tier} Certificate unlocked",
@@ -2270,21 +2266,21 @@ const content = {
       imprintEyebrow: "Legal notice",
       imprintTitle: "Imprint",
       imprintIntro:
-        "Legal information for CYRI according to German provider identification requirements.",
+        "CYRI is currently in its public launch phase. This page contains the legal information required under German provider identification rules.",
       providerEyebrow: "Information according to § 5 DDG",
       providerTitle: "Provider",
       projectLabel: "Project",
       operatorLabel: "Operators",
       statusLabel: "Status",
       statusText:
-        "Independent youth-led initiative currently in development; not a registered NGO or incorporated association.",
+        "Independent youth-led initiative currently in its public launch phase; not a registered NGO or incorporated association.",
       addressLabel: "Address",
-      addressText: "[Full summonable address must be added before public launch.]",
+      addressText: "Tobias Göppert, Aachener Straße 238, 40223 Düsseldorf, Germany",
       emailLabel: "Email",
       editorialEyebrow: "Editorial responsibility",
       editorialTitle: "Responsible under § 18 Abs. 2 MStV",
       editorialText:
-        "Tobias Göppert and Jarne Bub are responsible for editorial article content. A full address for the responsible person must be added before public launch.",
+        "Tobias Göppert and Jarne Bub are responsible for editorial article content. Responsible contact: Tobias Göppert, Aachener Straße 238, 40223 Düsseldorf, Germany.",
       publisherResponsibilityEyebrow: "Funded content",
       publisherResponsibilityTitle: "Responsibility for CYRI content",
       publisherResponsibilityText:
@@ -2401,11 +2397,9 @@ const content = {
       learn: "Lernen",
       articles: "Artikel",
       research: "CYRI fragen",
-      learnMenu: "Lernspiele-Menü",
       learnOverview: "Übersicht",
       learnMission: "Mission Lab",
       learnSdg: "17 Ziele",
-      learnGames: "Interaktive Spiele",
       learnTopics: "Themen",
       learnTools: "Infotools",
       learnMap: "Weltkarte",
@@ -2681,10 +2675,8 @@ const content = {
       finalOutcomeStrong: "Das Maßnahmenpaket hat die Zielmarke erreicht und kann umgesetzt werden.",
       finalOutcomeHint: "Erreiche 66 Prozent, um weiterzugehen. Übrige Token sind optional.",
       profileTitle: "Dein Spielfortschritt",
-      xp: "XP",
       gamesSolved: "Spiele gelöst",
       badges: "Badges",
-      localRanking: "Beste Ergebnisse auf diesem Gerät",
       localOnly: "Fortschritt, Badges und Ergebnisse bleiben in diesem Browser und werden nicht veröffentlicht.",
       certificateTitle: "CYRI Climate Certificate freigeschaltet",
       certificateTierTitle: "CYRI {tier}-Zertifikat freigeschaltet",
@@ -2913,21 +2905,21 @@ const content = {
       imprintEyebrow: "Impressum",
       imprintTitle: "Impressum",
       imprintIntro:
-        "Rechtliche Angaben für CYRI nach den deutschen Anforderungen zur Anbieterkennzeichnung.",
+        "CYRI befindet sich derzeit in der öffentlichen Launchphase. Diese Seite enthält die rechtlichen Angaben nach den deutschen Anforderungen zur Anbieterkennzeichnung.",
       providerEyebrow: "Angaben gemäß § 5 DDG",
       providerTitle: "Anbieter",
       projectLabel: "Projekt",
       operatorLabel: "Betreiber",
       statusLabel: "Status",
       statusText:
-        "Unabhängige jugendgeführte Initiative im Aufbau; kein eingetragener Verein, keine registrierte NGO.",
+        "Unabhängige jugendgeführte Initiative in der öffentlichen Launchphase; kein eingetragener Verein, keine registrierte NGO.",
       addressLabel: "Anschrift",
-      addressText: "[Vollständige ladungsfähige Anschrift vor öffentlichem Launch ergänzen.]",
+      addressText: "Tobias Göppert, Aachener Straße 238, 40223 Düsseldorf, Deutschland",
       emailLabel: "E-Mail",
       editorialEyebrow: "Redaktionelle Verantwortung",
       editorialTitle: "Verantwortlich nach § 18 Abs. 2 MStV",
       editorialText:
-        "Tobias Göppert und Jarne Bub sind für redaktionelle Artikelinhalte verantwortlich. Eine vollständige Anschrift der verantwortlichen Person muss vor einem öffentlichen Launch ergänzt werden.",
+        "Tobias Göppert und Jarne Bub sind für redaktionelle Artikelinhalte verantwortlich. Verantwortliche Kontaktperson: Tobias Göppert, Aachener Straße 238, 40223 Düsseldorf, Deutschland.",
       publisherResponsibilityEyebrow: "Geförderte Inhalte",
       publisherResponsibilityTitle: "Verantwortung für CYRI-Inhalte",
       publisherResponsibilityText:
@@ -3022,7 +3014,7 @@ function loadMissionLabState() {
 }
 
 function loadGameProgress() {
-  const fallback = { minutes: 5, completed: [], history: [] };
+  const fallback = { minutes: 5, completed: [] };
   try {
     const saved = JSON.parse(localStorage.getItem(GAME_PROGRESS_KEY) || "{}");
     const validIds = new Set(learningGames.map((game) => game.id));
@@ -3030,16 +3022,6 @@ function loadGameProgress() {
       minutes: [5, 15, 30].includes(saved.minutes) ? saved.minutes : 5,
       completed: Array.isArray(saved.completed)
         ? [...new Set(saved.completed.filter((id) => validIds.has(id)))]
-        : [],
-      history: Array.isArray(saved.history)
-        ? saved.history
-            .filter(
-              (entry) =>
-                [5, 15, 30].includes(entry?.minutes) &&
-                Number.isFinite(entry?.score) &&
-                typeof entry?.date === "string"
-            )
-            .slice(0, 8)
         : [],
     };
   } catch {
@@ -3174,7 +3156,6 @@ const state = {
   activeSdg: 13,
   learningGameMinutes: savedGameProgress.minutes,
   completedLearningGames: savedGameProgress.completed,
-  learningGameHistory: savedGameProgress.history,
   certificateIssuance: savedCertificateIssuance,
   selectedCertificateTier: null,
   learningGameCelebration: null,
@@ -3314,7 +3295,6 @@ function saveGameProgress() {
     JSON.stringify({
       minutes: state.learningGameMinutes,
       completed: state.completedLearningGames,
-      history: state.learningGameHistory,
     })
   );
 }
@@ -3332,7 +3312,6 @@ function saveCertificateIssuance(tierId, issuance) {
 
 function resetAllLearningGameProgress() {
   state.completedLearningGames = [];
-  state.learningGameHistory = [];
   state.selectedCertificateTier = null;
   saveCertificateIssuance(null);
   resetLearningGameRun(state.learningGameMinutes);
@@ -3371,23 +3350,6 @@ function completeLearningGame(gameId) {
     };
   }
 
-  if (newlyCompleted && activeLearningGameIds().every((id) => isLearningGameComplete(id))) {
-    const failedPuzzleAttempts = Object.values(state.puzzleAttempts).reduce(
-      (sum, attempts) => sum + Math.max(0, attempts - 1),
-      0
-    );
-    const score = Math.max(
-      100,
-      activeLearningGameIds().length * 100 - state.chainMistakes * 5 - failedPuzzleAttempts * 10
-    );
-    const today = new Date().toISOString().slice(0, 10);
-    state.learningGameHistory = [
-      { minutes: state.learningGameMinutes, score, date: today },
-      ...state.learningGameHistory.filter(
-        (entry) => entry.minutes !== state.learningGameMinutes || entry.date !== today
-      ),
-    ].slice(0, 8);
-  }
   saveGameProgress();
 
   const nextGameId = nextUnlockedLearningGameId();
@@ -5292,10 +5254,6 @@ function downloadClimateCertificate(name, tier, minutes = certificateMinutesForT
     }).format(issuedAt)
   );
   const track = learningGameTracks.find((item) => item.minutes === minutes) || learningGameTracks[0];
-  const latestRun =
-    state.learningGameHistory.find((entry) => entry.minutes === minutes) ||
-    state.learningGameHistory[0];
-  const score = Math.max(100, latestRun?.score || track.games.length * 100);
   const certificateText = pdfSafeText(
     state.lang === "de"
       ? `hat die CYRI-Klimamissionen der ${minutes}-Minuten-Stufe erfolgreich abgeschlossen.`
@@ -5304,7 +5262,6 @@ function downloadClimateCertificate(name, tier, minutes = certificateMinutesForT
   const issuedLabel = pdfSafeText(state.lang === "de" ? "Ausgestellt" : "Issued");
   const missionLabel = pdfSafeText(state.lang === "de" ? "MISSION GESCHAFFT" : "MISSION COMPLETE");
   const timeLabel = pdfSafeText(state.lang === "de" ? "MISSIONZEIT" : "MISSION TIME");
-  const scoreLabel = pdfSafeText(state.lang === "de" ? "ERREICHTE XP" : "XP EARNED");
   const modulesLabel = pdfSafeText(state.lang === "de" ? "MISSIONEN" : "MISSIONS");
   const fundingText = pdfSafeText(
     "Funded by DSEE with funds from BMZ - action! Aktiv für eine globale Welt"
@@ -5337,15 +5294,12 @@ function downloadClimateCertificate(name, tier, minutes = certificateMinutesForT
     "0.03 0.32 0.25 RG 1.2 w 60 305 m 610 305 l S",
     `BT /F1 12 Tf 0.12 0.20 0.18 rg 60 273 Td (${certificateText}) Tj ET`,
     `BT /F1 10 Tf 0.22 0.30 0.27 rg 60 245 Td (${missionNames}) Tj ET`,
-    "0.91 0.95 0.91 rg 58 150 158 66 re f",
-    "0.91 0.95 0.91 rg 228 150 158 66 re f",
-    "0.91 0.95 0.91 rg 398 150 158 66 re f",
+    "0.91 0.95 0.91 rg 58 150 244 66 re f",
+    "0.91 0.95 0.91 rg 312 150 244 66 re f",
     `BT /F2 8 Tf 0.22 0.34 0.29 rg 72 195 Td (${timeLabel}) Tj ET`,
     `BT /F2 20 Tf 0.03 0.32 0.25 rg 72 168 Td (${minutes} MIN) Tj ET`,
-    `BT /F2 8 Tf 0.22 0.34 0.29 rg 242 195 Td (${scoreLabel}) Tj ET`,
-    `BT /F2 20 Tf 0.03 0.32 0.25 rg 242 168 Td (${score} XP) Tj ET`,
-    `BT /F2 8 Tf 0.22 0.34 0.29 rg 412 195 Td (${modulesLabel}) Tj ET`,
-    `BT /F2 20 Tf 0.03 0.32 0.25 rg 412 168 Td (${completionValue}) Tj ET`,
+    `BT /F2 8 Tf 0.22 0.34 0.29 rg 326 195 Td (${modulesLabel}) Tj ET`,
+    `BT /F2 20 Tf 0.03 0.32 0.25 rg 326 168 Td (${completionValue}) Tj ET`,
     `${tier.rgb} rg 676 326 m 729 357 782 326 782 265 c 782 204 729 173 676 204 c 623 173 570 204 570 265 c 570 326 623 357 676 326 c f`,
     "0.03 0.32 0.25 RG 4 w 589 265 m 589 313 628 340 676 340 c 724 340 763 313 763 265 c 763 217 724 190 676 190 c 628 190 589 217 589 265 c S",
     "BT /F2 34 Tf 0.03 0.32 0.25 rg 645 266 Td (17) Tj ET",
